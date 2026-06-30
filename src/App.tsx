@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Memorial from './components/Memorial'
 import './App.css'
 
 interface PanelProps {
@@ -34,7 +35,7 @@ function Panel({ side, title }: PanelProps) {
 function App() {
   return (
     <div className="split-screen">
-      <Panel side="left" title="Panneau gauche" />
+      <Memorial />
       <div className="divider" />
       <Panel side="right" title="Panneau droit" />
     </div>
