@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Memorial from './components/Memorial'
+import Memorial from './components/Memorial/Memorial'
 import './App.css'
 
 /* ── Panneau gauche avec onglets ── */
