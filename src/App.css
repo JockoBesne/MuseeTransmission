@@ -92,7 +92,9 @@ html,
 
 .tab-content {
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   animation: fadeIn 0.25s ease;
 }
 
