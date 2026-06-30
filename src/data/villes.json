@@ -1,0 +1,85 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Issoire",
+        "texte": "« Agir vite et bien »"
+      },
+      "geometry": { "type": "Point", "coordinates": [3.2495, 45.5439] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Thionville",
+        "texte": "« Qui me regarde s'incline »"
+      },
+      "geometry": { "type": "Point", "coordinates": [6.1681, 49.3578] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Douai",
+        "texte": "« Par-delà les terres et l'Océan »"
+      },
+      "geometry": { "type": "Point", "coordinates": [3.0794, 50.3714] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Agen",
+        "texte": "« Religare et unire sic » (relier et unir ainsi)"
+      },
+      "geometry": { "type": "Point", "coordinates": [0.6188, 44.2049] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Lunéville",
+        "texte": "« Foudre dans l'azur »"
+      },
+      "geometry": { "type": "Point", "coordinates": [6.4972, 48.5926] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Dieuze",
+        "texte": "« Ardent et généreux »"
+      },
+      "geometry": { "type": "Point", "coordinates": [6.7186, 48.8108] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Rennes",
+        "texte": "« Pugnare in Tenebris, Vincere in Luminis » (combattre dans les ténèbres, vaincre dans la lumière)"
+      },
+      "geometry": { "type": "Point", "coordinates": [-1.7117, 48.0784] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Molsheim",
+        "texte": "« Nihil nisi silentium timet » (Rien ne craint que le silence)"
+      },
+      "geometry": { "type": "Point", "coordinates": [7.4914, 48.5403] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Haguenau",
+        "texte": "« Nihil affirmat quod non probet » (Il n'affirme rien qu'il ne prouve) — « Toujours prouver »"
+      },
+      "geometry": { "type": "Point", "coordinates": [7.7900, 48.8156] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Saint-Germain-en-Laye",
+        "texte": "« Tu es l'ancien, sois le meilleur »"
+      },
+      "geometry": { "type": "Point", "coordinates": [2.0944, 48.8978] }
+    }
+  ]
+}
