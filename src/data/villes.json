@@ -39,7 +39,7 @@
         "nom": "Lunéville",
         "texte": "« Foudre dans l'azur »"
       },
-      "geometry": { "type": "Point", "coordinates": [6.4972, 48.5926] }
+      "geometry": { "type": "Point", "coordinates": [6.4972, 48.5126] }
     },
     {
       "type": "Feature",
@@ -47,7 +47,7 @@
         "nom": "Dieuze",
         "texte": "« Ardent et généreux »"
       },
-      "geometry": { "type": "Point", "coordinates": [6.7186, 48.8108] }
+      "geometry": { "type": "Point", "coordinates": [6.7186, 48.8508] }
     },
     {
       "type": "Feature",
