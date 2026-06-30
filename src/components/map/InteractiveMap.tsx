@@ -1,18 +1,34 @@
 import { MapContainer, GeoJSON } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { Feature, MultiPolygon } from 'geojson';
+import type { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
 import franceContourRaw from '../../data/france-contour.json';
+import villesData from '../../data/villes.json';
 
 const franceContour = franceContourRaw as Feature<MultiPolygon>;
+const villes = villesData as FeatureCollection<Point>;
+
+function pointToLayer(_feature: Feature<Point>, latlng: L.LatLng) {
+  return L.circleMarker(latlng, {
+    radius: 3,
+    fillColor: '#ff8200',
+    color: '#ffffff',
+    weight: 2,
+    fillOpacity: 1,
+  });
+}
+
+function onEachCityFeature(feature: Feature<Point>, layer: L.Layer) {
+  const props = feature.properties as { nom: string; texte: string };
+  layer.bindPopup(`<strong>${props.nom}</strong><br/>${props.texte}`);
+}
 
 export default function InteractiveMap() {
   return (
     <MapContainer
-      style={{ height: '100%', width: '100%' }}
+      style={{ height: '100%', width: '100%' , background: '#0f70b7'}}
       attributionControl={false}
       bounds={[[51.5, -5.5], [41.2, 9.8]]}
-
-      // désactive toute interaction de déplacement/zoom
       zoomControl={false}
       dragging={false}
       scrollWheelZoom={false}
@@ -23,7 +39,12 @@ export default function InteractiveMap() {
     >
       <GeoJSON
         data={franceContour}
-        style={{ color: '#534AB7', weight: 1.5, fillColor: '#EEEDFE', fillOpacity: 0.6 }}
+        style={{ color: '#fecc30', weight: 1.5, fillColor: '#ffffff', fillOpacity: 0.6 }}
+      />
+      <GeoJSON
+        data={villes}
+        pointToLayer={pointToLayer}
+        onEachFeature={onEachCityFeature}
       />
     </MapContainer>
   );
