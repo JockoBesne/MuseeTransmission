@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Memorial from './components/Memorial'
 import './App.css'
 
 /* ── Panneau gauche avec onglets ── */
@@ -29,7 +30,7 @@ function LeftPanel() {
 
       <div key={activeTab} className="tab-content">
         {activeTab === 'Carte des RT' && <div className="tab-pane" />}
-        {activeTab === 'Mémorial' && <div className="tab-pane" />}
+        {activeTab === 'Mémorial' && <Memorial />}
       </div>
     </div>
   )
