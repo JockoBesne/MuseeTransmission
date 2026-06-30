@@ -1,42 +1,54 @@
 import { useState } from 'react'
 import './App.css'
 
-interface PanelProps {
-  side: 'left' | 'right'
-  title: string
-}
+/* ── Panneau gauche avec onglets ── */
+const LEFT_TABS = ['Carte des RT', 'Mémorial'] as const
+type LeftTab = typeof LEFT_TABS[number]
 
-function Panel({ side, title }: PanelProps) {
-  const [open, setOpen] = useState(false)
+function LeftPanel() {
+  const [activeTab, setActiveTab] = useState<LeftTab>('Carte des RT')
+  const activeIndex = LEFT_TABS.indexOf(activeTab)
 
   return (
-    <div className={`panel panel-${side}`}>
-      <h2>{title}</h2>
-      <button className="open-btn" onClick={() => setOpen(true)}>
-        Ouvrir la boîte de dialogue
-      </button>
+    <div className="panel panel-left">
+      <nav className="tab-bar">
+        {LEFT_TABS.map((tab) => (
+          <button
+            key={tab}
+            className={`tab-btn${activeTab === tab ? ' tab-btn--active' : ''}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+        <span
+          className="tab-indicator"
+          style={{ transform: `translateX(${activeIndex * 100}%)` }}
+        />
+      </nav>
 
-      {open && (
-        <div className="dialog-overlay" onClick={() => setOpen(false)}>
-          <div className="dialog" onClick={(e) => e.stopPropagation()}>
-            <h3>Boîte de dialogue — {title}</h3>
-            <p>Contenu indépendant du panneau {side === 'left' ? 'gauche' : 'droit'}.</p>
-            <button className="close-btn" onClick={() => setOpen(false)}>
-              Fermer
-            </button>
-          </div>
-        </div>
-      )}
+      <div key={activeTab} className="tab-content">
+        {activeTab === 'Carte des RT' && <div className="tab-pane" />}
+        {activeTab === 'Mémorial' && <div className="tab-pane" />}
+      </div>
     </div>
   )
 }
 
+/* ── Panneau droit ── */
+function RightPanel() {
+  return (
+    <div className="panel panel-right" />
+  )
+}
+
+/* ── App ── */
 function App() {
   return (
     <div className="split-screen">
-      <Panel side="left" title="Panneau gauche" />
+      <LeftPanel />
       <div className="divider" />
-      <Panel side="right" title="Panneau droit" />
+      <RightPanel />
     </div>
   )
 }
