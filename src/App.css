@@ -9,6 +9,7 @@ html,
 #root {
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .split-screen {
@@ -28,13 +29,85 @@ html,
 }
 
 .panel-left {
-  background-color: #1a1a2e;
+  background-color: #0f70b7;
   color: #e0e0e0;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .panel-right {
-  background-color: #16213e;
+  background-color: #0f70b7;
   color: #e0e0e0;
+}
+
+/* ── Barre d'onglets ── */
+.tab-bar {
+  display: flex;
+  border-bottom: 2px solid #2a2a4a;
+  background-color: #0a5a92;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 14px 0;
+  background: none;
+  border: none;
+  color: #aad4f0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.tab-btn:hover {
+  color: #ccc;
+}
+
+.tab-btn--active {
+  color: #ffffff;
+  background-color: #0f70b7;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-color: #fecc30;
+  transition: transform 0.3s ease;
+}
+
+/* ── Contenu onglet ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.tab-content {
+  flex: 1;
+  overflow-y: auto;
+  animation: fadeIn 0.25s ease;
+}
+
+.tab-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  height: 100%;
+  padding: 32px;
+}
+
+.tab-pane p {
+  font-family: 'Nunito', sans-serif;
+  color: #b0b0b0;
 }
 
 .panel h2 {
@@ -44,71 +117,7 @@ html,
 
 .divider {
   width: 2px;
-  background-color: #444;
+  background-color: #000000;
   flex-shrink: 0;
 }
 
-.open-btn {
-  padding: 10px 24px;
-  font-size: 1rem;
-  border: 2px solid #888;
-  border-radius: 8px;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-
-.open-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #ccc;
-}
-
-/* Dialog overlay covers only the parent panel */
-.dialog-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.dialog {
-  background-color: #0f3460;
-  border: 1px solid #555;
-  border-radius: 12px;
-  padding: 36px 40px;
-  width: 80%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-}
-
-.dialog h3 {
-  font-size: 1.3rem;
-}
-
-.dialog p {
-  color: #b0b0b0;
-  line-height: 1.5;
-}
-
-.close-btn {
-  align-self: flex-end;
-  padding: 8px 20px;
-  font-size: 0.9rem;
-  border: 1px solid #888;
-  border-radius: 6px;
-  background: transparent;
-  color: #e0e0e0;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.close-btn:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
