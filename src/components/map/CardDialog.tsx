@@ -1,24 +1,31 @@
 import './CardDialog.css'
 
 interface CardDialogProps {
-  nom: string
   regiment: string
-  devise: string
+  texte: string
   histoire: string
   specificite: string
   garnison: string
+  photo?: string
   onClose: () => void
 }
 
-export function CardDialog({ regiment, devise, histoire, specificite, garnison, onClose }: CardDialogProps) {
+export function CardDialog({
+  regiment,
+  texte,
+  histoire,
+  specificite,
+  garnison,
+  photo,
+  onClose,
+}: CardDialogProps) {
   return (
     <div className="card-overlay" onClick={onClose}>
       <div className="card" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-
         <div className="card-header">
           <div className="card-header-text">
             <h3>{regiment}</h3>
-            <span className="card-subtitle">{devise}</span>
+            <span className="card-subtitle">{texte}</span>
           </div>
           <button className="card-close" onClick={onClose} aria-label="Fermer">✕</button>
         </div>
@@ -26,7 +33,11 @@ export function CardDialog({ regiment, devise, histoire, specificite, garnison, 
         <div className="card-body">
           <div className="card-media-col">
             <div className="card-photo">
-              <span>Photo</span>
+              {photo ? (
+                <img src={photo} alt={`Pucelle du ${regiment}`} />
+              ) : (
+                <span>Photo</span>
+              )}
             </div>
             <p className="card-geo">📍 {garnison}</p>
           </div>
@@ -41,7 +52,6 @@ export function CardDialog({ regiment, devise, histoire, specificite, garnison, 
             <p>{specificite}</p>
           </div>
         </div>
-
       </div>
     </div>
   )

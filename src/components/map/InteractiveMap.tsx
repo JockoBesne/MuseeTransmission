@@ -1,4 +1,4 @@
-﻿import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { MapContainer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -14,14 +14,16 @@ const villes = villesData as FeatureCollection<Point>;
 interface CityProps {
   nom: string;
   regiment: string;
-  devise: string;
+  texte: string;
   histoire: string;
-  specificite: string;
+  specificite: string; 
   garnison: string;
+  photo?: string;
+  labelDir?: string;
 }
 
 function pointToLayer(feature: Feature<Point>, latlng: L.LatLng) {
-  const props = feature.properties as { nom: string; texte: string; labelDir?: string };
+  const props = feature.properties as CityProps;
 
   const marker = L.circleMarker(latlng, {
     radius: 6,
@@ -40,41 +42,53 @@ function pointToLayer(feature: Feature<Point>, latlng: L.LatLng) {
   return marker;
 }
 
-function onEachCityFeature(feature: Feature<Point>, layer: L.Layer) {
-  const props = feature.properties as { nom: string; texte: string };
-  layer.bindPopup(`<strong>${props.nom}</strong><br/>${props.texte}`);
-}
-
 export default function InteractiveMap() {
   const [selectedCity, setSelectedCity] = useState<CityProps | null>(null);
 
-  const onEachCityFeature = useCallback((feature: Feature<Point>, layer: L.Layer) => {
+  function onEachCityFeature(feature: Feature<Point>, layer: L.Layer) {
     const props = feature.properties as CityProps;
     layer.on('click', () => setSelectedCity(props));
-  }, []);
+  }
 
   return (
-    <MapContainer
-      style={{ height: '100%', width: '100%' , background: '#0f70b7'}}
-      attributionControl={false}
-      bounds={[[51.5, -5.5], [41.2, 9.8]]}
-      zoomControl={false}
-      dragging={false}
-      scrollWheelZoom={false}
-      doubleClickZoom={false}
-      touchZoom={false}
-      boxZoom={false}
-      keyboard={false}
-    >
-      <GeoJSON
-        data={franceContour}
-        style={{ color: '#fecc30', weight: 1.5, fillColor: '#ffffff', fillOpacity: 0.6 }}
-      />
-      <GeoJSON
-        data={villes}
-        pointToLayer={pointToLayer}
-        onEachFeature={onEachCityFeature}
-      />
-    </MapContainer>
+    <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+      <MapContainer
+        style={{ height: '100%', width: '100%', background: '#0f70b7' }}
+        attributionControl={false}
+        center={[46.5, 2.3]}
+        minZoom={6}
+        maxZoom={6}
+        zoom={6}
+        bounds={[[51.5, -5.5], [41.2, 9.8]]}
+        zoomControl={false}
+        dragging={false}
+        scrollWheelZoom={false}
+        doubleClickZoom={false}
+        touchZoom={false}
+        boxZoom={false}
+        keyboard={false}
+      >
+        <GeoJSON
+          data={franceContour}
+          style={{ color: '#fecc30', weight: 1.5, fillColor: '#ffffff', fillOpacity: 0.6 }}
+        />
+        <GeoJSON
+          data={villes}
+          pointToLayer={pointToLayer}
+          onEachFeature={onEachCityFeature}
+        />
+      </MapContainer>
+      {selectedCity && (
+        <CardDialog
+          regiment={selectedCity.regiment}
+          texte={selectedCity.texte}
+          histoire={selectedCity.histoire}
+          specificite={selectedCity.specificite}
+          garnison={selectedCity.garnison}
+          photo={selectedCity.photo}
+          onClose={() => setSelectedCity(null)}
+        />
+      )}
+    </div>
   );
 }
