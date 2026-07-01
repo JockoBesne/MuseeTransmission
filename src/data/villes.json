@@ -5,7 +5,13 @@
       "type": "Feature",
       "properties": {
         "nom": "Issoire",
-        "texte": "« Agir vite et bien »"
+        "regiment": "28e Régiment de Transmissions (28e RT)",
+        "texte": "« Agir vite et bien »",
+        "histoire": "Héritier des sapeurs télégraphistes du 28e bataillon du génie, créé en avril 1914 à l'aube de la Grande Guerre. Titulaire de 12 citations à l'ordre de l'armée (fourragères de la croix de guerre 1914-1918 et de la médaille militaire). Rattaché à l'arme des Transmissions le 1er novembre 1945. A participé à la campagne d'Indochine (inscription « Indochine 1945-1954 », 21 transmetteurs tombés). Drapeau décoré le 12 décembre 2014 de la Croix de la valeur militaire pour l'opération SERVAL au Mali (2013).",
+        "specificite": "Régiment de la BANC (Brigade d'appui numérique et cyber). Met en œuvre les systèmes d'information et de communication (SIC) du commandement pour la manœuvre interarmes et interarmées en environnement multinational. Infrastructure d'entraînement exceptionnelle ; fort ancrage local (la Trans'yssoirienne au profit des blessés de l'armée de Terre).",
+        "garnison": "63505 Issoire (Auvergne) — Quartier de Bange. Implanté depuis 1998.",
+        "photo": "/pucelles/28e-rt.png",
+        "labelDir": "bottom"
       },
       "geometry": { "type": "Point", "coordinates": [3.2495, 45.5439] }
     },
@@ -13,7 +19,13 @@
       "type": "Feature",
       "properties": {
         "nom": "Thionville",
-        "texte": "« Qui me regarde s'incline »"
+        "regiment": "40e Régiment de Transmissions (40e RT)",
+        "texte": "« Qui me regarde s'incline »",
+        "histoire": "Puise ses racines dans le 40e BT créé le 1er avril 1951 à Fribourg (RFA), qui devient 709e BT en 1956 lors de son départ pour l'Algérie. La 40e compagnie de transmissions (Coblence, 1958) est dissoute le 30 avril 1969. Le 40e RT est créé le 1er novembre 1969 à Neustadt et reçoit son drapeau le 27 mai 1970. Après Sarrebourg (1973), il s'installe à Thionville à partir de 1984 (quartier Jeanne d'Arc et quartier Guyon-Gellin à Hettange-Grande).",
+        "specificite": "Régiment de la BANC. Résolument tourné vers l'opérationnel : SENTINELLE, AIGLE, GERFAUT, HARPIE, CHIDO, Djibouti… Affilié à la 3e division (Marseille), il appuie la préparation à la prise d'alerte ARF 2026 (STEADFAST COBALT/DAGGER, GUILLAUME 26, MONTSABERT).",
+        "garnison": "57216 Thionville (Moselle) — Quartier Jeanne d'Arc.",
+        "photo": "/pucelles/40e-rt.png",
+        "labelDir": "left"
       },
       "geometry": { "type": "Point", "coordinates": [6.1681, 49.3578] }
     },
@@ -21,7 +33,13 @@
       "type": "Feature",
       "properties": {
         "nom": "Douai",
-        "texte": "« Par-delà les terres et l'Océan »"
+        "regiment": "41e Régiment de Transmissions (41e RT)",
+        "texte": "« Par-delà les terres et l'Océan »",
+        "histoire": "Héritier des troupes de l'armée d'Afrique : racines au Maroc dès 1907 (campagne de la Chaouïa), puis campagne de pacification à partir de 1920. À compter de 1942, ses compagnies participent aux campagnes de la Libération (4 croix de guerre ; inscriptions Tunisie, Italie, Allemagne). Engagé en Indochine (inscription « Indochine »). De retour en métropole en 1966, il devient l'unité de transmissions gouvernementale. Implanté à Douai depuis 2010.",
+        "specificite": "Régiment de la BANC, surnommé les « transmetteurs d'Afrique » et « Régiment des Corons » (unique régiment de l'armée de Terre des Hauts-de-France). Affilié au CRR-Fr depuis 2024 (met en œuvre son système de PC). Forte réserve opérationnelle (unité d'intervention + escadron de circulation et d'escorte). Mascotte : le bouc alpin Mansour III.",
+        "garnison": "59500 Douai (Nord) — Quartier Corbineau.",
+        "photo": "/pucelles/41e-rt.png",
+        "labelDir": "bottom"
       },
       "geometry": { "type": "Point", "coordinates": [3.0794, 50.3714] }
     },
@@ -29,7 +47,13 @@
       "type": "Feature",
       "properties": {
         "nom": "Agen",
-        "texte": "« Religare et unire sic » (relier et unir ainsi)"
+        "regiment": "48e Régiment de Transmissions (48e RT)",
+        "texte": "« Religare et unire sic » (relier et unir ainsi)",
+        "histoire": "Héritier du 48e bataillon de sapeurs télégraphistes de Toul, issu de l'éclatement du 8e régiment du génie en 1920. Le 48e bataillon de transmissions est créé le 1er avril 1947 et prend garnison à Libourne. Le 1er juillet 1995, il devient 48e régiment de transmissions et s'implante au quartier Toussaint à Agen. En 2024, il intègre la BANC/CATNC. Il a célébré son 30e anniversaire en 2025.",
+        "specificite": "Régiment de la BANC ; seule unité des armées présente en Lot-et-Garonne. Lien armée-Nation très actif (jumelage avec Agen, CDSG). Terre de rugby (parrain : Philippe Sella) et esprit JO (marraine Mona Francis, para-triathlète). Mise en œuvre et exploitation des SIC ; engagé sur AIGLE (Roumanie), LYNX, DAMAN, SENTINELLE et JOP 2024.",
+        "garnison": "47918 Agen (Lot-et-Garonne) — Quartier Toussaint.",
+        "photo": "/pucelles/48e-rt.png",
+        "labelDir": "bottom"
       },
       "geometry": { "type": "Point", "coordinates": [0.6188, 44.2049] }
     },
@@ -37,7 +61,13 @@
       "type": "Feature",
       "properties": {
         "nom": "Lunéville",
-        "texte": "« Foudre dans l'azur »"
+        "regiment": "53e Régiment de Transmissions (53e RT)",
+        "texte": "« Foudre dans l'azur »",
+        "histoire": "Héritier des compagnies mixtes de transmissions 83/84 (3e DIA) et 96/84 (5e DB), à l'origine des 46e et 49e bataillons de transmissions. Le 53e bataillon de transmissions est créé à Fribourg en 1958, puis devient 53e RT en 1969. Drapeau décoré de la croix de guerre 1939-1945 (étoile de vermeil), inscription « Italie 1944 ». Dissous en 1992, recréé à Lunéville en 1993 comme régiment de la Force HADES (dissuasion nucléaire de l'armée de Terre).",
+        "specificite": "Régiment de la BANC, adossé à l'état-major de la 1re division « EUROPE » (Besançon). Déploiement de postes de commandement et appui direct aux unités interarmes. Engagé en Europe de l'Est, sur SENTINELLE, au Liban (DAMAN) et sur les exercices WARFIGHTER / ORION. Tourné vers l'innovation (drones, hybridation des réseaux).",
+        "garnison": "54301 Lunéville (Meurthe-et-Moselle) — Quartier Treuille de Beaulieu.",
+        "photo": "/pucelles/53e-rt.png",
+        "labelDir": "left"
       },
       "geometry": { "type": "Point", "coordinates": [6.4972, 48.5126] }
     },
@@ -45,7 +75,13 @@
       "type": "Feature",
       "properties": {
         "nom": "Dieuze",
-        "texte": "« Ardent et généreux »"
+        "regiment": "18e Régiment d'Instruction des Transmissions (18e RIT)",
+        "texte": "« Ardent et généreux »",
+        "histoire": "18e régiment d'instruction des transmissions, implanté à Dieuze (quartier Lyautey). Centre de formation initiale des militaires du rang au profit de la BANC et de l'ensemble des régiments de l'armée de Terre.",
+        "specificite": "Unité de formation (et non de combat). Assure la formation générale initiale (FGI) — 30 % pour la BANC, 70 % pour l'armée de Terre — ainsi qu'un large éventail de FTS et FA (combattant des SIC IA, graphie, desserte, ISTC…). Capacité de 10 sections simultanées (~400 recrues). Lien armée-Nation dynamique : cross, concert de Noël, jumelages, CDSG.",
+        "garnison": "57260 Dieuze (Moselle) — Quartier Lyautey.",
+        "photo": "/pucelles/18e-rit.jpg",
+        "labelDir": "left"
       },
       "geometry": { "type": "Point", "coordinates": [6.7186, 48.8508] }
     },
@@ -53,15 +89,27 @@
       "type": "Feature",
       "properties": {
         "nom": "Rennes",
-        "texte": "« Pugnare in Tenebris, Vincere in Luminis » (combattre dans les ténèbres, vaincre dans la lumière)"
+        "regiment": "Régiment de cyberdéfense",
+        "texte": "« Pugnare in Tenebris, Vincere in Luminis » (combattre dans les ténèbres, vaincre dans la lumière)",
+        "histoire": "Créé le 1er janvier 2025 à Saint-Jacques-de-la-Lande (Rennes), sur les bases de la 807e CT. Sa création concrétise la densification et la mise en cohérence des capacités de sécurité numérique de la FOT et de l'armée de Terre sous une même autorité. Directement subordonné à la BANC.",
+        "specificite": "Régiment atypique et interarmées (personnels des trois armées), spécialistes de la cyberdéfense. Cœur de métier : la sécurité numérique / lutte informatique défensive (LID). Abrite le SOC-TERRE (surveillance des systèmes numériques de l'armée de Terre), une cellule d'ingénierie et une section de cyberprotection (CE AHS, cellule chiffre de la FOT).",
+        "garnison": "35998 Saint-Jacques-de-la-Lande / Rennes (Ille-et-Vilaine) — Quartier Stéphant.",
+        "photo": "/pucelles/cyberdefense.png",
+        "labelDir": "bottom"
       },
       "geometry": { "type": "Point", "coordinates": [-1.7117, 48.0784] }
     },
     {
       "type": "Feature",
       "properties": {
-        "nom": "Molsheim",
-        "texte": "« Nihil nisi silentium timet » (Rien ne craint que le silence)"
+        "nom": "Mutzig",
+        "regiment": "44e Régiment de Transmissions (44e RT)",
+        "texte": "« Nihil nisi silentium timet » (Rien ne craint que le silence)",
+        "histoire": "Filiation remontant à la guerre d'Indochine avec la Compagnie autonome d'écoute et de radiogoniométrie (CAER, 1948, Saïgon/Hanoï). Héritier de la 728e compagnie de transmissions (Rastatt, 1963) et du 708e bataillon de guerre électronique (1967). Le 44e RT est créé le 1er octobre 1971, élément organique de la 1re armée. En 1994, il s'installe à Mutzig (Alsace) pour armer le Centre de guerre électronique (CGE). Subordonné à la BRCE depuis 2024. Inscription « Indochine 1952-1954 » ; croix de guerre des TOE (étoile d'argent) et médaille de la défense nationale « or » (opération BARKHANE, Sahel).",
+        "specificite": "Régiment aux capacités uniques de la BRCE : renseignement d'origine électromagnétique (ROEM) et recherche dans le cyberespace, avec 15 domaines de spécialité. Deux composantes : fixe et stratégique via le Centre de guerre électronique (CGE) ; mobile et tactique via le BATROEM (SGROEM, DETROEM, GIROEM).",
+        "garnison": "67190 Mutzig / 67125 Molsheim (Bas-Rhin) — Quartier Moussy.",
+        "photo": "/pucelles/44e-rt.png",
+        "labelDir": "right"
       },
       "geometry": { "type": "Point", "coordinates": [7.4914, 48.5403] }
     },
@@ -69,15 +117,27 @@
       "type": "Feature",
       "properties": {
         "nom": "Haguenau",
-        "texte": "« Nihil affirmat quod non probet » (Il n'affirme rien qu'il ne prouve) — « Toujours prouver »"
+        "regiment": "54e Régiment de Transmissions (54e RT)",
+        "texte": "« Nihil affirmat quod non probet » (Il n'affirme rien qu'il ne prouve) — « Toujours prouver »",
+        "histoire": "Double filiation : unités de transmissions illustrées lors de la Seconde Guerre mondiale (Italie, Allemagne, Afrique du Nord — inscriptions « Allemagne 1945 » et « AFN 1952-1962 ») et unités de guerre électronique issues des sapeurs télégraphistes du service des écoutes de la Première Guerre mondiale. Dissous en 1985 (régiment SIC), il est recréé en 1986 comme unité de guerre électronique tactique. Implanté à Haguenau puis à Oberhoffen-sur-Moder. Rattaché à la BRCE depuis 2024.",
+        "specificite": "Unique régiment d'appui cyber-électronique tactique de l'armée de Terre (BRCE). Capacités RENSEIGNER et ENGAGER : interception, localisation et brouillage par les sections d'appui électronique sous blindage (SAEB) sur VAB, désormais SERVAL GE intégrés au dispositif SCORPION. Membre de la Communauté cyber des armées (CCA).",
+        "garnison": "67504 Oberhoffen-sur-Moder / Haguenau (Bas-Rhin) — Quartier Estienne.",
+        "photo": "/pucelles/54e-rt.png",
+        "labelDir": "right"
       },
       "geometry": { "type": "Point", "coordinates": [7.7900, 48.8156] }
     },
     {
       "type": "Feature",
       "properties": {
-        "nom": "Saint-Germain-en-Laye",
-        "texte": "« Tu es l'ancien, sois le meilleur »"
+        "nom": "Paris",
+        "regiment": "8e Régiment de Transmissions (8e RT — DANZ Île-de-France)",
+        "texte": "« Tu es l'ancien, sois le meilleur »",
+        "histoire": "Berceau de l'arme au Mont-Valérien, qui accueille l'école de télégraphie militaire dès 1894. Le 8e régiment du génie est créé en 1913 (centre de formation à la télégraphie de ~12 000 soldats). Il devient 8e régiment de transmissions en 1947. Fusionne avec la DIRISI le 1er août 2014 (DIRISI IDF – 8e RT), puis avec le CND le 1er septembre 2025 pour former la DANZ Île-de-France 8e RT. Son drapeau (remis en 1913) est l'unique emblème de l'armée française à porter l'inscription « Résistance 1940-1944 » ; il est conservé au Mont-Valérien.",
+        "specificite": "Direction d'appui au numérique zonal d'Île-de-France (CND/COMNUMIA). Assure 7j/7 et 24h/24 le déploiement, la mise en œuvre et le soutien des SIC à Paris, en Île-de-France et en Sud-Picardie (du niveau NP au TS SF), au profit de plus de 3 500 usagers sensibles. Appui des grands événements : 14 juillet, JOP 2024 (GAPSIC), salons (Bourget, Euronaval).",
+        "garnison": "78100 Saint-Germain-en-Laye / 92150 Suresnes / Mont-Valérien (Île-de-France).",
+        "photo": "/pucelles/8e-rt.png",
+        "labelDir": "bottom"
       },
       "geometry": { "type": "Point", "coordinates": [2.0944, 48.8978] }
     }
