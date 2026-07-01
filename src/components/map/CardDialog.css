@@ -1,0 +1,151 @@
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.card {
+  background: #ffffff;
+  color: #1a1a1a;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 720px;
+  max-height: 88vh;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── En-tête ── */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 24px 14px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  gap: 12px;
+}
+
+.card-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-header h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+.card-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #777;
+  line-height: 1.3;
+}
+
+.card-close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #666;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.card-close:hover {
+  background-color: #e0e0e0;
+  color: #111;
+}
+
+/* ── Corps ── */
+.card-body {
+  padding: 16px 24px 24px;
+  display: grid;
+  grid-template-columns: 1fr 130px;
+  grid-template-rows: auto auto;
+  column-gap: 20px;
+  row-gap: 16px;
+  overflow-y: auto;
+}
+
+.card-media-col {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-photo {
+  width: 130px;
+  height: 130px;
+  background-color: #e8e8e8;
+  border: 2px dashed #bbb;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.card-geo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.70rem;
+  color: #666;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+}
+
+/* ── Sections ── */
+.card-section h4 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+  margin: 0 0 4px 0;
+}
+
+.card-section p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.90rem;
+  line-height: 1.65;
+  color: #333;
+  text-align: left;
+}
+
+.card-histoire {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: left;
+}
+
+.card-specificite {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  text-align: left;
+}
+
+.card-specificite p {
+  text-align: justify;
+  text-align-last: left;
+}
