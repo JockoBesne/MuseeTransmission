@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MapContainer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import './InteractiveMap.css';
 import type { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
 import franceContourRaw from '../../data/france-contour.json';
 import villesData from '../../data/villes.json';
