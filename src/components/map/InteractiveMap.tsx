@@ -1,6 +1,7 @@
 import { MapContainer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import './InteractiveMap.css';
 import type { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
 import franceContourRaw from '../../data/france-contour.json';
 import villesData from '../../data/villes.json';
@@ -8,14 +9,24 @@ import villesData from '../../data/villes.json';
 const franceContour = franceContourRaw as Feature<MultiPolygon>;
 const villes = villesData as FeatureCollection<Point>;
 
-function pointToLayer(_feature: Feature<Point>, latlng: L.LatLng) {
-  return L.circleMarker(latlng, {
+function pointToLayer(feature: Feature<Point>, latlng: L.LatLng) {
+  const props = feature.properties as { nom: string; texte: string; labelDir?: string };
+
+  const marker = L.circleMarker(latlng, {
     radius: 6,
     fillColor: '#ff8200',
     color: '#ffffff',
     weight: 2,
     fillOpacity: 1,
   });
+
+  marker.bindTooltip(props.nom, {
+    permanent: true,
+    direction: (props.labelDir as L.Direction) ?? 'bottom',
+    className: 'map-label',
+  });
+
+  return marker;
 }
 
 function onEachCityFeature(feature: Feature<Point>, layer: L.Layer) {
