@@ -15,7 +15,7 @@ interface CityProps {
   regiment: string;
   texte: string;
   histoire: string;
-  specificite: string;
+  specificite: string; 
   garnison: string;
   photo?: string;
   labelDir?: string;
