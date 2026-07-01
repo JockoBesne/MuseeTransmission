@@ -557,10 +557,10 @@
     "role": "Sapeur",
     "annee": "1918"
   },
-  {
+  { 
     "nom": "BARRALIS",
-    "prenom": "Léon",
-    "role": "Sergent 1918- BARRALIS César Paul Léon Sergent",
+    "prenom": "César Paul Léon",
+    "role": "Sergent",
     "annee": "1918"
   },
   {
@@ -2569,8 +2569,8 @@
   },
   {
     "nom": "DAVID",
-    "prenom": "Charles Emile Capitaine réserve",
-    "role": "",
+    "prenom": "Charles Emile ",
+    "role": "Capitaine réserve",
     "annee": "1915"
   },
   {
