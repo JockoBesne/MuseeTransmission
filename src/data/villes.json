@@ -111,7 +111,7 @@
         "photo": "/pucelles/44e-rt.png",
         "labelDir": "right"
       },
-      "geometry": { "type": "Point", "coordinates": [7.4914, 48.5403] }
+      "geometry": { "type": "Point", "coordinates": [7.5914, 48.5403] }
     },
     {
       "type": "Feature",
@@ -125,7 +125,7 @@
         "photo": "/pucelles/54e-rt.png",
         "labelDir": "right"
       },
-      "geometry": { "type": "Point", "coordinates": [7.7900, 48.8156] }
+      "geometry": { "type": "Point", "coordinates": [7.8900, 48.8156] }
     },
     {
       "type": "Feature",
