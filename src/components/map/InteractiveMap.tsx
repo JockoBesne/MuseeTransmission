@@ -53,7 +53,11 @@ export default function InteractiveMap() {
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
       <MapContainer
-        style={{ height: '100%', width: '100%', background: '#0f70b7' }}
+        style={{
+          height: '100%',
+          width: '100%',
+          background: 'linear-gradient(180deg, #0f70b7 0%, #0f70b7 30%, #0b5f9c 100%)',
+        }}
         attributionControl={false}
         center={[46.5, 2.3]}
         minZoom={6}
@@ -70,7 +74,7 @@ export default function InteractiveMap() {
       >
         <GeoJSON
           data={franceContour}
-          style={{ color: '#fecc30', weight: 1.5, fillColor: '#ffffff', fillOpacity: 0.6 }}
+          style={{ color: '#fecc30', weight: 1.5, fillColor: '#ffffff', fillOpacity: 0.6, className: 'france-contour' }}
         />
         <GeoJSON
           data={villes}
