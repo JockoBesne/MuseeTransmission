@@ -1,5 +1,5 @@
 /* ─── Palette
-   Fond      : #0f70b7
+   Fond      : #0D3151
    Texte     : #ffffff
    Accent    : #fecc30 (avec parcimonie)
    Typo      : Raleway (titres) · Nunito (corps)
@@ -11,7 +11,7 @@
   flex: 1;
   min-width: 0;
   padding: 28px 22px 16px;
-  background-color: #0f70b7;
+  background-color: #0D3151;
   color: #ffffff;
   font-family: 'Nunito', sans-serif;
   overflow: hidden;

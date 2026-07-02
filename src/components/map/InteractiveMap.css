@@ -1,6 +1,7 @@
 .map-wrapper {
   position: relative;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   width: 100%;
   background: #0f70b7; /* mer */
   overflow: hidden;

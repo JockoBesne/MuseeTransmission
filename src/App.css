@@ -30,14 +30,15 @@ html,
 }
 
 .panel-left {
-  background-color: #0f70b7;
+  background-color: #0D3151;
   color: #e0e0e0;
   justify-content: flex-start;
   align-items: stretch;
+  gap: 0;
 }
 
 .panel-right {
-  background-color: #0f70b7;
+  background-color: #0D3151;
   color: #e0e0e0;
 }
 
@@ -45,7 +46,7 @@ html,
 .tab-bar {
   display: flex;
   border-bottom: 2px solid #2a2a4a;
-  background-color: #0a5a92;
+  background-color: #021b2e;
   flex-shrink: 0;
   position: relative;
 }
@@ -71,7 +72,7 @@ html,
 
 .tab-btn--active {
   color: #ffffff;
-  background-color: #0f70b7;
+  background-color: #0D3151;
 }
 
 .tab-indicator {
@@ -92,10 +93,16 @@ html,
 
 .tab-content {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: fadeIn 0.25s ease;
+}
+
+.tab-content > * {
+  flex: 1;
+  min-height: 0;
 }
 
 .tab-pane {
