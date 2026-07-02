@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
@@ -7,9 +7,33 @@ import InteractiveMap from './components/map/InteractiveMap'
 const LEFT_TABS = ['Carte des RT', 'Mémorial'] as const
 type LeftTab = typeof LEFT_TABS[number]
 
+/* Borne en libre accès : sans interaction pendant ce délai,
+   on revient sur le Mémorial (écran de veille). */
+const INACTIVITY_MS = 3 * 60 * 1000
+
 function LeftPanel() {
   const [activeTab, setActiveTab] = useState<LeftTab>('Carte des RT')
   const activeIndex = LEFT_TABS.indexOf(activeTab)
+
+  useEffect(() => {
+    let timer = setTimeout(onIdle, INACTIVITY_MS)
+
+    function onIdle() {
+      setActiveTab('Mémorial')
+    }
+
+    function reset() {
+      clearTimeout(timer)
+      timer = setTimeout(onIdle, INACTIVITY_MS)
+    }
+
+    const events = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const
+    for (const e of events) window.addEventListener(e, reset, { passive: true })
+    return () => {
+      clearTimeout(timer)
+      for (const e of events) window.removeEventListener(e, reset)
+    }
+  }, [])
 
   return (
     <div className="panel panel-left">
