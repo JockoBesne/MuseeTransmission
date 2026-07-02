@@ -93,7 +93,7 @@ async function main() {
 
   console.log(`\n✓ ${soldats.length} soldats extraits (${errors} entrées ignorées)`)
 
-  const outPath = resolve(ROOT, 'public/data/memorial-1gm.json')
+  const outPath = resolve(ROOT, 'src/data/memorial-1gm.json')
   writeFileSync(outPath, JSON.stringify(soldats, null, 2), 'utf8')
   console.log('✓ Fichier généré :', outPath)
 }

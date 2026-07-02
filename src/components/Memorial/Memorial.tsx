@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import memorial1gm from '../../data/memorial-1gm.json'
 import './Memorial.css'
 
 type War = '1GM' | '2GM'
@@ -15,67 +16,22 @@ const WAR_LABELS: Record<War, string> = {
   '2GM': 'Deuxième Guerre Mondiale · 1939–1945',
 }
 
-const DATA_FILES: Record<War, string> = {
-  '1GM': '/data/memorial-1gm.json',
-  '2GM': '/data/memorial-2gm.json',
-}
-
 const SCROLL_SPEED = 28 // px/seconde
 
-async function loadSoldats(war: War): Promise<Soldat[]> {
-  const url = DATA_FILES[war]
-  try {
-    const res = await fetch(url)
-    if (!res.ok) return []
-    const contentType = res.headers.get('content-type') ?? ''
-    if (contentType.includes('text/html')) return []
-    const text = await res.text()
-    const ext = url.split('.').pop()?.toLowerCase() ?? 'json'
-    return parseContent(text, ext)
-  } catch {
-    return []
+function normalizeSoldat(item: unknown): Soldat {
+  const o = (item ?? {}) as Record<string, unknown>
+  return {
+    nom: String(o.nom ?? o.Nom ?? '').trim(),
+    prenom: String(o.prenom ?? o.Prenom ?? '').trim(),
+    role: String(o.role ?? o.Role ?? '').trim(),
+    annee: String(o.annee ?? o.Annee ?? '').trim(),
   }
 }
 
-function parseContent(content: string, ext: string): Soldat[] {
-  if (ext === 'json') {
-    try {
-      const data = JSON.parse(content) as unknown
-      if (Array.isArray(data)) {
-        return data.map(item => {
-          if (item && typeof item === 'object') {
-            const o = item as Record<string, unknown>
-            return {
-              nom: String(o.nom ?? o.Nom ?? '').trim(),
-              prenom: String(o.prenom ?? o.Prenom ?? o.name ?? '').trim(),
-              role: String(o.role ?? o.Role ?? '').trim(),
-              annee: String(o.annee ?? o.Annee ?? '').trim(),
-            }
-          }
-          if (typeof item === 'string') {
-            const parts = item.trim().split(/\s+/)
-            return { nom: parts[0] ?? '', prenom: parts.slice(1).join(' '), role: '', annee: '' }
-          }
-          return { nom: '', prenom: '', role: '', annee: '' }
-        }).filter(s => s.nom)
-      }
-    } catch { /**/ }
-    return []
-  }
-  // .txt / .csv : une entrée par ligne
-  return content
-    .split('\n')
-    .map(line => line.split(',')[0].replace(/\r/g, '').trim())
-    .filter(Boolean)
-    .map(line => {
-      const spaceIdx = line.indexOf(' ')
-      return {
-        nom: spaceIdx === -1 ? line : line.slice(0, spaceIdx),
-        prenom: spaceIdx === -1 ? '' : line.slice(spaceIdx + 1),
-        role: '',
-        annee: '',
-      }
-    })
+// Données bundlées (comme villes.json) — régénérées via `npm run import-docx`.
+const SOLDATS: Record<War, Soldat[]> = {
+  '1GM': (memorial1gm as unknown[]).map(normalizeSoldat).filter(s => s.nom),
+  '2GM': [], // données non disponibles pour l'instant
 }
 
 function NameEntry({ soldat }: { soldat: Soldat }) {
@@ -97,11 +53,11 @@ function NameEntry({ soldat }: { soldat: Soldat }) {
 
 export default function Memorial() {
   const [war, setWar] = useState<War>('1GM')
-  const [soldats, setSoldats] = useState<Soldat[]>([])
-  const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [hovering, setHovering] = useState(false)
   const [touching, setTouching] = useState(false)
+
+  const soldats = SOLDATS[war]
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number>(0)
@@ -110,16 +66,12 @@ export default function Memorial() {
   const touchTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
 
   useEffect(() => {
-    setLoading(true)
     setSearch('')
     posRef.current = 0
-    loadSoldats(war).then(data => {
-      setSoldats(data)
-      setLoading(false)
-    })
+    if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [war])
 
-  const shouldScroll = !search && !hovering && !touching && !loading
+  const shouldScroll = !search && !hovering && !touching
 
   const tick = useCallback((ts: number) => {
     const el = scrollRef.current
@@ -221,9 +173,7 @@ export default function Memorial() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {loading ? (
-          <p className="memorial-status">Chargement…</p>
-        ) : soldats.length === 0 ? (
+        {soldats.length === 0 ? (
           <p className="memorial-status">
             {war === '2GM' ? 'Données non disponibles.' : 'Aucun fichier de données trouvé.'}
           </p>
@@ -239,7 +189,7 @@ export default function Memorial() {
       </div>
 
       <div className="memorial-footer">
-        {!loading && soldats.length > 0 && (
+        {soldats.length > 0 && (
           search
             ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} · ${soldats.length} inscrits`
             : `${soldats.length} noms inscrits`
