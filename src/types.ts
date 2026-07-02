@@ -11,5 +11,7 @@ export interface City {
   specificite: string
   garnison: string
   photo?: string
+  /** Description de la pucelle, affichée en légende dans le zoom photo. */
+  photoDescription?: string
   labelDir?: LabelDirection
 }

@@ -8,7 +8,7 @@ interface CardDialogProps {
 }
 
 export function CardDialog({ city, onClose }: CardDialogProps) {
-  const { regiment, texte, histoire, specificite, garnison, photo } = city
+  const { regiment, texte, histoire, specificite, garnison, photo, photoDescription } = city
   const dialogRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const photoBtnRef = useRef<HTMLButtonElement>(null)
@@ -135,12 +135,18 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
           >
             ✕
           </button>
-          <img
-            className="photo-zoom-img"
-            src={photo}
-            alt={`Pucelle du ${regiment}`}
+          <figure
+            className="photo-zoom-figure"
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          />
+          >
+            <img className="photo-zoom-img" src={photo} alt={`Pucelle du ${regiment}`} />
+            {photoDescription && (
+              <figcaption className="photo-zoom-caption">
+                <span className="photo-zoom-caption-title">{regiment}</span>
+                <p>{photoDescription}</p>
+              </figcaption>
+            )}
+          </figure>
         </div>
       )}
     </>

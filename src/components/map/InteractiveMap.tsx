@@ -131,6 +131,7 @@ export default function InteractiveMap() {
               textAnchor={label.anchor}
               dominantBaseline={label.baseline}
             >
+              
               {props.nom}
             </text>
           </g>

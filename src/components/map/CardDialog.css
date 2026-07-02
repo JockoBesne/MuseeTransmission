@@ -144,15 +144,64 @@ button.card-photo:focus-visible {
   to   { opacity: 1; }
 }
 
-.photo-zoom-img {
-  max-width: 90%;
+.photo-zoom-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: min(90%, 520px);
   max-height: 90%;
-  object-fit: contain;
   background: #ffffff;
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 10px;
+  overflow: hidden;
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
   cursor: default;
+  animation: captionSlideUp 0.25s ease;
+}
+
+@keyframes captionSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.photo-zoom-img {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  object-fit: contain;
+  padding: 16px 16px 8px;
+}
+
+.photo-zoom-caption {
+  width: 100%;
+  padding: 12px 20px 16px;
+  border-top: 3px solid #ff8200;
+  background: linear-gradient(180deg, #fafafa, #f0f0f0);
+  text-align: left;
+}
+
+.photo-zoom-caption-title {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ff8200;
+  margin-bottom: 4px;
+}
+
+.photo-zoom-caption p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #333;
+  margin: 0;
 }
 
 .photo-zoom-close {
