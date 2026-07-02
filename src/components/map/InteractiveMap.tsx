@@ -1,98 +1,145 @@
-import { useState } from 'react';
-import { MapContainer, GeoJSON } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import './InteractiveMap.css';
-import type { Feature, FeatureCollection, MultiPolygon, Point } from 'geojson';
-import franceContourRaw from '../../data/france-contour.json';
-import villesData from '../../data/villes.json';
-import { CardDialog } from './CardDialog';
+import { useState } from 'react'
+import type { Feature, FeatureCollection, MultiPolygon, Point, Position } from 'geojson'
+import franceContourRaw from '../../data/france-contour.json'
+import villesData from '../../data/villes.json'
+import type { City, LabelDirection } from '../../types'
+import { CardDialog } from './CardDialog'
+import './InteractiveMap.css'
 
-const franceContour = franceContourRaw as Feature<MultiPolygon>;
-const villes = villesData as FeatureCollection<Point>;
+const franceContour = franceContourRaw as Feature<MultiPolygon>
+const villes = villesData as FeatureCollection<Point, City>
 
-interface CityProps {
-  nom: string;
-  regiment: string;
-  texte: string;
-  histoire: string;
-  specificite: string; 
-  garnison: string;
-  photo?: string;
-  labelDir?: string;
+/* ── Projection Web Mercator → repère SVG ──
+   Rendu statique : plus de dépendance à Leaflet, un simple SVG suffit. */
+const VIEW_W = 800
+const PAD = 24
+
+function mercator([lng, lat]: Position): [number, number] {
+  const x = (lng * Math.PI) / 180
+  const y = Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360))
+  return [x, y]
 }
 
-function pointToLayer(feature: Feature<Point>, latlng: L.LatLng) {
-  const props = feature.properties as CityProps;
+// Bornes de la France en coordonnées Mercator (calculées une fois au chargement).
+const bounds = (() => {
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
+  for (const polygon of franceContour.geometry.coordinates) {
+    for (const ring of polygon) {
+      for (const coord of ring) {
+        const [x, y] = mercator(coord)
+        if (x < minX) minX = x
+        if (x > maxX) maxX = x
+        if (y < minY) minY = y
+        if (y > maxY) maxY = y
+      }
+    }
+  }
+  return { minX, maxX, minY, maxY }
+})()
 
-  const marker = L.circleMarker(latlng, {
-    radius: 6,
-    fillColor: '#ff8200',
-    color: '#ffffff',
-    weight: 2,
-    fillOpacity: 1,
-  });
+const scale = (VIEW_W - PAD * 2) / (bounds.maxX - bounds.minX)
+const VIEW_H = (bounds.maxY - bounds.minY) * scale + PAD * 2
 
-  marker.bindTooltip(props.nom, {
-    permanent: true,
-    direction: (props.labelDir as L.Direction) ?? 'bottom',
-    className: 'map-label',
-  });
-
-  return marker;
+function project(coord: Position): [number, number] {
+  const [mx, my] = mercator(coord)
+  const x = (mx - bounds.minX) * scale + PAD
+  const y = (bounds.maxY - my) * scale + PAD // l'axe Y du SVG est inversé
+  return [x, y]
 }
+
+function ringToPath(ring: Position[]): string {
+  const d = ring
+    .map((coord, i) => {
+      const [x, y] = project(coord)
+      return `${i === 0 ? 'M' : 'L'}${x.toFixed(2)} ${y.toFixed(2)}`
+    })
+    .join(' ')
+  return `${d} Z`
+}
+
+// Contour France (mono-tracé, remplissage evenodd pour gérer d'éventuels trous).
+const contourPath = franceContour.geometry.coordinates
+  .flatMap((polygon) => polygon.map(ringToPath))
+  .join(' ')
+
+type TextAnchor = 'start' | 'middle' | 'end'
+type Baseline = 'auto' | 'central' | 'hanging'
+
+interface CityPoint {
+  x: number
+  y: number
+  props: City
+  label: { x: number; y: number; anchor: TextAnchor; baseline: Baseline }
+}
+
+const LABEL_GAP = 10
+
+function labelLayout(x: number, y: number, dir: LabelDirection): CityPoint['label'] {
+  switch (dir) {
+    case 'top':
+      return { x, y: y - LABEL_GAP, anchor: 'middle', baseline: 'auto' }
+    case 'left':
+      return { x: x - LABEL_GAP, y, anchor: 'end', baseline: 'central' }
+    case 'right':
+      return { x: x + LABEL_GAP, y, anchor: 'start', baseline: 'central' }
+    case 'bottom':
+    default:
+      return { x, y: y + LABEL_GAP, anchor: 'middle', baseline: 'hanging' }
+  }
+}
+
+const cityPoints: CityPoint[] = villes.features.map((f) => {
+  const [x, y] = project(f.geometry.coordinates)
+  const props = f.properties
+  return { x, y, props, label: labelLayout(x, y, props.labelDir ?? 'bottom') }
+})
 
 export default function InteractiveMap() {
-  const [selectedCity, setSelectedCity] = useState<CityProps | null>(null);
-
-  function onEachCityFeature(feature: Feature<Point>, layer: L.Layer) {
-    const props = feature.properties as CityProps;
-    layer.on('click', () => setSelectedCity(props));
-  }
+  const [selectedCity, setSelectedCity] = useState<City | null>(null)
 
   return (
-    <div style={{ position: 'relative', height: '100%', width: '100%' }}>
-      <MapContainer
-        style={{
-          height: '100%',
-          width: '100%',
-          background: 'linear-gradient(180deg, #0f70b7 0%, #0f70b7 30%, #0b5f9c 100%)',
-        }}
-        attributionControl={false}
-        center={[46.5, 2.3]}
-        minZoom={6}
-        maxZoom={6}
-        zoom={6}
-        bounds={[[51.5, -5.5], [41.2, 9.8]]}
-        zoomControl={false}
-        dragging={false}
-        scrollWheelZoom={false}
-        doubleClickZoom={false}
-        touchZoom={false}
-        boxZoom={false}
-        keyboard={false}
+    <div className="map-wrapper">
+      <svg
+        className="map-svg"
+        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Carte des régiments de Transmissions en France"
       >
-        <GeoJSON
-          data={franceContour}
-          style={{ color: '#fecc30', weight: 1.5, fillColor: '#ffffff', fillOpacity: 0.6, className: 'france-contour' }}
-        />
-        <GeoJSON
-          data={villes}
-          pointToLayer={pointToLayer}
-          onEachFeature={onEachCityFeature}
-        />
-      </MapContainer>
+        <path className="map-contour" d={contourPath} fillRule="evenodd" />
+
+        {cityPoints.map(({ x, y, props, label }) => (
+          <g
+            key={props.nom}
+            className="map-city"
+            role="button"
+            tabIndex={0}
+            aria-label={`${props.nom} — ${props.regiment}`}
+            onClick={() => setSelectedCity(props)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setSelectedCity(props)
+              }
+            }}
+          >
+            <circle className="map-marker" cx={x} cy={y} r={6} />
+            <text
+              className="map-label"
+              x={label.x}
+              y={label.y}
+              textAnchor={label.anchor}
+              dominantBaseline={label.baseline}
+            >
+              {props.nom}
+            </text>
+          </g>
+        ))}
+      </svg>
+
       {selectedCity && (
-        <CardDialog
-          regiment={selectedCity.regiment}
-          texte={selectedCity.texte}
-          histoire={selectedCity.histoire}
-          specificite={selectedCity.specificite}
-          garnison={selectedCity.garnison}
-          photo={selectedCity.photo}
-          onClose={() => setSelectedCity(null)}
-        />
+        <CardDialog city={selectedCity} onClose={() => setSelectedCity(null)} />
       )}
     </div>
-  );
+  )
 }
