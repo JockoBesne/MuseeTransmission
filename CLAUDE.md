@@ -43,6 +43,20 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
   framework CSS, pas de styles inline sauf valeurs dynamiques.
 - Aucune nouvelle dépendance npm sans la proposer et la justifier d'abord.
 
+## Design
+
+- Polices : Raleway et Nunito (chargées depuis Google Fonts pour l'instant,
+  voir « À faire »).
+- Pas de variables CSS : les couleurs sont écrites en dur dans chaque
+  fichier — réutiliser exactement ces valeurs :
+  - Fond bleu nuit `#0D3151` (panneaux), `#021b2e` (barre d'onglets),
+    bleu carte `#0f70b7`.
+  - Accent doré `#fecc30` (mémorial, onglets/éléments actifs, marqueurs) ;
+    accent orange `#ff8200` (carte, pop-up).
+  - Textes clairs `#ffffff` / `#e0e0e0` sur fond sombre.
+  - Exception : la pop-up CardDialog est en thème clair (fond blanc,
+    texte `#1a1a1a`).
+
 ## Contraintes borne tactile
 
 - Cibles tactiles ≥ 48×48 px (boutons, onglets, marqueurs, touches).
