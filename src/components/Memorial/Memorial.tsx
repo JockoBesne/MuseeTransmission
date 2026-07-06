@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import memorial1gm from '../../data/memorial-1gm.json'
+import { Ord } from '../../utils/ordinals'
 import './Memorial.css'
 
 type War = '1GM' | '2GM'
@@ -44,7 +45,7 @@ function NameEntry({ soldat }: { soldat: Soldat }) {
       </div>
       {(role || annee) && (
         <div className="name-meta">
-          {role}{role && annee ? ' · ' : ''}{annee}
+          <Ord>{role}</Ord>{role && annee ? ' · ' : ''}{annee}
         </div>
       )}
     </div>
@@ -136,7 +137,7 @@ export default function Memorial() {
               className={`war-tab ${war === w ? 'active' : ''}`}
               onClick={() => setWar(w)}
             >
-              {w === '1GM' ? '1ère GM' : '2ème GM'}
+              <Ord>{w === '1GM' ? '1ère GM' : '2ème GM'}</Ord>
             </button>
           ))}
         </div>
