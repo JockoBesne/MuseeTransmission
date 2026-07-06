@@ -32,6 +32,9 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     défilement automatique (requestAnimationFrame), onglets 1GM/2GM (données
     2GM absentes pour l'instant), recherche qui filtre en temps réel et
     stoppe le défilement ; le toucher met le défilement en pause 1,5 s.
+    Le champ de recherche ouvre un clavier virtuel AZERTY maison
+    (`VirtualKeyboard.tsx`) — `inputMode="none"` sur l'input pour bloquer
+    le clavier tactile de Windows en mode kiosque.
 - **Panneau droit** — vide : accueillera la frise chronologique (voir « À faire »).
 
 ## Conventions
@@ -80,8 +83,6 @@ musée est nécessaire.
 - Frise chronologique verticale dans le panneau droit : jalons = cartes
   tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
   scroll natif.
-- Clavier virtuel AZERTY pour la recherche du mémorial (la borne n'a pas de
-  clavier physique — le champ actuel dépend du clavier système).
 - Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
