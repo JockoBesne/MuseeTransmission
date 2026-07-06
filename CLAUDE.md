@@ -15,9 +15,7 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 
 ## Architecture
 
-Écran scindé 50/50 dans [src/App.tsx](src/App.tsx), qui gère aussi le mode
-veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
-à l'onglet Mémorial) :
+Écran scindé 50/50 dans [src/App.tsx](src/App.tsx) :
 
 - **Panneau gauche** — deux onglets :
   - `components/map/InteractiveMap.tsx` : carte SVG de la France, projection
@@ -82,7 +80,11 @@ musée est nécessaire.
   tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
   scroll natif.
 - Données mémorial 2GM.
-- Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
-  spécificité, photoDescription — par les contenus validés par le musée.
+- Remplacer les textes provisoires (lorem ipsum) de villes.json par les
+  contenus validés par le musée.
+- Fusionner main dans cette branche : le mode veille (retour au Mémorial
+  après 3 min d'inactivité, `INACTIVITY_MS` dans App.tsx), le champ
+  photoDescription de villes.json et l'élargissement des cibles tactiles
+  de la carte y sont déjà commités (fecacff, 83ffea0) mais manquent ici.
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
