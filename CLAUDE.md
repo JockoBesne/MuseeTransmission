@@ -15,7 +15,9 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 
 ## Architecture
 
-Écran scindé 50/50 dans [src/App.tsx](src/App.tsx) :
+Écran scindé 50/50 dans [src/App.tsx](src/App.tsx), qui gère aussi le mode
+veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
+à l'onglet Mémorial) :
 
 - **Panneau gauche** — deux onglets :
   - `components/map/InteractiveMap.tsx` : carte SVG de la France, projection
@@ -43,6 +45,9 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 - CSS pur, un fichier `.css` par composant — pas de bibliothèque UI, pas de
   framework CSS, pas de styles inline sauf valeurs dynamiques.
 - Aucune nouvelle dépendance npm sans la proposer et la justifier d'abord.
+- Ordinaux français (28e, 1ère…) : toujours afficher le suffixe en exposant
+  via le composant `Ord` de [src/utils/ordinals.tsx](src/utils/ordinals.tsx)
+  (utilisé dans Memorial et CardDialog).
 
 ## Design
 
@@ -80,11 +85,10 @@ musée est nécessaire.
   tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
   scroll natif.
 - Données mémorial 2GM.
-- Remplacer les textes provisoires (lorem ipsum) de villes.json par les
-  contenus validés par le musée.
-- Fusionner main dans cette branche : le mode veille (retour au Mémorial
-  après 3 min d'inactivité, `INACTIVITY_MS` dans App.tsx), le champ
-  photoDescription de villes.json et l'élargissement des cibles tactiles
-  de la carte y sont déjà commités (fecacff, 83ffea0) mais manquent ici.
+- Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
+  spécificité, photoDescription — par les contenus validés par le musée.
+- Au retour en veille, fermer le clavier virtuel et vider la recherche si
+  l'onglet Mémorial était déjà actif (sinon la borne resterait clavier
+  ouvert, défilement figé).
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
