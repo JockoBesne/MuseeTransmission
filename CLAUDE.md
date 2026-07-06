@@ -87,8 +87,5 @@ musée est nécessaire.
 - Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
-- Au retour en veille, fermer le clavier virtuel et vider la recherche si
-  l'onglet Mémorial était déjà actif (sinon la borne resterait clavier
-  ouvert, défilement figé).
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.

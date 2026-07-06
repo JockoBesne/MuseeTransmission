@@ -13,6 +13,10 @@ const INACTIVITY_MS = 3 * 60 * 1000
 
 function LeftPanel() {
   const [activeTab, setActiveTab] = useState<LeftTab>('Carte des RT')
+  // Compte les mises en veille : intégré à la clé du contenu, il force le
+  // remontage du Mémorial même si l'onglet était déjà actif (recherche vidée,
+  // clavier virtuel fermé, défilement relancé).
+  const [idleCount, setIdleCount] = useState(0)
   const activeIndex = LEFT_TABS.indexOf(activeTab)
 
   useEffect(() => {
@@ -20,6 +24,7 @@ function LeftPanel() {
 
     function onIdle() {
       setActiveTab('Mémorial')
+      setIdleCount(c => c + 1)
     }
 
     function reset() {
@@ -53,7 +58,7 @@ function LeftPanel() {
         />
       </nav>
 
-      <div key={activeTab} className="tab-content">
+      <div key={`${activeTab}-${idleCount}`} className="tab-content">
         {activeTab === 'Carte des RT' && <InteractiveMap/>}
         {activeTab === 'Mémorial' && <Memorial />}
       </div>
