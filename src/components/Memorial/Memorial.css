@@ -10,7 +10,7 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
-  padding: 28px 22px 16px;
+  padding: 12px 22px 12px;
   background-color: #0D3151;
   color: #ffffff;
   font-family: 'Nunito', sans-serif;
@@ -21,7 +21,7 @@
 
 .memorial-header {
   text-align: center;
-  padding-bottom: 18px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   flex-shrink: 0;
 }
@@ -40,14 +40,14 @@
   letter-spacing: 0.3em;
   color: #fecc30;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .memorial-wars {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .war-tab {
