@@ -27,6 +27,11 @@
   outline: none;
 }
 
+.map-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
 .map-marker {
   fill: #ff8200;
   stroke: #ffffff;

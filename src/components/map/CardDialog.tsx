@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import type { City } from '../../types'
+import { Ord } from '../../utils/ordinals'
 import './CardDialog.css'
 
 interface CardDialogProps {
@@ -8,7 +9,7 @@ interface CardDialogProps {
 }
 
 export function CardDialog({ city, onClose }: CardDialogProps) {
-  const { regiment, texte, histoire, specificite, garnison, photo } = city
+  const { regiment, texte, histoire, specificite, garnison, photo, photoDescription } = city
   const dialogRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const photoBtnRef = useRef<HTMLButtonElement>(null)
@@ -80,8 +81,8 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
         >
           <div className="card-header">
             <div className="card-header-text">
-              <h3 id={titleId}>{regiment}</h3>
-              <span className="card-subtitle">{texte}</span>
+              <h3 id={titleId}><Ord>{regiment}</Ord></h3>
+              <span className="card-subtitle"><Ord>{texte}</Ord></span>
             </div>
             <button ref={closeRef} className="card-close" onClick={onClose} aria-label="Fermer">✕</button>
           </div>
@@ -108,12 +109,12 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
 
             <div className="card-section card-histoire">
               <h4>Histoire</h4>
-              <p>{histoire}</p>
+              <p><Ord>{histoire}</Ord></p>
             </div>
 
             <div className="card-section card-specificite">
               <h4>Spécificité</h4>
-              <p>{specificite}</p>
+              <p><Ord>{specificite}</Ord></p>
             </div>
           </div>
         </div>
@@ -135,12 +136,18 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
           >
             ✕
           </button>
-          <img
-            className="photo-zoom-img"
-            src={photo}
-            alt={`Pucelle du ${regiment}`}
+          <figure
+            className="photo-zoom-figure"
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          />
+          >
+            <img className="photo-zoom-img" src={photo} alt={`Pucelle du ${regiment}`} />
+            {photoDescription && (
+              <figcaption className="photo-zoom-caption">
+                <span className="photo-zoom-caption-title"><Ord>{regiment}</Ord></span>
+                <p><Ord>{photoDescription}</Ord></p>
+              </figcaption>
+            )}
+          </figure>
         </div>
       )}
     </>

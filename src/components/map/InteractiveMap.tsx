@@ -123,6 +123,9 @@ export default function InteractiveMap() {
               }
             }}
           >
+            {/* Zone tactile élargie : r=13 max, la paire la plus proche
+               (Mutzig–Haguenau) est à 26,3 unités — pas de chevauchement. */}
+            <circle className="map-hit" cx={x} cy={y} r={13} />
             <circle className="map-marker" cx={x} cy={y} r={6} />
             <text
               className="map-label"
@@ -131,6 +134,7 @@ export default function InteractiveMap() {
               textAnchor={label.anchor}
               dominantBaseline={label.baseline}
             >
+              
               {props.nom}
             </text>
           </g>
