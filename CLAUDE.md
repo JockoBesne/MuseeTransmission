@@ -48,8 +48,8 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
 
 ## Design
 
-- Polices : Raleway et Nunito (chargées depuis Google Fonts pour l'instant,
-  voir « À faire »).
+- Polices : Raleway et Nunito, auto-hébergées (woff2 dans src/assets/fonts,
+  déclarées dans src/fonts.css) — ne pas réintroduire de lien Google Fonts.
 - Pas de variables CSS : les couleurs sont écrites en dur dans chaque
   fichier — réutiliser exactement ces valeurs :
   - Fond bleu nuit `#0D3151` (panneaux), `#021b2e` (barre d'onglets),
@@ -66,8 +66,6 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
 - Aucune information accessible uniquement au survol : tout au toucher.
 - Feedback visuel immédiat à chaque interaction.
 - Hors-ligne strict : aucune ressource distante (polices, CDN, API).
-  Exception connue à résorber : index.html charge encore Raleway et Nunito
-  depuis Google Fonts (voir « À faire »).
 - L'app tourne en continu : toujours nettoyer intervalles, animations
   (requestAnimationFrame) et listeners — les fuites mémoire sont critiques ici.
 
@@ -86,8 +84,5 @@ musée est nécessaire.
 - Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
-- Rapatrier les polices en local (Raleway, Nunito) : actuellement chargées
-  depuis le CDN Google Fonts dans index.html — la borne étant hors-ligne,
-  elles ne se chargeraient pas en exposition.
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
