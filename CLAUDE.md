@@ -15,7 +15,9 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 
 ## Architecture
 
-Écran scindé 50/50 dans [src/App.tsx](src/App.tsx) :
+Écran scindé 50/50 dans [src/App.tsx](src/App.tsx), qui gère aussi le mode
+veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
+à l'onglet Mémorial) :
 
 - **Panneau gauche** — deux onglets :
   - `components/map/InteractiveMap.tsx` : carte SVG de la France, projection
@@ -66,9 +68,9 @@ musée est nécessaire.
   scroll natif.
 - Clavier virtuel AZERTY pour la recherche du mémorial (la borne n'a pas de
   clavier physique — le champ actuel dépend du clavier système).
-- Mode veille : après 3 min d'inactivité, retour à l'onglet Mémorial avec
-  défilement des noms.
 - Données mémorial 2GM.
+- Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
+  spécificité, photoDescription — par les contenus validés par le musée.
 - Rapatrier les polices en local (Raleway, Nunito) : actuellement chargées
   depuis le CDN Google Fonts dans index.html — la borne étant hors-ligne,
   elles ne se chargeraient pas en exposition.
