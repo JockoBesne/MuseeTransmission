@@ -81,15 +81,9 @@ musée est nécessaire.
 
 ## À faire (mettre à jour au fur et à mesure)
 
-<<<<<<< HEAD
-- Frise chronologique : ajouter des flèches Haut/Bas en plus du scroll natif.
-- Clavier virtuel AZERTY pour la recherche du mémorial (la borne n'a pas de
-  clavier physique — le champ actuel dépend du clavier système).
-=======
 - Frise chronologique verticale dans le panneau droit : jalons = cartes
   tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
   scroll natif.
->>>>>>> 60636ac0ad6fae7e181d64d77cac3acafcac087d
 - Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
