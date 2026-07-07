@@ -37,6 +37,60 @@ html,
   gap: 0;
 }
 
+/* Accès PMR : la barre d'onglets passe en bas du panneau, à portée d'un
+   fauteuil roulant (bouton dans la carte interactive). */
+.panel-left--pmr {
+  flex-direction: column-reverse;
+}
+
+.panel-left--pmr .tab-bar {
+  border-bottom: none;
+  border-top: 2px solid #2a2a4a;
+}
+
+.panel-left--pmr .tab-indicator {
+  bottom: auto;
+  top: -2px;
+}
+
+/* ── Bouton PMR (accès mobilité réduite) ── */
+.pmr-btn {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1rem;
+  z-index: 5;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+  border-radius: 50%;
+  border: 1px solid #fecc30;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.pmr-btn:hover,
+.pmr-btn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.pmr-btn--active {
+  border-color: #fecc30;
+  background-color: rgba(254, 204, 48, 0.18);
+}
+
+.pmr-icon {
+  width: 1em;
+  height: 1em;
+}
+
 .panel-right {
   background-color: #0D3151;
   color: #e0e0e0;
