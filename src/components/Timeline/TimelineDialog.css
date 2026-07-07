@@ -1,0 +1,282 @@
+/* ─── Modale « En savoir plus » de la frise
+   Thème nuit assorti au panneau (contrairement à CardDialog, en clair) :
+   fond #0D3151 → #021b2e, accent doré #fecc30.
+   Mise en page éditoriale : liseré doré à gauche, année en très grand,
+   texte aligné à gauche avec lettrine, navigation précédent/suivant.
+──────────────────────────────────────────────── */
+
+.tl-dialog-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(2, 27, 46, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: tlOverlayIn 0.25s ease;
+}
+
+@keyframes tlOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.tl-dialog {
+  position: relative;
+  width: 88%;
+  max-width: 640px;
+  max-height: 86%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #0D3151 0%, #021b2e 100%);
+  border: 1px solid rgba(254, 204, 48, 0.35);
+  border-left: 5px solid #fecc30;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  animation: tlDialogIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes tlDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Ondes radio concentriques dans l'angle supérieur droit */
+.tl-dialog-waves {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at center,
+    rgba(254, 204, 48, 0.13) 0 2px,
+    transparent 2px 30px
+  );
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 72%);
+  mask-image: radial-gradient(circle at center, black 30%, transparent 72%);
+  pointer-events: none;
+}
+
+.tl-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.tl-dialog-close:hover,
+.tl-dialog-close:focus-visible {
+  background: rgba(255, 255, 255, 0.25);
+  outline: none;
+}
+
+.tl-dialog-close:active {
+  transform: scale(0.92);
+}
+
+/* ─── Contenu (ré-animé à chaque navigation) ── */
+
+.tl-dialog-content {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 22px 46px 10px;
+  animation: tlContentIn 0.4s ease;
+}
+
+.tl-dialog-content::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes tlContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tl-dialog-chip {
+  display: inline-block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0D3151;
+  background: #fecc30;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.tl-dialog-year {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fecc30;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.tl-dialog-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  line-height: 1.35;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(254, 204, 48, 0.3);
+}
+
+/* Double filet : trait fin sur toute la largeur + segment doré épais */
+.tl-dialog-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 64px;
+  height: 3px;
+  background: #fecc30;
+}
+
+.tl-dialog-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #e0e0e0;
+  text-align: left;
+}
+
+/* Lettrine dorée, esprit livre d'exposition */
+.tl-dialog-text::first-letter {
+  font-family: 'Raleway', sans-serif;
+  font-size: 3.1em;
+  font-weight: 800;
+  float: left;
+  line-height: 0.82;
+  padding: 4px 10px 0 0;
+  color: #fecc30;
+}
+
+.tl-dialog-hint {
+  margin-top: 24px;
+  padding-bottom: 14px;
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ─── Navigation précédent / suivant ────────── */
+
+.tl-dialog-nav {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.tl-dialog-nav-btn {
+  flex: 1;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 24px;
+  background: none;
+  border: none;
+  font: inherit;
+  color: #ffffff;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.2s ease;
+}
+
+.tl-dialog-nav-btn--next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.tl-dialog-nav-btn:hover,
+.tl-dialog-nav-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+}
+
+.tl-dialog-nav-btn:active {
+  background: rgba(254, 204, 48, 0.14);
+}
+
+.tl-dialog-nav-arrow {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: #fecc30;
+  transition: transform 0.2s ease;
+}
+
+.tl-dialog-nav-btn:active .tl-dialog-nav-arrow {
+  transform: scale(1.2);
+}
+
+.tl-dialog-nav-info small {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 2px;
+}
+
+.tl-dialog-nav-info strong {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fecc30;
+}
+
+.tl-dialog-nav-sep {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}

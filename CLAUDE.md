@@ -32,7 +32,23 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     défilement automatique (requestAnimationFrame), onglets 1GM/2GM (données
     2GM absentes pour l'instant), recherche qui filtre en temps réel et
     stoppe le défilement ; le toucher met le défilement en pause 1,5 s.
-- **Panneau droit** — vide : accueillera la frise chronologique (voir « À faire »).
+- **Panneau droit** — `components/Timeline/Timeline.tsx` : frise chronologique
+  verticale en défilement automatique infini (deux copies de la liste pour une
+  boucle sans couture, requestAnimationFrame), 4 jalons visibles à la fois,
+  cartes en quinconce autour d'un axe central (année en vis-à-vis), animations
+  d'entrée pilotées par IntersectionObserver (état recopié entre copies au
+  recalage de la boucle pour éviter les flashs). Données dans
+  `src/data/timeline.json` (type `TimelineEvent` dans
+  [src/types.ts](src/types.ts)) ; les sections (Origines, Guerres mondiales,
+  Guerre froide, Ère numérique) sont dérivées du champ `section` et ne
+  découpent pas la frise : elles servent d'ancres à l'index, un tiroir
+  escamotable à droite (fermé par défaut, poignée « Sections » collée au
+  bord droit ; saut animé + surbrillance de la section courante pendant le
+  défilement). Toucher une carte ouvre `TimelineDialog` (modale thème nuit,
+  mise en page éditoriale avec lettrine et navigation circulaire
+  précédent/suivant ; fige la frise, fermeture automatique après 3 min sans
+  interaction). Le toucher met le défilement en pause, reprise 4 s après la
+  dernière interaction.
 
 ## Conventions
 
@@ -77,9 +93,7 @@ musée est nécessaire.
 
 ## À faire (mettre à jour au fur et à mesure)
 
-- Frise chronologique verticale dans le panneau droit : jalons = cartes
-  tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
-  scroll natif.
+- Frise chronologique : ajouter des flèches Haut/Bas en plus du scroll natif.
 - Clavier virtuel AZERTY pour la recherche du mémorial (la borne n'a pas de
   clavier physique — le champ actuel dépend du clavier système).
 - Données mémorial 2GM.
@@ -90,3 +104,4 @@ musée est nécessaire.
   elles ne se chargeraient pas en exposition.
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
+ 

@@ -1,0 +1,86 @@
+[
+  {
+    "section": "Les origines",
+    "annee": "1875",
+    "titre": "Naissance des télégraphistes militaires",
+    "texte": "À la suite de la guerre franco-prussienne de 1870-1871, l'armée française entreprend une profonde modernisation de ses moyens de communication. La loi du 13 mars 1875 crée la première compagnie de sapeurs-télégraphistes, rattachée au 2ᵉ régiment du Génie à Montpellier. Cette unité spécialisée met en œuvre les premiers réseaux télégraphiques militaires filaires et marque la naissance des Transmissions françaises."
+  },
+  {
+    "section": "Les origines",
+    "annee": "1884",
+    "titre": "Le Mont-Valérien devient le centre des Transmissions",
+    "texte": "Face au développement des télécommunications militaires, les compagnies de sapeurs-télégraphistes sont progressivement regroupées au fort du Mont-Valérien. Ce site devient le principal centre d'instruction, d'expérimentation et de développement des réseaux de campagne. Pendant plusieurs décennies, il constitue le cœur technique des télécommunications militaires françaises."
+  },
+  {
+    "section": "Les origines",
+    "annee": "1903",
+    "titre": "La Télégraphie Sans Fil et la Tour Eiffel",
+    "texte": "Le capitaine Gustave Ferrié mène les premières expérimentations militaires de Télégraphie Sans Fil (TSF) depuis le sommet de la Tour Eiffel. Les résultats démontrent l'immense potentiel stratégique des communications radio à longue distance. Ces essais contribuent à sauver la Tour Eiffel de sa démolition prévue et ouvrent une nouvelle ère pour les communications militaires."
+  },
+  {
+    "section": "Les origines",
+    "annee": "1908",
+    "titre": "La radio entre dans l'armée",
+    "texte": "L'armée française crée un service permanent de Télégraphie Sans Fil, officialisant l'emploi de la radio dans les communications militaires. Cette innovation permet de s'affranchir progressivement des contraintes des réseaux filaires et prépare les évolutions majeures qui accompagneront la Première Guerre mondiale."
+  },
+  {
+    "section": "Les origines",
+    "annee": "1912",
+    "titre": "Création du 8ᵉ Régiment du Génie",
+    "texte": "Le 21 décembre 1912, un décret présidentiel crée le 8ᵉ Régiment du Génie, installé au Mont-Valérien. Pour la première fois, toutes les unités spécialisées dans les télécommunications militaires sont réunies au sein d'un régiment unique. Cette création constitue une étape fondamentale dans l'organisation des futures Transmissions."
+  },
+  {
+    "section": "Guerres mondiales",
+    "annee": "1914–1918",
+    "titre": "Les Transmissions pendant la Grande Guerre",
+    "texte": "Durant la Première Guerre mondiale, les communications deviennent essentielles à la conduite des opérations. Le 8ᵉ Régiment du Génie développe les réseaux téléphoniques, télégraphiques et radio, assure les interceptions, le chiffrement et les premières écoutes électroniques. Ses effectifs passent d'environ 2 000 hommes à plus de 55 000 en 1918. Pour son engagement exceptionnel, son drapeau est décoré de la Croix de Guerre."
+  },
+  {
+    "section": "Guerres mondiales",
+    "annee": "1921",
+    "titre": "Gustave Ferrié structure les Transmissions",
+    "texte": "Nommé Inspecteur général des Transmissions, le général Gustave Ferrié poursuit la modernisation des télécommunications militaires françaises. Son action contribue à faire de la radio un outil incontournable des armées et pose les bases de l'organisation moderne des Transmissions."
+  },
+  {
+    "section": "Guerres mondiales",
+    "annee": "1942",
+    "titre": "Naissance de l'Arme des Transmissions",
+    "texte": "Le 1ᵉʳ juin 1942, au sein des Forces françaises libres, les Transmissions deviennent officiellement une Arme indépendante. Cette décision, portée par le général Charles de Gaulle et mise en œuvre avec le général Lucien Merlin, reconnaît le rôle stratégique des télécommunications militaires. L'Arme adopte alors ses traditions, son bleu de ciel distinctif et son emblème au Tau accompagné des foudres."
+  },
+  {
+    "section": "Guerre froide",
+    "annee": "1947",
+    "titre": "Création de l'École des Transmissions",
+    "texte": "Après la Seconde Guerre mondiale, l'armée crée à Montargis l'École des Transmissions, chargée de former les officiers, sous-officiers et spécialistes de cette nouvelle Arme. L'établissement devient rapidement le centre de référence pour l'enseignement des techniques de communication militaire."
+  },
+  {
+    "section": "Guerre froide",
+    "annee": "1969",
+    "titre": "L'École d'Application des Transmissions",
+    "texte": "L'École d'Application des Transmissions (EAT) est créée afin d'assurer la formation des cadres aux technologies de la guerre froide. Les enseignements portent notamment sur les faisceaux hertziens, les réseaux tactiques, l'électronique et les nouveaux systèmes de commandement."
+  },
+  {
+    "section": "Guerre froide",
+    "annee": "1979",
+    "titre": "Le système RITA révolutionne les communications",
+    "texte": "L'armée française met en service le RITA (Réseau Intégré des Transmissions Automatiques), premier réseau tactique numérique de grande ampleur. Grâce à ses capacités de commutation automatique, de chiffrement et de mobilité, il constitue une avancée majeure et servira de référence au développement du système américain MSE."
+  },
+  {
+    "section": "Ère numérique",
+    "annee": "1990",
+    "titre": "Les Transmissions en opérations extérieures",
+    "texte": "Avec la professionnalisation des armées, les régiments de Transmissions accompagnent les forces françaises sur tous les théâtres d'opérations : Golfe, Balkans, Afrique ou Afghanistan. Les réseaux satellitaires, les transmissions numériques et les systèmes d'information prennent une place croissante dans la conduite des opérations."
+  },
+  {
+    "section": "Ère numérique",
+    "annee": "2000",
+    "titre": "La numérisation du champ de bataille",
+    "texte": "L'arrivée du Système d'Information et de Commandement des Forces (SICF) transforme la conduite des opérations. Les communications deviennent entièrement numériques, permettant un échange rapide, sécurisé et coordonné des informations entre les unités engagées."
+  },
+  {
+    "section": "Ère numérique",
+    "annee": "2010-2020",
+    "titre": "Les Transmissions à l'ère numérique",
+    "texte": "Les régiments de Transmissions mettent en œuvre les radios logicielles CONTACT, les satellites SYRACUSE IV, les réseaux IP tactiques et les capacités de cyberdéfense. Aujourd'hui, ils assurent les communications sécurisées indispensables aux opérations interarmées et multinationales, tout en répondant aux nouveaux défis du combat collaboratif et de la menace cyber."
+  }
+]

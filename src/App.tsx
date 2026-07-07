@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
+import Timeline from './components/Timeline/Timeline'
 
 /* ── Panneau gauche avec onglets ── */
 const LEFT_TABS = ['Carte des RT', 'Mémorial'] as const
@@ -64,7 +65,9 @@ function LeftPanel() {
 /* ── Panneau droit ── */
 function RightPanel() {
   return (
-    <div className="panel panel-right" />
+    <div className="panel panel-right">
+      <Timeline />
+    </div>
   )
 }
 
