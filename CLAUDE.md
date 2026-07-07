@@ -27,7 +27,13 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     de l'étiquette. Dix implantations : huit RT, le 18e RIT (Dieuze) et le
     régiment de cyberdéfense (Rennes). Toucher une ville ouvre `CardDialog`
     (pop-up de détail avec zoom sur la pucelle du régiment ; images dans
-    `public/pucelles/`).
+    `public/pucelles/`). À l'ouverture de l'onglet, un cartouche de titre
+    flottant (haut-gauche, « Carte intéractive » / « Régiments de
+    transmission ») est poussé sur l'écran depuis le bord gauche, reste
+    `TITLE_HOLD_MS` (~10 s), puis est tiré hors de l'écran : séquence
+    `titlePhase` (in → out → gone) animée en CSS, minuteurs nettoyés au
+    démontage. Le composant se remonte à chaque ouverture de l'onglet, donc
+    la séquence rejoue à chaque visite.
   - `components/Memorial/Memorial.tsx` : noms des soldats morts au combat,
     défilement automatique (requestAnimationFrame), onglets 1GM/2GM (données
     2GM absentes pour l'instant), recherche qui filtre en temps réel et
