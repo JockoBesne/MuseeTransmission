@@ -45,10 +45,10 @@ function LeftPanel() {
   }, [])
 
   return (
-    <div className="panel panel-left">
+    <div className={`panel panel-left${pmrMode ? ' panel-left--pmr' : ''}`}>
       <button
         type="button"
-        className={`pmr-btn${pmrMode ? ' pmr-btn--active' : ''}`}
+        className="pmr-btn"
         aria-pressed={pmrMode}
         aria-label="Accès PMR : déplacer les onglets en bas de l'écran"
         onClick={() => setPmrMode((v) => !v)}
