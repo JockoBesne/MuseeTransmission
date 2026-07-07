@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Feature, FeatureCollection, MultiPolygon, Point, Position } from 'geojson'
 import franceContourRaw from '../../data/france-contour.json'
 import villesData from '../../data/villes.json'
@@ -94,11 +94,36 @@ const cityPoints: CityPoint[] = villes.features.map((f) => {
   return { x, y, props, label: labelLayout(x, y, props.labelDir ?? 'bottom') }
 })
 
+// Cartouche de titre : visible ~30 s à l'ouverture de l'onglet, puis effacé.
+const TITLE_HOLD_MS = 30_000 // durée d'affichage
+const TITLE_ANIM_MS = 1100 // durée de l'animation de sortie avant retrait (cf. CSS)
+
 export default function InteractiveMap() {
   const [selectedCity, setSelectedCity] = useState<City | null>(null)
+  // Phases du cartouche : entrée → sortie → retiré du DOM. Le composant se
+  // remonte à chaque ouverture de l'onglet, donc la séquence rejoue à chaque fois.
+  const [titlePhase, setTitlePhase] = useState<'in' | 'out' | 'gone'>('in')
+
+  useEffect(() => {
+    const outTimer = setTimeout(() => setTitlePhase('out'), TITLE_HOLD_MS)
+    const goneTimer = setTimeout(
+      () => setTitlePhase('gone'),
+      TITLE_HOLD_MS + TITLE_ANIM_MS,
+    )
+    return () => {
+      clearTimeout(outTimer)
+      clearTimeout(goneTimer)
+    }
+  }, [])
 
   return (
     <div className="map-wrapper">
+      {titlePhase !== 'gone' && (
+        <div className={`map-title map-title--${titlePhase}`}>
+          <span className="map-title-kicker">Carte intéractive</span>
+          <h2 className="map-title-main">Régiments de transmission</h2>
+        </div>
+      )}
       <svg
         className="map-svg"
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}

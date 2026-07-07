@@ -4,7 +4,7 @@ import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
 
 /* ── Panneau gauche avec onglets ── */
-const LEFT_TABS = ['Carte des RT', 'Mémorial'] as const
+const LEFT_TABS = ['Carte intéractive', 'Mémorial'] as const
 type LeftTab = typeof LEFT_TABS[number]
 
 /* Borne en libre accès : sans interaction pendant ce délai,
@@ -12,7 +12,7 @@ type LeftTab = typeof LEFT_TABS[number]
 const INACTIVITY_MS = 3 * 60 * 1000
 
 function LeftPanel() {
-  const [activeTab, setActiveTab] = useState<LeftTab>('Carte des RT')
+  const [activeTab, setActiveTab] = useState<LeftTab>('Carte intéractive')
   // Compte les mises en veille : intégré à la clé du contenu, il force le
   // remontage du Mémorial même si l'onglet était déjà actif (recherche vidée,
   // clavier virtuel fermé, défilement relancé).
@@ -59,7 +59,7 @@ function LeftPanel() {
       </nav>
 
       <div key={`${activeTab}-${idleCount}`} className="tab-content">
-        {activeTab === 'Carte des RT' && <InteractiveMap/>}
+        {activeTab === 'Carte intéractive' && <InteractiveMap/>}
         {activeTab === 'Mémorial' && <Memorial />}
       </div>
     </div>
