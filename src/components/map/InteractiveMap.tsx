@@ -95,7 +95,7 @@ const cityPoints: CityPoint[] = villes.features.map((f) => {
 })
 
 // Cartouche de titre : visible ~30 s à l'ouverture de l'onglet, puis effacé.
-const TITLE_HOLD_MS = 30_000 // durée d'affichage
+const TITLE_HOLD_MS = 10_000 // durée d'affichage
 const TITLE_ANIM_MS = 1100 // durée de l'animation de sortie avant retrait (cf. CSS)
 
 export default function InteractiveMap() {
