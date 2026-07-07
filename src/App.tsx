@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { FaWheelchair } from 'react-icons/fa'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
@@ -17,6 +18,9 @@ function LeftPanel() {
   // remontage du Mémorial même si l'onglet était déjà actif (recherche vidée,
   // clavier virtuel fermé, défilement relancé).
   const [idleCount, setIdleCount] = useState(0)
+  // Mode PMR : bascule la barre d'onglets en bas du panneau, activable
+  // depuis la carte interactive (bouton en bas à gauche).
+  const [pmrMode, setPmrMode] = useState(false)
   const activeIndex = LEFT_TABS.indexOf(activeTab)
 
   useEffect(() => {
@@ -42,6 +46,16 @@ function LeftPanel() {
 
   return (
     <div className="panel panel-left">
+      <button
+        type="button"
+        className={`pmr-btn${pmrMode ? ' pmr-btn--active' : ''}`}
+        aria-pressed={pmrMode}
+        aria-label="Accès PMR : déplacer les onglets en bas de l'écran"
+        onClick={() => setPmrMode((v) => !v)}
+      >
+        <FaWheelchair className="pmr-icon" aria-hidden="true" />
+      </button>
+
       <nav className="tab-bar">
         {LEFT_TABS.map((tab) => (
           <button

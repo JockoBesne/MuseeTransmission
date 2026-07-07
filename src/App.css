@@ -36,6 +36,42 @@ html,
   align-items: stretch;
   gap: 0;
 }
+/* ── Bouton PMR (accès mobilité réduite) ── */
+.pmr-btn {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 5;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.pmr-btn:hover,
+.pmr-btn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.pmr-btn--active {
+  border-color: #fecc30;
+  background-color: rgba(254, 204, 48, 0.18);
+}
+
+.pmr-icon {
+  width: 30px;
+  height: 30px;
+}
 
 .panel-right {
   background-color: #0D3151;
