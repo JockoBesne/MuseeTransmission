@@ -7,6 +7,83 @@
   overflow: hidden;
 }
 
+/* Cartouche de titre flottant au-dessus de la carte (coin haut-gauche) :
+   pastille bleu nuit translucide sur la mer, barre d'accent orange, sur-titre
+   + titre. N'occupe aucune hauteur propre, la carte reste pleine. */
+.map-wrapper .map-title {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  max-width: 66%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 11px 18px 12px 15px;
+  border-left: 3px solid #fecc30; /* accent orange de la carte */
+  border-radius: 2px 8px 8px 2px;
+  background: rgba(13, 49, 81, 0.82); /* #0D3151 translucide */
+  box-shadow: 0 6px 18px rgba(2, 20, 36, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+/* Sur-titre orange (écho de l'emblème du Mémorial, dans la teinte carte). */
+.map-title .map-title-kicker {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fecc30;
+}
+
+/* Titre principal — sélecteur plus spécifique que « .panel h2 » (App.css). */
+.map-title .map-title-main {
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+/* Apparition à l'ouverture de l'onglet, puis disparition après ~30 s.
+   L'entrée et la sortie sont pilotées par la classe posée depuis React
+   (map-title--in / map-title--out) ; « both » fige l'état de fin. */
+/* Coulissement pur (sans fondu) : le cartouche part/arrive entièrement
+   hors-champ à gauche — « -100% » sort de sa propre largeur, « - 40px » ajoute
+   la marge et l'ombre. Le .map-wrapper (overflow:hidden) le rogne au bord. */
+@keyframes map-title-in {
+  from { transform: translateX(calc(-100% - 40px)); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes map-title-out {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100% - 40px)); }
+}
+
+/* Entrée : décélère en se posant (comme poussé et calé contre le bord). */
+.map-title--in {
+  will-change: transform;
+  animation: map-title-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Sortie : accélère en filant hors de l'écran (comme tiré d'un coup). */
+.map-title--out {
+  will-change: transform;
+  animation: map-title-out 1.1s cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+
+/* Accessibilité : pas de mouvement si l'utilisateur le refuse. */
+@media (prefers-reduced-motion: reduce) {
+  .map-title--in,
+  .map-title--out {
+    animation-duration: 0.01ms;
+  }
+}
+
 .map-svg {
   display: block;
   height: 100%;
