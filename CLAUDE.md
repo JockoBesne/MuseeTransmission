@@ -32,23 +32,10 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     défilement automatique (requestAnimationFrame), onglets 1GM/2GM (données
     2GM absentes pour l'instant), recherche qui filtre en temps réel et
     stoppe le défilement ; le toucher met le défilement en pause 1,5 s.
-- **Panneau droit** — `components/Timeline/Timeline.tsx` : frise chronologique
-  verticale en défilement automatique infini (deux copies de la liste pour une
-  boucle sans couture, requestAnimationFrame), 4 jalons visibles à la fois,
-  cartes en quinconce autour d'un axe central (année en vis-à-vis), animations
-  d'entrée pilotées par IntersectionObserver (état recopié entre copies au
-  recalage de la boucle pour éviter les flashs). Données dans
-  `src/data/timeline.json` (type `TimelineEvent` dans
-  [src/types.ts](src/types.ts)) ; les sections (Origines, Guerres mondiales,
-  Guerre froide, Ère numérique) sont dérivées du champ `section` et ne
-  découpent pas la frise : elles servent d'ancres à l'index, un tiroir
-  escamotable à droite (fermé par défaut, poignée « Sections » collée au
-  bord droit ; saut animé + surbrillance de la section courante pendant le
-  défilement). Toucher une carte ouvre `TimelineDialog` (modale thème nuit,
-  mise en page éditoriale avec lettrine et navigation circulaire
-  précédent/suivant ; fige la frise, fermeture automatique après 3 min sans
-  interaction). Le toucher met le défilement en pause, reprise 4 s après la
-  dernière interaction.
+    Le champ de recherche ouvre un clavier virtuel AZERTY maison
+    (`VirtualKeyboard.tsx`) — `inputMode="none"` sur l'input pour bloquer
+    le clavier tactile de Windows en mode kiosque.
+- **Panneau droit** — vide : accueillera la frise chronologique (voir « À faire »).
 
 ## Conventions
 
@@ -58,11 +45,14 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
 - CSS pur, un fichier `.css` par composant — pas de bibliothèque UI, pas de
   framework CSS, pas de styles inline sauf valeurs dynamiques.
 - Aucune nouvelle dépendance npm sans la proposer et la justifier d'abord.
+- Ordinaux français (28e, 1ère…) : toujours afficher le suffixe en exposant
+  via le composant `Ord` de [src/utils/ordinals.tsx](src/utils/ordinals.tsx)
+  (utilisé dans Memorial et CardDialog).
 
 ## Design
 
-- Polices : Raleway et Nunito (chargées depuis Google Fonts pour l'instant,
-  voir « À faire »).
+- Polices : Raleway et Nunito, auto-hébergées (woff2 dans src/assets/fonts,
+  déclarées dans src/fonts.css) — ne pas réintroduire de lien Google Fonts.
 - Pas de variables CSS : les couleurs sont écrites en dur dans chaque
   fichier — réutiliser exactement ces valeurs :
   - Fond bleu nuit `#0D3151` (panneaux), `#021b2e` (barre d'onglets),
@@ -79,8 +69,6 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
 - Aucune information accessible uniquement au survol : tout au toucher.
 - Feedback visuel immédiat à chaque interaction.
 - Hors-ligne strict : aucune ressource distante (polices, CDN, API).
-  Exception connue à résorber : index.html charge encore Raleway et Nunito
-  depuis Google Fonts (voir « À faire »).
 - L'app tourne en continu : toujours nettoyer intervalles, animations
   (requestAnimationFrame) et listeners — les fuites mémoire sont critiques ici.
 
@@ -93,15 +81,18 @@ musée est nécessaire.
 
 ## À faire (mettre à jour au fur et à mesure)
 
+<<<<<<< HEAD
 - Frise chronologique : ajouter des flèches Haut/Bas en plus du scroll natif.
 - Clavier virtuel AZERTY pour la recherche du mémorial (la borne n'a pas de
   clavier physique — le champ actuel dépend du clavier système).
+=======
+- Frise chronologique verticale dans le panneau droit : jalons = cartes
+  tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
+  scroll natif.
+>>>>>>> 60636ac0ad6fae7e181d64d77cac3acafcac087d
 - Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
-- Rapatrier les polices en local (Raleway, Nunito) : actuellement chargées
-  depuis le CDN Google Fonts dans index.html — la borne étant hors-ligne,
-  elles ne se chargeraient pas en exposition.
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
  

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import memorial1gm from '../../data/memorial-1gm.json'
+import VirtualKeyboard from './VirtualKeyboard'
 import { Ord } from '../../utils/ordinals'
 import './Memorial.css'
 
@@ -57,6 +58,7 @@ export default function Memorial() {
   const [search, setSearch] = useState('')
   const [hovering, setHovering] = useState(false)
   const [touching, setTouching] = useState(false)
+  const [keyboardOpen, setKeyboardOpen] = useState(false)
 
   const soldats = SOLDATS[war]
 
@@ -68,11 +70,12 @@ export default function Memorial() {
 
   useEffect(() => {
     setSearch('')
+    setKeyboardOpen(false)
     posRef.current = 0
     if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [war])
 
-  const shouldScroll = !search && !hovering && !touching
+  const shouldScroll = !search && !hovering && !touching && !keyboardOpen
 
   const tick = useCallback((ts: number) => {
     const el = scrollRef.current
@@ -148,10 +151,11 @@ export default function Memorial() {
         <span className="search-icon">⌕</span>
         <input
           type="text"
-          inputMode="text"
+          inputMode="none"
           placeholder="Rechercher un nom…"
           value={search}
           onChange={e => handleSearch(e.target.value)}
+          onFocus={() => setKeyboardOpen(true)}
           onTouchEnd={e => (e.currentTarget as HTMLInputElement).focus()}
           className="search-input"
           autoComplete="off"
@@ -160,11 +164,26 @@ export default function Memorial() {
           spellCheck={false}
         />
         {search && (
-          <button className="search-clear" onClick={() => handleSearch('')} aria-label="Effacer">
+          <button
+            className="search-clear"
+            onClick={() => {
+              handleSearch('')
+              setKeyboardOpen(false)
+            }}
+            aria-label="Effacer"
+          >
             ✕
           </button>
         )}
       </div>
+
+      {keyboardOpen && (
+        <VirtualKeyboard
+          value={search}
+          onChange={handleSearch}
+          onClose={() => setKeyboardOpen(false)}
+        />
+      )}
 
       <div
         className="memorial-list"

@@ -1,0 +1,55 @@
+/* ─── Clavier virtuel (borne sans clavier physique) ── */
+
+.virtual-keyboard {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 0 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.vk-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.vk-key {
+  flex: 1;
+  min-width: 48px; /* cible tactile minimale */
+  min-height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+/* Feedback immédiat au toucher */
+.vk-key:active {
+  background: rgba(254, 204, 48, 0.25);
+  border-color: #fecc30;
+  color: #fecc30;
+}
+
+.vk-key--space {
+  flex: 4;
+}
+
+.vk-key--wide {
+  flex: 2;
+}
+
+.vk-key--close {
+  color: #fecc30;
+  border-color: rgba(254, 204, 48, 0.5);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
