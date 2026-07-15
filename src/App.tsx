@@ -30,6 +30,8 @@ function LeftPanel() {
     function onIdle() {
       setActiveTab('Mémorial')
       setIdleCount(c => c + 1)
+      // Retour à la configuration standard pour le visiteur suivant.
+      setPmrMode(false)
     }
 
     function reset() {
