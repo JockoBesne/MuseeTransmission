@@ -33,7 +33,9 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     onglets d'unités (toujours affichés, l'onglet actif est rempli en bleu
     carte `#0f70b7` ; libellé court : champ `abrege`, sinon sigle entre
     parenthèses du nom) ; le nom complet de l'unité et sa devise ouvrent le
-    corps défilant. Zoom sur la pucelle (pointillés dorés `#fecc30`, images
+    corps défilant. En mode PMR (`.panel-left--pmr`, App.tsx), ce bandeau
+    passe sous la fiche (cascade CSS, `flex-direction: column-reverse`)
+    pour rester à portée d'un utilisateur assis. Zoom sur la pucelle (pointillés dorés `#fecc30`, images
     dans `public/pucelles/`), et galerie optionnelle par
     unité via `medias` : `{ "type": "image"|"video", "src", "legende"?,
     "poster"? }` — images zoomables dans le lightbox, vidéos lues en ligne

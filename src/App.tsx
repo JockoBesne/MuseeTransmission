@@ -11,7 +11,7 @@ type LeftTab = typeof LEFT_TABS[number]
 
 /* Borne en libre accès : sans interaction pendant ce délai,
    on revient sur le Mémorial (écran de veille). */
-const INACTIVITY_MS = 3 * 60 * 1000
+const INACTIVITY_MS = 3 * 10 * 1000
 
 function LeftPanel() {
   const [activeTab, setActiveTab] = useState<LeftTab>('Carte intéractive')
@@ -30,6 +30,8 @@ function LeftPanel() {
     function onIdle() {
       setActiveTab('Mémorial')
       setIdleCount(c => c + 1)
+      // Retour à la configuration standard pour le visiteur suivant.
+      setPmrMode(false)
     }
 
     function reset() {

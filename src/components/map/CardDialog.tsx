@@ -151,6 +151,10 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
             <button ref={closeRef} className="card-close" onClick={onClose} aria-label="Fermer">✕</button>
           </div>
 
+          {/* Zone de défilement : corps + indicateur « plus de contenu ».
+             Regroupés pour que l'indicateur reste collé au bord bas du corps,
+             même quand le mode PMR renvoie l'en-tête sous la fiche. */}
+          <div className="card-scroll-zone">
           <div className="card-body" ref={bodyRef} onScroll={updateScrollCue}>
             {/* key={activeIndex} : remonte le contenu au changement d'unité
                (et décharge donc les vidéos en cours de lecture). */}
@@ -267,6 +271,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
               </button>
             </div>
           )}
+          </div>
         </div>
       </div>
 
