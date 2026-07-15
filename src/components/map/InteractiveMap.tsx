@@ -66,8 +66,11 @@ type TextAnchor = 'start' | 'middle' | 'end'
 type Baseline = 'auto' | 'central' | 'hanging'
 
 interface CityPoint {
-  x: number
+  x: number // vrai point géographique projeté (origine de la ligne de rappel)
   y: number
+  mx: number // position affichée du marqueur (décalée si désencombrement)
+  my: number
+  displaced: boolean
   props: City
   label: { x: number; y: number; anchor: TextAnchor; baseline: Baseline }
 }
@@ -88,10 +91,38 @@ function labelLayout(x: number, y: number, dir: LabelDirection): CityPoint['labe
   }
 }
 
+/* ── Désencombrement des marqueurs trop proches ──
+   Certaines villes sont géographiquement si proches que leurs cibles tactiles
+   se chevaucheraient (Île-de-France, Alsace, Issoire/Clermont). On décale alors
+   le marqueur vers une zone libre (dx/dy en unités SVG) et on trace une ligne
+   de rappel jusqu'au vrai point géographique. `labelDir` optionnel repositionne
+   l'étiquette autour du marqueur décalé (sinon celui de villes.json). */
+const MARKER_OFFSETS: Record<string, { dx: number; dy: number; labelDir?: LabelDirection }> = {
+  Paris: { dx: 0, dy: 0, labelDir: 'top' }, // libère le bas pour les rappels franciliens
+  Versailles: { dx: -80, dy: 4, labelDir: 'bottom' },
+  Arcueil: { dx: 45, dy: 29, labelDir: 'right' },
+  Montlhéry: { dx: 0, dy: 56, labelDir: 'bottom' },
+  Mutzig: { dx: -43, dy: 35, labelDir: 'bottom' },
+  Haguenau: { dx: 0, dy: -30, labelDir: 'right' },
+  Issoire: { dx: 0, dy: 20, labelDir: 'bottom' },
+}
+
 const cityPoints: CityPoint[] = villes.features.map((f) => {
   const [x, y] = project(f.geometry.coordinates)
   const props = f.properties
-  return { x, y, props, label: labelLayout(x, y, props.labelDir ?? 'bottom') }
+  const off = MARKER_OFFSETS[props.nom]
+  const mx = x + (off?.dx ?? 0)
+  const my = y + (off?.dy ?? 0)
+  const dir = off?.labelDir ?? props.labelDir ?? 'bottom'
+  return {
+    x,
+    y,
+    mx,
+    my,
+    displaced: !!off && (off.dx !== 0 || off.dy !== 0),
+    props,
+    label: labelLayout(mx, my, dir),
+  }
 })
 
 // Cartouche de titre : visible ~30 s à l'ouverture de l'onglet, puis effacé.
@@ -133,7 +164,20 @@ export default function InteractiveMap() {
       >
         <path className="map-contour" d={contourPath} fillRule="evenodd" />
 
-        {cityPoints.map(({ x, y, props, label }) => (
+        {/* Lignes de rappel des marqueurs décalés, tracées derrière les
+           marqueurs (décoratives : le vrai point est marqué d'un petit repère). */}
+        <g className="map-leaders" aria-hidden="true">
+          {cityPoints
+            .filter((p) => p.displaced)
+            .map((p) => (
+              <g key={p.props.nom}>
+                <line className="map-leader" x1={p.x} y1={p.y} x2={p.mx} y2={p.my} />
+                <circle className="map-leader-anchor" cx={p.x} cy={p.y} r={2.5} />
+              </g>
+            ))}
+        </g>
+
+        {cityPoints.map(({ mx, my, props, label }) => (
           <g
             key={props.nom}
             className="map-city"
@@ -154,10 +198,11 @@ export default function InteractiveMap() {
               }
             }}
           >
-            {/* Zone tactile élargie : r=13 max, la paire la plus proche
-               (Mutzig–Haguenau) est à 26,3 unités — pas de chevauchement. */}
-            <circle className="map-hit" cx={x} cy={y} r={13} />
-            <circle className="map-marker" cx={x} cy={y} r={6} />
+            {/* Zone tactile élargie (r=13). Les villes trop proches sont
+               décalées via MARKER_OFFSETS pour que les cibles ne se
+               chevauchent pas (cf. ligne de rappel vers le vrai point). */}
+            <circle className="map-hit" cx={mx} cy={my} r={13} />
+            <circle className="map-marker" cx={mx} cy={my} r={6} />
             <text
               className="map-label"
               x={label.x}
@@ -165,7 +210,6 @@ export default function InteractiveMap() {
               textAnchor={label.anchor}
               dominantBaseline={label.baseline}
             >
-
               {props.nom}
             </text>
           </g>
