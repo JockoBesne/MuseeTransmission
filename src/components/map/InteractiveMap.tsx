@@ -139,7 +139,13 @@ export default function InteractiveMap() {
             className="map-city"
             role="button"
             tabIndex={0}
-            aria-label={`${props.nom} — ${props.regiment}`}
+            aria-label={
+              props.entites.length > 1
+                ? `${props.nom} — ${props.entites.length} unités : ${props.entites
+                    .map((e) => e.regiment)
+                    .join(', ')}`
+                : `${props.nom} — ${props.entites[0]?.regiment ?? ''}`
+            }
             onClick={() => setSelectedCity(props)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -159,7 +165,7 @@ export default function InteractiveMap() {
               textAnchor={label.anchor}
               dominantBaseline={label.baseline}
             >
-              
+
               {props.nom}
             </text>
           </g>

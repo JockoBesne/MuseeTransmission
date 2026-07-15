@@ -22,12 +22,22 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
 - **Panneau gauche** — deux onglets :
   - `components/map/InteractiveMap.tsx` : carte SVG de la France, projection
     Web Mercator maison (pas de Leaflet). Les villes viennent de
-    `src/data/villes.json` (GeoJSON `FeatureCollection<Point, City>`, type
-    `City` dans [src/types.ts](src/types.ts)) ; `labelDir` contrôle la position
-    de l'étiquette. Dix implantations : huit RT, le 18e RIT (Dieuze) et le
-    régiment de cyberdéfense (Rennes). Toucher une ville ouvre `CardDialog`
-    (pop-up de détail avec zoom sur la pucelle du régiment ; images dans
-    `public/pucelles/`). À l'ouverture de l'onglet, un cartouche de titre
+    `src/data/villes.json` (GeoJSON `FeatureCollection<Point, City>`, types
+    `City`/`Unite`/`UniteMedia` dans [src/types.ts](src/types.ts)) ;
+    `labelDir` contrôle la position de l'étiquette. Une ville porte une liste
+    `entites` (plusieurs unités possibles sur un même point). Dix
+    implantations : huit RT, le 18e RIT (Dieuze) et le régiment de
+    cyberdéfense (Rennes). Toucher une ville ouvre `CardDialog` : pop-up de
+    **taille fixe** (fond blanc légèrement grisé) dont seul le corps défile
+    (indicateur flèche + fondu quand du contenu dépasse). En-tête = ville +
+    onglets d'unités (toujours affichés, l'onglet actif est rempli en bleu
+    carte `#0f70b7` ; libellé court : champ `abrege`, sinon sigle entre
+    parenthèses du nom) ; le nom complet de l'unité et sa devise ouvrent le
+    corps défilant. Zoom sur la pucelle (pointillés dorés `#fecc30`, images
+    dans `public/pucelles/`), et galerie optionnelle par
+    unité via `medias` : `{ "type": "image"|"video", "src", "legende"?,
+    "poster"? }` — images zoomables dans le lightbox, vidéos lues en ligne
+    (contrôles natifs, `playsInline`, fichiers locaux dans `public/media/`). À l'ouverture de l'onglet, un cartouche de titre
     flottant (haut-gauche, « Carte intéractive » / « Régiments de
     transmission ») est poussé sur l'écran depuis le bord gauche, reste
     `TITLE_HOLD_MS` (~10 s), puis est tiré hors de l'écran : séquence
@@ -64,10 +74,13 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
   - Fond bleu nuit `#0D3151` (panneaux), `#021b2e` (barre d'onglets),
     bleu carte `#0f70b7`.
   - Accent doré `#fecc30` (mémorial, onglets/éléments actifs, marqueurs) ;
-    accent orange `#ff8200` (carte, pop-up).
+    accent orange `#ff8200` (carte uniquement — plus aucun orange dans la
+    pop-up CardDialog).
   - Textes clairs `#ffffff` / `#e0e0e0` sur fond sombre.
-  - Exception : la pop-up CardDialog est en thème clair (fond blanc,
-    texte `#1a1a1a`).
+  - Exception : la pop-up CardDialog est en thème clair (fond `#f2f2f2`,
+    texte `#1a1a1a`), avec en-tête bleu nuit `#0D3151` à liseré doré,
+    accents bleu carte `#0f70b7` (onglet actif, galons de sections,
+    indicateur de défilement) et pointillés dorés autour de la pucelle.
 
 ## Contraintes borne tactile
 
@@ -93,6 +106,10 @@ musée est nécessaire.
 - Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
+- villes.json : la « Seconde unité du site » de Rennes et les `medias` de
+  Paris sont des EXEMPLES (démonstration multi-unités et galerie) — à
+  remplacer ou supprimer avec les contenus validés par le musée. Les vraies
+  images/vidéos iront dans `public/media/` (hors-ligne strict).
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
  

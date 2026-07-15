@@ -1,99 +1,217 @@
+/* ── Fiche d'unité — thème « musée militaire » ──
+   Aucun orange ici : structure bleu nuit #0D3151, accents bleu carte #0f70b7,
+   liseré doré #fecc30 en écho au cartouche de la carte et au Mémorial. */
+
 .card-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: rgba(2, 27, 46, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 
+/* ── Carte : taille FIXE, le contenu défile à l'intérieur ──
+   La hauteur n'est pas dictée par le contenu : la fiche garde le même
+   gabarit quelle que soit la quantité d'information (borne tactile). */
 .card {
-  background: #ffffff;
+  position: relative;
+  background: #f2f2f2; /* blanc légèrement assombri */
   color: #1a1a1a;
-  border-radius: 12px;
-  width: 92%;
-  max-width: 700px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  width: min(92%, 720px);
+  height: min(86%, 700px);
+  box-shadow: 0 14px 44px rgba(2, 27, 46, 0.55);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* ── En-tête ── */
+/* ── En-tête (fixe) : bandeau bleu nuit à liseré doré —
+   ville + onglets d'unités + fermer, sur une ligne ── */
 .card-header {
+  flex: none;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 16px 24px 14px;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ddd;
-  gap: 12px;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 10px 10px 24px;
+  background-color: #0D3151;
+  border-bottom: 3px solid #fecc30;
 }
 
-.card-header-text {
+/* Nom de la ville — même écriture que le cartouche de la carte. */
+.card-kicker {
+  flex: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fecc30;
+}
+
+/* ── Onglets d'unités : l'onglet rempli en bleu = fiche affichée ── */
+.card-tabs {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 10px;
+  padding: 2px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card-tab {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 6px 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background-color: transparent;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Insigne sur médaillon blanc, lisible sur le bandeau sombre. */
+.card-tab-insigne {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.card-tab-label {
+  white-space: nowrap;
+}
+
+/* Liseré doré au survol / à l'appui — écho du liseré de l'en-tête. */
+.card-tab:hover,
+.card-tab:focus-visible {
+  border-color: #fecc30;
+  box-shadow: 0 0 0 2px rgba(254, 204, 48, 0.35);
+  color: #ffffff;
+  outline: none;
+}
+
+.card-tab--active {
+  background-color: #0f70b7; /* bleu carte */
+  border-color: #0f70b7;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(2, 27, 46, 0.5);
+}
+
+/* Cible tactile ≥ 48 px. */
+.card-close {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.card-close:hover,
+.card-close:focus-visible {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  outline: none;
+}
+
+/* ── Corps : seule zone défilante (glisser vertical au doigt) ── */
+.card-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #b7c3cd transparent;
+}
+
+.card-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-body::-webkit-scrollbar-thumb {
+  background-color: #b7c3cd;
+  border-radius: 3px;
+}
+
+.card-content {
+  padding: 20px 24px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ── Bloc titre : nom complet de l'unité + devise, façon note officielle ── */
+.card-title-block {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding-left: 14px;
+  border-left: 4px solid #0f70b7;
 }
 
-.card-header h3 {
+.card-title-block h3 {
   font-family: 'Raleway', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #0D3151;
   line-height: 1.3;
+  margin: 0;
 }
 
 .card-subtitle {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-style: italic;
-  color: #777;
-  line-height: 1.3;
+  color: #5a6b7a;
+  line-height: 1.35;
 }
 
-.card-close {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  color: #666;
-  cursor: pointer;
-  line-height: 1;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: background-color 0.15s, color 0.15s;
-}
-
-.card-close:hover {
-  background-color: #e0e0e0;
-  color: #111;
-}
-
-/* ── Corps ── */
-.card-body {
-  padding: 16px 24px 24px;
+/* Première rangée : Histoire à gauche, pucelle + garnison à droite. */
+.card-intro {
   display: grid;
-  grid-template-columns: 1fr 110px;
-  grid-template-rows: auto auto;
-  column-gap: 16px;
-  row-gap: 12px;
+  grid-template-columns: 1fr 120px;
+  column-gap: 18px;
+  align-items: start;
 }
 
 .card-media-col {
-  grid-column: 2;
-  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .card-photo {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   background-color: #ffffff;
-  border: 2px dashed #bbb;
+  border: 2px dashed #fecc30; /* pointillés dorés */
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -121,17 +239,206 @@ button.card-photo {
 
 button.card-photo:hover,
 button.card-photo:focus-visible {
-  border-color: #ff8200;
-  box-shadow: 0 0 0 2px rgba(255, 130, 0, 0.35);
+  border-color: #0f70b7;
+  box-shadow: 0 0 0 2px rgba(15, 112, 183, 0.35);
   outline: none;
 }
 
-/* ── Lightbox : photo agrandie sur le panneau carte ── */
+.card-geo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  color: #5a6b7a;
+  text-align: center;
+  line-height: 1.35;
+  width: 100%;
+}
+
+.card-geo-label {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #0f70b7;
+  margin-bottom: 2px;
+}
+
+/* ── Sections : titre réglementaire, galon bleu + filet horizontal ── */
+.card-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #0D3151;
+  margin: 0 0 8px 0;
+}
+
+/* Galon : double barrette bleu nuit / bleu carte. */
+.card-section h4::before {
+  content: '';
+  flex: none;
+  width: 22px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #0D3151 0 9px,
+    rgba(0, 0, 0, 0) 9px 13px,
+    #0f70b7 13px 22px
+  );
+}
+
+/* Filet jusqu'au bord droit : lecture ordonnée, façon document d'état-major. */
+.card-section h4::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #ccd4da;
+}
+
+.card-section p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.90rem;
+  line-height: 1.65;
+  color: #333;
+  text-align: left;
+}
+
+.card-histoire {
+  text-align: left;
+}
+
+.card-specificite {
+  text-align: left;
+}
+
+.card-specificite p {
+  text-align: justify;
+  text-align-last: left;
+}
+
+/* ── Galerie : images (zoom au toucher) et vidéos (lecture intégrée) ── */
+.card-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card-gallery-item {
+  padding: 0;
+  border: 1.5px solid #ccd4da;
+  border-radius: 8px;
+  background-color: #ffffff;
+  overflow: hidden;
+  cursor: zoom-in;
+  height: 150px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-gallery-item:hover,
+.card-gallery-item:focus-visible {
+  border-color: #0f70b7;
+  box-shadow: 0 0 0 2px rgba(15, 112, 183, 0.35);
+  outline: none;
+}
+
+/* Une vidéo occupe toute la largeur, commandes natives (tactile). */
+.card-gallery-video {
+  grid-column: 1 / -1;
+  margin: 0;
+  border: 1.5px solid #ccd4da;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #021b2e;
+}
+
+.card-gallery-video video {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  background-color: #021b2e;
+}
+
+.card-gallery-video figcaption {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #333;
+  background-color: #ffffff;
+  border-top: 3px solid #0f70b7;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+/* ── Indicateur « plus de contenu » : fondu + flèche tactile ── */
+.card-more {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.card-more-fade {
+  height: 64px;
+  background: linear-gradient(180deg, rgba(242, 242, 242, 0), rgba(242, 242, 242, 0.95));
+}
+
+.card-more-btn {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background-color: #0f70b7;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(2, 27, 46, 0.35);
+  animation: cardMoreNudge 1.8s ease-in-out infinite;
+  transition: background-color 0.15s ease;
+}
+
+.card-more-btn:hover,
+.card-more-btn:focus-visible {
+  background-color: #1a83d0;
+  outline: none;
+}
+
+@keyframes cardMoreNudge {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-more-btn {
+    animation: none;
+  }
+}
+
+/* ── Lightbox : média agrandi sur le panneau carte ── */
 .photo-zoom-overlay {
   position: absolute;
   inset: 0;
   z-index: 1100;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(2, 27, 46, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,7 +487,7 @@ button.card-photo:focus-visible {
 .photo-zoom-caption {
   width: 100%;
   padding: 12px 20px 16px;
-  border-top: 3px solid #ff8200;
+  border-top: 3px solid #0f70b7;
   background: linear-gradient(180deg, #fafafa, #f0f0f0);
   text-align: left;
 }
@@ -192,7 +499,7 @@ button.card-photo:focus-visible {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #ff8200;
+  color: #0f70b7;
   margin-bottom: 4px;
 }
 
@@ -204,12 +511,13 @@ button.card-photo:focus-visible {
   margin: 0;
 }
 
+/* Cible tactile ≥ 48 px. */
 .photo-zoom-close {
   position: absolute;
   top: 14px;
   right: 18px;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border: none;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.15);
@@ -227,49 +535,4 @@ button.card-photo:focus-visible {
 .photo-zoom-close:focus-visible {
   background-color: rgba(255, 255, 255, 0.3);
   outline: none;
-}
-
-.card-geo {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
-  color: #888;
-  text-align: center;
-  line-height: 1.3;
-  width: 100%;
-}
-
-/* ── Sections ── */
-.card-section h4 {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #555;
-  margin: 0 0 4px 0;
-}
-
-.card-section p {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.90rem;
-  line-height: 1.65;
-  color: #333;
-  text-align: left;
-}
-
-.card-histoire {
-  grid-column: 1;
-  grid-row: 1;
-  text-align: left;
-}
-
-.card-specificite {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  text-align: left;
-}
-
-.card-specificite p {
-  text-align: justify;
-  text-align-last: left;
 }

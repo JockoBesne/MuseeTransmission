@@ -5,14 +5,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Issoire",
-        "regiment": "28e régiment de transmissions (28e RT)",
-        "texte": "« Agir vite et bien »",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "63505 Issoire (Auvergne) — Quartier de Bange. Implanté depuis 1998.",
-        "photo": "/pucelles/28e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "bottom"
+        "labelDir": "bottom",
+        "entites": [
+          {
+            "regiment": "28e régiment de transmissions (28e RT)",
+            "texte": "« Agir vite et bien »",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "63505 Issoire (Auvergne) — Quartier de Bange. Implanté depuis 1998.",
+            "photo": "/pucelles/28e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [3.2495, 45.5439] }
     },
@@ -20,14 +24,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Thionville",
-        "regiment": "40e régiment de transmissions (40e RT)",
-        "texte": "« Qui me regarde s'incline »",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "57216 Thionville (Moselle) — Quartier Jeanne d'Arc.",
-        "photo": "/pucelles/40e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "left"
+        "labelDir": "left",
+        "entites": [
+          {
+            "regiment": "40e régiment de transmissions (40e RT)",
+            "texte": "« Qui me regarde s'incline »",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "57216 Thionville (Moselle) — Quartier Jeanne d'Arc.",
+            "photo": "/pucelles/40e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [6.1681, 49.3578] }
     },
@@ -35,14 +43,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Douai",
-        "regiment": "41e régiment de transmissions (41e RT)",
-        "texte": "« Par-delà les terres et l'Océan »",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "59500 Douai (Nord) — Quartier Corbineau.",
-        "photo": "/pucelles/41e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "bottom"
+        "labelDir": "bottom",
+        "entites": [
+          {
+            "regiment": "41e régiment de transmissions (41e RT)",
+            "texte": "« Par-delà les terres et l'Océan »",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "59500 Douai (Nord) — Quartier Corbineau.",
+            "photo": "/pucelles/41e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [3.0794, 50.3714] }
     },
@@ -50,14 +62,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Agen",
-        "regiment": "48e régiment de transmissions (48e RT)",
-        "texte": "« Religare et unire sic » (relier et unir ainsi)",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "47918 Agen (Lot-et-Garonne) — Quartier Toussaint.",
-        "photo": "/pucelles/48e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "bottom"
+        "labelDir": "bottom",
+        "entites": [
+          {
+            "regiment": "48e régiment de transmissions (48e RT)",
+            "texte": "« Religare et unire sic » (relier et unir ainsi)",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "47918 Agen (Lot-et-Garonne) — Quartier Toussaint.",
+            "photo": "/pucelles/48e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [0.6188, 44.2049] }
     },
@@ -65,14 +81,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Lunéville",
-        "regiment": "53e régiment de transmissions (53e RT)",
-        "texte": "« Foudre dans l'azur »",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "54301 Lunéville (Meurthe-et-Moselle) — Quartier Treuille de Beaulieu.",
-        "photo": "/pucelles/53e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "left"
+        "labelDir": "left",
+        "entites": [
+          {
+            "regiment": "53e régiment de transmissions (53e RT)",
+            "texte": "« Foudre dans l'azur »",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "54301 Lunéville (Meurthe-et-Moselle) — Quartier Treuille de Beaulieu.",
+            "photo": "/pucelles/53e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [6.4972, 48.5126] }
     },
@@ -80,14 +100,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Dieuze",
-        "regiment": "18e régiment d'instruction des transmissions (18e RIT)",
-        "texte": "« Ardent et généreux »",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "57260 Dieuze (Moselle) — Quartier Lyautey.",
-        "photo": "/pucelles/18e-rit.jpg",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "left"
+        "labelDir": "left",
+        "entites": [
+          {
+            "regiment": "18e régiment d'instruction des transmissions (18e RIT)",
+            "texte": "« Ardent et généreux »",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "57260 Dieuze (Moselle) — Quartier Lyautey.",
+            "photo": "/pucelles/18e-rit.jpg",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [6.7186, 48.8508] }
     },
@@ -95,14 +119,27 @@
       "type": "Feature",
       "properties": {
         "nom": "Rennes",
-        "regiment": "régiment de cyberdéfense",
-        "texte": "« Pugnare in Tenebris, Vincere in Luminis » (combattre dans les ténèbres, vaincre dans la lumière)",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "35998 Saint-Jacques-de-la-Lande / Rennes (Ille-et-Vilaine) — Quartier Stéphant.",
-        "photo": "/pucelles/cyberdefense.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "bottom"
+        "labelDir": "bottom",
+        "entites": [
+          {
+            "regiment": "régiment de cyberdéfense",
+            "abrege": "Cyberdéfense",
+            "texte": "« Pugnare in Tenebris, Vincere in Luminis » (combattre dans les ténèbres, vaincre dans la lumière)",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "35998 Saint-Jacques-de-la-Lande / Rennes (Ille-et-Vilaine) — Quartier Stéphant.",
+            "photo": "/pucelles/cyberdefense.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          },
+          {
+            "regiment": "Seconde unité du site (exemple — contenu à valider par le musée)",
+            "abrege": "Seconde unité (exemple)",
+            "texte": "« Devise à renseigner »",
+            "histoire": "EXEMPLE à remplacer : cette fiche illustre l'affichage de plusieurs unités sur un même point de la carte. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "specificite": "EXEMPLE à remplacer : excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.",
+            "garnison": "Garnison à renseigner (Ille-et-Vilaine)."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [-1.7117, 48.0784] }
     },
@@ -110,14 +147,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Mutzig",
-        "regiment": "44e régiment de transmissions (44e RT)",
-        "texte": "« Nihil nisi silentium timet » (Rien ne craint que le silence)",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "67190 Mutzig / 67125 Molsheim (Bas-Rhin) — Quartier Moussy.",
-        "photo": "/pucelles/44e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "right"
+        "labelDir": "right",
+        "entites": [
+          {
+            "regiment": "44e régiment de transmissions (44e RT)",
+            "texte": "« Nihil nisi silentium timet » (Rien ne craint que le silence)",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "67190 Mutzig / 67125 Molsheim (Bas-Rhin) — Quartier Moussy.",
+            "photo": "/pucelles/44e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [7.5914, 48.5403] }
     },
@@ -125,14 +166,18 @@
       "type": "Feature",
       "properties": {
         "nom": "Haguenau",
-        "regiment": "54e régiment de transmissions (54e RT)",
-        "texte": "« Nihil affirmat quod non probet » (Il n'affirme rien qu'il ne prouve) — « Toujours prouver »",
-        "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
-        "garnison": "67504 Oberhoffen-sur-Moder / Haguenau (Bas-Rhin) — Quartier Estienne.",
-        "photo": "/pucelles/54e-rt.png",
-        "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "labelDir": "right"
+        "labelDir": "right",
+        "entites": [
+          {
+            "regiment": "54e régiment de transmissions (54e RT)",
+            "texte": "« Nihil affirmat quod non probet » (Il n'affirme rien qu'il ne prouve) — « Toujours prouver »",
+            "histoire": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "specificite": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+            "garnison": "67504 Oberhoffen-sur-Moder / Haguenau (Bas-Rhin) — Quartier Estienne.",
+            "photo": "/pucelles/54e-rt.png",
+            "photoDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Insigne héraldique du régiment, ses symboles et couleurs rappellent son histoire et sa mission. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [7.8900, 48.8156] }
     },
@@ -140,14 +185,31 @@
       "type": "Feature",
       "properties": {
         "nom": "Paris",
-        "regiment": "8e régiment de transmissions (8e RT — DANZ Île-de-France)",
-        "texte": "« Tu es l'ancien, sois le meilleur »",
-        "histoire": "Berceau de l'Arme au Mont-Valérien, qui accueille l'école de télégraphie militaire dès 1894. Le 8e régiment du génie est créé en 1913 (centre de formation à la télégraphie de ~12 000 soldats). Il devient 8e régiment de transmissions en 1947. Fusionne avec la DIRISI le 1er août 2014 (DIRISI IDF - 8e RT), puis avec le CND le 1er septembre 2025 pour former la DANZ Île-de-France 8e RT. Son drapeau (remis en 1913) est l'unique emblème de l'armée française à porter l'inscription « Résistance 1940-1944 » ; il est conservé au Mont-Valérien.",
-        "specificite": "Direction d'appui au numérique zonal d'Île-de-France (CND/COMNUMIA). Assure 7j/7 et 24h/24 le déploiement, la mise en œuvre et le soutien des SIC à Paris, en Île-de-France et en Sud-Picardie (du niveau NP au TS SF), au profit de plus de 3 500 usagers sensibles. Appui des grands événements : 14 juillet, JOP 2024 (GAPSIC), salons (Bourget, Euronaval).",
-        "garnison": "78100 Saint-Germain-en-Laye / 92150 Suresnes / Mont-Valérien (Île-de-France).",
-        "photo": "/pucelles/8e-rt.png",
-        "photoDescription": "Insigne du 8e régiment de transmissions : lorem ipsum dolor sit amet, consectetur adipiscing elit. Ses symboles rappellent le Mont-Valérien, berceau de l'arme des transmissions. Sed do eiusmod tempor incididunt ut labore.",
-        "labelDir": "bottom"
+        "labelDir": "bottom",
+        "entites": [
+          {
+            "regiment": "8e régiment de transmissions (8e RT — DANZ Île-de-France)",
+            "abrege": "8e RT",
+            "texte": "« Tu es l'ancien, sois le meilleur »",
+            "histoire": "Berceau de l'Arme au Mont-Valérien, qui accueille l'école de télégraphie militaire dès 1894. Le 8e régiment du génie est créé en 1913 (centre de formation à la télégraphie de ~12 000 soldats). Il devient 8e régiment de transmissions en 1947. Fusionne avec la DIRISI le 1er août 2014 (DIRISI IDF - 8e RT), puis avec le CND le 1er septembre 2025 pour former la DANZ Île-de-France 8e RT. Son drapeau (remis en 1913) est l'unique emblème de l'armée française à porter l'inscription « Résistance 1940-1944 » ; il est conservé au Mont-Valérien.",
+            "specificite": "Direction d'appui au numérique zonal d'Île-de-France (CND/COMNUMIA). Assure 7j/7 et 24h/24 le déploiement, la mise en œuvre et le soutien des SIC à Paris, en Île-de-France et en Sud-Picardie (du niveau NP au TS SF), au profit de plus de 3 500 usagers sensibles. Appui des grands événements : 14 juillet, JOP 2024 (GAPSIC), salons (Bourget, Euronaval).",
+            "garnison": "78100 Saint-Germain-en-Laye / 92150 Suresnes / Mont-Valérien (Île-de-France).",
+            "photo": "/pucelles/8e-rt.png",
+            "photoDescription": "Insigne du 8e régiment de transmissions : lorem ipsum dolor sit amet, consectetur adipiscing elit. Ses symboles rappellent le Mont-Valérien, berceau de l'arme des transmissions. Sed do eiusmod tempor incididunt ut labore.",
+            "medias": [
+              {
+                "type": "image",
+                "src": "/pucelles/8e-rt.png",
+                "legende": "EXEMPLE de média image — remplacer par une photo du régiment (fichier local dans public/media/) et sa légende validée."
+              },
+              {
+                "type": "image",
+                "src": "/pucelles/cyberdefense.png",
+                "legende": "EXEMPLE de média image — la galerie accepte plusieurs images et vidéos par unité."
+              }
+            ]
+          }
+        ]
       },
       "geometry": { "type": "Point", "coordinates": [2.0944, 48.8978] }
     }
