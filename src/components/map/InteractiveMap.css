@@ -149,10 +149,60 @@
   font-family: 'Raleway', sans-serif;
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.03em; /* noms de villes aérés, moins confus */
   pointer-events: none;
   user-select: none;
   paint-order: stroke;
   stroke: #ffffff;
   stroke-width: 3px;
   stroke-linejoin: round;
+}
+
+/* ── Encart de zoom (« loupe ») sur une région dense ── */
+.map-inset {
+  pointer-events: none; /* décoratif ; les marqueurs agrandis restent cliquables */
+}
+
+/* Rectangle marquant, sur la carte, la vraie zone agrandie. */
+.map-inset-src {
+  fill: #ff8200;
+  fill-opacity: 0.08;
+  stroke: #ff8200;
+  stroke-width: 1.3;
+  stroke-dasharray: 4 3;
+}
+
+/* Trait reliant la zone réelle à l'encart. */
+.map-inset-link {
+  stroke: #ff8200;
+  stroke-width: 1.3;
+  stroke-opacity: 0.6;
+  stroke-dasharray: 4 3;
+}
+
+/* Panneau de l'encart : pastille bleu nuit à liseré doré, posée sur la mer. */
+.map-inset-panel {
+  fill: #0a2740;
+  fill-opacity: 0.97;
+  stroke: #fecc30;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 6px 14px rgba(2, 20, 36, 0.55));
+}
+
+.map-inset-title {
+  fill: #fecc30;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Étiquettes à l'intérieur d'un encart : texte clair, halo sombre. */
+.map-label--inset {
+  fill: #ffffff;
+  stroke: #0a2740;
+  stroke-width: 3.5px;
 }
