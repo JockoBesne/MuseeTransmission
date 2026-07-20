@@ -110,7 +110,7 @@
 }
 
 .map-marker {
-  fill: #ff8200;
+  fill: #fecc30;
   stroke: #ffffff;
   stroke-width: 2;
   transition: fill 0.15s ease, r 0.15s ease;
@@ -118,7 +118,7 @@
 
 .map-city:hover .map-marker,
 .map-city:focus-visible .map-marker {
-  fill: #ffa040;
+  fill: #fecc30;
 }
 
 .map-city:focus-visible .map-marker {
@@ -137,4 +137,127 @@
   stroke: #ffffff;
   stroke-width: 3px;
   stroke-linejoin: round;
+}
+
+/* ── Mode « zoom tactile » ──
+   Note : les valeurs font-size / stroke-width ci-dessus restent les valeurs
+   par défaut ; pendant le zoom, le composant pose les tailles en style
+   inline (constantes à l'écran) — l'inline l'emporte sur ces règles. */
+
+/* Zone de regroupement (délimitation régionale de regions-zones.json,
+   ex. Île-de-France) : surface tactile qui remplace les villes trop denses
+   en vue d'ensemble — toucher la zone zoome sur ses villes. */
+.map-zone {
+  cursor: pointer;
+  outline: none;
+}
+
+.map-zone-shape {
+  fill: rgba(255, 130, 0, 0.16); /* accent orange de la carte, translucide */
+  stroke: #ffb700;
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+  stroke-linejoin: round;
+  transition: fill 0.15s ease;
+}
+
+.map-zone:hover .map-zone-shape,
+.map-zone:focus-visible .map-zone-shape {
+  fill: rgba(255, 130, 0, 0.3);
+}
+
+.map-zone:focus-visible .map-zone-shape {
+  stroke: #fecc30;
+}
+
+/* Pendant le zoom : simple trait de contexte, non tactile. */
+.map-zone-shape--bg {
+  fill: none;
+  pointer-events: none;
+}
+
+/* Bouton de retour à la vue d'ensemble (pendant le zoom). */
+.map-back-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #fecc30;
+  color: #14203a;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(2, 20, 36, 0.45);
+}
+
+.map-back-btn:hover {
+  background: #ffd75c;
+}
+
+/* ── Habillage de la vue zoomée ── */
+
+/* Léger voile sur la zone zoomée (après --bg pour l'emporter sur fill:none). */
+.map-zone-shape--active {
+  fill: rgba(255, 130, 0, 0.06);
+}
+
+/* Nom de la région en filigrane dans le SVG (font-size posé en style
+   inline par le composant : 15 × u, constant à l'écran). */
+.map-zone-watermark {
+  fill: #0D3151;
+  opacity: 0.35;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Encart de région (bas-droite), miroir du cartouche de titre :
+   pastille bleu nuit translucide, barre d'accent orange côté droit. */
+.map-region-card {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: flex-end;
+  text-align: right;
+  padding: 11px 15px 12px 18px;
+  border-right: 3px solid #ff8200;
+  border-radius: 8px 2px 2px 8px;
+  background: rgba(13, 49, 81, 0.82); /* #0D3151 translucide */
+  box-shadow: 0 6px 18px rgba(2, 20, 36, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.map-region-kicker {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fecc30;
+}
+
+.map-region-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.map-region-sub {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  color: #9fb4c8;
 }

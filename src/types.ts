@@ -43,3 +43,10 @@ export interface City {
   labelDir?: LabelDirection
   entites: Unite[]
 }
+
+/** Propriétés d'une zone de regroupement de la carte
+    (src/data/regions-zones.json : délimitations régionales tactiles). */
+export interface ZoneProps {
+  code: string
+  nom: string
+}
