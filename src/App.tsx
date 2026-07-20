@@ -79,7 +79,7 @@ function LeftPanel() {
       </nav>
 
       <div key={`${activeTab}-${idleCount}`} className="tab-content">
-        {activeTab === 'Carte intéractive' && <InteractiveMap/>}
+        {activeTab === 'Carte intéractive' && <InteractiveMap pmrMode={pmrMode} />}
         {activeTab === 'Mémorial' && <Memorial />}
       </div>
     </div>

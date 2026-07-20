@@ -264,13 +264,48 @@ function zoomCities(view: ViewBox): Pt[] {
 const TITLE_HOLD_MS = 10_000
 const TITLE_ANIM_MS = 1100
 
-export default function InteractiveMap() {
+// Entrées du tiroir-index, triées par nom de ville (ordre alphabétique français).
+const indexEntries = [...villes.features]
+  .map((f) => f.properties)
+  .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
+
+// Sortie du mode PMR : durée du coulissement du tiroir hors de l'écran
+// avant son retrait du DOM (aligné sur la transition CSS de .map-drawer).
+const DRAWER_EXIT_MS = 550
+
+interface InteractiveMapProps {
+  /** Affiche le tiroir-index (intercalaire) : réservé au mode PMR. */
+  pmrMode: boolean
+}
+
+export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
   const [selectedCity, setSelectedCity] = useState<City | null>(null)
   const [titlePhase, setTitlePhase] = useState<'in' | 'out' | 'gone'>('in')
   const [view, setView] = useState<ViewBox>(FULL_VIEW)
   const [zoomedZone, setZoomedZone] = useState<Zone | null>(null)
   const [animating, setAnimating] = useState(false)
   const rafRef = useRef(0)
+  // Tiroir-index (intercalaire) : liste des villes/régiments pour naviguer
+  // directement vers une carte. Uniquement proposé en mode PMR.
+  const [indexOpen, setIndexOpen] = useState(false)
+  // Le tiroir reste monté après la sortie du mode PMR, le temps de coulisser
+  // hors de l'écran (classe map-drawer--exit) au lieu de disparaître d'un coup.
+  const [drawerMounted, setDrawerMounted] = useState(pmrMode)
+
+  useEffect(() => {
+    if (pmrMode) {
+      setDrawerMounted(true)
+      return
+    }
+    setIndexOpen(false)
+    const exitTimer = setTimeout(() => setDrawerMounted(false), DRAWER_EXIT_MS)
+    return () => clearTimeout(exitTimer)
+  }, [pmrMode])
+
+  const openCityFromIndex = (city: City) => {
+    setSelectedCity(city)
+    setIndexOpen(false)
+  }
 
   useEffect(() => {
     const outTimer = setTimeout(() => setTitlePhase('out'), TITLE_HOLD_MS)
@@ -478,6 +513,42 @@ export default function InteractiveMap() {
 
         {cities.map(cityGroup)}
       </svg>
+
+      {drawerMounted && (
+        <div
+          className={`map-drawer${indexOpen ? ' map-drawer--open' : ''}${
+            pmrMode ? '' : ' map-drawer--exit'
+          }`}
+        >
+          <nav className="map-index" aria-label="Index des villes et régiments">
+            {indexEntries.map((props) => (
+              <button
+                key={props.nom}
+                className="map-index-btn"
+                aria-label={
+                  props.entites.length > 1
+                    ? `${props.nom} — ${props.entites.length} unités : ${props.entites
+                        .map((e) => e.regiment)
+                        .join(', ')}`
+                    : `${props.nom} — ${props.entites[0]?.regiment ?? ''}`
+                }
+                onClick={() => openCityFromIndex(props)}
+              >
+                <span className="map-index-city">{props.nom}</span>
+              </button>
+            ))}
+          </nav>
+          <button
+            className="map-drawer-handle"
+            onClick={() => setIndexOpen((o) => !o)}
+            aria-expanded={indexOpen}
+            aria-label={indexOpen ? "Masquer l'index des villes" : "Afficher l'index des villes"}
+          >
+            <span className="map-drawer-chevron" aria-hidden="true">›</span>
+            <span className="map-drawer-label">Villes</span>
+          </button>
+        </div>
+      )}
 
       {selectedCity && (
         <CardDialog city={selectedCity} onClose={() => setSelectedCity(null)} />
