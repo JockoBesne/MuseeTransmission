@@ -4,6 +4,7 @@ import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
 import Timeline from './components/Timeline/Timeline'
+import { preloadCardImages } from './utils/preloadImages'
 
 /* ── Panneau gauche avec onglets ── */
 const LEFT_TABS = ['Carte intéractive', 'Mémorial'] as const
@@ -94,6 +95,12 @@ function RightPanel() {
 
 /* ── App ── */
 function App() {
+  // Met en cache les images des fiches dès le démarrage : les pop-ups de la
+  // carte s'ouvrent ensuite sans délai de chargement.
+  useEffect(() => {
+    preloadCardImages()
+  }, [])
+
   return (
     <div className="split-screen">
       <LeftPanel />

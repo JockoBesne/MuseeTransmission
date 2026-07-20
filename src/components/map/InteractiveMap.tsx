@@ -218,7 +218,9 @@ function zoneView(b: Rect): ViewBox {
 const overview = (() => {
   const pts = basePts()
 
-  const zones: Zone[] = regionsZones.features.map((f) => {
+  const zones: Zone[] = regionsZones.features
+    .filter((f) => f.properties.code !== '11') // Île-de-France : villes affichées sans zone tactile
+    .map((f) => {
     const outerRing = f.geometry.coordinates[0].map(project)
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
     for (const [x, y] of outerRing) {
@@ -392,7 +394,7 @@ export default function InteractiveMap() {
           <span className="map-region-kicker">Région</span>
           <span className="map-region-name">{zoomedZone.nom}</span>
           <span className="map-region-sub">
-            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher la mer pour revenir
+            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher en dehors de la régions pour revenir
           </span>
         </div>
       )}
