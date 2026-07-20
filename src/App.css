@@ -19,6 +19,19 @@ html,
   overflow: hidden;
 }
 
+/* Zone invisible d'accès admin : appui maintenu ~5 s dans le coin haut-droit.
+   Volontairement discrète (aucun rendu) ; la zone recouvre le titre de la
+   frise, non interactif. */
+.admin-hotspot {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 84px;
+  height: 84px;
+  z-index: 3000;
+  background: transparent;
+}
+
 .panel {
   flex: 1;
   position: relative;

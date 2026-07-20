@@ -261,3 +261,206 @@
   font-size: 0.75rem;
   color: #9fb4c8;
 }
+
+/* ─── Tiroir-index (intercalaire, mode PMR uniquement) ──
+   Onglet collé au bord gauche de l'écran, qui s'ouvre vers l'intérieur de la
+   carte — même mécanique que le tiroir de la frise (Timeline.css, .tl-drawer),
+   coulissée en translateX. Palette reprise du cartouche de titre bleu nuit
+   translucide + accent doré. Le tiroir occupe toute la hauteur du
+   .map-wrapper (comme .tl-drawer occupe toute la hauteur de .timeline-body)
+   pour que sa poignée puisse se caler au milieu, en parallèle de la poignée
+   du tiroir de la frise ; c'est la liste elle-même (.map-index), positionnée
+   à l'intérieur, qui démarre plus bas (milieu de la carte) et non le tiroir. */
+.map-drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+  width: 25%;
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.map-drawer--open {
+  transform: translateX(0);
+}
+
+/* Sortie du mode PMR : le tiroir coulisse entièrement hors-champ, poignée
+   (48px) et ombre comprises, avant d'être retiré du DOM (cf. DRAWER_EXIT_MS).
+   Déclaré après --open pour l'emporter si les deux classes coexistent. */
+.map-drawer--exit {
+  transform: translateX(calc(-100% - 80px));
+}
+
+/* Sommet calé au milieu de la carte (et non en haut, au niveau du nord de la
+   France). S'arrête avant le bord bas du .map-wrapper pour ne pas chevaucher
+   le bouton PMR (.pmr-btn, App.css) : celui-ci est ancré au bas de
+   .panel-left, ~1 rem au-dessus de la barre d'onglets (repassée sous la
+   carte en mode PMR) — soit environ 1 rem au-dessus du bord bas du
+   .map-wrapper lui-même. */
+.map-index {
+  position: absolute;
+  top: 25%;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 14px 12px;
+  border-left: 3px solid #fecc30;
+  border-radius: 2px 8px 8px 2px;
+  background: rgba(13, 49, 81, 0.9);
+  box-shadow: 0 6px 18px rgba(2, 20, 36, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.map-index::-webkit-scrollbar {
+  display: none;
+}
+
+.map-index-btn {
+  flex-shrink: 0;
+  min-height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.map-index-btn:hover,
+.map-index-btn:focus-visible {
+  border-color: #fecc30;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.map-index-btn:active {
+  transform: scale(0.97);
+  background: rgba(254, 204, 48, 0.18);
+}
+
+.map-index-city {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+/* ── Indicateur « plus de villes » : flèche tactile, intégrée au tiroir
+   lui-même (même fond bleu nuit + liseré doré que .map-index, pas un
+   bouton flottant séparé) — pastille minimale collée au bord bas de la
+   liste. Purement fonctionnelle (aucun effet au survol/clic), seule
+   l'icône est animée pour signaler qu'on peut défiler. */
+.map-index-more-btn {
+  position: absolute;
+  left: 0;
+  bottom: 1.5rem;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-left: 3px solid #fecc30;
+  border-radius: 0 8px 8px 2px;
+  background-color: rgba(13, 49, 81);
+  color: #fecc30;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.map-index-more-btn svg {
+  animation: mapIndexMoreNudge 1.8s ease-in-out infinite;
+}
+
+@keyframes mapIndexMoreNudge {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-index-more-btn svg {
+    animation: none;
+  }
+}
+
+/* Poignée : demi-pastille accrochée au flanc droit du tiroir (côté carte),
+   en parallèle de la poignée du tiroir de la frise (.tl-drawer-handle,
+   Timeline.css). Un simple `top: 50%` ne suffit pas : .map-wrapper perd la
+   hauteur de la barre d'onglets (.tab-bar, ~47px) alors que .timeline-body
+   perd celle de .timeline-header (~67px) — sans ce bandeau, les deux
+   conteneurs n'ont pas la même hauteur ni le même point de départ, donc un
+   même pourcentage ne tombe pas à la même ligne à l'écran. Le décalage de
+   57px compense l'écart pour retomber au même niveau que .tl-drawer-handle
+   (à réajuster de quelques px si l'écart visuel persiste à l'écran). */
+.map-drawer-handle {
+  position: absolute;
+  top: calc(50% + 57px);
+  right: -48px;
+  transform: translateY(-50%);
+  width: 48px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 0;
+  background: rgba(13, 49, 81, 0.9);
+  border: 1px solid rgba(254, 204, 48, 0.45);
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  color: #fecc30;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 6px 0 20px rgba(2, 20, 36, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.map-drawer-handle:hover,
+.map-drawer-handle:focus-visible {
+  background: rgba(13, 49, 81, 1);
+  border-color: #fecc30;
+  outline: none;
+}
+
+.map-drawer-handle:active {
+  background: rgba(254, 204, 48, 0.18);
+}
+
+.map-drawer-chevron {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.map-drawer--open .map-drawer-chevron {
+  transform: rotate(180deg);
+}
+
+.map-drawer-label {
+  writing-mode: vertical-rl;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}

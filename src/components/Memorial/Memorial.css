@@ -6,6 +6,7 @@
 ──────────────────────────────────────────────── */
 
 .memorial {
+  position: relative; /* repère du voile de transition entre catégories */
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -15,6 +16,73 @@
   color: #ffffff;
   font-family: 'Nunito', sans-serif;
   overflow: hidden;
+}
+
+/* ─── Voile de transition : fin d'une liste -> annonce de la suivante ───
+   Fondu d'entrée, maintien solennel, fondu de sortie (durée totale alignée
+   sur TRANSITION_TOTAL_MS dans Memorial.tsx). */
+.memorial-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background-color: #0D3151;
+  animation: memorialVoile 3.6s ease both;
+}
+
+@keyframes memorialVoile {
+  0%   { opacity: 0; }
+  16%  { opacity: 1; }
+  84%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Lente élévation du contenu pendant tout le voile — l'effet « lourd ». */
+.memorial-transition-emblem,
+.memorial-transition-kicker,
+.memorial-transition-title {
+  animation: memorialVoileContenu 3.6s ease both;
+}
+
+@keyframes memorialVoileContenu {
+  from { transform: translateY(18px); }
+  to   { transform: translateY(-10px); }
+}
+
+.memorial-transition-emblem {
+  font-size: 1.5rem;
+  color: #fecc30;
+}
+
+.memorial-transition-kicker {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.memorial-transition-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fecc30;
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memorial-transition-emblem,
+  .memorial-transition-kicker,
+  .memorial-transition-title {
+    animation: none;
+  }
 }
 
 /* ─── En-tête ─────────────────────────────── */
@@ -46,12 +114,15 @@
 .memorial-wars {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 8px;
 }
 
+/* Cible tactile ≥ 48 px (borne). */
 .war-tab {
-  padding: 5px 18px;
+  min-height: 48px;
+  padding: 5px 16px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 3px;
   background: transparent;
@@ -217,6 +288,12 @@
 .memorial-name:hover .name-meta,
 .memorial-name:active .name-meta {
   color: rgba(255, 255, 255, 0.85);
+}
+
+/* Théâtre d'opération (Opex) : touche dorée discrète dans la ligne de détail. */
+.name-conflit {
+  color: rgba(254, 204, 48, 0.8);
+  letter-spacing: 0.06em;
 }
 
 .memorial-status {
