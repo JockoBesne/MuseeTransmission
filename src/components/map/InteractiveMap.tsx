@@ -73,6 +73,8 @@ interface CityPoint {
 }
 
 const LABEL_GAP = 12
+// Rayon du médaillon pucelle (test) — aligné sur le rayon de la zone tactile.
+const MARKER_R = 13
 
 function labelLayout(x: number, y: number, dir: LabelDirection): CityPoint['label'] {
   switch (dir) {
@@ -133,7 +135,12 @@ export default function InteractiveMap() {
       >
         <path className="map-contour" d={contourPath} fillRule="evenodd" />
 
-        {cityPoints.map(({ x, y, props, label }) => (
+        {cityPoints.map(({ x, y, props, label }, i) => {
+          // Test : pucelle de la première unité du site en médaillon, sinon
+          // repli sur le point orange existant (villes sans photo pour l'instant).
+          const photo = props.entites[0]?.photo
+          const clipId = `city-clip-${i}`
+          return (
           <g
             key={props.nom}
             className="map-city"
@@ -158,7 +165,26 @@ export default function InteractiveMap() {
                vrai point géographique — certaines cibles très proches
                (Île-de-France) peuvent se chevaucher. */}
             <circle className="map-hit" cx={x} cy={y} r={13} />
-            <circle className="map-marker" cx={x} cy={y} r={6} />
+            {photo ? (
+              <>
+                <clipPath id={clipId}>
+                  <circle cx={x} cy={y} r={MARKER_R} />
+                </clipPath>
+                <image
+                  className="map-marker-photo"
+                  href={photo}
+                  x={x - MARKER_R}
+                  y={y - MARKER_R}
+                  width={MARKER_R * 2}
+                  height={MARKER_R * 2}
+                  clipPath={`url(#${clipId})`}
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                />
+              </>
+            ) : (
+              <circle className="map-marker" cx={x} cy={y} r={6} />
+            )}
             <text
               className="map-label"
               x={label.x}
@@ -169,7 +195,8 @@ export default function InteractiveMap() {
               {props.nom}
             </text>
           </g>
-        ))}
+          )
+        })}
       </svg>
 
       {selectedCity && (

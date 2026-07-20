@@ -125,6 +125,12 @@
   stroke: #fecc30;
 }
 
+/* Médaillon pucelle (test) : PNG à fond transparent affiché tel quel,
+   sans fond ni liseré, cadré sans recadrage (xMidYMid meet). */
+.map-marker-photo {
+  pointer-events: none;
+}
+
 .map-label {
   fill: #14203a;
   font-family: 'Raleway', sans-serif;
