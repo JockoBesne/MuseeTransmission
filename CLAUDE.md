@@ -49,7 +49,12 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     pour zoomer sur la région, où chaque ville retrouve son point et son
     étiquette (tailles constantes à l'écran, posées en style inline car la
     CSS l'emporterait sur les attributs SVG) ; retour par le bouton « Vue
-    d'ensemble » ou en touchant la carte hors d'une ville.
+    d'ensemble » ou en touchant la carte hors d'une ville. Le polygone
+    Île-de-France (`code` « 11 ») reste dans `regions-zones.json` mais est
+    exclu des zones tactiles (filtre dans `InteractiveMap.tsx`) : Paris et
+    les autres villes franciliennes s'affichent directement à leur point.
+    Les images de pucelles (`public/pucelles/`) sont préchargées au
+    démarrage (`utils/preloadImages.ts`, branché dans App.tsx).
     Toucher une ville ouvre `CardDialog` : pop-up de
     **taille fixe** (fond blanc légèrement grisé) dont seul le corps défile
     (indicateur flèche + fondu quand du contenu dépasse). En-tête = ville +

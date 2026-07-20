@@ -63,9 +63,11 @@ const contourPath = franceContour.geometry.coordinates
 
 /* ══ Mode « zoom tactile » ══
 
-   Les secteurs denses (Île-de-France, Bas-Rhin, Puy-de-Dôme) sont délimités
-   par les polygones de regions-zones.json, dessinés sur la carte en zones
-   tactiles. En vue d'ensemble, les villes situées dans une zone sont
+   Les secteurs denses (Bas-Rhin, Puy-de-Dôme) sont délimités par les
+   polygones de regions-zones.json, dessinés sur la carte en zones
+   tactiles. Le polygone Île-de-France (code « 11 ») y figure encore mais
+   est exclu des zones (filtre plus bas) : ses villes sont affichées
+   directement. En vue d'ensemble, les villes situées dans une zone sont
    masquées ; toucher la zone anime le viewBox pour zoomer sur la région :
    chaque ville retrouve alors son point et son nom, bien espacés (tailles
    constantes à l'écran grâce au facteur u = view.w / VIEW_W). Retour par le
