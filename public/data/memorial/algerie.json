@@ -1,0 +1,978 @@
+[
+ {
+  "nom": "ABADLIA",
+  "prenom": "Youcef",
+  "role": "2ème Classe",
+  "annee": "1960",
+  "date": "21/05/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "ALBERGE",
+  "prenom": "Jacques René André",
+  "role": "Sergent/chef",
+  "annee": "1958",
+  "date": "04/12/1958",
+  "conflit": ""
+ },
+ {
+  "nom": "ALVAREZ",
+  "prenom": "Philippe",
+  "role": "2ème Classe",
+  "annee": "1953",
+  "date": "08/05/1953",
+  "conflit": ""
+ },
+ {
+  "nom": "ALVES",
+  "prenom": "Michel André",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "AMOURA",
+  "prenom": "Mohamed",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "ANDRIES",
+  "prenom": "Daniel",
+  "role": "Transmetteur",
+  "annee": "1961",
+  "date": "21/06/1961",
+  "conflit": ""
+ },
+ {
+  "nom": "ANSEL",
+  "prenom": "Joseph Camille",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "AUBERT",
+  "prenom": "André",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "AUBRY",
+  "prenom": "Michel Marie Gilbert",
+  "role": "Sergent/chef",
+  "annee": "1960",
+  "date": "16/06/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "AUDUREAU",
+  "prenom": "Pierre",
+  "role": "Transmetteur",
+  "annee": "1960",
+  "date": "12/09/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "BACH",
+  "prenom": "Georges André",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BACHASSON",
+  "prenom": "Albert",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BALLAUD",
+  "prenom": "Gilbert Marcel",
+  "role": "",
+  "annee": "1956",
+  "date": "10/09/1956",
+  "conflit": ""
+ },
+ {
+  "nom": "BARDON",
+  "prenom": "Daniel Laurent",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BARRAULT",
+  "prenom": "André",
+  "role": "Capitaine",
+  "annee": "1960",
+  "date": "02/07/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "BASTIDE",
+  "prenom": "Pierre Paul Antoine",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BAUR",
+  "prenom": "Martin",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BAYLE",
+  "prenom": "Robert",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BELALLA",
+  "prenom": "Mohamed",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BERGERO",
+  "prenom": "Robert Grégoire",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BOIREAU",
+  "prenom": "Michel",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BONNIEC",
+  "prenom": "Robert Emile François",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BOUCHET",
+  "prenom": "Marcel Elie Aimé",
+  "role": "Transmetteur",
+  "annee": "1959",
+  "date": "21/04/1959",
+  "conflit": ""
+ },
+ {
+  "nom": "BOUHIER",
+  "prenom": "jean Elie Pierre",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "BOUTET",
+  "prenom": "Michel",
+  "role": "Adjudant",
+  "annee": "1962",
+  "date": "25/04/1962",
+  "conflit": ""
+ },
+ {
+  "nom": "BRUNET",
+  "prenom": "Roland",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "CABOT",
+  "prenom": "André",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "CAMPILLO",
+  "prenom": "Paul Raphaël Edmond",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "CARDE",
+  "prenom": "Pierre Paul Antoine",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "CHERKI",
+  "prenom": "Raphaël Oziel",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "CHEVRELOT",
+  "prenom": "Jacques René Paul",
+  "role": "Sergent",
+  "annee": "1960",
+  "date": "13/04/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "CLEMENT",
+  "prenom": "André Marcel",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "CLOUZARD",
+  "prenom": "Jacques",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "COLOMAS",
+  "prenom": "André",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "COULY",
+  "prenom": "Raymond Pierre Alphonse",
+  "role": "Adjudant",
+  "annee": "1962",
+  "date": "19/08/1962",
+  "conflit": ""
+ },
+ {
+  "nom": "COUSTEIX",
+  "prenom": "Antoine Raymond Baptiste",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "COUTURIER",
+  "prenom": "Hervé Benoit Louis",
+  "role": "Sergent",
+  "annee": "1956",
+  "date": "10/09/1956",
+  "conflit": ""
+ },
+ {
+  "nom": "DANGOUMAU",
+  "prenom": "Cyprien Henri Michel",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "DEPREZ",
+  "prenom": "Armaury",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "DOMINGUEZ",
+  "prenom": "François Pierre",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "ESPINOZA",
+  "prenom": "François Georges Antoine",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "ESPOSITO",
+  "prenom": "Jean Pierre Gaston",
+  "role": "Sous Lieutenant",
+  "annee": "1961",
+  "date": "17/12/1961",
+  "conflit": ""
+ },
+ {
+  "nom": "FAUCONNIER",
+  "prenom": "Robert",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FAYN",
+  "prenom": "François Marie Jean",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FEUILLET",
+  "prenom": "Rné Claude Marie",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FLEURY",
+  "prenom": "Jacques Roger",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FOHR",
+  "prenom": "Maurice",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FONQUERNIER",
+  "prenom": "René",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FRAYARD",
+  "prenom": "Armand",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "FRONTIERE",
+  "prenom": "Robert Henry François",
+  "role": "",
+  "annee": "1960",
+  "date": "08/12/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "GAUDET",
+  "prenom": "André Emile",
+  "role": "Adjudant-Chef",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GAUTIER",
+  "prenom": "Raymond Gabriel",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GENOUVILLE",
+  "prenom": "André Paul",
+  "role": "Sous-Lieutenant",
+  "annee": "1962",
+  "date": "19/03/1962",
+  "conflit": ""
+ },
+ {
+  "nom": "GERARD",
+  "prenom": "Georges Louis",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GICQUEL",
+  "prenom": "Claude André Françis",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GILOTAUX",
+  "prenom": "Raymond Alfred",
+  "role": "Transmetteur",
+  "annee": "1956",
+  "date": "09/12/1956",
+  "conflit": ""
+ },
+ {
+  "nom": "GIRARD",
+  "prenom": "Camille",
+  "role": "",
+  "annee": "1957",
+  "date": "20/03/1957",
+  "conflit": ""
+ },
+ {
+  "nom": "GOETZ",
+  "prenom": "Pierre Alfred",
+  "role": "Aspirant",
+  "annee": "1962",
+  "date": "25/02/1962",
+  "conflit": ""
+ },
+ {
+  "nom": "GOMEZ",
+  "prenom": "Raymond",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GOUARDERES",
+  "prenom": "Gérard René Edmond",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GRAU",
+  "prenom": "Clément Jean Claude",
+  "role": "Transmetteur",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GREGOIRE",
+  "prenom": "Jean",
+  "role": "",
+  "annee": "1959",
+  "date": "02/03/1959",
+  "conflit": ""
+ },
+ {
+  "nom": "GRIBOUX",
+  "prenom": "Emile Henry",
+  "role": "Sergent-Chef",
+  "annee": "1960",
+  "date": "28/10/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "GROS",
+  "prenom": "Yvon",
+  "role": "Sergent Chef",
+  "annee": "1956",
+  "date": "12/12/1956",
+  "conflit": ""
+ },
+ {
+  "nom": "GUÉRIN",
+  "prenom": "Jean Robert Fernand",
+  "role": "Maitre Ouvrier",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "GULLI",
+  "prenom": "Carmel Antoine",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "HOBET",
+  "prenom": "Julien Désiré",
+  "role": "Adjudant",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "KAID",
+  "prenom": "Kémal",
+  "role": "Sergent-Major",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "LAURENT",
+  "prenom": "Robert",
+  "role": "Transmetteur",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "LAZARUS",
+  "prenom": "Lucien Henri",
+  "role": "Commandant",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "LE ROYER",
+  "prenom": "Marcel",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "LETOUX",
+  "prenom": "Gabriel Joseph Marie",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "LEVEQUE",
+  "prenom": "Maurice",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "LUCAS",
+  "prenom": "Jean Marie",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MADINI",
+  "prenom": "Mohamed",
+  "role": "Harki",
+  "annee": "1960",
+  "date": "11/12/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "MAINGUE",
+  "prenom": "Serge Charles",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MALHAUTIER",
+  "prenom": "Jacques Numa",
+  "role": "Transmetteur",
+  "annee": "1959",
+  "date": "02/02/1959",
+  "conflit": ""
+ },
+ {
+  "nom": "MARECHAL",
+  "prenom": "Pierre René Marie",
+  "role": "Sergent",
+  "annee": "1957",
+  "date": "22/03/1957",
+  "conflit": ""
+ },
+ {
+  "nom": "MARTEAU",
+  "prenom": "René Marcel",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MARTIN",
+  "prenom": "Bernard Alexandre",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MARTIRE",
+  "prenom": "Jean Michel Alexandre",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MAUDUIT",
+  "prenom": "Albert Léon",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MEDARD",
+  "prenom": "Roger Marie Joseph",
+  "role": "Capitaine",
+  "annee": "1957",
+  "date": "22/03/1957",
+  "conflit": ""
+ },
+ {
+  "nom": "MERCIER",
+  "prenom": "Maurice",
+  "role": "Capitaine",
+  "annee": "1962",
+  "date": "05/02/1962",
+  "conflit": ""
+ },
+ {
+  "nom": "MERLE",
+  "prenom": "Paul Henri",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "METENIER",
+  "prenom": "Pierre Aimé",
+  "role": "Télégraphiste",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MICARD",
+  "prenom": "Christian",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MISSLIN",
+  "prenom": "Jean Georges",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "MONNIER",
+  "prenom": "Gérard Louis Lucien",
+  "role": "45",
+  "annee": "1960",
+  "date": "08/03/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "MONNIER",
+  "prenom": "Gérard Louis Lucien René",
+  "role": "Sergent/chef",
+  "annee": "1960",
+  "date": "08/03/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "NAHON",
+  "prenom": "André",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "OBRY",
+  "prenom": "Michel Claude René",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "PALMENTIER",
+  "prenom": "Gérard",
+  "role": "1er transmetteur",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "PASQUIER",
+  "prenom": "Marcel",
+  "role": "Capitaine",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "PHILIPPE",
+  "prenom": "René",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "PIERRE",
+  "prenom": "Claude",
+  "role": "",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "POYER",
+  "prenom": "Guy",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "RESPLANDY",
+  "prenom": "Henri",
+  "role": "Maître Ouvrier",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "REYNAUD",
+  "prenom": "Jacques Aristide",
+  "role": "Caporal Chef",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "RIGAL",
+  "prenom": "Christian Lucien Emile",
+  "role": "2ème Transmetteur",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "RIO",
+  "prenom": "Marcel Léon Jean Marie",
+  "role": "Adjudant",
+  "annee": "1962",
+  "date": "04/01/1962",
+  "conflit": ""
+ },
+ {
+  "nom": "RIPOLL",
+  "prenom": "Gilbert",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "RODHAIN",
+  "prenom": "Bernard Pierre Guy",
+  "role": "Caporal-chef",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "ROSE",
+  "prenom": "René",
+  "role": "Caporal-chef",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "ROULIER",
+  "prenom": "Alain",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "SAINT-ALBIN",
+  "prenom": "Robert Georges",
+  "role": "Soldat",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "SALAS",
+  "prenom": "Alphonse",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "SEDIRA",
+  "prenom": "Mouloud",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "TAMRABET",
+  "prenom": "Larbi",
+  "role": "Adjudant",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "TERRET",
+  "prenom": "Jean Pierre",
+  "role": "Sergent",
+  "annee": "1957",
+  "date": "23/05/1957",
+  "conflit": ""
+ },
+ {
+  "nom": "THURET",
+  "prenom": "Claude",
+  "role": "Transmetteur",
+  "annee": "1960",
+  "date": "31/07/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "VARENNES",
+  "prenom": "Jean Claude",
+  "role": "2ème Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "VASSEUR",
+  "prenom": "Claude Maurice",
+  "role": "1ère Classe",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "VERHAEGHE",
+  "prenom": "André Jacques Cornil",
+  "role": "Caporal",
+  "annee": "1960",
+  "date": "08/12/1960",
+  "conflit": ""
+ },
+ {
+  "nom": "VETELET",
+  "prenom": "Jacques",
+  "role": "Moniteur",
+  "annee": "1961",
+  "date": "13/02/1961",
+  "conflit": ""
+ },
+ {
+  "nom": "VIARD",
+  "prenom": "Roger Paul Joseph",
+  "role": "Adjudant",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "VICENTE",
+  "prenom": "Marcel",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "VIGNERON",
+  "prenom": "Michel René",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "VIGNERON",
+  "prenom": "Yvan",
+  "role": "Adjudant",
+  "annee": "1961",
+  "date": "12/12/1961",
+  "conflit": ""
+ },
+ {
+  "nom": "VILLARDO",
+  "prenom": "Joseph",
+  "role": "Maitre Ouvrier",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "WEBER",
+  "prenom": "Jean Antoine",
+  "role": "Sergent",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ },
+ {
+  "nom": "WERTH",
+  "prenom": "Jean Claude Joseph",
+  "role": "Caporal",
+  "annee": "",
+  "date": "",
+  "conflit": ""
+ }
+]

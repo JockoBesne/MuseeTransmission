@@ -8,9 +8,13 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "import-docx": "node scripts/import-docx.mjs"
+    "import-docx": "node scripts/import-docx.mjs",
+    "memorial-extract": "python scripts/memorial/extract_from_ods.py",
+    "import-memorial": "node server/import-cli.mjs",
+    "borne": "node server/borne-server.mjs"
   },
   "dependencies": {
+    "exceljs": "^4.4.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-icons": "^5.7.0"

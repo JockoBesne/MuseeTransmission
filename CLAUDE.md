@@ -12,6 +12,21 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 - `npm run import-docx` — régénère `src/data/memorial-1gm.json` depuis
   `public/data/A.docx` (via mammoth). **Ne jamais éditer ce JSON à la main** :
   modifier le .docx ou le script, puis régénérer.
+- `npm run import-memorial` — régénère `public/data/memorial/*.json`
+  (5 catégories : 1GM, 2GM, Indochine, Algérie, Opex) depuis les Excel
+  « propres » de `data-memorial/` (4 colonnes imposées : Nom, Prénom,
+  Date de décès, Grade ; tri alphabétique automatique). La validation vit à un
+  seul endroit, [server/memorial-import.mjs](server/memorial-import.mjs)
+  (dépendance `exceljs`), partagée avec l'API de la borne. **Ne jamais éditer
+  ces JSON à la main** ; aucun script ne tourne au lancement de l'app.
+  Mode d'emploi complet : [scripts/memorial/README.md](scripts/memorial/README.md).
+- `npm run borne` — serveur local de la borne (port 3210, 100 % hors-ligne) :
+  sert `dist/` + API de l'écran admin ; les JSON du Mémorial déposés via
+  l'admin sont écrits dans `borne-data/` (prioritaire sur la version du
+  build) avec copie de l'Excel renommée dans `borne-data/uploads/`.
+  Memorial.tsx charge ces JSON en fetch à l'exécution (plus de bundle).
+  L'ancienne chaîne `import-docx` / `memorial-1gm.json` n'est plus branchée —
+  à supprimer après validation.
 
 ## Architecture
 
@@ -53,7 +68,16 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     Le champ de recherche ouvre un clavier virtuel AZERTY maison
     (`VirtualKeyboard.tsx`) — `inputMode="none"` sur l'input pour bloquer
     le clavier tactile de Windows en mode kiosque.
-- **Panneau droit** — vide : accueillera la frise chronologique (voir « À faire »).
+- **Panneau droit** — frise chronologique (`components/Timeline/`).
+- **Administration** (accès personnel) : appui maintenu 5 s sur le coin
+  haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
+  tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub
+  `components/Admin/AdminHub.tsx` (« Affichage borne » = retour à la
+  configuration par défaut / « Modifier le mémorial ») ;
+  `MemorialAdmin.tsx` = dépôt d'un Excel (nom libre, glisser-déposer clé
+  USB), choix de la catégorie à remplacer (renommage automatique),
+  vérifications + aperçu, remplacement via l'API du serveur borne. Retour
+  automatique à l'affichage public après 5 min d'inactivité en admin.
 
 ## Conventions
 
@@ -105,7 +129,6 @@ musée est nécessaire.
 - Frise chronologique verticale dans le panneau droit : jalons = cartes
   tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
   scroll natif.
-- Données mémorial 2GM.
 - Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
   spécificité, photoDescription — par les contenus validés par le musée.
 - villes.json : la « Seconde unité du site » de Rennes et les `medias` de

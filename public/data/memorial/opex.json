@@ -1,0 +1,146 @@
+[
+ {
+  "nom": "BARATEAU",
+  "prenom": "Guillaume André",
+  "role": "Caporal-chef",
+  "annee": "2009",
+  "date": "24/05/2009",
+  "conflit": "Afghanistan"
+ },
+ {
+  "nom": "BOURRILLIER",
+  "prenom": "Isidore Georges",
+  "role": "Lieutenant",
+  "annee": "1924",
+  "date": "13/09/1924",
+  "conflit": "Levant"
+ },
+ {
+  "nom": "BOYER",
+  "prenom": "Adrien Gaston",
+  "role": "Caporal",
+  "annee": "1928",
+  "date": "12/08/1928",
+  "conflit": "Levant"
+ },
+ {
+  "nom": "CAMBOURNAC",
+  "prenom": "Maurice Simon",
+  "role": "Lieutenant",
+  "annee": "1925",
+  "date": "02/08/1925",
+  "conflit": "Levant"
+ },
+ {
+  "nom": "DELMOTTE",
+  "prenom": "Jean Pierre",
+  "role": "Lieutenant",
+  "annee": "1951",
+  "date": "07/05/1951",
+  "conflit": "Corée (ONU)"
+ },
+ {
+  "nom": "DESCHAMPS",
+  "prenom": "Marcel",
+  "role": "Adjudant Chef",
+  "annee": "1958",
+  "date": "10/01/1958",
+  "conflit": "Tunisie"
+ },
+ {
+  "nom": "DUMOULIN",
+  "prenom": "Jean Pierre",
+  "role": "Adjudant Chef",
+  "annee": "1996",
+  "date": "22/10/1996",
+  "conflit": "Ex-Yougoslavie"
+ },
+ {
+  "nom": "GRIFFON",
+  "prenom": "René André",
+  "role": "Soldat",
+  "annee": "1926",
+  "date": "19/08/1926",
+  "conflit": "Levant"
+ },
+ {
+  "nom": "LACOMBE",
+  "prenom": "Jean François",
+  "role": "Adjudant-Chef",
+  "annee": "1993",
+  "date": "24/12/1993",
+  "conflit": "Ex-Yougoslavie"
+ },
+ {
+  "nom": "LAVAL-GILY",
+  "prenom": "Frédéric",
+  "role": "Lt",
+  "annee": "1972",
+  "date": "18/02/1972",
+  "conflit": "Tchad"
+ },
+ {
+  "nom": "LE MEUT",
+  "prenom": "Stéphane",
+  "role": "Caporal Chef",
+  "annee": "1996",
+  "date": "03/07/1996",
+  "conflit": "Ex-Yougoslavie"
+ },
+ {
+  "nom": "LEFEBVRE",
+  "prenom": "Arnaud François Louis Marie",
+  "role": "Lieutenant",
+  "annee": "1995",
+  "date": "14/03/1995",
+  "conflit": "Ex-Yougoslavie"
+ },
+ {
+  "nom": "MAUBEC",
+  "prenom": "Jean Marie Alphonse",
+  "role": "",
+  "annee": "1926",
+  "date": "30/10/1926",
+  "conflit": "Levant"
+ },
+ {
+  "nom": "MERLE",
+  "prenom": "Robert Henri",
+  "role": "Soldat",
+  "annee": "1926",
+  "date": "29/09/1926",
+  "conflit": "Levant"
+ },
+ {
+  "nom": "OTTAVIANI",
+  "prenom": "Bastien Daniel",
+  "role": "Caporal Chef",
+  "annee": "",
+  "date": "",
+  "conflit": "Ex-Yougoslavie"
+ },
+ {
+  "nom": "POLIN",
+  "prenom": "Gilles",
+  "role": "Sergent",
+  "annee": "2008",
+  "date": "03/03/2008",
+  "conflit": "Soudan"
+ },
+ {
+  "nom": "SAULIÈRE",
+  "prenom": "Daniel",
+  "role": "Sergent",
+  "annee": "1970",
+  "date": "17/09/1970",
+  "conflit": "Tchad"
+ },
+ {
+  "nom": "THOMAS",
+  "prenom": "René Jules",
+  "role": "Soldat",
+  "annee": "1927",
+  "date": "12/07/1927",
+  "conflit": "Levant"
+ }
+]

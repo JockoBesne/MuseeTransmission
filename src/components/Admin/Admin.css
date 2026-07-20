@@ -1,0 +1,491 @@
+/* ─── Écrans d'administration (accès personnel) ───
+   Même langue visuelle que la borne : bleu nuit #0D3151, doré #fecc30,
+   bleu carte #0f70b7, Raleway/Nunito. Cibles tactiles ≥ 48 px. */
+
+.admin {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #0D3151;
+  color: #e0e0e0;
+  font-family: 'Nunito', sans-serif;
+  overflow: hidden;
+}
+
+/* ── En-tête ── */
+.admin-header {
+  position: relative;
+  flex: none;
+  text-align: center;
+  padding: 22px 24px 16px;
+  background-color: #021b2e;
+  border-bottom: 3px solid #fecc30;
+}
+
+.admin-kicker {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fecc30;
+  margin-bottom: 4px;
+}
+
+.admin-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.admin-retour {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-height: 48px;
+  padding: 8px 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background: transparent;
+  color: #e0e0e0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.admin-retour:hover,
+.admin-retour:focus-visible {
+  border-color: #fecc30;
+  color: #ffffff;
+  outline: none;
+}
+
+/* ── Hub : deux grands choix ── */
+.admin-hub-choices {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 40px;
+}
+
+.admin-hub-btn {
+  width: min(40%, 420px);
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px 28px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, transform 0.15s;
+}
+
+.admin-hub-btn:hover,
+.admin-hub-btn:focus-visible {
+  border-color: #fecc30;
+  background-color: rgba(254, 204, 48, 0.08);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+.admin-hub-btn-icon {
+  font-size: 2.2rem;
+  color: #fecc30;
+}
+
+.admin-hub-btn-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.admin-hub-btn-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.admin-footnote {
+  flex: none;
+  text-align: center;
+  padding: 0 24px 20px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Écran Mémorial : trois étapes ── */
+.admin-memorial {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 20px;
+  padding: 22px 26px;
+  overflow: hidden;
+}
+
+.admin-etape {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.admin-etape--verif {
+  overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-etape-titre {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fecc30;
+}
+
+/* Zone de dépôt */
+.admin-dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  border: 2px dashed rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.admin-dropzone--survol,
+.admin-dropzone:hover,
+.admin-dropzone:focus-visible {
+  border-color: #fecc30;
+  background-color: rgba(254, 204, 48, 0.07);
+  outline: none;
+}
+
+.admin-dropzone--ok {
+  border-style: solid;
+  border-color: #0f70b7;
+  background-color: rgba(15, 112, 183, 0.12);
+}
+
+.admin-dropzone-icone {
+  font-size: 2rem;
+}
+
+.admin-dropzone-nom {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: #ffffff;
+  word-break: break-all;
+}
+
+.admin-dropzone-aide {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Cartes de catégories */
+.admin-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.admin-categorie {
+  flex: none; /* ne jamais se comprimer dans la colonne défilante */
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 10px 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.admin-categorie:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.admin-categorie:not(:disabled):hover,
+.admin-categorie:not(:disabled):focus-visible {
+  border-color: #fecc30;
+  outline: none;
+}
+
+.admin-categorie--active {
+  border-color: #0f70b7;
+  background-color: rgba(15, 112, 183, 0.25);
+}
+
+.admin-categorie-titre {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.admin-categorie-detail {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Vérifications / aperçu */
+.admin-verif {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-verif-resume {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.admin-bloc {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.admin-bloc h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.admin-bloc ul {
+  padding-left: 18px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.admin-bloc--erreurs {
+  background-color: rgba(180, 40, 40, 0.25);
+  border: 1px solid rgba(255, 120, 120, 0.6);
+}
+
+.admin-bloc--avertissements {
+  background-color: rgba(254, 204, 48, 0.1);
+  border: 1px solid rgba(254, 204, 48, 0.5);
+}
+
+.admin-apercu {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.admin-apercu th {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fecc30;
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 2px solid #fecc30;
+}
+
+.admin-apercu td {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Boutons génériques */
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-btn {
+  min-height: 52px;
+  padding: 10px 26px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background: transparent;
+  color: #e0e0e0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.admin-btn:hover:not(:disabled),
+.admin-btn:focus-visible {
+  border-color: #fecc30;
+  color: #ffffff;
+  outline: none;
+}
+
+.admin-btn--primaire {
+  background-color: #0f70b7;
+  border-color: #0f70b7;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.admin-btn--primaire:hover:not(:disabled),
+.admin-btn--primaire:focus-visible {
+  background-color: #1a83d0;
+  border-color: #fecc30;
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Messages */
+.admin-erreur {
+  font-size: 0.85rem;
+  color: #ff9d9d;
+}
+
+.admin-aide {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Code PIN ── */
+.admin-pin {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+}
+
+.admin-pin-points {
+  display: flex;
+  gap: 16px;
+}
+
+.admin-pin-point {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  transition: background-color 0.1s;
+}
+
+.admin-pin-point--plein {
+  background-color: #fecc30;
+  border-color: #fecc30;
+}
+
+.admin-pin-points--erreur {
+  animation: adminPinSecousse 0.3s ease;
+}
+
+.admin-pin-points--erreur .admin-pin-point {
+  border-color: #ff9d9d;
+}
+
+@keyframes adminPinSecousse {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-8px); }
+  75%      { transform: translateX(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-pin-points--erreur {
+    animation: none;
+  }
+}
+
+.admin-pin-message {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  min-height: 1.4em;
+}
+
+.admin-pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 88px);
+  gap: 12px;
+}
+
+.admin-pin-touche {
+  height: 72px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.12s, background-color 0.12s;
+}
+
+.admin-pin-touche:hover,
+.admin-pin-touche:focus-visible {
+  border-color: #fecc30;
+  background-color: rgba(254, 204, 48, 0.1);
+  outline: none;
+}
+
+.admin-pin-touche--secondaire {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.2rem;
+}
+
+/* Écran de succès */
+.admin-succes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 30px;
+  text-align: center;
+}
+
+.admin-succes-message {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 640px;
+}
