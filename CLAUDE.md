@@ -24,10 +24,18 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     Web Mercator maison (pas de Leaflet). Les villes viennent de
     `src/data/villes.json` (GeoJSON `FeatureCollection<Point, City>`, types
     `City`/`Unite`/`UniteMedia` dans [src/types.ts](src/types.ts)) ;
-    `labelDir` contrôle la position de l'étiquette. Une ville porte une liste
-    `entites` (plusieurs unités possibles sur un même point). Dix
-    implantations : huit RT, le 18e RIT (Dieuze) et le régiment de
-    cyberdéfense (Rennes). Toucher une ville ouvre `CardDialog` : pop-up de
+    `labelDir` contrôle la position de l'étiquette (placement automatique
+    avec évitement de collisions si la direction préférée est prise). Une
+    ville porte une liste `entites` (plusieurs unités possibles sur un même
+    point). Les secteurs trop denses sont délimités par les polygones de
+    `src/data/regions-zones.json` (GeoJSON `Polygon`, type `ZoneProps`) :
+    en vue d'ensemble, leurs villes sont masquées et la zone (pointillés
+    orange translucides + nom) est tactile — la toucher anime le viewBox
+    pour zoomer sur la région, où chaque ville retrouve son point et son
+    étiquette (tailles constantes à l'écran, posées en style inline car la
+    CSS l'emporterait sur les attributs SVG) ; retour par le bouton « Vue
+    d'ensemble » ou en touchant la carte hors d'une ville.
+    Toucher une ville ouvre `CardDialog` : pop-up de
     **taille fixe** (fond blanc légèrement grisé) dont seul le corps défile
     (indicateur flèche + fondu quand du contenu dépasse). En-tête = ville +
     onglets d'unités (toujours affichés, l'onglet actif est rempli en bleu
