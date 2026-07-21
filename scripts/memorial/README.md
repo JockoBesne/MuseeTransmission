@@ -23,10 +23,12 @@ et **exactement ces 4 colonnes en ligne 1** :
 - **Nom** : obligatoire (mis en majuscules automatiquement).
 - **Prénom**, **Grade** : facultatifs.
 - **Date de décès** : `JJ/MM/AAAA`, ou l'année `AAAA`, ou vide.
-- **Colonne E « Conflit » (facultative)** : théâtre d'opération affiché sous le
-  nom (utilisée par le fichier Opex : Levant, Ex-Yougoslavie, Tchad,
-  Afghanistan…). Si elle existe, son en-tête doit être exactement `Conflit` ;
-  les quatre autres fichiers n'en ont pas besoin.
+- **Colonne E « Conflit » — pour l'Opex uniquement, et obligatoire pour lui** :
+  théâtre d'opération affiché sous le nom (Levant, Ex-Yougoslavie, Tchad,
+  Afghanistan…). Le fichier Opex doit donc avoir 5 colonnes (en-tête exact :
+  `Conflit`) ; les quatre autres fichiers doivent avoir exactement 4 colonnes
+  (la colonne Conflit y est refusée). Un jeu de fichiers d'essai illustrant
+  toutes ces règles est fourni dans [test-memorial/](../../test-memorial/README.md).
 - L'ordre des lignes n'a pas d'importance (tri alphabétique automatique).
 - Pas de formules, pas de cellules fusionnées, pas d'autres feuilles.
 

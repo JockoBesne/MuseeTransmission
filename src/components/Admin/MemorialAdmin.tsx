@@ -89,7 +89,7 @@ export default function MemorialAdmin({ onRetour, onBorne }: MemorialAdminProps)
     setCategorie(cat)
     setPhase({ etat: 'analyse' })
     try {
-      const rep = await fetch('/api/memorial/validate', { method: 'POST', body: f })
+      const rep = await fetch(`/api/memorial/validate?categorie=${cat}`, { method: 'POST', body: f })
       const resultat = (await rep.json()) as Analyse
       setPhase({ etat: 'apercu', analyse: resultat })
     } catch {

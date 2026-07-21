@@ -41,8 +41,12 @@ function texte(v) {
  * { ok, erreurs[], avertissements[], personnes[], nombre }
  * `ok === false` : structure invalide (mauvais type de fichier ou colonnes),
  * aucune donnée exploitable. Les avertissements, eux, n'empêchent pas l'import.
+ *
+ * `categorie` (clé de CATEGORIES) déclenche la règle stricte des colonnes :
+ * « opex » exige la 5e colonne Conflit, les autres catégories l'interdisent
+ * (4 colonnes exactement). Sans catégorie, la colonne reste simplement optionnelle.
  */
-export async function analyseClasseur(buffer) {
+export async function analyseClasseur(buffer, categorie) {
   const wb = new ExcelJS.Workbook()
   try {
     await wb.xlsx.load(buffer)
@@ -64,13 +68,52 @@ export async function analyseClasseur(buffer) {
   const entetes = [1, 2, 3, 4].map((c) => texte(ws.getRow(1).getCell(c).value))
   const enteteConflit = texte(ws.getRow(1).getCell(5).value)
   const avecConflit = enteteConflit === COLONNE_CONFLIT
+  const enteteExces = texte(ws.getRow(1).getCell(6).value)
+  if (enteteExces) {
+    return {
+      ok: false,
+      erreurs: [
+        `Trop de colonnes : « ${enteteExces} » trouvée en colonne F.`,
+        `Le format accepte au maximum 5 colonnes : ${COLONNES.join(' | ')} | ${COLONNE_CONFLIT}.`,
+      ],
+      avertissements: [],
+      personnes: [],
+      nombre: 0,
+    }
+  }
   if (entetes.join('|') !== COLONNES.join('|') || (enteteConflit && !avecConflit)) {
     return {
       ok: false,
       erreurs: [
         'Les colonnes de la ligne 1 ne correspondent pas au format imposé.',
-        `Attendu : ${COLONNES.join(' | ')} (+ « ${COLONNE_CONFLIT} » facultatif en colonne E)`,
+        `Attendu : ${COLONNES.join(' | ')} (+ « ${COLONNE_CONFLIT} » en colonne E, réservée à l'Opex)`,
         `Trouvé : ${[...entetes, enteteConflit].map((e) => e || '(vide)').join(' | ')}`,
+      ],
+      avertissements: [],
+      personnes: [],
+      nombre: 0,
+    }
+  }
+
+  // Règle par catégorie : la colonne Conflit appartient à l'Opex, et à lui seul.
+  if (categorie === 'opex' && !avecConflit) {
+    return {
+      ok: false,
+      erreurs: [
+        `La catégorie Opex utilise 5 colonnes : ${COLONNES.join(' | ')} | ${COLONNE_CONFLIT}.`,
+        `La colonne E « ${COLONNE_CONFLIT} » (théâtre d'opération : Tchad, Ex-Yougoslavie…) manque dans ce fichier.`,
+      ],
+      avertissements: [],
+      personnes: [],
+      nombre: 0,
+    }
+  }
+  if (categorie && categorie !== 'opex' && avecConflit) {
+    return {
+      ok: false,
+      erreurs: [
+        `La colonne « ${COLONNE_CONFLIT} » est réservée à la catégorie Opex.`,
+        `Pour ${CATEGORIES[categorie] ?? categorie}, le fichier doit avoir exactement 4 colonnes : ${COLONNES.join(' | ')}.`,
       ],
       avertissements: [],
       personnes: [],
@@ -104,6 +147,21 @@ export async function analyseClasseur(buffer) {
     }
     personnes.push({ nom: nom.toLocaleUpperCase('fr'), prenom, role: grade, annee, date, conflit })
   })
+
+  // Garde-fou : un fichier sans aucun nom valide effacerait toute la liste —
+  // c'est presque à coup sûr une erreur de manipulation, on refuse.
+  if (personnes.length === 0) {
+    return {
+      ok: false,
+      erreurs: [
+        'Aucun nom valide trouvé dans le fichier — import refusé.',
+        'Le fichier doit contenir la liste complète de la catégorie (au moins une ligne de données sous les en-têtes).',
+      ],
+      avertissements,
+      personnes: [],
+      nombre: 0,
+    }
+  }
 
   const cle = (s) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
   personnes.sort((a, b) => cle(a.nom).localeCompare(cle(b.nom)) || cle(a.prenom).localeCompare(cle(b.prenom)))

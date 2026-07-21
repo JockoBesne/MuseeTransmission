@@ -88,7 +88,9 @@ const serveur = createServer(async (req, res) => {
   try {
     // ── API admin ──
     if (req.method === 'POST' && chemin === '/api/memorial/validate') {
-      const resultat = await analyseClasseur(await litCorps(req))
+      // « categorie » applique la règle stricte des colonnes (Conflit = Opex seul).
+      const categorie = url.searchParams.get('categorie') ?? undefined
+      const resultat = await analyseClasseur(await litCorps(req), categorie)
       // L'aperçu suffit à l'écran d'admin ; inutile de renvoyer 1 700 fiches.
       json(res, 200, { ...resultat, personnes: undefined, apercu: resultat.personnes.slice(0, 12) })
       return
@@ -102,7 +104,7 @@ const serveur = createServer(async (req, res) => {
         return
       }
       const corps = await litCorps(req)
-      const resultat = await analyseClasseur(corps)
+      const resultat = await analyseClasseur(corps, cat)
       if (!resultat.ok) {
         json(res, 422, { ok: false, erreurs: resultat.erreurs })
         return
