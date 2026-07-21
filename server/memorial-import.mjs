@@ -10,6 +10,7 @@ export const COLONNE_CONFLIT = 'Conflit'
 
 export const CATEGORIES = {
   '1gm': '1ère Guerre mondiale',
+  'entre-deux-guerres': 'Entre-deux-guerres',
   '2gm': '2ème Guerre mondiale',
   indochine: 'Indochine',
   algerie: 'Algérie',

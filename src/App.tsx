@@ -4,6 +4,7 @@ import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
 import Timeline from './components/Timeline/Timeline'
+import { preloadCardImages } from './utils/preloadImages'
 import AdminHub from './components/Admin/AdminHub'
 import AdminPin from './components/Admin/AdminPin'
 import MemorialAdmin from './components/Admin/MemorialAdmin'
@@ -106,6 +107,12 @@ type AdminView = 'borne' | 'pin' | 'hub' | 'memorial'
 function App() {
   const [adminView, setAdminView] = useState<AdminView>('borne')
   const pressTimer = useRef<ReturnType<typeof setTimeout>>(null)
+
+  // Met en cache les images des fiches dès le démarrage : les pop-ups de la
+  // carte s'ouvrent ensuite sans délai de chargement.
+  useEffect(() => {
+    preloadCardImages()
+  }, [])
 
   const startPress = () => {
     if (pressTimer.current) clearTimeout(pressTimer.current)

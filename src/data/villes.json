@@ -138,7 +138,7 @@
             "histoire": "Entre 2011 et 2015, le centre de formation initiale (CFIM) des militaires de Dieuze relevait de la 1re brigade mécanisée puis de la brigade de transmissions et d'appui au commandement (BTAC), avant de devenir en 2019 le CFIM des transmissions – 18e régiment de transmissions. Le 1er juillet 2025, il prend l'appellation de 18e régiment d'instruction des transmissions (RIT) et est institué héritier du 18e régiment de transmissions par filiation directe. Créé en 1945 (à l'origine 18e régiment du génie, RG).",
             "specificite": "Assure la formation initiale des militaires du rang (30 % pour les unités de la brigade d'appui numérique et cyber, BANC ; 70 % pour les régiments de l'armée de Terre). Capacité d'instruction de 10 sections simultanées (≈ 400 recrues) ; dispense aussi des formations techniques de spécialité (FTS) et d'adaptation.",
             "garnison": "57260 Dieuze (Moselle) — Quartier Lyautey.",
-            "photo": "/pucelles/18e-rit.jpg",
+            "photo": "/pucelles/18e-rit.png",
             "photoDescription": "Insigne du 18e RIT (chiffre 18)."
           }
         ]
@@ -174,6 +174,7 @@
             "histoire": "Le 1er juillet 1958, la 785e compagnie de transmissions est créée à Pontoise ; elle prend l'appellation de 785e compagnie de guerre électronique (CGE) le 16 octobre 1981. Rattachée successivement à Laval (1992), Orléans (1993), puis installée depuis le 1er juillet 2012 au quartier de la Maltière à Saint-Jacques-de-la-Lande. Intègre le commandement du renseignement en 2016, devenu en 2024 le commandement des actions dans la profondeur et du renseignement (CAPR).",
             "specificite": "Unité d'anticipation et d'innovation axée sur l'engagement opérationnel dans les domaines du renseignement d'origine électromagnétique (ROEM), de l'appui électronique (AE) et du cyber. Conçoit, expérimente et intègre des équipements spécifiques et fournit un éclairage capacitaire en amont d'opérations majeures.",
             "garnison": "35136 Saint-Jacques-de-la-Lande (Ille-et-Vilaine) — Quartier de la Maltière.",
+            "photo": "/pucelles/785e-cge.png",
             "photoDescription": "Insigne de la 785e CGE (aigle)."
           },
           {
@@ -183,6 +184,7 @@
             "histoire": "Le 13 octobre 1973, l'école supérieure d'électronique de l'armée de Terre (ESEAT) est transférée au quartier Leschi à Cesson-Sévigné. L'école supérieure et d'application des transmissions (ESAT) naît le 1er septembre 1994 de la fusion de trois écoles. Devenue école des transmissions (ETRS) en 2009, elle retrouve son autonomie le 6 février 2024 sous l'appellation d'école des transmissions, du numérique et du cyber (ETNC), au sein de la direction des ressources humaines de l'armée de Terre (DRHAT).",
             "specificite": "Forme, perfectionne et spécialise le personnel militaire et civil de l'armée de Terre dans les domaines du numérique, de la cybersécurité et de la guerre électronique (GE). Dispense la formation de spécialité des officiers et sous-officiers ; devient organisme certificateur PIX (compétences numériques).",
             "garnison": "Cesson-Sévigné / Rennes (Ille-et-Vilaine) — Quartier Leschi.",
+            "photo": "/pucelles/etnc.png",
             "photoDescription": "Insigne de l'ETNC."
           }
         ]
@@ -217,6 +219,7 @@
             "histoire": "La composante systèmes d'information et de communication (SIC) du régiment se décline en deux ensembles complémentaires : conception et contrôle au bureau systèmes d'information et de communication (BSIC), mise en œuvre et exécution au sein de la 5e compagnie, aînée des unités élémentaires du régiment. La 5e Cie est héritière de la 718e compagnie de transmissions (1960), du groupement régional d'exploitation de transmissions n°806 (1977) et des compagnies du 43e régiment de transmissions.",
             "specificite": "Le bureau systèmes d'information et de communication (BSIC) assure le commandement des SIC, la conception SIC des exercices et opérations et la cybersécurité. La 5e compagnie assure le commandement (« command and control ») du centre de guerre électronique (CGE) et du bataillon renseignement d'origine électromagnétique (BATROEM), la mise en œuvre des systèmes d'armes et la coordination de la recherche.",
             "garnison": "67125 Molsheim (Bas-Rhin).",
+            "photo": "/pucelles/44e-5cie.png",
             "photoDescription": "Insigne de la 5e compagnie (aigle, chiffre 5)."
           }
         ]
@@ -245,7 +248,7 @@
             "photoDescription": "Insigne du 54e RT (chiffre 54)."
           },
           {
-            "regiment": "54e régiment de transmissions — BSIC et CTDR",
+            "regiment": "54e régiment de transmissions- 5e Cie — BSIC et CTDR",
             "abrege": "CTDR",
             "texte": "« Toujours prouver »",
             "histoire": "Créée le 5 juillet 2012 à Soufflenheim, sa ville jumelée, la 5e compagnie est une unité indispensable à tous les engagements du régiment, trait d'union de l'action régimentaire. Compagnie de traitement et de diffusion du renseignement (CTDR).",
@@ -260,6 +263,7 @@
             "histoire": "Régiment de recherche humaine (REHUM) des forces terrestres, le 2e régiment de hussards est spécialisé dans le recueil de renseignement par moyens humains. Régiment de cavalerie au recrutement interarmes, il porte le nom de « Chamborant Houzards » et le béret brun. Le 6e escadron, escadron de traitement et de diffusion du renseignement (ETDR), a été créé en 2010 ; son nom de tradition « Braunsberg » rappelle la bataille de 1807.",
             "specificite": "Le 6e escadron traite, analyse, valorise et diffuse les informations recueillies par les capteurs. Constitué d'un peloton de commandement et de logistique, de deux pelotons de transmissions et de deux pelotons de traitement de l'information ; fournit l'échelon d'analyse et les capacités de commandement aux détachements de recherche humaine (DetReHum).",
             "garnison": "Haguenau (Bas-Rhin).",
+            "photo": "/pucelles/2e-rh-6e-esc.png",
             "photoDescription": "Insigne « 2e Houzards » (lion) et écusson du 6e escadron."
           }
         ]
@@ -286,7 +290,7 @@
             "specificite": "Direction d'appui au numérique zonal d'Île-de-France (CND/COMNUMIA). Assure 7j/7 et 24h/24 le déploiement, la mise en œuvre et le soutien des SIC à Paris, en Île-de-France et en Sud-Picardie (du niveau NP au TS SF), au profit de plus de 3 500 usagers sensibles. Appui des grands événements : 14 juillet, JOP 2024 (GAPSIC), salons (Bourget, Euronaval).",
             "garnison": "78100 Saint-Germain-en-Laye / 92150 Suresnes / Mont-Valérien (Île-de-France).",
             "photo": "/pucelles/8e-rt.png",
-            "photoDescription": "Insigne du 8e régiment de transmissions : lorem ipsum dolor sit amet, consectetur adipiscing elit. Ses symboles rappellent le Mont-Valérien, berceau de l'arme des transmissions. Sed do eiusmod tempor incididunt ut labore.",
+            "photoDescription": "Insigne du 8e régiment de transmissions : ses symboles rappellent le Mont-Valérien, berceau de l'arme des transmissions.",
             "medias": [
               {
                 "type": "image",
@@ -301,39 +305,13 @@
             ]
           },
           {
-            "regiment": "Bureau programmes systèmes d'information opérationnels et de communication (BPSIOC)",
-            "abrege": "BPSIOC",
-            "texte": "",
-            "histoire": "Le bureau programmes systèmes d'information opérationnels et de communication (BPSIOC) appartient à la sous-chefferie plans et programmes de l'état-major de l'armée de Terre (EMAT).",
-            "specificite": "Garant de la cohérence capacitaire des systèmes d'information opérationnels et de communication (SIOC), de cyber-électronique et de guerre électronique (GE) de l'armée de Terre. Propose au chef d'état-major de l'armée de Terre (CEMAT) les autorisations d'emploi, mises en service opérationnel et retraits de service des équipements systèmes d'information opérationnels et de communication (SIOC) et guerre électronique (GE).",
-            "garnison": "75009 Paris (Île-de-France) — État-major de l'armée de Terre.",
-            "photoDescription": "Insigne « Pour commander au combat » (BPSIOC)."
-          },
-          {
-            "regiment": "Bureau numérique de l'armée de Terre (BNUM)",
-            "abrege": "BNUM",
-            "texte": "",
-            "histoire": "Sous les ordres du colonel Letertre, le bureau numérique de l'état-major de l'armée de Terre (BNUM EMAT), organisé en deux sections (gouvernance et intelligence artificielle ; données et architecture d'entreprise), est intégré depuis août 2022 à la direction des systèmes d'information préparation des forces – Terre (DSI PF-T), issue de la refonte de la gouvernance lancée en 2019.",
-            "specificite": "Chargé de la cohérence d'ensemble des moyens numériques et des données de l'armée de Terre (AdT). Traite des systèmes d'information (SI), de la transformation numérique, de la gouvernance des données et de l'intelligence artificielle (IA), sous les ordres de l'officier général numérique et cyber.",
-            "garnison": "75009 Paris (Île-de-France) — État-major de l'armée de Terre.",
-            "photoDescription": "Insigne du bureau numérique."
-          },
-          {
-            "regiment": "État-major opérationnel Terre — G6 (CFOT / EMOT)",
-            "abrege": "EMOT / G6",
-            "texte": "« Au cœur de l'opérationnel »",
-            "histoire": "L'état-major opérationnel Terre (EMOT) est une des divisions du commandement des forces terrestres. Il est l'unique point d'entrée et de sortie de l'armée de Terre pour les opérations, structuré en un bureau opérations (BOPS) à Balard et un centre de conduite (CC) à Lille. Le G6 est une des sections du BOPS, co-localisé avec le centre de planification et de conduite des opérations (CPCO) au pôle opérations de Balard depuis le 1er juillet 2015.",
-            "specificite": "Agit dans l'ensemble des domaines systèmes d'information et de communication (SIC) et soutien de quartier général (SQG) des opérations intérieures et extérieures : conseille le chef de l'EMOT, participe à la planification opérationnelle et pilote l'emploi des moyens SIC en conformité avec la doctrine.",
-            "garnison": "75009 Paris — Pôle opérations de Balard (Île-de-France).",
-            "photoDescription": "Insigne de l'EMOT (Terre)."
-          },
-          {
             "regiment": "738e compagnie de guerre électronique (738e CGE)",
             "abrege": "738e CGE",
             "texte": "",
             "histoire": "Créée le 5 mars 2020 par le chef d'état-major de l'armée de Terre (CEMAT), sur proposition conjointe de la direction du renseignement militaire (DRM) et du Père de l'arme des Transmissions, cette compagnie interarmées et interservices reprend les traditions et l'appellation de la 738e compagnie de transmissions, devenue compagnie de guerre électronique (CGE) avant sa dissolution en 1977. Installée à Balard (Paris) en 2024.",
             "specificite": "La 738e compagnie de guerre électronique (CGE) fournit du renseignement d'origine électromagnétique (ROEM) aux échelons stratégiques et aux forces déployées. Au carrefour de la guerre électronique et du cyber ; regroupe analystes ROEM, exploitants renseignement et linguistes, sous les ordres du centre de formation et d'emploi relatif aux émissions électromagnétiques (CFEEE).",
             "garnison": "75015 Paris — Balard (Île-de-France).",
+            "photo": "/pucelles/738e-cge.png",
             "photoDescription": "Insigne de la 738e CGE (aigle, chiffre 738)."
           }
         ]
@@ -349,102 +327,9 @@
     {
       "type": "Feature",
       "properties": {
-        "nom": "Arcueil",
-        "labelDir": "right",
-        "entites": [
-          {
-            "regiment": "Centre de la donnée et des applications numériques (CDAN)",
-            "abrege": "CDAN",
-            "texte": "",
-            "histoire": "Créé le 1er juillet 2023, le centre de la donnée et des applications numériques (CDAN) réunit les compétences du centre de conception des applications de l'armée de Terre (CCIAT) et de la section d'analyse et de recherche opérationnelle (SARO). Héritier du bureau organisation des systèmes d'information de l'état-major de l'armée de Terre (EMAT), il est placé sous l'autorité de l'officier général numérique-cyber de l'EMAT.",
-            "specificite": "Réalise des applications numériques et valorise la donnée avec l'intelligence artificielle (IA) au profit de l'état-major de l'armée de Terre (EMAT) et du commandement de la force et des opérations terrestres (CFOT) ; assure le pilotage du système d'information de l'armée de Terre.",
-            "garnison": "94114 Arcueil (Val-de-Marne, Île-de-France).",
-            "photoDescription": "Insigne du CDAN."
-          }
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.335,
-          48.8073
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom": "Versailles",
-        "labelDir": "left",
-        "entites": [
-          {
-            "regiment": "Section technique de l'armée de Terre (STAT)",
-            "abrege": "STAT",
-            "texte": "« Être exact »",
-            "histoire": "Forte de plus de 225 ans d'histoire (comité de l'artillerie – 1795) et dépositaire des traditions du 20e régiment d'artillerie, la section technique de l'armée de Terre (STAT) est l'un des acteurs clés de la transformation de l'armée de Terre vers l'ère SCORPION.",
-            "specificite": "Trois de ses huit groupements sont dévolus aux systèmes d'information et de communication (SIC) : le groupement systèmes de commandement et maîtrise de l'information (SCMI), le groupement renseignement (RENS) et le groupement simulation et appui à la numérisation de l'espace de bataille (SIMU-NEB). Conduit les programmes d'armement et évalue les équipements en conditions opérationnelles.",
-            "garnison": "78013 Versailles (Yvelines, Île-de-France).",
-            "photoDescription": "Insigne de la STAT."
-          }
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.1301,
-          48.8049
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom": "Montlhéry",
-        "labelDir": "bottom",
-        "entites": [
-          {
-            "regiment": "Brigade logistique — BSIC-AC",
-            "abrege": "BLOG",
-            "texte": "« Au cœur des forces »",
-            "histoire": "Héritière du poste de commandement de la force logistique (PCFL) et de la 1re brigade logistique, la brigade logistique est créée le 26 mars 2024. Sa création découle du nouveau modèle d'« armée de Terre de combat » et d'une nouvelle organisation au sein du commandement de l'appui et de la logistique terrestre (CALT).",
-            "specificite": "Le bureau systèmes d'information et de communication et appui au commandement (BSIC-AC) est l'expert de son domaine (SIC, cyber, appui au commandement) pour la brigade logistique. Responsable de concevoir les architectures SIC et appui au commandement, d'élaborer les ordres techniques et de mettre en œuvre les systèmes de postes de commandement de l'état-major.",
-            "garnison": "91310 Montlhéry (Essonne, Île-de-France).",
-            "photoDescription": "Insigne de la brigade logistique (aigle)."
-          }
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.2732,
-          48.6386
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "nom": "Strasbourg",
         "labelDir": "right",
         "entites": [
-          {
-            "regiment": "Commandement des actions dans la profondeur et du renseignement (CAPR) — BSIC",
-            "abrege": "CAPR",
-            "texte": "",
-            "histoire": "Suite à la réorganisation de l'armée de Terre dans le modèle « Armée de Terre de combat », le commandement des actions dans la profondeur et du renseignement (CAPR) a été créé le 1er août 2024 à Strasbourg. Ce commandement dispose de trois brigades subordonnées : la brigade de renseignement et cyber-électronique (BRCE) à Strasbourg, la 4e brigade d'aérocombat (BAC) à Clermont-Ferrand et la 19e brigade d'artillerie (BART) à La Valbonne.",
-            "specificite": "Le bureau systèmes d'information et de communication (BSIC) conçoit et fournit les SIC à l'état-major. Le CAPR est directeur de la fonction renseignement et guerre électronique (GE) ; il est le G2 de la force opérationnelle terrestre (FOT) et s'appuie sur le centre du renseignement Terre (CRT).",
-            "garnison": "67071 Strasbourg (Bas-Rhin).",
-            "photoDescription": "Insigne du CAPR (cheval ailé)."
-          },
-          {
-            "regiment": "Brigade de renseignement et cyber-électronique (BRCE) — BSIC",
-            "abrege": "BRCE",
-            "texte": "",
-            "histoire": "Héritière du commandement du renseignement des forces terrestres, la brigade de renseignement et cyber-électronique (BRCE) a été créée en 2024 ; son état-major est stationné à la caserne Stirn à Strasbourg. Dans le cadre de la transformation « armée de Terre de combat », elle est subordonnée au commandement des actions dans la profondeur et du renseignement (CAPR).",
-            "specificite": "Comprend le 2e régiment de hussards, les 44e et 54e régiments de transmissions, le 151e groupement d'instruction et la 785e compagnie de guerre électronique (CGE). Capacités de recherche spécialisée : renseignement d'origine humaine (2e RH) et électromagnétique/cyber (44e RT, 54e RT, 785e CGE). Le bureau systèmes d'information et de communication (BSIC) conçoit et fournit les SIC à l'état-major de la BRCE.",
-            "garnison": "67071 Strasbourg (Bas-Rhin) — Caserne Stirn.",
-            "photoDescription": "Insigne de la BRCE (hibou et éclairs)."
-          },
           {
             "regiment": "2e brigade blindée — BSIC et 2e CCTB",
             "abrege": "2e BB",
@@ -452,16 +337,8 @@
             "histoire": "Héritière de la 2e division blindée créée sous l'impulsion du général Leclerc en 1943, la 2e brigade blindée (BB) est installée depuis 2010 à Illkirch-Graffenstaden. La 2e compagnie de commandement et de transmissions blindée (CCTB) trouve ses racines dans la compagnie mixte de transmissions 97/84 qui suivit l'épopée Leclerc jusqu'à Berchtesgaden.",
             "specificite": "Le bureau systèmes d'information et de communication (BSIC) conçoit et fournit les moyens SIC et d'appui au commandement au général commandant la brigade. La 2e compagnie de commandement et de transmissions blindée (CCTB) arme le poste de commandement numérisé (deux postes de commandement blindés, poste de commandement Reachback).",
             "garnison": "67071 Strasbourg / Illkirch-Graffenstaden (Bas-Rhin).",
+            "photo": "/pucelles/2e-cctb.png",
             "photoDescription": "Insigne de la 2e BB (Leclerc) et de la 2e CCTB."
-          },
-          {
-            "regiment": "Corps européen (EUROCORPS) — G6",
-            "abrege": "EUROCORPS",
-            "texte": "« Ensemble, plus loin, plus vite » (Together, Further, Faster)",
-            "histoire": "Le Corps européen (EUROCORPS) fut créé en 1992 et déclaré pleinement opérationnel en 1995. Né d'une initiative franco-allemande, il compte six nations cadres (Allemagne, France, Belgique, Espagne, Luxembourg, Pologne). Expérience opérationnelle en Bosnie, au Kosovo, en Afghanistan, au Mali et en République centrafricaine (RCA). Certifié « WarFighting Corps » lors de l'exercice LOYAL LEDA 2024.",
-            "specificite": "Le G6 est le conseiller systèmes d'information et de communication (SIC) et cybersécurité du général commandant. Organisé en quatre sections : PLANS (planification SIC), OPS (architecture et réseaux déployables), SUPPORT (réseaux d'infrastructure) et CIS SECURITY (sécurité des systèmes d'information). Référent du domaine interopérabilité.",
-            "garnison": "67020 Strasbourg (Bas-Rhin) — Quartier Aubert de Vincelles.",
-            "photoDescription": "Insigne de l'EUROCORPS (épée et étoiles européennes)."
           }
         ]
       },
@@ -486,6 +363,7 @@
             "histoire": "La 4e brigade d'aérocombat (BAC) est l'héritière de plusieurs grandes unités : 4e division d'infanterie (créée 1873), 4e division marocaine de montagne, 4e division blindée puis 4e division aéromobile (fer de lance de la Force d'action rapide). La 4e brigade d'aérocombat est créée en 2016 à Clermont-Ferrand avec sa compagnie de commandement et de transmissions d'aérocombat (CCTA). Depuis le 1er août 2024, subordonnée au commandement des actions dans la profondeur et du renseignement (CAPR).",
             "specificite": "Le bureau systèmes d'information et de communication (BSIC) et la compagnie de commandement et de transmissions d'aérocombat (CCTA) déploient les groupes de raccordement au sein des régiments d'hélicoptères de combat (RHC). Compétences uniques (déconfliction 3D) ; peut déployer un poste de commandement d'aérocombat de circonstance (PCAC) aérotransportable.",
             "garnison": "63035 Clermont-Ferrand (Puy-de-Dôme).",
+            "photo": "/pucelles/4e-ccta.png",
             "photoDescription": "Insigne de la 4e BAC et de la 4e CCTA (« Phénix »)."
           }
         ]
@@ -511,6 +389,7 @@
             "histoire": "Créé le 1er mars 1910 à Verdun, le 61e régiment d'artillerie (RA) s'illustre lors de la Première Guerre mondiale (bataille des frontières, août 1914), valant à ses artilleurs le surnom de « Diables noirs ». Le 21 juin 1921, après une sixième citation à l'ordre de l'armée, il reçoit la fourragère aux couleurs de la Légion d'honneur (« 1er de la fourragère »). Aujourd'hui régiment du renseignement d'origine image des forces terrestres, il comprend huit batteries dont la batterie de traitement et de diffusion du renseignement (BTDR).",
             "specificite": "La batterie de traitement et de diffusion du renseignement (BTDR) exploite le renseignement obtenu par les capteurs image (centre de recherche par imagerie Terre) et dispose de la section transmissions du régiment. Défi à venir : raccordement du drone tactique PATROLLER dans l'environnement SCORPION.",
             "garnison": "52903 Chaumont (Haute-Marne).",
+            "photo": "/pucelles/61e-ra.png",
             "photoDescription": "Insigne du 61e RA (« Diable noir », chiffre 61) et écusson de la 6e batterie."
           }
         ]
@@ -520,31 +399,6 @@
         "coordinates": [
           5.1386,
           48.1105
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom": "Mourmelon-le-Grand",
-        "labelDir": "right",
-        "entites": [
-          {
-            "regiment": "COMECIA — division SIC-simulation",
-            "abrege": "COMECIA",
-            "texte": "« Rendre possible la victoire »",
-            "histoire": "Implanté à Mourmelon-le-Grand, le commandement de l'entraînement du combat interarmes (COMECIA), créé le 1er janvier 2024, tire son origine du commandement des centres de préparation des forces, adapté au modèle « armée de Terre de combat ». Il reprend les traditions et attributs du Griffon de la 12e division légère blindée école.",
-            "specificite": "La division systèmes d'information et de communication–simulation (DIV SIC-SIMU), tête de chaîne SIC du COMECIA, participe au maintien et au développement des capacités d'entraînement. Fournit l'expertise SIC, sécurité des systèmes d'information et cyberdéfense, et pilote l'emploi de la simulation pour la préparation à l'engagement SCORPION.",
-            "garnison": "51400 Mourmelon-le-Grand (Marne).",
-            "photoDescription": "Griffon de la 12e division légère blindée école."
-          }
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.3646,
-          49.1361
         ]
       }
     },
@@ -561,6 +415,7 @@
             "histoire": "Plusieurs héritages fondent les traditions de la 1re division : filiation directe avec la 1re division blindée (DB, 1943-1999) devenue 1re brigade mécanisée, et tradition avec la 1re division française libre (DFL) et la 1re division légère mécanisée (DLM). Le bataillon de commandement et de quartier général (BCQG) a été créé à l'été 2024 ; il comprend la 1re compagnie de transmissions divisionnaire (CTD), issue de l'escadron de quartier général de l'état-major de force n°1 (EMF1).",
             "specificite": "La division systèmes d'information et de communication (DIVSIC), le bataillon de commandement et de quartier général (BCQG) et la 1re compagnie de transmissions divisionnaire (CTD) assurent l'appui au commandement en opération et la cohérence de la chaîne X6 de la 1re division ; met en œuvre le poste de commandement avancé divisionnaire.",
             "garnison": "25027 Besançon (Doubs).",
+            "photo": "/pucelles/1re-ctd.png",
             "photoDescription": "Insigne de la division SIC et de la 1re CTD."
           },
           {
@@ -570,6 +425,7 @@
             "histoire": "Créée en janvier 1955 à Constance (Allemagne) après l'expérimentation « JAVELOT », la 7e division mécanique rapide (DMR) est la première division française dotée de matériels modernes de fabrication nationale. Elle devient 7e division légère blindée en 1961. La 7e division blindée (DB) – 65e division militaire territoriale – est créée le 1er août 1977 ; la 7e brigade blindée (BB) lui succède en 1999.",
             "specificite": "Le bureau systèmes d'information et de communication (BSIC) est l'échelon de conception tactique de la manœuvre SIC de la brigade. La 7e compagnie de commandement et de transmissions blindée (CCTB) est l'échelon de mise en œuvre : délivre les moyens SIC et appui au commandement (SIC-AC) en milieu interarmées et multinational.",
             "garnison": "25027 Besançon (Doubs).",
+            "photo": "/pucelles/7e-cctb.png",
             "photoDescription": "Insigne de la 7e BB et fanion de la 7e CCTB (chiffre 7)."
           }
         ]
@@ -595,6 +451,7 @@
             "histoire": "La 1re division alpine est créée en 1944, devient 27e division d'infanterie alpine (DIA), puis 27e division d'infanterie de montagne (DIM) et enfin en 1999 la 27e brigade d'infanterie de montagne (BIM). La 27e compagnie de commandement et de transmissions de montagne (CCTM) est l'héritière des traditions de la 77e compagnie de transmissions (CT) créée en 1946 en Afrique du Nord ; elle prend l'appellation de 27e CCTM en 1999.",
             "specificite": "La 27e compagnie de commandement et de transmissions de montagne (CCTM) dispose d'un savoir-faire unique : appuyer la mise en œuvre de postes de commandement dans le cadre d'opérations montagne et grand froid (OMGF). Le bureau systèmes d'information et de communication (B6) conduit l'emploi combiné de SITAWARE HQ et du système d'information du combat SCORPION (SICS).",
             "garnison": "38760 Varces-Allières-et-Risset (Isère) — près de Grenoble.",
+            "photo": "/pucelles/27e-cctm.png",
             "photoDescription": "Insignes de la 27e BIM et de la 27e CCTM (edelweiss, chiffre 27)."
           }
         ]
@@ -620,6 +477,7 @@
             "histoire": "La 9e brigade d'infanterie de marine (BIMa) est la descendante de la division « BLEUE » (Bazeilles, 1870-1871) et l'héritière de la 9e division d'infanterie coloniale (1943-1948). Créée à Saint-Malo en juillet 1963, elle prend le nom de 9e brigade d'infanterie de marine en janvier 2013. Dans le cadre de l'autonomisation des brigades, un bataillon de commandement et de soutien (BCS) est créé le 12 juillet 2024, dont fait partie la 9e compagnie de commandement et de transmissions de marine (CCTMa).",
             "specificite": "La 9e compagnie de commandement et de transmissions de marine (CCTMa), à vocation amphibie, assure la mise en œuvre et la permanence des moyens de commandement et de transmissions de l'état-major de la 9e BIMa. Fournit les moyens radiophoniques, satellitaires, téléphoniques et informatiques ; peut armer des postes de commandement à la mer comme à terre.",
             "garnison": "86023 Poitiers (Vienne).",
+            "photo": "/pucelles/9e-cctma.png",
             "photoDescription": "Insigne de la 9e division d'infanterie coloniale (fond bleu ciel, vagues)."
           }
         ]
@@ -645,6 +503,7 @@
             "histoire": "La brigade franco-allemande (BFA) voit le jour le 2 octobre 1989 à Böblingen, suite à la décision des présidents Mitterrand et chancelier Kohl au sommet de Karlsruhe. Héritière de la Heimatschutzbrigade 55 et des 18e et 28e régiments de transmissions, la compagnie de commandement et de transmissions (CCT) est créée la même année.",
             "specificite": "Unité binationale, la compagnie de commandement et de transmissions (CCT) fournit à la BFA les systèmes d'information et de communication (SIC) binationaux nécessaires aux liaisons vers les échelons supérieurs et unités subordonnées (régiments français et allemands). Au cœur de l'interopérabilité de la brigade.",
             "garnison": "79379 Müllheim (Bade-Wurtemberg, Allemagne).",
+            "photo": "/pucelles/bfa-cct.png",
             "photoDescription": "Insigne de la BFA (couleurs franco-allemandes) et de la CCT."
           }
         ]
@@ -670,6 +529,7 @@
             "histoire": "Le 1er juillet 2016, la 3e division SCORPION est créée et son état-major stationne au quartier capitaine Rendu à Marseille. Elle hérite des traditions de la 3e division d'infanterie algérienne (DIA) qui libéra Marseille en août 1944 sous le commandement du général de Monsabert.",
             "specificite": "La division systèmes d'information et de communication (DIVSIC) fournit un appui SIC et soutien de quartier général (SQG) à l'état-major et aux unités numérisées, assure la cybersécurité de l'état-major et la montée en puissance de l'infovalorisation. Organisée en trois entités : systèmes de communication (SC), systèmes d'information (SI) et cyber.",
             "garnison": "13568 Marseille (Bouches-du-Rhône) — Quartier capitaine Rendu.",
+            "photo": "/pucelles/3e-ctd.png",
             "photoDescription": "Insigne de la division SIC et de la 3e CTD."
           }
         ]
@@ -695,6 +555,7 @@
             "histoire": "La 11e compagnie de commandement et de transmissions parachutiste (CCTP) est l'héritière des unités de transmissions parachutistes servant la France depuis 1944 ; elle trouve ses racines dans la 341e compagnie de transmissions. Implantée au quartier Balma Ballon (Toulouse), colocalisée avec l'état-major de la 11e brigade parachutiste (BP), à laquelle elle est rattachée depuis 1999.",
             "specificite": "Taillée pour l'engagement d'urgence, elle arme un détachement d'alerte de 27 transmetteurs (DET27) intégré au poste de commandement aérolargable G08, capable d'établir un poste de commandement de niveau 3 dans un délai de trois heures. Détient des savoir-faire uniques en transmissions aéroportées.",
             "garnison": "31032 Toulouse (Haute-Garonne) — Quartier Balma Ballon.",
+            "photo": "/pucelles/11e-cctp.png",
             "photoDescription": "Insigne de la 11e BP et de la 11e CCTP."
           }
         ]
@@ -720,6 +581,7 @@
             "histoire": "La 6e brigade légère blindée (BLB), à l'origine 6e division légère blindée, a été créée à Nîmes en 1984. Héritière de la 6e division de cavalerie de la Grande Guerre et des divisions blindées de Compiègne et de Strasbourg, elle est massivement engagée en 1990-1991 lors de l'opération Daguet en Irak (surnom « division Daguet »).",
             "specificite": "La 6e compagnie de commandement et de transmissions de marine (CCTMa), « compagnie du général », appuie au commandement l'état-major de la 6e BLB et déploie le système de poste de commandement de la brigade. Spécialisée dans l'amphibie ; met en œuvre les matériels de pointe (Griffon SOTM, SERVAL).",
             "garnison": "30072 Nîmes (Gard).",
+            "photo": "/pucelles/6e-cctma.png",
             "photoDescription": "Insigne de la 6e BLB et fanion de la 6e CCTMa (croix de guerre des théâtres d'opérations extérieures)."
           }
         ]
@@ -745,6 +607,7 @@
             "histoire": "Le commandement des actions spéciales Terre (CAST) a été créé le 1er janvier 2024 dans le cadre de la réforme « armée de Terre de combat ». Il regroupe trois unités historiques de forces spéciales (1er régiment de parachutistes d'infanterie de marine, 4e régiment d'hélicoptères des forces spéciales, 13e régiment de dragons parachutistes) et trois unités spécialisées. La compagnie de commandement et de transmissions des forces spéciales (CCT FS) est créée en 2007.",
             "specificite": "La compagnie de commandement et de transmissions des forces spéciales (CCT FS), compagnie parachutiste localisée à Pau, arme les systèmes d'information et de communication (SIC) des postes de commandement sur les théâtres d'engagement du commandement des opérations spéciales (COS). Double positionnement d'unité d'expertise technique SIC et d'unité combattante.",
             "garnison": "64011 Pau (Pyrénées-Atlantiques).",
+            "photo": "/pucelles/cct_fs.png",
             "photoDescription": "Insigne du CAST et de la CCT FS."
           }
         ]
@@ -770,6 +633,7 @@
             "histoire": "Créé à Bayonne le 1er novembre 1960, le 1er régiment de parachutistes d'infanterie de marine (RPIMa) est l'héritier des Special Air Service (SAS) de la France libre. C'est la seule unité au monde non anglo-saxonne autorisée à revendiquer l'appellation Sticks d'action spéciale (SAS). Depuis 1992, il est à la disposition du commandement des opérations spéciales (COS). La compagnie d'appui au commandement (CAC) est créée à l'été 2018, héritière de la compagnie de transmissions RAPAS.",
             "specificite": "La compagnie d'appui au commandement (CAC), dont le cœur est le bureau systèmes d'information et de communication (SIC), et quatre sticks SIC SAS spécialisés (3e dimension, milieu fluvial et subaquatique, patrouilles SAS, milieu urbain) arment les cellules de mise en œuvre tactiques ; responsable des formations SIC SAS du régiment.",
             "garnison": "64109 Bayonne (Pyrénées-Atlantiques).",
+            "photo": "/pucelles/1er-rpima.png",
             "photoDescription": "Insigne « SAS » (poignard ailé) et insigne de la CAC."
           }
         ]
@@ -795,6 +659,7 @@
             "histoire": "Créé en 1994, le 6e escadron regroupait à l'origine les spécialistes systèmes d'information et de communication (SIC) du 13e régiment de dragons parachutistes (RDP), régiment de renseignement des forces spéciales de l'armée de Terre. Réorganisé en 2017, il devient en 2022 l'escadron de recherche technique du régiment. En 2025, il rejoint officiellement la communauté cyber des armées (CCA).",
             "specificite": "Le 6e escadron, dédié à la « recherche technique », dispose de capacités poussées en renseignement d'origine image (ROIM), électromagnétique (ROEM) et cyber (ROC). Déployé sur les théâtres du commandement des opérations spéciales (COS) et de la direction du renseignement militaire (DRM), en appui des équipes de recherche aéroportée.",
             "garnison": "33058 Bordeaux (Gironde).",
+            "photo": "/pucelles/13e-rdp.png",
             "photoDescription": "Insigne du 13e RDP (« 1er Dragons ») et écusson du 6e escadron."
           }
         ]

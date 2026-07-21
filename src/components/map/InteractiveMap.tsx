@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon, Position } from 'geojson'
 import franceContourRaw from '../../data/france-contour.json'
 import regionsZonesRaw from '../../data/regions-zones.json'
@@ -63,9 +63,11 @@ const contourPath = franceContour.geometry.coordinates
 
 /* ══ Mode « zoom tactile » ══
 
-   Les secteurs denses (Île-de-France, Bas-Rhin, Puy-de-Dôme) sont délimités
-   par les polygones de regions-zones.json, dessinés sur la carte en zones
-   tactiles. En vue d'ensemble, les villes situées dans une zone sont
+   Les secteurs denses (Bas-Rhin, Puy-de-Dôme) sont délimités par les
+   polygones de regions-zones.json, dessinés sur la carte en zones
+   tactiles. Le polygone Île-de-France (code « 11 ») y figure encore mais
+   est exclu des zones (filtre plus bas) : ses villes sont affichées
+   directement. En vue d'ensemble, les villes situées dans une zone sont
    masquées ; toucher la zone anime le viewBox pour zoomer sur la région :
    chaque ville retrouve alors son point et son nom, bien espacés (tailles
    constantes à l'écran grâce au facteur u = view.w / VIEW_W). Retour par le
@@ -218,7 +220,9 @@ function zoneView(b: Rect): ViewBox {
 const overview = (() => {
   const pts = basePts()
 
-  const zones: Zone[] = regionsZones.features.map((f) => {
+  const zones: Zone[] = regionsZones.features
+    .filter((f) => f.properties.code !== '11') // Île-de-France : villes affichées sans zone tactile
+    .map((f) => {
     const outerRing = f.geometry.coordinates[0].map(project)
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
     for (const [x, y] of outerRing) {
@@ -291,6 +295,25 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
   // Le tiroir reste monté après la sortie du mode PMR, le temps de coulisser
   // hors de l'écran (classe map-drawer--exit) au lieu de disparaître d'un coup.
   const [drawerMounted, setDrawerMounted] = useState(pmrMode)
+  // Indicateur « plus de villes plus bas » de la liste défilante du tiroir.
+  const indexRef = useRef<HTMLElement>(null)
+  const [indexCanScrollDown, setIndexCanScrollDown] = useState(false)
+
+  const updateIndexScrollCue = useCallback(() => {
+    const el = indexRef.current
+    if (!el) return
+    setIndexCanScrollDown(el.scrollHeight - el.scrollTop - el.clientHeight > 16)
+  }, [])
+
+  useEffect(() => {
+    if (!drawerMounted) return
+    const el = indexRef.current
+    if (!el) return
+    updateIndexScrollCue()
+    const observer = new ResizeObserver(updateIndexScrollCue)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [drawerMounted, updateIndexScrollCue])
 
   useEffect(() => {
     if (pmrMode) {
@@ -305,6 +328,12 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
   const openCityFromIndex = (city: City) => {
     setSelectedCity(city)
     setIndexOpen(false)
+  }
+
+  function scrollIndexDown() {
+    const el = indexRef.current
+    if (!el) return
+    el.scrollBy({ top: el.clientHeight * 0.7, behavior: 'smooth' })
   }
 
   useEffect(() => {
@@ -427,7 +456,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
           <span className="map-region-kicker">Région</span>
           <span className="map-region-name">{zoomedZone.nom}</span>
           <span className="map-region-sub">
-            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher la mer pour revenir
+            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher en dehors de la régions pour revenir
           </span>
         </div>
       )}
@@ -520,7 +549,12 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
             pmrMode ? '' : ' map-drawer--exit'
           }`}
         >
-          <nav className="map-index" aria-label="Index des villes et régiments">
+          <nav
+            className="map-index"
+            aria-label="Index des villes et régiments"
+            ref={indexRef}
+            onScroll={updateIndexScrollCue}
+          >
             {indexEntries.map((props) => (
               <button
                 key={props.nom}
@@ -538,6 +572,25 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
               </button>
             ))}
           </nav>
+          {indexCanScrollDown && (
+            <button
+              type="button"
+              className="map-index-more-btn"
+              onClick={scrollIndexDown}
+              aria-label="Faire défiler la liste des villes vers le bas"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  d="M4 8l8 8 8-8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
           <button
             className="map-drawer-handle"
             onClick={() => setIndexOpen((o) => !o)}
