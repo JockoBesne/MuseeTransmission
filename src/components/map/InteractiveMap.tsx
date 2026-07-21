@@ -1,14 +1,19 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon, Position } from 'geojson'
 import franceContourRaw from '../../data/france-contour.json'
 import regionsZonesRaw from '../../data/regions-zones.json'
-import villesData from '../../data/villes.json'
+import villesDataFr from '../../data/villes.json'
+import villesDataEn from '../../data/villes_en.json'
 import type { City, LabelDirection, ZoneProps } from '../../types'
 import { CardDialog } from './CardDialog'
 import './InteractiveMap.css'
 
 const franceContour = franceContourRaw as Feature<MultiPolygon>
-const villes = villesData as FeatureCollection<Point, City>
+// Deux jeux de données aux mêmes champs (voir types.ts) : InteractiveMap
+// choisit l'un ou l'autre selon la langue du bouton du panneau gauche.
+// villes_en.json ne couvre qu'une ville pour l'instant (traduction en cours).
+const villesFr = villesDataFr as FeatureCollection<Point, City>
+const villesEn = villesDataEn as FeatureCollection<Point, City>
 const regionsZones = regionsZonesRaw as FeatureCollection<Polygon, ZoneProps>
 
 /* ── Projection Web Mercator → repère SVG ── */
@@ -77,6 +82,45 @@ const contourPath = franceContour.geometry.coordinates
    villes.json d'abord, puis les autres directions, puis des diagonales, en
    refusant toute collision (étiquettes, points, zones, bords). */
 
+const STRINGS = {
+  fr: {
+    titleKicker: 'Carte intéractive',
+    titleMain: 'Carte des unités de transmission',
+    backOverview: "← Vue d'ensemble",
+    regionKicker: 'Région',
+    regionSub: (n: number) =>
+      `${n} unité${n > 1 ? 's' : ''} · toucher en dehors de la régions pour revenir`,
+    svgLabel: 'Carte des régiments de Transmissions en France',
+    villesDrawer: 'Villes',
+    indexAria: 'Index des villes et régiments',
+    scrollDown: 'Faire défiler la liste des villes vers le bas',
+    hideIndex: "Masquer l'index des villes",
+    showIndex: "Afficher l'index des villes",
+    cityAriaMulti: (nom: string, n: number, regiments: string) =>
+      `${nom} — ${n} unités : ${regiments}`,
+    cityAriaSingle: (nom: string, regiment: string) => `${nom} — ${regiment}`,
+    zoneAria: (nom: string, n: number) => `${nom} — ${n} villes, toucher pour agrandir`,
+  },
+  en: {
+    titleKicker: 'Interactive map',
+    titleMain: 'Map of Transmission units',
+    backOverview: '← Overview',
+    regionKicker: 'Region',
+    regionSub: (n: number) =>
+      `${n} unit${n > 1 ? 's' : ''} · touch outside the region to return`,
+    svgLabel: 'Map of Transmission regiments in France',
+    villesDrawer: 'Cities',
+    indexAria: 'Index of cities and regiments',
+    scrollDown: 'Scroll the list of cities down',
+    hideIndex: 'Hide the city index',
+    showIndex: 'Show the city index',
+    cityAriaMulti: (nom: string, n: number, regiments: string) =>
+      `${nom} — ${n} units: ${regiments}`,
+    cityAriaSingle: (nom: string, regiment: string) => `${nom} — ${regiment}`,
+    zoneAria: (nom: string, n: number) => `${nom} — ${n} cities, touch to enlarge`,
+  },
+} as const
+
 const MARKER_R = 6
 const LABEL_FS = 13 // cohérent avec font-size de .map-label
 const ZOOM_MS = 650
@@ -114,7 +158,7 @@ interface Zone {
   ly: number
 }
 
-const basePts = (): Pt[] =>
+const basePts = (villes: FeatureCollection<Point, City>): Pt[] =>
   villes.features.map((f) => {
     const [x, y] = project(f.geometry.coordinates)
     return {
@@ -216,9 +260,10 @@ function zoneView(b: Rect): ViewBox {
   return { x: b.x + b.w / 2 - w / 2, y: b.y + b.h / 2 - h / 2, w, h }
 }
 
-/* ── Vue d'ensemble : villes isolées + zones délimitées (calculée une fois) ── */
-const overview = (() => {
-  const pts = basePts()
+/* ── Vue d'ensemble : villes isolées + zones délimitées (une fois par jeu
+   de données ; mémorisée par InteractiveMap selon la langue active) ── */
+function computeOverview(villes: FeatureCollection<Point, City>) {
+  const pts = basePts(villes)
 
   const zones: Zone[] = regionsZones.features
     .filter((f) => f.properties.code !== '11') // Île-de-France : villes affichées sans zone tactile
@@ -248,14 +293,14 @@ const overview = (() => {
   const singles = pts.filter((p) => !zoned.has(p))
   placeLabels(singles, 1, { x: 0, y: 0, w: VIEW_W, h: VIEW_H }, zones.map((z) => z.bbox))
   return { singles, zones }
-})()
+}
 
 const FULL_VIEW: ViewBox = { x: 0, y: 0, w: VIEW_W, h: VIEW_H }
 
 /* Vue zoomée : villes à leur position réelle dans le cadre, étiquettes recalculées */
-function zoomCities(view: ViewBox): Pt[] {
+function zoomCities(view: ViewBox, villes: FeatureCollection<Point, City>): Pt[] {
   const u = view.w / VIEW_W
-  const pts = basePts().filter(
+  const pts = basePts(villes).filter(
     (p) =>
       p.tx > view.x - 40 * u && p.tx < view.x + view.w + 40 * u &&
       p.ty > view.y - 40 * u && p.ty < view.y + view.h + 40 * u,
@@ -268,11 +313,6 @@ function zoomCities(view: ViewBox): Pt[] {
 const TITLE_HOLD_MS = 10_000
 const TITLE_ANIM_MS = 1100
 
-// Entrées du tiroir-index, triées par nom de ville (ordre alphabétique français).
-const indexEntries = [...villes.features]
-  .map((f) => f.properties)
-  .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
-
 // Sortie du mode PMR : durée du coulissement du tiroir hors de l'écran
 // avant son retrait du DOM (aligné sur la transition CSS de .map-drawer).
 const DRAWER_EXIT_MS = 550
@@ -280,9 +320,22 @@ const DRAWER_EXIT_MS = 550
 interface InteractiveMapProps {
   /** Affiche le tiroir-index (intercalaire) : réservé au mode PMR. */
   pmrMode: boolean
+  /** Langue d'affichage : sélectionne villes.json (fr) ou villes_en.json (en). */
+  lang: 'fr' | 'en'
 }
 
-export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
+export default function InteractiveMap({ pmrMode, lang }: InteractiveMapProps) {
+  const t = STRINGS[lang]
+  const villes = lang === 'en' ? villesEn : villesFr
+  const overview = useMemo(() => computeOverview(villes), [villes])
+  // Entrées du tiroir-index, triées par nom de ville (ordre alphabétique français).
+  const indexEntries = useMemo(
+    () =>
+      [...villes.features]
+        .map((f) => f.properties)
+        .sort((a, b) => a.nom.localeCompare(b.nom, 'fr')),
+    [villes],
+  )
   const [selectedCity, setSelectedCity] = useState<City | null>(null)
   const [titlePhase, setTitlePhase] = useState<'in' | 'out' | 'gone'>('in')
   const [view, setView] = useState<ViewBox>(FULL_VIEW)
@@ -329,6 +382,14 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
     setSelectedCity(city)
     setIndexOpen(false)
   }
+
+  // Changement de langue : la zone zoomée et la fiche ouverte référencent le
+  // jeu de données précédent, on revient donc à la vue d'ensemble.
+  useEffect(() => {
+    setZoomedZone(null)
+    setView(FULL_VIEW)
+    setSelectedCity(null)
+  }, [lang])
 
   function scrollIndexDown() {
     const el = indexRef.current
@@ -384,7 +445,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
     zoomedZone?.members.reduce((s, p) => s + p.props.entites.length, 0) ?? 0
 
   // Villes affichées : vue d'ensemble → isolées ; zoom → toutes (étiquettes hors animation)
-  const cities = zoomed ? zoomCities(view) : overview.singles
+  const cities = zoomed ? zoomCities(view, villes) : overview.singles
   const showLabels = !animating
 
   /* Tailles dynamiques en style inline : la feuille CSS l'emporterait sur de
@@ -397,10 +458,8 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
       tabIndex={0}
       aria-label={
         p.props.entites.length > 1
-          ? `${p.nom} — ${p.props.entites.length} unités : ${p.props.entites
-              .map((e) => e.regiment)
-              .join(', ')}`
-          : `${p.nom} — ${p.props.entites[0]?.regiment ?? ''}`
+          ? t.cityAriaMulti(p.nom, p.props.entites.length, p.props.entites.map((e) => e.regiment).join(', '))
+          : t.cityAriaSingle(p.nom, p.props.entites[0]?.regiment ?? '')
       }
       onClick={(e) => {
         e.stopPropagation()
@@ -440,24 +499,22 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
     <div className="map-wrapper">
       {titlePhase !== 'gone' && (
         <div className={`map-title map-title--${titlePhase}`}>
-          <span className="map-title-kicker">Carte intéractive</span>
-          <h2 className="map-title-main">Carte des unités de transmission</h2>
+          <span className="map-title-kicker">{t.titleKicker}</span>
+          <h2 className="map-title-main">{t.titleMain}</h2>
         </div>
       )}
 
       {zoomed && (
         <button type="button" className="map-back-btn" onClick={zoomOut}>
-          ← Vue d'ensemble
+          {t.backOverview}
         </button>
       )}
 
       {zoomedZone && (
         <div className="map-region-card">
-          <span className="map-region-kicker">Région</span>
+          <span className="map-region-kicker">{t.regionKicker}</span>
           <span className="map-region-name">{zoomedZone.nom}</span>
-          <span className="map-region-sub">
-            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher en dehors de la régions pour revenir
-          </span>
+          <span className="map-region-sub">{t.regionSub(nbUnites)}</span>
         </div>
       )}
 
@@ -466,7 +523,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
         viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
         preserveAspectRatio="xMidYMid meet"
         role="img"
-        aria-label="Carte des régiments de Transmissions en France"
+        aria-label={t.svgLabel}
         onClick={() => { if (zoomed && !animating) zoomOut() }}
       >
         <path
@@ -514,7 +571,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
               className="map-zone"
               role="button"
               tabIndex={0}
-              aria-label={`${z.nom} — ${z.members.length} villes, toucher pour agrandir`}
+              aria-label={t.zoneAria(z.nom, z.members.length)}
               onClick={(e) => { e.stopPropagation(); zoomTo(z) }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -551,7 +608,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
         >
           <nav
             className="map-index"
-            aria-label="Index des villes et régiments"
+            aria-label={t.indexAria}
             ref={indexRef}
             onScroll={updateIndexScrollCue}
           >
@@ -561,10 +618,8 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
                 className="map-index-btn"
                 aria-label={
                   props.entites.length > 1
-                    ? `${props.nom} — ${props.entites.length} unités : ${props.entites
-                        .map((e) => e.regiment)
-                        .join(', ')}`
-                    : `${props.nom} — ${props.entites[0]?.regiment ?? ''}`
+                    ? t.cityAriaMulti(props.nom, props.entites.length, props.entites.map((e) => e.regiment).join(', '))
+                    : t.cityAriaSingle(props.nom, props.entites[0]?.regiment ?? '')
                 }
                 onClick={() => openCityFromIndex(props)}
               >
@@ -577,7 +632,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
               type="button"
               className="map-index-more-btn"
               onClick={scrollIndexDown}
-              aria-label="Faire défiler la liste des villes vers le bas"
+              aria-label={t.scrollDown}
             >
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                 <path
@@ -595,16 +650,16 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
             className="map-drawer-handle"
             onClick={() => setIndexOpen((o) => !o)}
             aria-expanded={indexOpen}
-            aria-label={indexOpen ? "Masquer l'index des villes" : "Afficher l'index des villes"}
+            aria-label={indexOpen ? t.hideIndex : t.showIndex}
           >
             <span className="map-drawer-chevron" aria-hidden="true">›</span>
-            <span className="map-drawer-label">Villes</span>
+            <span className="map-drawer-label">{t.villesDrawer}</span>
           </button>
         </div>
       )}
 
       {selectedCity && (
-        <CardDialog city={selectedCity} onClose={() => setSelectedCity(null)} />
+        <CardDialog city={selectedCity} lang={lang} onClose={() => setSelectedCity(null)} />
       )}
     </div>
   )
