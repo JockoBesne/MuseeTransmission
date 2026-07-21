@@ -3,7 +3,7 @@ import VirtualKeyboard from './VirtualKeyboard'
 import { Ord } from '../../utils/ordinals'
 import './Memorial.css'
 
-type War = '1GM' | '2GM' | 'Indochine' | 'Algérie' | 'Opex'
+type War = '1GM' | 'EntreDeuxGuerres' | '2GM' | 'Indochine' | 'Algérie' | 'Opex'
 
 interface Soldat {
   nom: string
@@ -14,26 +14,29 @@ interface Soldat {
   conflit: string
 }
 
-const WARS: War[] = ['1GM', '2GM', 'Indochine', 'Algérie', 'Opex']
+const WARS: War[] = ['1GM', 'EntreDeuxGuerres', '2GM', 'Indochine', 'Algérie', 'Opex']
 
-/** Libellé court de l'onglet (les ordinaux passent par <Ord>). */
+/** Libellé de l'onglet, en toutes lettres (les ordinaux passent par <Ord>). */
 const TAB_LABELS: Record<War, string> = {
-  '1GM': '1ère GM',
-  '2GM': '2ème GM',
+  '1GM': 'Première Guerre mondiale',
+  EntreDeuxGuerres: 'Entre-deux-guerres',
+  '2GM': 'Seconde Guerre mondiale',
   Indochine: 'Indochine',
   Algérie: 'Algérie',
   Opex: 'Opex',
 }
 
 const WAR_LABELS: Record<War, string> = {
-  '1GM': 'Première Guerre Mondiale · 1914–1918',
-  '2GM': 'Deuxième Guerre Mondiale · 1939–1945',
+  '1GM': 'Première Guerre mondiale · 1914–1918',
+  EntreDeuxGuerres: 'Entre-deux-guerres · 1918–1939',
+  '2GM': 'Seconde Guerre mondiale · 1939–1945',
   Indochine: "Guerre d'Indochine · 1946–1954",
   Algérie: "Guerre d'Algérie · 1954–1962",
   Opex: 'Opérations extérieures et autres théâtres',
 }
 
 const SCROLL_SPEED = 28 // px/seconde
+const SWIPE_MIN_PX = 40 // glissement horizontal minimal sur le sélecteur de guerre
 
 /* Enchaînement des catégories : arrivé tout en bas d'une liste (défilement
    automatique OU glissement manuel), une transition plein panneau annonce la
@@ -58,6 +61,7 @@ function normalizeSoldat(item: unknown): Soldat {
    c'est pour cela qu'on ne bundle plus ces données). */
 const FICHIERS: Record<War, string> = {
   '1GM': '1gm',
+  EntreDeuxGuerres: 'entre-deux-guerres',
   '2GM': '2gm',
   Indochine: 'indochine',
   Algérie: 'algerie',
@@ -103,6 +107,11 @@ export default function Memorial() {
   const [hovering, setHovering] = useState(false)
   const [touching, setTouching] = useState(false)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
+  // Menu déroulant du sélecteur de guerre (toucher simple sur le bouton central).
+  const [menuOpen, setMenuOpen] = useState(false)
+  // Direction visée pendant un glissement en cours (-1 gauche, 1 droite, 0 aucune) :
+  // illumine la flèche correspondante pour guider le geste.
+  const [swipeDir, setSwipeDir] = useState(0)
   // null = chargement en cours (les données arrivent en fetch, plus du bundle).
   const [donnees, setDonnees] = useState<Record<War, Soldat[]> | null>(null)
   // Catégorie annoncée par le voile de transition (null = pas de transition).
@@ -154,16 +163,34 @@ export default function Memorial() {
   const lastTimeRef = useRef<number>(0)
   const posRef = useRef<number>(0)
   const touchTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
+  // Glissement horizontal sur le sélecteur de guerre (point de départ + drapeau
+  // pour avaler le click synthétique qui suit un glissement).
+  const swipeStartRef = useRef({ x: 0, y: 0 })
+  const swipedRef = useRef(false)
+
+  /** Guerre précédente (-1) ou suivante (+1), en boucle. */
+  const changeWar = (dir: number) =>
+    setWar(w => WARS[(WARS.indexOf(w) + dir + WARS.length) % WARS.length])
+
+  /** Direction d'un glissement qualifié (assez long ET à dominante horizontale). */
+  const swipeDirection = (t: { clientX: number; clientY: number }) => {
+    const dx = t.clientX - swipeStartRef.current.x
+    const dy = t.clientY - swipeStartRef.current.y
+    return Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) ? Math.sign(dx) : 0
+  }
 
   useEffect(() => {
     setSearch('')
     setKeyboardOpen(false)
+    setMenuOpen(false)
     posRef.current = 0
     dwellRef.current = 0
     if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [war])
 
-  const shouldScroll = !search && !hovering && !touching && !keyboardOpen && !transition
+  // menuOpen : défilement en pause pendant que le visiteur consulte le menu
+  // (sinon le voile de transition pourrait changer de guerre sous ses doigts).
+  const shouldScroll = !search && !hovering && !touching && !keyboardOpen && !transition && !menuOpen
 
   const tick = useCallback((ts: number) => {
     const el = scrollRef.current
@@ -229,15 +256,70 @@ export default function Memorial() {
         <div className="memorial-emblem">✦</div>
         <h2 className="memorial-title">MÉMORIAL</h2>
         <div className="memorial-wars">
-          {WARS.map(w => (
-            <button
-              key={w}
-              className={`war-tab ${war === w ? 'active' : ''}`}
-              onClick={() => setWar(w)}
-            >
-              <Ord>{TAB_LABELS[w]}</Ord>
-            </button>
-          ))}
+          <button
+            className={`war-arrow war-arrow--prev ${swipeDir < 0 ? 'targeted' : ''}`}
+            onClick={() => changeWar(-1)}
+            aria-label="Guerre précédente"
+          >
+            ‹
+          </button>
+          <button
+            className={`war-current ${menuOpen ? 'open' : ''}`}
+            onTouchStart={e => {
+              swipedRef.current = false
+              swipeStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+            }}
+            onTouchMove={e => setSwipeDir(swipeDirection(e.touches[0]))}
+            onTouchCancel={() => setSwipeDir(0)}
+            onTouchEnd={e => {
+              // Glisser vers une flèche = aller vers cette guerre (gauche = précédente).
+              const dir = swipeDirection(e.changedTouches[0])
+              setSwipeDir(0)
+              if (dir) {
+                swipedRef.current = true
+                changeWar(dir)
+              }
+            }}
+            onClick={() => {
+              if (swipedRef.current) {
+                swipedRef.current = false
+                return
+              }
+              setMenuOpen(o => !o)
+            }}
+          >
+            <Ord>{TAB_LABELS[war]}</Ord>
+            <span className="war-caret" aria-hidden="true">▾</span>
+          </button>
+          <button
+            className={`war-arrow war-arrow--next ${swipeDir > 0 ? 'targeted' : ''}`}
+            onClick={() => changeWar(1)}
+            aria-label="Guerre suivante"
+          >
+            ›
+          </button>
+
+          {menuOpen && (
+            <>
+              {/* Toucher hors du menu le referme. */}
+              <div className="war-menu-backdrop" onClick={() => setMenuOpen(false)} />
+              <ul className="war-menu">
+                {WARS.map(w => (
+                  <li key={w}>
+                    <button
+                      className={`war-option ${war === w ? 'active' : ''}`}
+                      onClick={() => {
+                        setWar(w)
+                        setMenuOpen(false)
+                      }}
+                    >
+                      <Ord>{TAB_LABELS[w]}</Ord>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
         <p className="memorial-subtitle">{WAR_LABELS[war]}</p>
       </div>

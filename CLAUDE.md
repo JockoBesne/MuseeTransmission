@@ -13,7 +13,7 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
   `public/data/A.docx` (via mammoth). **Ne jamais éditer ce JSON à la main** :
   modifier le .docx ou le script, puis régénérer.
 - `npm run import-memorial` — régénère `public/data/memorial/*.json`
-  (5 catégories : 1GM, 2GM, Indochine, Algérie, Opex) depuis les Excel
+  (6 catégories : 1GM, Entre-deux-guerres, 2GM, Indochine, Algérie, Opex) depuis les Excel
   « propres » de `data-memorial/` (4 colonnes imposées : Nom, Prénom,
   Date de décès, Grade ; tri alphabétique automatique). La validation vit à un
   seul endroit, [server/memorial-import.mjs](server/memorial-import.mjs)
@@ -75,13 +75,19 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     démontage. Le composant se remonte à chaque ouverture de l'onglet, donc
     la séquence rejoue à chaque visite.
   - `components/Memorial/Memorial.tsx` : noms des soldats morts au combat,
-    défilement automatique (requestAnimationFrame), onglets 1GM/2GM (données
-    2GM absentes pour l'instant), recherche qui filtre en temps réel et
+    défilement automatique (requestAnimationFrame), 6 onglets 1GM /
+    Entre-deux-guerres / 2GM / Indochine / Algérie / Opex (Opex affiche le
+    théâtre d'opération via le champ `conflit`) ; en bas d'une liste, un voile
+    plein panneau enchaîne sur
+    la catégorie suivante en boucle. Recherche qui filtre en temps réel et
     stoppe le défilement ; le toucher met le défilement en pause 1,5 s.
     Le champ de recherche ouvre un clavier virtuel AZERTY maison
     (`VirtualKeyboard.tsx`) — `inputMode="none"` sur l'input pour bloquer
     le clavier tactile de Windows en mode kiosque.
-- **Panneau droit** — frise chronologique (`components/Timeline/`).
+- **Panneau droit** — frise chronologique (`components/Timeline/`) : jalons
+  issus de `src/data/timeline.json` (type `TimelineEvent`), défilement
+  automatique en boucle, sections d'ancrage + index de navigation ; toucher un
+  jalon ouvre `TimelineDialog` (fiche dépliable).
 - **Administration** (accès personnel) : appui maintenu 5 s sur le coin
   haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
   tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub
@@ -139,15 +145,16 @@ musée est nécessaire.
 
 ## À faire (mettre à jour au fur et à mesure)
 
-- Frise chronologique verticale dans le panneau droit : jalons = cartes
-  tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
-  scroll natif.
-- Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
-  spécificité, photoDescription — par les contenus validés par le musée.
-- villes.json : la « Seconde unité du site » de Rennes et les `medias` de
-  Paris sont des EXEMPLES (démonstration multi-unités et galerie) — à
-  remplacer ou supprimer avec les contenus validés par le musée. Les vraies
-  images/vidéos iront dans `public/media/` (hors-ligne strict).
+- Supprimer l'ancienne chaîne `import-docx` (morte : `memorial-1gm.json` n'est
+  plus importé) — script `import-docx` de package.json, `scripts/import-docx.mjs`,
+  `src/data/memorial-1gm.json`, `public/data/A.docx`, et la ligne
+  `npm run import-docx` en tête de ce fichier.
+- villes.json : les deux `medias` du 8e RT / Paris (villes.json:298 et 303) sont
+  des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de vrais
+  fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne strict).
+- Corriger le contenu des « régiment de transmissions » de villes.json :
+  numéros/noms d'unités erronés à rectifier d'après la liste validée par le
+  musée (données historiques — ne rien inventer).
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
  

@@ -7,10 +7,11 @@ interface MemorialAdminProps {
   onBorne: () => void
 }
 
-type Categorie = '1gm' | '2gm' | 'indochine' | 'algerie' | 'opex'
+type Categorie = '1gm' | 'entre-deux-guerres' | '2gm' | 'indochine' | 'algerie' | 'opex'
 
 const CATEGORIES: { id: Categorie; titre: string }[] = [
   { id: '1gm', titre: '1ère Guerre mondiale' },
+  { id: 'entre-deux-guerres', titre: 'Entre-deux-guerres' },
   { id: '2gm', titre: '2ème Guerre mondiale' },
   { id: 'indochine', titre: 'Indochine' },
   { id: 'algerie', titre: 'Algérie' },

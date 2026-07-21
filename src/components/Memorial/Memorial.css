@@ -111,41 +111,145 @@
   margin-bottom: 10px;
 }
 
+/* ─── Sélecteur de guerre : ‹ [ guerre courante ▾ ] › ───
+   Une seule guerre affichée ; flèches (toucher OU glissement du bouton
+   central vers une flèche) = précédente/suivante ; toucher simple sur le
+   bouton central = menu déroulant (logique dans Memorial.tsx). */
+
 .memorial-wars {
+  position: relative; /* ancre du menu déroulant */
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 8px;
 }
 
-/* Cible tactile ≥ 48 px (borne). */
-.war-tab {
-  min-height: 48px;
-  padding: 5px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 3px;
+/* Flèches latérales : doubles chevrons « » nus (glyphes Nunito, sans cadre).
+   Cible tactile ≥ 48 px (borne). */
+.war-arrow {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  touch-action: manipulation;
+  transition: all 0.2s ease;
+}
+
+/* .targeted : flèche visée pendant un glissement du bouton central
+   (feedback immédiat du geste, posé par Memorial.tsx). */
+.war-arrow:hover,
+.war-arrow:active,
+.war-arrow.targeted {
+  color: #fecc30;
+  text-shadow: 0 0 14px rgba(254, 204, 48, 0.55);
+}
+
+/* La flèche visée s'écarte légèrement pour « appeler » le geste. */
+.war-arrow--prev.targeted {
+  transform: translateX(-4px);
+}
+
+.war-arrow--next.targeted {
+  transform: translateX(4px);
+}
+
+/* Bouton central : largeur fixe pour que les flèches ne bougent pas d'une
+   catégorie à l'autre. */
+.war-current {
+  width: 270px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 16px;
+  border: 1px solid #fecc30;
+  border-radius: 3px;
+  background: rgba(254, 204, 48, 0.15);
+  color: #fecc30;
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  touch-action: manipulation;
+  /* Le glissement horizontal est géré à la main (vers une flèche) : sans
+     `none`, le navigateur peut confisquer le geste (touchcancel). */
+  touch-action: none;
   transition: all 0.2s ease;
 }
 
-.war-tab.active {
-  background: rgba(254, 204, 48, 0.15);
-  border-color: #fecc30;
-  color: #fecc30;
+.war-current:active {
+  background: rgba(254, 204, 48, 0.3);
 }
 
-.war-tab:hover:not(.active) {
-  border-color: rgba(255, 255, 255, 0.8);
-  color: #ffffff;
+.war-caret {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.war-current.open .war-caret {
+  transform: rotate(180deg);
+}
+
+/* Voile invisible plein écran : toucher hors du menu le referme. */
+.war-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  background: transparent;
+}
+
+.war-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: 270px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #021b2e;
+  border: 1px solid rgba(254, 204, 48, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.war-option {
+  width: 100%;
+  min-height: 48px;
+  padding: 5px 16px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: center;
+  touch-action: manipulation;
+  transition: all 0.15s ease;
+}
+
+.war-option:hover,
+.war-option:active {
   background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.war-option.active {
+  background: rgba(254, 204, 48, 0.15);
+  color: #fecc30;
 }
 
 .memorial-subtitle {
