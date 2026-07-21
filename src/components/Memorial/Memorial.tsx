@@ -394,10 +394,13 @@ export default function Memorial() {
 
       <div className="memorial-footer">
         {soldats.length > 0 && (
-          search
-            ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} · ${soldats.length} inscrits`
-            : `${soldats.length} noms inscrits`
+          <p className="memorial-footer-count">
+            {search
+              ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} · ${soldats.length} inscrits`
+              : `${soldats.length} noms inscrits`}
+          </p>
         )}
+        <p className="memorial-footer-source">Source : Mémoire des hommes, Service historique de la défense</p>
       </div>
 
       {/* Voile de transition entre deux catégories (fin de liste atteinte). */}

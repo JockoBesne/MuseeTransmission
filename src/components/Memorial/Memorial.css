@@ -424,3 +424,14 @@
   text-transform: uppercase;
   min-height: 24px;
 }
+
+.memorial-footer-count,
+.memorial-footer-source {
+  margin: 0;
+}
+
+.memorial-footer-source {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.35);
+}
