@@ -7,12 +7,28 @@ import './TimelineDialog.css'
    se referme seule et la frise reprend son défilement. */
 const AUTO_CLOSE_MS = 3 * 60 * 1000
 
+const STRINGS = {
+  fr: {
+    fermer: 'Fermer',
+    indice: 'Toucher en dehors de la fenêtre pour fermer',
+    precedent: 'Précédent',
+    suivant: 'Suivant',
+  },
+  en: {
+    fermer: 'Close',
+    indice: 'Touch outside the window to close',
+    precedent: 'Previous',
+    suivant: 'Next',
+  },
+} as const
+
 interface TimelineDialogProps {
   event: TimelineEvent
   prevEvent: TimelineEvent
   nextEvent: TimelineEvent
   /** Change à chaque navigation : rejoue l'animation d'entrée du contenu. */
   contentKey: number
+  lang: 'fr' | 'en'
   onPrev: () => void
   onNext: () => void
   onClose: () => void
@@ -23,10 +39,12 @@ export function TimelineDialog({
   prevEvent,
   nextEvent,
   contentKey,
+  lang,
   onPrev,
   onNext,
   onClose,
 }: TimelineDialogProps) {
+  const t = STRINGS[lang]
   const closeRef = useRef<HTMLButtonElement>(null)
   const titleId = useId()
 
@@ -73,7 +91,7 @@ export function TimelineDialog({
         {/* Motif décoratif : ondes radio concentriques */}
         <span className="tl-dialog-waves" aria-hidden="true" />
 
-        <button ref={closeRef} className="tl-dialog-close" onClick={onClose} aria-label="Fermer">
+        <button ref={closeRef} className="tl-dialog-close" onClick={onClose} aria-label={t.fermer}>
           ✕
         </button>
 
@@ -82,21 +100,21 @@ export function TimelineDialog({
           <span className="tl-dialog-year">{event.annee}</span>
           <h3 id={titleId} className="tl-dialog-title"><Ord>{event.titre}</Ord></h3>
           <p className="tl-dialog-text"><Ord>{event.texte}</Ord></p>
-          <p className="tl-dialog-hint">Toucher en dehors de la fenêtre pour fermer</p>
+          <p className="tl-dialog-hint">{t.indice}</p>
         </div>
 
         <footer className="tl-dialog-nav">
           <button className="tl-dialog-nav-btn" onClick={onPrev}>
             <span className="tl-dialog-nav-arrow" aria-hidden="true">‹</span>
             <span className="tl-dialog-nav-info">
-              <small>Précédent</small>
+              <small>{t.precedent}</small>
               <strong>{prevEvent.annee}</strong>
             </span>
           </button>
           <span className="tl-dialog-nav-sep" aria-hidden="true" />
           <button className="tl-dialog-nav-btn tl-dialog-nav-btn--next" onClick={onNext}>
             <span className="tl-dialog-nav-info">
-              <small>Suivant</small>
+              <small>{t.suivant}</small>
               <strong>{nextEvent.annee}</strong>
             </span>
             <span className="tl-dialog-nav-arrow" aria-hidden="true">›</span>

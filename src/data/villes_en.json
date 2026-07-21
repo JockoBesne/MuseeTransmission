@@ -1,0 +1,30 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Douai",
+        "labelDir": "bottom",
+        "entites": [
+          {
+            "regiment": "41st Transmission Regiment (41e RT)",
+            "texte": "\"Beyond lands and the Ocean\"",
+            "histoire": "Heir to the troops of the Army of Africa, the 41st Transmission Regiment traces its roots to Morocco as early as 1907 (the Chaouïa campaign), then from 1920 (the pacification campaign). From 1942, its companies took part in the campaigns of the Liberation (four Croix de Guerre; battle honours Tunisia, Italy, Germany). It took part in the Indochina conflict (battle honour \"Indochina\"). Returning to mainland France in 1966, it became the government's transmissions unit. Based in Douai since 2010.",
+            "specificite": "The only French Army regiment based in the Hauts-de-France region, the \"Régiment des Corons\" (Regiment of the Corons). Made up of 6 active companies, it maintains a substantial operational reserve (an intervention unit, a traffic and escort squadron) and expertise in information and communication systems (ICS), headquarters support and movement support. Affiliated with the Rapid Reaction Corps – France (CRR-Fr) since 2024.",
+            "garnison": "59500 Douai (Nord, France) — Corbineau Barracks.",
+            "photo": "/pucelles/41e-rt.png",
+            "photoDescription": "Insignia bearing emblems of the Army of Africa; mascot Mansour III, an alpine goat."
+          }
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.0794,
+          50.3714
+        ]
+      }
+    }
+  ]
+}

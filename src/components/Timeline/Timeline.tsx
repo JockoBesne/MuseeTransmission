@@ -1,20 +1,16 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
-import timelineData from '../../data/timeline.json'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
+import timelineDataFr from '../../data/timeline.json'
+import timelineDataEn from '../../data/timeline_en.json'
 import type { TimelineEvent } from '../../types'
 import { Ord } from '../../utils/ordinals'
 import { TimelineDialog } from './TimelineDialog'
 import './Timeline.css'
 
-const EVENTS = timelineData as TimelineEvent[]
-
-/* Sections d'ancrage dérivées des données : nom + index du premier jalon.
-   Elles ne découpent pas la frise, elles servent uniquement de repères. */
-const SECTIONS = EVENTS.reduce<{ nom: string; start: number }[]>((acc, e, i) => {
-  if (acc.length === 0 || acc[acc.length - 1].nom !== e.section) {
-    acc.push({ nom: e.section, start: i })
-  }
-  return acc
-}, [])
+// Deux jeux de données aux mêmes champs (voir types.ts) : Timeline choisit
+// l'un ou l'autre selon la langue du bouton du panneau droit. timeline_en.json
+// ne couvre qu'un jalon pour l'instant (traduction en cours).
+const EVENTS_FR = timelineDataFr as TimelineEvent[]
+const EVENTS_EN = timelineDataEn as TimelineEvent[]
 
 const VISIBLE_COUNT = 4      // jalons visibles simultanément
 const SCROLL_SPEED = 22      // px/s de défilement automatique
@@ -26,7 +22,47 @@ const JUMP_MS = 900          // durée du saut animé vers une section
    React à chaque frame de défilement). */
 const IN_CLASS = 'tl-event--in'
 
-export default function Timeline() {
+const STRINGS = {
+  fr: {
+    titre: 'Frise chronologique',
+    soustitre: "L'histoire de l'Arme des Transmissions",
+    enSavoirPlus: 'En savoir plus',
+    sections: 'Sections',
+    sectionsAria: 'Sections de la frise',
+    masquerIndex: "Masquer l'index des sections",
+    afficherIndex: "Afficher l'index des sections",
+  },
+  en: {
+    titre: 'Timeline',
+    soustitre: 'The history of the Transmissions Corps',
+    enSavoirPlus: 'Learn more',
+    sections: 'Sections',
+    sectionsAria: 'Timeline sections',
+    masquerIndex: 'Hide the section index',
+    afficherIndex: 'Show the section index',
+  },
+} as const
+
+interface TimelineProps {
+  /** Langue d'affichage : sélectionne timeline.json (fr) ou timeline_en.json (en). */
+  lang: 'fr' | 'en'
+}
+
+export default function Timeline({ lang }: TimelineProps) {
+  const t = STRINGS[lang]
+  const EVENTS = lang === 'en' ? EVENTS_EN : EVENTS_FR
+  // Sections d'ancrage dérivées des données : nom + index du premier jalon.
+  // Elles ne découpent pas la frise, elles servent uniquement de repères.
+  const SECTIONS = useMemo(
+    () =>
+      EVENTS.reduce<{ nom: string; start: number }[]>((acc, e, i) => {
+        if (acc.length === 0 || acc[acc.length - 1].nom !== e.section) {
+          acc.push({ nom: e.section, start: i })
+        }
+        return acc
+      }, []),
+    [EVENTS],
+  )
   const [activeSection, setActiveSection] = useState(0)
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
   const [indexOpen, setIndexOpen] = useState(false)
@@ -40,6 +76,19 @@ export default function Timeline() {
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
   const jumpRef = useRef<{ from: number; to: number; start: number } | null>(null)
 
+  // Changement de langue : le nouveau jeu de données a une autre longueur
+  // (parfois plus courte), la position et la modale ouverte référencent
+  // donc l'ancien tableau — on revient à un état neutre en haut de la frise.
+  useEffect(() => {
+    setSelectedIdx(null)
+    setActiveSection(0)
+    pausedRef.current = false
+    jumpRef.current = null
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    posRef.current = 0
+    if (scrollRef.current) scrollRef.current.scrollTop = 0
+  }, [lang])
+
   /* Au recalage de la boucle (saut d'une copie à l'autre), l'observer ne
      réagit qu'à la frame suivante : on recopie l'état d'entrée des jalons
      de la copie source vers la copie cible pour éviter tout flash. */
@@ -50,7 +99,7 @@ export default function Timeline() {
       const dst = items[toOffset + i]
       if (src && dst) dst.classList.toggle(IN_CLASS, src.classList.contains(IN_CLASS))
     }
-  }, [])
+  }, [EVENTS])
 
   /* Boucle d'animation unique : défilement auto, saut vers une section,
      recalage de la boucle infinie et détection de la section courante. */
@@ -104,7 +153,7 @@ export default function Timeline() {
     }
     lastTsRef.current = ts
     rafRef.current = requestAnimationFrame(tick)
-  }, [mirrorInClasses])
+  }, [mirrorInClasses, EVENTS, SECTIONS])
 
   useEffect(() => {
     rafRef.current = requestAnimationFrame(tick)
@@ -181,8 +230,8 @@ export default function Timeline() {
   return (
     <div className="timeline">
       <div className="timeline-header">
-        <h2 className="timeline-title">Frise chronologique</h2>
-        <p className="timeline-subtitle">L'histoire de l'Arme des Transmissions</p>
+        <h2 className="timeline-title">{t.titre}</h2>
+        <p className="timeline-subtitle">{t.soustitre}</p>
       </div>
 
       <div className="timeline-body">
@@ -212,7 +261,7 @@ export default function Timeline() {
                   <button className="tl-card" onClick={() => openEvent(i)}>
                     <h3 className="tl-event-title"><Ord>{event.titre}</Ord></h3>
                     <p className="tl-event-text">{event.texte}</p>
-                    <span className="tl-more">En savoir plus <span className="tl-more-arrow">›</span></span>
+                    <span className="tl-more">{t.enSavoirPlus} <span className="tl-more-arrow">›</span></span>
                   </button>
                 </div>
               )
@@ -239,12 +288,12 @@ export default function Timeline() {
             className="tl-drawer-handle"
             onClick={() => setIndexOpen(o => !o)}
             aria-expanded={indexOpen}
-            aria-label={indexOpen ? "Masquer l'index des sections" : "Afficher l'index des sections"}
+            aria-label={indexOpen ? t.masquerIndex : t.afficherIndex}
           >
             <span className="tl-drawer-chevron" aria-hidden="true">‹</span>
-            <span className="tl-drawer-label">Sections</span>
+            <span className="tl-drawer-label">{t.sections}</span>
           </button>
-          <nav className="timeline-index" aria-label="Sections de la frise">
+          <nav className="timeline-index" aria-label={t.sectionsAria}>
             {SECTIONS.map((section, i) => (
               <button
                 key={section.nom}
@@ -264,6 +313,7 @@ export default function Timeline() {
           prevEvent={EVENTS[(selectedIdx + EVENTS.length - 1) % EVENTS.length]}
           nextEvent={EVENTS[(selectedIdx + 1) % EVENTS.length]}
           contentKey={selectedIdx}
+          lang={lang}
           onPrev={() => stepEvent(-1)}
           onNext={() => stepEvent(1)}
           onClose={closeEvent}

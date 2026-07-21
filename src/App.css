@@ -104,6 +104,49 @@ html,
   height: 1em;
 }
 
+/* ── Bouton de langue (bascule FR/EN par panneau, contour doré comme le
+   bouton PMR) ── Pas encore de vraie traduction : affiche juste le drapeau
+   de la langue courante du panneau. */
+.lang-btn {
+  position: absolute;
+  z-index: 1200;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #fecc30;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.15s ease;
+}
+
+/* Panneau gauche : empilé juste au-dessus du bouton PMR (bottom: 1.5rem +
+   hauteur 2.5rem + 0.75rem d'écart). */
+.lang-btn--left {
+  bottom: 4.75rem;
+  left: 1rem;
+}
+
+.lang-btn--right {
+  bottom: 1.5rem;
+  right: 1rem;
+}
+
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.lang-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
 .panel-right {
   background-color: #0D3151;
   color: #e0e0e0;
