@@ -64,6 +64,12 @@ la connexion automatique (§3) est indispensable.
   connexion → « En cas d'absence, exiger une reconnexion » → **Jamais**.
 - **Éviter un redémarrage Windows Update pendant l'expo** : Paramètres →
   Windows Update → suspendre les mises à jour, ou régler les « heures d'activité ».
+- **Écran tactile : désactiver le balayage depuis les bords** (centre de
+  notifications, bureaux virtuels — le script ne peut pas le faire, stratégie
+  machine, admin requis) puis redémarrer :
+  ```powershell
+  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\EdgeUI" /v AllowEdgeSwipe /t REG_DWORD /d 0 /f
+  ```
 
 ## 4. Vérifier le mode hors-ligne
 
