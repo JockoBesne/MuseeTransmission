@@ -208,15 +208,6 @@
   gap: 8px;
 }
 
-/* Dates sous le libellé (face courante uniquement). */
-.war-face-dates {
-  font-size: 0.62rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-}
-
 /* Guerre courante (face avant) : illuminée en doré, plus compacte.
    (Taille via width/height, pas scale() : le transform inline rotateY/translateZ
    écraserait un transform CSS.) */
