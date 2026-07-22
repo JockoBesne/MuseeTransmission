@@ -14,6 +14,19 @@ body,
   overflow: hidden;
 }
 
+/* Borne tactile : pas de sélection de texte à l'appui long (détournement du
+   mode kiosque) — seuls les champs de saisie restent sélectionnables. */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input,
+textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
