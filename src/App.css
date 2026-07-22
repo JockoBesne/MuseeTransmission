@@ -201,13 +201,7 @@ html,
 .divider {
   width: 3px;
   flex-shrink: 0;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    #fecc30 0,
-    #fecc30 10px,
-    #000000 10px,
-    #000000 22px
-  );
+  background-color: #fecc30;
   box-shadow: 0 0 10px rgba(254, 204, 48, 0.3);
 }
 

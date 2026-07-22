@@ -191,7 +191,7 @@ export default function Timeline() {
     <div className="timeline">
       <div className="timeline-header">
         <h2 className="timeline-title">Frise chronologique</h2>
-        <p className="timeline-subtitle">L'histoire de l'Arme des Transmissions</p>
+        <p className="timeline-subtitle">L'histoire de l'arme des Transmissions</p>
       </div>
 
       <div className="timeline-body">
