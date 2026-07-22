@@ -26,10 +26,20 @@ const TAB_LABELS: Record<War, string> = {
   Opex: 'Opex',
 }
 
+/** Dates affichées sous le libellé de la face courante de la roue. */
+const WAR_DATES: Record<War, string> = {
+  '1GM': '1914–1918',
+  EntreDeuxGuerres: '1918–1939',
+  '2GM': '1939–1945',
+  Indochine: '1946–1954',
+  Algérie: '1954–1962',
+  Opex: 'Opérations extérieures',
+}
+
 const WAR_LABELS: Record<War, string> = {
-  '1GM': 'Première Guerre mondiale · 1914–1918',
-  EntreDeuxGuerres: 'Entre-deux-guerres · 1918–1939',
-  '2GM': 'Seconde Guerre mondiale · 1939–1945',
+  '1GM': '1914–1918',
+  EntreDeuxGuerres: '1918–1939',
+  '2GM': '1939–1945',
   Indochine: "Guerre d'Indochine · 1946–1954",
   Algérie: "Guerre d'Algérie · 1954–1962",
   Opex: 'Opérations extérieures et autres théâtres',
@@ -109,9 +119,10 @@ export default function Memorial() {
   const [keyboardOpen, setKeyboardOpen] = useState(false)
   // Menu déroulant du sélecteur de guerre (toucher simple sur le bouton central).
   const [menuOpen, setMenuOpen] = useState(false)
-  // Direction visée pendant un glissement en cours (-1 gauche, 1 droite, 0 aucune) :
-  // illumine la flèche correspondante pour guider le geste.
-  const [swipeDir, setSwipeDir] = useState(0)
+  // Rotation cumulée du tambour de la roue, en degrés (60° par cran). Continue
+  // — jamais remise à zéro — pour que la roue tourne toujours du plus court
+  // côté, même au passage Opex ↔ 1GM.
+  const [rot, setRot] = useState(0)
   // null = chargement en cours (les données arrivent en fetch, plus du bundle).
   const [donnees, setDonnees] = useState<Record<War, Soldat[]> | null>(null)
   // Catégorie annoncée par le voile de transition (null = pas de transition).
@@ -133,7 +144,10 @@ export default function Memorial() {
     const suivant = WARS[(WARS.indexOf(warRef.current) + 1) % WARS.length]
     setTransition(suivant)
     transitionTimers.current.push(
-      setTimeout(() => setWar(suivant), TRANSITION_SWITCH_MS),
+      setTimeout(() => {
+        setRot(r => r - 60) // la roue suit : un cran vers la guerre suivante
+        setWar(suivant)
+      }, TRANSITION_SWITCH_MS),
       setTimeout(() => setTransition(null), TRANSITION_TOTAL_MS),
     )
   }, [])
@@ -168,9 +182,19 @@ export default function Memorial() {
   const swipeStartRef = useRef({ x: 0, y: 0 })
   const swipedRef = useRef(false)
 
+  /** Va vers `target` par le plus court côté de la roue (rotation continue). */
+  const selectWar = (target: War) => {
+    const from = WARS.indexOf(warRef.current)
+    const to = WARS.indexOf(target)
+    let step = (to - from + WARS.length) % WARS.length // 0..5, sens direct
+    if (step > WARS.length / 2) step -= WARS.length // bascule sur l'autre sens
+    setRot(r => r - step * 60)
+    setWar(target)
+  }
+
   /** Guerre précédente (-1) ou suivante (+1), en boucle. */
   const changeWar = (dir: number) =>
-    setWar(w => WARS[(WARS.indexOf(w) + dir + WARS.length) % WARS.length])
+    selectWar(WARS[(WARS.indexOf(warRef.current) + dir + WARS.length) % WARS.length])
 
   /** Direction d'un glissement qualifié (assez long ET à dominante horizontale). */
   const swipeDirection = (t: { clientX: number; clientY: number }) => {
@@ -256,48 +280,56 @@ export default function Memorial() {
         <div className="memorial-emblem">✦</div>
         <h2 className="memorial-title">MÉMORIAL</h2>
         <div className="memorial-wars">
-          <button
-            className={`war-arrow war-arrow--prev ${swipeDir < 0 ? 'targeted' : ''}`}
-            onClick={() => changeWar(-1)}
-            aria-label="Guerre précédente"
-          >
-            ‹
-          </button>
-          <button
-            className={`war-current ${menuOpen ? 'open' : ''}`}
+          {/* Roue : tambour 3D des 6 guerres. La rotation `rot` (60°/cran) est
+              animée en CSS -> effet de défilement circulaire. Glissement géré
+              à la main (gauche/droite = guerre précédente/suivante). */}
+          <button className="war-arrow" onClick={() => changeWar(-1)} aria-label="Guerre précédente">‹</button>
+          <div
+            className="war-wheel"
             onTouchStart={e => {
               swipedRef.current = false
               swipeStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
             }}
-            onTouchMove={e => setSwipeDir(swipeDirection(e.touches[0]))}
-            onTouchCancel={() => setSwipeDir(0)}
             onTouchEnd={e => {
-              // Glisser vers une flèche = aller vers cette guerre (gauche = précédente).
               const dir = swipeDirection(e.changedTouches[0])
-              setSwipeDir(0)
               if (dir) {
                 swipedRef.current = true
                 changeWar(dir)
               }
             }}
-            onClick={() => {
-              if (swipedRef.current) {
-                swipedRef.current = false
-                return
-              }
-              setMenuOpen(o => !o)
-            }}
           >
-            <Ord>{TAB_LABELS[war]}</Ord>
-            <span className="war-caret" aria-hidden="true">▾</span>
-          </button>
-          <button
-            className={`war-arrow war-arrow--next ${swipeDir > 0 ? 'targeted' : ''}`}
-            onClick={() => changeWar(1)}
-            aria-label="Guerre suivante"
-          >
-            ›
-          </button>
+            <div className="war-drum" style={{ transform: `rotateY(${rot}deg)` }}>
+              {WARS.map((w, i) => (
+                <button
+                  key={w}
+                  className={`war-face ${w === war ? 'current' : ''} ${
+                    w === war && menuOpen ? 'open' : ''
+                  }`}
+                  style={{ transform: `rotateY(${i * 60}deg) translateZ(205px)` }}
+                  onClick={() => {
+                    // Click synthétique après un glissement : à avaler.
+                    if (swipedRef.current) {
+                      swipedRef.current = false
+                      return
+                    }
+                    // Face courante = menu ; une voisine = y aller.
+                    if (w === war) setMenuOpen(o => !o)
+                    else selectWar(w)
+                  }}
+                  aria-label={TAB_LABELS[w]}
+                >
+                  <span className="war-face-main">
+                    <Ord>{TAB_LABELS[w]}</Ord>
+                    {w === war && (
+                      <span className="war-caret" aria-hidden="true">▾</span>
+                    )}
+                  </span>
+                  {w === war && <span className="war-face-dates">{WAR_DATES[w]}</span>}
+                </button>
+              ))}
+            </div>
+          </div>
+          <button className="war-arrow" onClick={() => changeWar(1)} aria-label="Guerre suivante">›</button>
 
           {menuOpen && (
             <>
@@ -309,7 +341,7 @@ export default function Memorial() {
                     <button
                       className={`war-option ${war === w ? 'active' : ''}`}
                       onClick={() => {
-                        setWar(w)
+                        selectWar(w) // fait tourner la roue jusqu'à cette guerre
                         setMenuOpen(false)
                       }}
                     >
@@ -321,7 +353,17 @@ export default function Memorial() {
             </>
           )}
         </div>
-        <p className="memorial-subtitle">{WAR_LABELS[war]}</p>
+        <div className="war-dots">
+          {WARS.map(w => (
+            <button
+              key={w}
+              className={`war-dot ${w === war ? 'active' : ''}`}
+              onClick={() => selectWar(w)}
+              aria-label={TAB_LABELS[w]}
+            />
+          ))}
+        </div>
+        <p className="war-hint">‹&nbsp;&nbsp;Glissez pour changer de période&nbsp;&nbsp;›</p>
       </div>
 
       <div className="memorial-search">

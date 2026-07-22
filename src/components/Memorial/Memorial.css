@@ -111,83 +111,83 @@
   margin-bottom: 10px;
 }
 
-/* ─── Sélecteur de guerre : ‹ [ guerre courante ▾ ] › ───
-   Une seule guerre affichée ; flèches (toucher OU glissement du bouton
-   central vers une flèche) = précédente/suivante ; toucher simple sur le
-   bouton central = menu déroulant (logique dans Memorial.tsx). */
+/* ─── Sélecteur de guerre : roue circulaire ( tambour 3D ) ───
+   Les 6 guerres sont posées autour d'un cylindre (tambour) qui tourne : la
+   guerre courante fait face, ses voisines s'enroulent sur les côtés, les
+   autres passent derrière (cachées). Changer de guerre fait pivoter le
+   tambour de 60° avec une animation de défilement. Glisser sur la roue =
+   tourner ; toucher la face courante = menu déroulant (logique et rotation
+   continue dans Memorial.tsx). */
 
 .memorial-wars {
   position: relative; /* ancre du menu déroulant */
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
-/* Flèches latérales : doubles chevrons « » nus (glyphes Nunito, sans cadre).
-   Cible tactile ≥ 48 px (borne). */
-.war-arrow {
-  width: 48px;
+/* Fenêtre de la roue : donne la perspective au tambour. Le glissement
+   horizontal est géré à la main : sans `touch-action: none`, le navigateur
+   peut confisquer le geste (touchcancel). */
+.war-wheel {
+  position: relative;
+  width: 300px;
+  height: 60px;
+  perspective: 1500px; /* grande distance = faces voisines moins inclinées à l'œil */
+  touch-action: none;
+}
+
+/* Tambour : cylindre 3D. Sa rotation (rotateY inline) est animée pour donner
+   l'effet de défilement circulaire. */
+.war-drum {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Chaque face de guerre, plaquée sur le cylindre (rotateY + translateZ inline
+   depuis Memorial.tsx). Dos caché : les guerres à l'arrière ne s'affichent
+   pas. */
+.war-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 186px;
   height: 48px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.55);
-  cursor: pointer;
-  font-family: 'Nunito', sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1;
-  touch-action: manipulation;
-  transition: all 0.2s ease;
-}
-
-/* .targeted : flèche visée pendant un glissement du bouton central
-   (feedback immédiat du geste, posé par Memorial.tsx). */
-.war-arrow:hover,
-.war-arrow:active,
-.war-arrow.targeted {
-  color: #fecc30;
-  text-shadow: 0 0 14px rgba(254, 204, 48, 0.55);
-}
-
-/* La flèche visée s'écarte légèrement pour « appeler » le geste. */
-.war-arrow--prev.targeted {
-  transform: translateX(-4px);
-}
-
-.war-arrow--next.targeted {
-  transform: translateX(4px);
-}
-
-/* Bouton central : largeur fixe pour que les flèches ne bougent pas d'une
-   catégorie à l'autre. */
-.war-current {
-  width: 270px;
-  min-height: 48px;
+  margin: -24px 0 0 -93px;
+  backface-visibility: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 5px 16px;
-  border: 1px solid #fecc30;
+  padding: 5px 12px;
+  border: 1px solid rgba(254, 204, 48, 0.3);
   border-radius: 3px;
-  background: rgba(254, 204, 48, 0.15);
-  color: #fecc30;
+  background: rgba(2, 27, 46, 0.6);
+  color: rgba(255, 255, 255, 0.45);
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  /* Le glissement horizontal est géré à la main (vers une flèche) : sans
-     `none`, le navigateur peut confisquer le geste (touchcancel). */
-  touch-action: none;
-  transition: all 0.2s ease;
+  letter-spacing: 0.04em;
+  text-align: center;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
-.war-current:active {
-  background: rgba(254, 204, 48, 0.3);
+/* Guerre courante (face avant) : illuminée en doré, plus compacte.
+   (Taille via width/height, pas scale() : le transform inline rotateY/translateZ
+   écraserait un transform CSS.) */
+.war-face.current {
+  width: 160px;
+  height: 42px;
+  margin: -21px 0 0 -80px;
+  font-size: 0.68rem;
+  border-color: #fecc30;
+  background: rgba(254, 204, 48, 0.15);
+  color: #fecc30;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
 .war-caret {
@@ -195,8 +195,8 @@
   transition: transform 0.2s ease;
 }
 
-.war-current.open .war-caret {
-  transform: rotate(180deg);
+.war-face.open .war-caret {
+  transform: rotate(160deg);
 }
 
 /* Voile invisible plein écran : toucher hors du menu le referme. */
