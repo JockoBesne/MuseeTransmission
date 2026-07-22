@@ -132,10 +132,32 @@
    peut confisquer le geste (touchcancel). */
 .war-wheel {
   position: relative;
-  width: 300px;
-  height: 60px;
-  perspective: 1500px; /* grande distance = faces voisines moins inclinées à l'œil */
+  width: 400px;
+  height: 72px;
+  /* Fondu doux sur les bords : les voisines s'estompent au lieu d'être coupées. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  perspective: 1700px; /* grande distance = faces voisines moins inclinées à l'œil */
   touch-action: none;
+}
+
+/* Flèches d'affordance de part et d'autre de la roue. */
+.war-arrow {
+  width: 48px;
+  height: 64px;
+  border: none;
+  background: transparent;
+  color: rgba(254, 204, 48, 0.5);
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.war-arrow:hover,
+.war-arrow:active {
+  color: #fecc30;
 }
 
 /* Tambour : cylindre 3D. Sa rotation (rotateY inline) est animée pour donner
@@ -154,44 +176,65 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 186px;
-  height: 48px;
-  margin: -24px 0 0 -93px;
+  width: 196px;
+  height: 50px;
+  margin: -25px 0 0 -98px;
+  box-sizing: border-box;
   backface-visibility: hidden;
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 5px 12px;
-  border: 1px solid rgba(254, 204, 48, 0.3);
-  border-radius: 3px;
-  background: rgba(2, 27, 46, 0.6);
-  color: rgba(255, 255, 255, 0.45);
+  gap: 2px;
+  padding: 4px 14px;
+  border: 1px solid rgba(254, 204, 48, 0.28);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(6, 32, 54, 0.9), rgba(2, 22, 40, 0.9));
+  color: rgba(255, 255, 255, 0.68);
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-align: center;
-  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  line-height: 1.25;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.war-face-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dates sous le libellé (face courante uniquement). */
+.war-face-dates {
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
 }
 
 /* Guerre courante (face avant) : illuminée en doré, plus compacte.
    (Taille via width/height, pas scale() : le transform inline rotateY/translateZ
    écraserait un transform CSS.) */
 .war-face.current {
-  width: 160px;
-  height: 42px;
-  margin: -21px 0 0 -80px;
-  font-size: 0.68rem;
+  width: 224px;
+  height: 58px;
+  margin: -29px 0 0 -112px;
+  font-size: 0.82rem;
   border-color: #fecc30;
-  background: rgba(254, 204, 48, 0.15);
+  background: linear-gradient(180deg, rgba(254, 204, 48, 0.22), rgba(254, 204, 48, 0.07));
   color: #fecc30;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 22px rgba(254, 204, 48, 0.12);
 }
 
 .war-caret {
-  font-size: 0.7rem;
+  font-size: 0.62rem;
+  color: rgba(254, 204, 48, 0.85);
   transition: transform 0.2s ease;
 }
 
@@ -250,6 +293,57 @@
 .war-option.active {
   background: rgba(254, 204, 48, 0.15);
   color: #fecc30;
+}
+
+/* Losanges de position (cliquables) sous la roue. */
+.war-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 8px;
+  margin-bottom: 10px;
+}
+
+.war-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transform: rotate(45deg);
+  transition: background 0.3s ease;
+}
+
+.war-dot.active {
+  width: 8px;
+  height: 8px;
+  background: #fecc30;
+}
+
+/* Indice de geste, en respiration lente. */
+.war-hint {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 8px;
+  animation: hintPulse 4s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.38; }
+  50% { opacity: 0.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .war-hint {
+    animation: none;
+  }
 }
 
 .memorial-subtitle {

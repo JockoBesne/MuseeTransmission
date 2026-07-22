@@ -364,6 +364,7 @@ export default function Memorial() {
           ))}
         </div>
         <p className="war-hint">‹&nbsp;&nbsp;Glissez pour changer de période&nbsp;&nbsp;›</p>
+        <p className="memorial-subtitle">{WAR_LABELS[war]}</p>
       </div>
 
       <div className="memorial-search">
