@@ -218,9 +218,16 @@
   font-size: 0.82rem;
   border-color: #fecc30;
   background: linear-gradient(180deg, rgba(254, 204, 48, 0.22), rgba(254, 204, 48, 0.07));
-  color: #fecc30;
+  color: #ffffff;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15),
     0 0 22px rgba(254, 204, 48, 0.12);
+}
+
+/* Dates sous le nom de la guerre : plus discrètes que le libellé. */
+.war-face-dates {
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .war-caret {
