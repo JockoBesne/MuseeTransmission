@@ -1,8 +1,8 @@
-# Démarrage de la borne (100 % hors-ligne) — Windows 11.
+# Démarrage de la borne TACTILE (100 % hors-ligne) — Windows 11.
 # À lancer À L'OUVERTURE DE SESSION (Planificateur de tâches, voir README-borne.md).
 # 1) sert dist/ + l'API mémorial via server/borne-server.mjs ;
-# 2) attend que le serveur réponde ; 3) ouvre Edge en plein écran tactile,
-#    relancé automatiquement s'il est fermé (fonctionnement 24/7).
+# 2) attend que le serveur réponde ; 3) ouvre Edge en kiosque plein écran,
+#    gestes tactiles neutralisés, relancé automatiquement s'il est fermé (24/7).
 
 $ErrorActionPreference = 'Stop'
 $racine = (Resolve-Path "$PSScriptRoot\..\..").Path
@@ -25,17 +25,24 @@ for ($i = 0; $i -lt 60; $i++) {
   catch { Start-Sleep -Milliseconds 500 }
 }
 
-# 3. Edge en mode kiosque plein écran, profil isolé (pas d'invite « restaurer
-#    les onglets »), gestes tactiles carte-only. Relancé s'il se ferme/plante.
+# 3. Edge en kiosque plein écran, profil isolé (pas d'invite « restaurer les
+#    onglets »). Écran tactile : pincer-zoomer, balayage précédent/suivant et
+#    tirer-pour-actualiser sont désactivés — seule l'app gère le toucher.
+#    (Le clavier tactile Windows est bloqué côté app : inputMode="none".)
 $edge = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"
-$args = @(
+if (-not (Test-Path $edge)) { $edge = "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe" }
+$argsEdge = @(
   $url, '--kiosk', '--edge-kiosk-type=fullscreen',
   "--user-data-dir=$env:LOCALAPPDATA\borne-kiosk",
   '--no-first-run', '--disable-session-crashed-bubble',
-  '--disable-pinch', '--overscroll-history-navigation=0',
+  '--touch-events=enabled',                 # force le mode tactile
+  '--disable-pinch',                        # pas de pincer-zoomer navigateur
+  '--overscroll-history-navigation=0',      # pas de balayage retour/avant
+  '--pull-to-refresh=0',                    # pas de tirer-pour-actualiser
+  '--disable-touch-drag-drop',              # pas de glisser-déposer tactile
   '--disable-background-networking'
 )
 while ($true) {
-  Start-Process $edge -ArgumentList $args -Wait
+  Start-Process $edge -ArgumentList $argsEdge -Wait
   Start-Sleep -Seconds 2
 }

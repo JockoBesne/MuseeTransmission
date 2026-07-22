@@ -25,12 +25,24 @@ locaux, les polices sont auto-hébergées, aucune ressource distante (CDN/API).
 Le script [start-borne-kiosk.ps1](start-borne-kiosk.ps1) lance le serveur,
 attend qu'il réponde, puis ouvre Edge en plein écran (relancé s'il se ferme).
 
-Enregistrer la tâche **à l'ouverture de session** (adapter le chemin) :
+Enregistrer la tâche **à l'ouverture de session** (adapter le chemin) — dans
+un PowerShell **en administrateur**, en une seule ligne :
 
 ```powershell
-schtasks /Create /TN "Borne Musee" /SC ONLOGON /F /TR ^
- "powershell -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"C:\borne\MuseeTransmission\scripts\borne\start-borne-kiosk.ps1\""
+schtasks /Create /TN "Borne Musee" /SC ONLOGON /F /TR 'powershell -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\borne\MuseeTransmission\scripts\borne\start-borne-kiosk.ps1"'
 ```
+
+Vérifier : `schtasks /Query /TN "Borne Musee"`.
+
+**Alternative sans droits admin** — dossier Démarrage (un `.ps1` ne s'y exécute
+pas directement, d'où le `.cmd` relais) :
+
+```powershell
+Set-Content "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\borne.cmd" '@start "" powershell -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\borne\MuseeTransmission\scripts\borne\start-borne-kiosk.ps1"'
+```
+
+Dans les deux cas, le lancement n'a lieu **qu'à l'ouverture de session** :
+la connexion automatique (§3) est indispensable.
 
 > Chrome à la place d'Edge : remplacer `msedge.exe` par
 > `chrome.exe` dans le script et retirer `--edge-kiosk-type=fullscreen`.
