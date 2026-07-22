@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import type { City, Unite } from '../../types'
 import { Ord } from '../../utils/ordinals'
+import { RichText } from '../../utils/richText'
 import './CardDialog.css'
 
 interface CardDialogProps {
@@ -161,13 +162,13 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
             <div className="card-content" key={activeIndex}>
               <div className="card-title-block">
                 <h3 id={titleId}><Ord>{unit.regiment}</Ord></h3>
-                <span className="card-subtitle"><Ord>{unit.texte}</Ord></span>
+                <span className="card-subtitle"><RichText>{unit.texte}</RichText></span>
               </div>
 
               <div className="card-intro">
                 <div className="card-section card-histoire">
                   <h4>Histoire</h4>
-                  <p><Ord>{unit.histoire}</Ord></p>
+                  <p><RichText>{unit.histoire}</RichText></p>
                 </div>
 
                 <div className="card-media-col">
@@ -201,7 +202,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
 
               <div className="card-section card-specificite">
                 <h4>Spécificité</h4>
-                <p><Ord>{unit.specificite}</Ord></p>
+                <p><RichText>{unit.specificite}</RichText></p>
               </div>
 
               {unit.medias && unit.medias.length > 0 && (
@@ -219,7 +220,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                             preload="metadata"
                           />
                           {media.legende && (
-                            <figcaption><Ord>{media.legende}</Ord></figcaption>
+                            <figcaption><RichText>{media.legende}</RichText></figcaption>
                           )}
                         </figure>
                       ) : (
@@ -299,7 +300,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
             {zoom.legende && (
               <figcaption className="photo-zoom-caption">
                 <span className="photo-zoom-caption-title"><Ord>{zoom.titre}</Ord></span>
-                <p><Ord>{zoom.legende}</Ord></p>
+                <p><RichText>{zoom.legende}</RichText></p>
               </figcaption>
             )}
           </figure>
