@@ -112,6 +112,9 @@ interface Zone {
   view: ViewBox
   lx: number
   ly: number
+  /* Ancre du filigrane pendant le zoom (cf. watermarkSpot). */
+  wx: number
+  wy: number
 }
 
 const basePts = (): Pt[] =>
@@ -201,6 +204,44 @@ function placeLabels(pts: Pt[], u: number, bnds: ViewBox, extraRects: Rect[]): R
   return rects
 }
 
+/* Filigrane du nom de zone : corps du texte (constant à l'écran, × u). */
+const WATERMARK_FS = 17
+
+/* Ancre du filigrane : on cherche un point du département où le nom tient
+   entièrement à l'intérieur du polygone — sinon il finit sur la mer ou sur un
+   pays voisin, où il devient illisible (le bleu nuit du fond) — et le plus
+   loin possible des villes, qui restent ainsi lisibles par-dessus. */
+function watermarkSpot(
+  bbox: Rect,
+  ring: [number, number][],
+  members: Pt[],
+  nom: string,
+  u: number,
+) {
+  const demi = (nom.length * 0.92 * WATERMARK_FS * u) / 2
+  const centre = { wx: bbox.x + bbox.w / 2, wy: bbox.y + bbox.h / 2 }
+  if (demi * 2 > bbox.w) return centre // nom plus large que la zone
+  let best = centre
+  let bestScore = -1
+  const N = 14
+  for (let i = 1; i < N; i++) {
+    for (let j = 1; j < N; j++) {
+      const x = bbox.x + (bbox.w * i) / N
+      const y = bbox.y + (bbox.h * j) / N
+      // Les deux extrémités et le centre du texte doivent être sur la zone.
+      if (![x - demi, x, x + demi].every((px) => pointInRing(px, y, ring))) continue
+      let score = Infinity
+      for (const m of members) score = Math.min(score, Math.hypot(m.tx - x, m.ty - y))
+      if (score === Infinity) score = 0
+      if (score > bestScore) {
+        bestScore = score
+        best = { wx: x, wy: y }
+      }
+    }
+  }
+  return best
+}
+
 /* Cadre de zoom d'une zone : sa boîte englobante + marge, ramenée au ratio
    de la carte pour remplir l'écran, zoom plafonné à MAX_K. */
 function zoneView(b: Rect): ViewBox {
@@ -232,15 +273,18 @@ const overview = (() => {
       if (y > maxY) maxY = y
     }
     const bbox = { x: minX, y: minY, w: maxX - minX, h: maxY - minY }
+    const members = pts.filter((p) => pointInRing(p.tx, p.ty, outerRing))
+    const view = zoneView(bbox)
     return {
       nom: f.properties.nom,
       code: f.properties.code,
       path: f.geometry.coordinates.map(ringToPath).join(' '),
       bbox,
-      members: pts.filter((p) => pointInRing(p.tx, p.ty, outerRing)),
-      view: zoneView(bbox),
+      members,
+      view,
       lx: minX + bbox.w / 2,
       ly: minY + bbox.h / 2,
+      ...watermarkSpot(bbox, outerRing, members, f.properties.nom, view.w / VIEW_W),
     }
   })
 
@@ -499,10 +543,6 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
         {overview.zones.map((z) => {
           if (zoomed) {
             const active = z === zoomedZone
-            /* Filigrane à gauche pour le Bas-Rhin/Alsace (code 67) :
-               au-dessus de la zone, le nom serait illisible sur la
-               frontière. Ancré sur le code, stable si le nom change. */
-            const left = z.code === '67'
             return (
               <g key={z.nom}>
                 <path
@@ -513,11 +553,11 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
                 {active && (
                   <text
                     className="map-zone-watermark"
-                    x={left ? z.bbox.x - 10 * u : z.bbox.x + z.bbox.w / 2}
-                    y={left ? z.bbox.y + z.bbox.h / 2 : z.bbox.y - 8 * u}
-                    textAnchor={left ? 'end' : 'middle'}
-                    dominantBaseline={left ? 'central' : 'auto'}
-                    style={{ fontSize: 15 * u }}
+                    x={z.wx}
+                    y={z.wy}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{ fontSize: WATERMARK_FS * u, strokeWidth: 3.5 * u }}
                   >
                     {z.nom.toUpperCase()}
                   </text>

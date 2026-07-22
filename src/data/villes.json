@@ -154,8 +154,8 @@
     {
       "type": "Feature",
       "properties": {
-        "nom": "Rennes",
-        "labelDir": "bottom",
+        "nom": "Saint-Jacques-de-la-Lande",
+        "labelDir": "left",
         "entites": [
           {
             "regiment": "régiment de cyberdéfense",
@@ -176,6 +176,38 @@
             "garnison": "35136 Saint-Jacques-de-la-Lande (Ille-et-Vilaine) — Quartier de la Maltière.",
             "photo": "/pucelles/785e-cge.png",
             "photoDescription": "Insigne de la 785e CGE (aigle)."
+          }
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.7117,
+          48.0784
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Cesson-Sévigné",
+        "labelDir": "right",
+        "entites": [
+          {
+            "regiment": "Commandement de l'appui terrestre numérique et cyber (CATNC)",
+            "abrege": "CATNC",
+            "texte": "",
+            "histoire": "Créé en 2024, le CATNC est le commandement qui incarne la transformation vers une « armée de Terre de combat » dans les domaines du numérique et du cyber. Placé sous l'autorité du CFOT, il coordonne les moyens humains et matériels du numérique, des communications et de la cybersécurité pour garantir la supériorité opérationnelle des forces terrestres. Il comprend un échelon de commandement, un état-major (deux divisions) et une unité subordonnée : la brigade d'appui numérique et cyber (BANC).",
+            "specificite": "Commandement (et non régiment) : il garantit la cohérence de l'organisation, de l'emploi et des évolutions de l'appui numérique et cyber, dont la lutte informatique défensive (LID). En appui permanent de la FOT, il s'articule en deux divisions — DESP (emploi, synthèse et performance) et DIVSOUT (soutien, avec la 121e compagnie de transmissions) — et maintient une coordination fonctionnelle avec l'ETNC. Effectif : 151 militaires et 30 civils.",
+            "garnison": "Cesson-Sévigné / Rennes (Ille-et-Vilaine). Implantation exacte à confirmer par le musée : non précisée sur cette page de l'almanach."
+          },
+          {
+            "regiment": "Brigade d'appui numérique et cyber (BANC)",
+            "abrege": "BANC",
+            "texte": "",
+            "histoire": "La BANC a vu le jour le 6 février 2024 à Cesson-Sévigné. Sa création marque la transformation vers une « armée de Terre de combat » dans les domaines numérique et cyber. Elle est l'héritière de la brigade de transmissions (BTRS), devenue ensuite brigade de transmissions et d'appui au commandement (BTAC). Elle est commandée par le général Emmanuel Clément (depuis l'été 2024) et subordonnée au CATNC.",
+            "specificite": "Grande unité (brigade, et non régiment) subordonnée au CATNC. Elle appuie le commandement de la force terrestre engagée en délivrant des capacités d'appui au commandement (AC) et de sécurité numérique (SECNUM) interopérables, mobiles, furtives et résilientes. Elle se compose d'un état-major et de sept unités : les 28e, 40e, 41e, 48e et 53e RT, le régiment de cyberdéfense et le 18e RIT (formation initiale, à Dieuze). Matériels majeurs : stations satellitaires SYRACUSE III/IV et COMCEPT, réseaux HF (MELCHIOR), VHF (PR4G) et UHF, ensemble modulaire projetable (EMP), système Astride Phase 2, système cyber MT-LID et passerelles d'interopérabilité et multiniveaux.",
+            "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine) — Quartier Leschi. Adresse postale : Rennes CEDEX 9, 35998."
           },
           {
             "regiment": "École des transmissions, du numérique et du cyber (ETNC)",
@@ -192,8 +224,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.7117,
-          48.0784
+          -1.6031,
+          48.1195
         ]
       }
     },

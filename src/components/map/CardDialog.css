@@ -40,15 +40,23 @@
   border-bottom: 3px solid #fecc30;
 }
 
-/* Nom de la ville — même écriture que le cartouche de la carte. */
+/* Nom de la ville — même écriture que le cartouche de la carte. Les noms
+   longs (Saint-Jacques-de-la-Lande) se resserrent au lieu de comprimer
+   la barre d'onglets. */
 .card-kicker {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
+  /* Plafond de largeur : un nom long passe sur deux lignes (il se coupe sur
+     ses traits d'union) au lieu de comprimer la barre d'onglets. */
+  max-width: 34%;
   font-family: 'Raleway', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
   text-transform: uppercase;
   color: #fecc30;
+  text-wrap: balance;
 }
 
 /* ── Onglets d'unités : l'onglet rempli en bleu = fiche affichée ── */
@@ -56,29 +64,54 @@
   flex: 1;
   min-width: 0;
   display: flex;
-  gap: 10px;
-  padding: 2px 0;
+  gap: 9px;
+  padding: 3px 2px 8px;
   overflow-x: auto;
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  /* Barre de défilement dorée, fine — Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(254, 204, 48, 0.85) rgba(255, 255, 255, 0.1);
+}
+
+/* Barre de défilement dorée — Chrome / Edge (navigateur de la borne) */
+.card-tabs::-webkit-scrollbar {
+  height: 5px;
+}
+
+.card-tabs::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.card-tabs::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #fecc30, #e0aa00);
+  border-radius: 999px;
+}
+
+.card-tabs::-webkit-scrollbar-thumb:hover {
+  background: #fecc30;
 }
 
 .card-tab {
   flex: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   min-height: 48px;
-  padding: 6px 18px;
-  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  padding: 6px 17px;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.07);
   font-family: 'Raleway', sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #e0e0e0;
+  letter-spacing: 0.02em;
+  color: #dbe4ec;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease,
-    box-shadow 0.15s ease;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease,
+    box-shadow 0.18s ease, transform 0.18s ease;
 }
 
 /* Insigne sur médaillon blanc, lisible sur le bandeau sombre. */
@@ -90,6 +123,7 @@
   background-color: #ffffff;
   border-radius: 50%;
   padding: 2px;
+  box-shadow: 0 1px 3px rgba(2, 27, 46, 0.45);
 }
 
 .card-tab-label {
@@ -100,17 +134,32 @@
 .card-tab:hover,
 .card-tab:focus-visible {
   border-color: #fecc30;
-  box-shadow: 0 0 0 2px rgba(254, 204, 48, 0.35);
+  background-color: rgba(254, 204, 48, 0.12);
+  box-shadow: 0 0 0 2px rgba(254, 204, 48, 0.3);
   color: #ffffff;
+  transform: translateY(-1px);
   outline: none;
 }
 
 .card-tab--active {
-  background-color: #0f70b7; /* bleu carte */
-  border-color: #0f70b7;
+  background: linear-gradient(180deg, #1a83d0, #0f70b7); /* bleu carte */
+  border-color: rgba(255, 255, 255, 0.5);
   color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 3px 10px rgba(2, 27, 46, 0.5);
+  box-shadow: 0 3px 12px rgba(2, 27, 46, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.card-tab--active:hover,
+.card-tab--active:focus-visible {
+  border-color: #fecc30;
+  background: linear-gradient(180deg, #1a83d0, #0f70b7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-tab:hover,
+  .card-tab:focus-visible {
+    transform: none;
+  }
 }
 
 /* Cible tactile ≥ 48 px. */
