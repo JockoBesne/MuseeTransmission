@@ -145,16 +145,56 @@ musée est nécessaire.
 
 ## À faire (mettre à jour au fur et à mesure)
 
+### Carte
+
+- Pop-up (`CardDialog`) : classer les onglets d'unités d'une même ville par
+  hiérarchie **Brigade → Régiment → Compagnie**.
+- Ajouter les unités **BANC** et **KTNC** (nouvelles entrées `villes.json` —
+  données à valider par le musée, ne rien inventer).
+- Ajouter le surlignage du département + la fonction zoom pour
+  l'**Ille-et-Vilaine** (nouvelle zone tactile dans `regions-zones.json`, comme
+  Bas-Rhin / Puy-de-Dôme).
+- Corriger le contenu des « régiments de transmissions » de `villes.json` :
+  numéros/noms d'unités erronés à rectifier d'après la liste validée par le
+  musée (données historiques — ne rien inventer).
+- `villes.json` : les deux `medias` du 8e RT / Paris (villes.json:298 et 303)
+  sont des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de
+  vrais fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne
+  strict).
+- Typographie : ne pas terminer une ligne par un nombre (espace insécable avant
+  le nombre pour ne pas le laisser orphelin en fin de ligne).
+- Retirer le mot « fanion » des pop-up.
+- Mettre les mots anglais en italique dans les textes français.
+- Ordinaux (composant `Ord`) : exposant en minuscules, jamais en majuscules
+  (« 1ᵉʳ » et non « 1ᴱᴿ »).
+- Mode PMR : marquer davantage la section de sélection des villes (tiroir-index).
+
+### Mémorial
+
+- Sélecteur de guerre : remplacer le simple bouton par un carrousel (case guerre
+  sélectionnée).
+- Sous la case, ne garder que la date comme descriptif.
+
+### Frise
+
+- Marquer visuellement la fin de la frise.
+- N'afficher le nom des sections que sur la frise, pas dans les pop-up
+  (`TimelineDialog`).
+
+### App
+
+- Marquer davantage la séparation entre les deux panneaux (gauche / droite).
+- Installer un tableur sur la borne (Excel ou LibreOffice Calc, gratuit et
+  hors-ligne) pour que l'équipe du musée puisse ouvrir et compléter les `.xlsx`
+  du mémorial (ajout de noms) directement sur place, avant de les réimporter via
+  l'écran admin.
+
+### Technique / nettoyage
+
 - Supprimer l'ancienne chaîne `import-docx` (morte : `memorial-1gm.json` n'est
   plus importé) — script `import-docx` de package.json, `scripts/import-docx.mjs`,
   `src/data/memorial-1gm.json`, `public/data/A.docx`, et la ligne
   `npm run import-docx` en tête de ce fichier.
-- villes.json : les deux `medias` du 8e RT / Paris (villes.json:298 et 303) sont
-  des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de vrais
-  fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne strict).
-- Corriger le contenu des « régiment de transmissions » de villes.json :
-  numéros/noms d'unités erronés à rectifier d'après la liste validée par le
-  musée (données historiques — ne rien inventer).
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
  
