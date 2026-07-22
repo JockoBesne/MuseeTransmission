@@ -526,6 +526,10 @@ button.card-photo:focus-visible {
   margin-bottom: 4px;
 }
 
+.photo-zoom-caption-title sup {
+  text-transform: lowercase;
+}
+
 .photo-zoom-caption p {
   font-family: 'Nunito', sans-serif;
   font-size: 0.85rem;
