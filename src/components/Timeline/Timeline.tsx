@@ -21,6 +21,12 @@ const SCROLL_SPEED = 22      // px/s de défilement automatique
 const RESUME_DELAY_MS = 4000 // reprise du défilement après le dernier toucher
 const JUMP_MS = 900          // durée du saut animé vers une section
 
+/* Un « jalon » de blanc supplémentaire est inséré à la fin de chaque copie :
+   sans lui, la frise enchaîne 2020 → 1875 sans transition visible, ce qui
+   ressemble à une erreur. Il occupe un slot entier (même hauteur qu'un
+   événement) pour que les calculs de défilement restent uniformes. */
+const LOOP_LEN = EVENTS.length + 1
+
 /* Classe posée/retirée par l'IntersectionObserver pour déclencher les
    animations d'entrée (manipulation directe du DOM : pas de re-render
    React à chaque frame de défilement). */
@@ -45,7 +51,7 @@ export default function Timeline() {
      de la copie source vers la copie cible pour éviter tout flash. */
   const mirrorInClasses = useCallback((fromOffset: number, toOffset: number) => {
     const items = itemRefs.current
-    for (let i = 0; i < EVENTS.length; i++) {
+    for (let i = 0; i < LOOP_LEN; i++) {
       const src = items[fromOffset + i]
       const dst = items[toOffset + i]
       if (src && dst) dst.classList.toggle(IN_CLASS, src.classList.contains(IN_CLASS))
@@ -58,7 +64,7 @@ export default function Timeline() {
     const el = scrollRef.current
     if (el) {
       const itemHeight = el.clientHeight / VISIBLE_COUNT
-      const loopHeight = itemHeight * EVENTS.length
+      const loopHeight = itemHeight * LOOP_LEN
       const dt = lastTsRef.current ? (ts - lastTsRef.current) / 1000 : 0
 
       const jump = jumpRef.current
@@ -76,25 +82,28 @@ export default function Timeline() {
         if (st > loopHeight + itemHeight) {
           st -= loopHeight
           el.scrollTop = st
-          mirrorInClasses(EVENTS.length, 0)
+          mirrorInClasses(LOOP_LEN, 0)
         } else if (st < itemHeight) {
           st += loopHeight
           el.scrollTop = st
-          mirrorInClasses(0, EVENTS.length)
+          mirrorInClasses(0, LOOP_LEN)
         }
         posRef.current = st
       } else {
         posRef.current += SCROLL_SPEED * dt
         if (loopHeight > 0 && posRef.current >= loopHeight) {
           posRef.current -= loopHeight
-          mirrorInClasses(EVENTS.length, 0)
+          mirrorInClasses(LOOP_LEN, 0)
         }
         el.scrollTop = posRef.current
       }
 
-      /* Section courante pour l'index, d'après le jalon en haut d'écran */
+      /* Section courante pour l'index, d'après le jalon en haut d'écran
+         (le jalon de fin de boucle a un index >= EVENTS.length : il
+         retombe naturellement sur la dernière section, ce qui est correct
+         puisqu'on n'a pas encore rebouclé sur la première). */
       if (itemHeight > 0) {
-        const topIndex = Math.round(el.scrollTop / itemHeight) % EVENTS.length
+        const topIndex = Math.round(el.scrollTop / itemHeight) % LOOP_LEN
         let current = 0
         for (let i = 0; i < SECTIONS.length; i++) {
           if (topIndex >= SECTIONS[i].start) current = i
@@ -149,12 +158,12 @@ export default function Timeline() {
     if (!el) return
     pause()
     const itemHeight = el.clientHeight / VISIBLE_COUNT
-    const loopHeight = itemHeight * EVENTS.length
+    const loopHeight = itemHeight * LOOP_LEN
     /* Recalage invisible sur la première copie avant de calculer la cible */
     const from = el.scrollTop % loopHeight
     if (from !== el.scrollTop) {
       el.scrollTop = from
-      mirrorInClasses(EVENTS.length, 0)
+      mirrorInClasses(LOOP_LEN, 0)
     }
     let to = SECTIONS[index].start * itemHeight
     if (to <= from) to += loopHeight // on avance toujours dans le sens du temps
@@ -194,9 +203,10 @@ export default function Timeline() {
           onPointerCancel={scheduleResume}
           onWheel={() => { pause(); scheduleResume() }}
         >
-          {/* Deux copies identiques pour un défilement en boucle sans couture */}
-          {[0, 1].map(copy =>
-            EVENTS.map((event, i) => {
+          {/* Deux copies identiques pour un défilement en boucle sans couture,
+              chacune terminée par un jalon de fin de boucle (voir LOOP_LEN) */}
+          {[0, 1].map(copy => [
+            ...EVENTS.map((event, i) => {
               const isSectionStart = SECTIONS.some(s => s.start === i)
               const side = i % 2 === 0 ? 'left' : 'right'
               const yearSlot = (
@@ -219,7 +229,7 @@ export default function Timeline() {
               return (
                 <article
                   key={`${copy}-${i}`}
-                  ref={el => { itemRefs.current[copy * EVENTS.length + i] = el }}
+                  ref={el => { itemRefs.current[copy * LOOP_LEN + i] = el }}
                   className={`tl-event tl-event--${side}`}
                 >
                   {side === 'left' ? cardSlot : yearSlot}
@@ -229,8 +239,17 @@ export default function Timeline() {
                   {side === 'left' ? yearSlot : cardSlot}
                 </article>
               )
-            })
-          )}
+            }),
+            <div
+              key={`gap-${copy}`}
+              ref={el => { itemRefs.current[copy * LOOP_LEN + EVENTS.length] = el }}
+              className="tl-loop-gap"
+            >
+              <span className="tl-loop-gap-line" aria-hidden="true" />
+              <span className="tl-loop-gap-label">↺ Retour au début de la frise</span>
+              <span className="tl-loop-gap-line" aria-hidden="true" />
+            </div>,
+          ])}
         </div>
 
         {/* Index escamotable : tiroir + poignée collée au bord droit */}
@@ -264,6 +283,7 @@ export default function Timeline() {
           prevEvent={EVENTS[(selectedIdx + EVENTS.length - 1) % EVENTS.length]}
           nextEvent={EVENTS[(selectedIdx + 1) % EVENTS.length]}
           contentKey={selectedIdx}
+          progress={(selectedIdx + 1) / EVENTS.length}
           onPrev={() => stepEvent(-1)}
           onNext={() => stepEvent(1)}
           onClose={closeEvent}

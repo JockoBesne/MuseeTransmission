@@ -123,20 +123,6 @@
   }
 }
 
-.tl-dialog-chip {
-  display: inline-block;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #0D3151;
-  background: #fecc30;
-  padding: 4px 14px;
-  border-radius: 999px;
-  margin-bottom: 10px;
-}
-
 .tl-dialog-year {
   display: block;
   font-family: 'Raleway', sans-serif;
@@ -161,15 +147,17 @@
   border-bottom: 1px solid rgba(254, 204, 48, 0.3);
 }
 
-/* Double filet : trait fin sur toute la largeur + segment doré épais */
+/* Trait fin sur toute la largeur (track) + segment doré qui se remplit
+   selon la position chronologique de l'événement dans la frise. */
 .tl-dialog-title::after {
   content: '';
   position: absolute;
   bottom: -2px;
   left: 0;
-  width: 64px;
+  width: var(--tl-progress, 0%);
   height: 3px;
   background: #fecc30;
+  transition: width 0.4s ease;
 }
 
 .tl-dialog-text {
