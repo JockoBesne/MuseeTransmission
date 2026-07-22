@@ -286,9 +286,12 @@
   transform: translateX(0);
 }
 
-/* Sortie du mode PMR : le tiroir coulisse entièrement hors-champ, poignée
-   (48px) et ombre comprises, avant d'être retiré du DOM (cf. DRAWER_EXIT_MS).
-   Déclaré après --open pour l'emporter si les deux classes coexistent. */
+/* Hors-champ, poignée (48px) et ombre comprises : position de sortie du
+   mode PMR (coulissement avant retrait du DOM, cf. DRAWER_EXIT_MS) et aussi
+   point de départ de l'entrée (retirée après un frame, cf. drawerEntering
+   dans InteractiveMap.tsx) — le glissé d'entrée est donc identique, à
+   rebours, à celui de la sortie. Déclaré après --open pour l'emporter si
+   les deux classes coexistent. */
 .map-drawer--exit {
   transform: translateX(calc(-100% - 80px));
 }
@@ -420,7 +423,7 @@
   gap: 12px;
   padding: 14px 0;
   background: rgba(13, 49, 81, 0.9);
-  border: 1px solid rgba(254, 204, 48, 0.45);
+  border: 3px solid #fecc30;
   border-left: none;
   border-radius: 0 12px 12px 0;
   color: #fecc30;

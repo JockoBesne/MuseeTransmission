@@ -292,9 +292,15 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
   // Tiroir-index (intercalaire) : liste des villes/régiments pour naviguer
   // directement vers une carte. Uniquement proposé en mode PMR.
   const [indexOpen, setIndexOpen] = useState(false)
-  // Le tiroir reste monté après la sortie du mode PMR, le temps de coulisser
-  // hors de l'écran (classe map-drawer--exit) au lieu de disparaître d'un coup.
-  const [drawerMounted, setDrawerMounted] = useState(pmrMode)
+  // Phase du tiroir : 'entering'/'exiting' le placent hors-champ (classe
+  // map-drawer--exit, même position dans les deux sens — glissé identique
+  // à rebours, sans rebond) ; 'gone' le retire du DOM. Reste monté un
+  // instant après la sortie du mode PMR le temps de coulisser hors de
+  // l'écran, au lieu de disparaître d'un coup.
+  const [drawerPhase, setDrawerPhase] = useState<'entering' | 'settled' | 'exiting' | 'gone'>(
+    pmrMode ? 'entering' : 'gone',
+  )
+  const drawerMounted = drawerPhase !== 'gone'
   // Indicateur « plus de villes plus bas » de la liste défilante du tiroir.
   const indexRef = useRef<HTMLElement>(null)
   const [indexCanScrollDown, setIndexCanScrollDown] = useState(false)
@@ -317,11 +323,22 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
 
   useEffect(() => {
     if (pmrMode) {
-      setDrawerMounted(true)
-      return
+      setDrawerPhase('entering')
+      // Double rAF : laisse le navigateur peindre la position hors-champ
+      // avant de passer à 'settled', sinon les deux changements d'état se
+      // confondent dans la même frame et rien ne transitionne.
+      let raf2 = 0
+      const raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => setDrawerPhase('settled'))
+      })
+      return () => {
+        cancelAnimationFrame(raf1)
+        cancelAnimationFrame(raf2)
+      }
     }
     setIndexOpen(false)
-    const exitTimer = setTimeout(() => setDrawerMounted(false), DRAWER_EXIT_MS)
+    setDrawerPhase('exiting')
+    const exitTimer = setTimeout(() => setDrawerPhase('gone'), DRAWER_EXIT_MS)
     return () => clearTimeout(exitTimer)
   }, [pmrMode])
 
@@ -546,7 +563,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
       {drawerMounted && (
         <div
           className={`map-drawer${indexOpen ? ' map-drawer--open' : ''}${
-            pmrMode ? '' : ' map-drawer--exit'
+            drawerPhase !== 'settled' ? ' map-drawer--exit' : ''
           }`}
         >
           <nav

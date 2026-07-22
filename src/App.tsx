@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { FaWheelchair } from 'react-icons/fa'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
@@ -28,6 +28,38 @@ function LeftPanel() {
   const [pmrMode, setPmrMode] = useState(false)
   const activeIndex = LEFT_TABS.indexOf(activeTab)
 
+  // Anim. de la barre d'onglets au basculement PMR : le passage haut/bas se
+  // fait par un simple flip CSS (flex-direction: column <-> column-reverse),
+  // instantané et non transitionnable tel quel. On capture donc sa position
+  // juste avant le flip pour rejouer le déplacement comme un glissé fluide
+  // (technique FLIP), dans les deux sens (activation et désactivation).
+  const tabBarRef = useRef<HTMLElement>(null)
+  const tabBarPrevTop = useRef<number | null>(null)
+
+  function togglePmrMode(next: boolean) {
+    tabBarPrevTop.current = tabBarRef.current?.getBoundingClientRect().top ?? null
+    setPmrMode(next)
+  }
+
+  useLayoutEffect(() => {
+    const el = tabBarRef.current
+    const prevTop = tabBarPrevTop.current
+    tabBarPrevTop.current = null
+    if (!el || prevTop === null) return
+    const deltaY = prevTop - el.getBoundingClientRect().top
+    if (deltaY === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    el.style.transition = 'none'
+    el.style.transform = `translateY(${deltaY}px)`
+    el.getBoundingClientRect() // force le reflow avant de relâcher la transition
+    el.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
+    el.style.transform = ''
+
+    const onDone = () => { el.style.transition = '' }
+    el.addEventListener('transitionend', onDone, { once: true })
+    return () => el.removeEventListener('transitionend', onDone)
+  }, [pmrMode])
+
   useEffect(() => {
     let timer = setTimeout(onIdle, INACTIVITY_MS)
 
@@ -35,7 +67,7 @@ function LeftPanel() {
       setActiveTab('Mémorial')
       setIdleCount(c => c + 1)
       // Retour à la configuration standard pour le visiteur suivant.
-      setPmrMode(false)
+      togglePmrMode(false)
     }
 
     function reset() {
@@ -58,12 +90,12 @@ function LeftPanel() {
         className="pmr-btn"
         aria-pressed={pmrMode}
         aria-label="Accès PMR : déplacer les onglets en bas de l'écran"
-        onClick={() => setPmrMode((v) => !v)}
+        onClick={() => togglePmrMode(!pmrMode)}
       >
         <FaWheelchair className="pmr-icon" aria-hidden="true" />
       </button>
 
-      <nav className="tab-bar">
+      <nav className="tab-bar" ref={tabBarRef}>
         {LEFT_TABS.map((tab) => (
           <button
             key={tab}
