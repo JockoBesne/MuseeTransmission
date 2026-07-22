@@ -24,7 +24,7 @@ et **exactement ces 4 colonnes en ligne 1** :
 - **Prénom**, **Grade** : facultatifs.
 - **Date de décès** : `JJ/MM/AAAA`, ou l'année `AAAA`, ou vide.
 - **Colonne E « Conflit » — pour l'Opex uniquement, et obligatoire pour lui** :
-  théâtre d'opération affiché sous le nom (Levant, Ex-Yougoslavie, Tchad,
+  théâtre d'opération affiché sous le nom ( Ex-Yougoslavie, Tchad,
   Afghanistan…). Le fichier Opex doit donc avoir 5 colonnes (en-tête exact :
   `Conflit`) ; les quatre autres fichiers doivent avoir exactement 4 colonnes
   (la colonne Conflit y est refusée). Un jeu de fichiers d'essai illustrant
