@@ -267,7 +267,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nom": "Haguenau",
+        "nom": "Oberhoffen-sur-Moder",
         "labelDir": "right",
         "entites": [
           {
@@ -275,7 +275,7 @@
             "texte": "« Nihil affirmat quod non probet » (Il n'affirme rien qu'il ne prouve)",
             "histoire": "Le 54e régiment de transmissions est l'héritier d'une double filiation : unités de transmissions de la Seconde Guerre mondiale (inscriptions « Allemagne 1945 » et « AFN 1952-1962 ») et unités de guerre électronique (GE) issues des sapeurs télégraphistes du service des écoutes de la Première Guerre mondiale. Dissous en 1985, recréé en 1986 comme unité de guerre électronique tactique. Depuis 2024, il appartient à la brigade de renseignement et cyber-électronique (BRCE). Implanté à Oberhoffen-sur-Moder.",
             "specificite": "Unique régiment d'appui cyber-électronique tactique de l'armée de Terre. Contribue à l'appui cyber-électronique des forces (renseigner et engager) : capacités d'interception, de localisation et de brouillage (sections d'appui électronique sous blindage, SAEB) ; intégré au dispositif SCORPION (SERVAL guerre électronique) et à la communauté cyber des armées (CCA).",
-            "garnison": "67504 Oberhoffen-sur-Moder / Haguenau (Bas-Rhin) — Quartier Estienne.",
+            "garnison": "67504 Oberhoffen-sur-Moder (Bas-Rhin) — Quartier Estienne.",
             "photo": "/pucelles/54e-rt.png",
             "photoDescription": "Insigne du 54e RT (chiffre 54)."
           },

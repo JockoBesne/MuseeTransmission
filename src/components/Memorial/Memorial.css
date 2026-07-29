@@ -462,16 +462,6 @@
   transition: color 0.15s;
 }
 
-.memorial-name:hover .memorial-nom,
-.memorial-name:active .memorial-nom {
-  color: #fecc30;
-}
-
-.memorial-name:hover .memorial-prenom,
-.memorial-name:active .memorial-prenom {
-  color: #ffffff;
-}
-
 .name-meta {
   font-family: 'Nunito', sans-serif;
   font-size: 0.72rem;
@@ -523,7 +513,7 @@
 }
 
 .memorial-footer-source {
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.35);
 }
