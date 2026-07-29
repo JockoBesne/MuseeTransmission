@@ -194,7 +194,6 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                     </div>
                   )}
                   <p className="card-geo">
-                    <span className="card-geo-label">Garnison</span>
                     {unit.garnison}
                   </p>
                 </div>
