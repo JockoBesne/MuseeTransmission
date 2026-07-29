@@ -5,7 +5,8 @@
   "role": "Lieutenant",
   "annee": "1924",
   "date": "13/09/1924",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  },
  {
   "nom": "BOYER",
@@ -13,7 +14,8 @@
   "role": "Caporal",
   "annee": "1928",
   "date": "12/08/1928",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  },
  {
   "nom": "CAMBOURNAC",
@@ -21,7 +23,8 @@
   "role": "Lieutenant",
   "annee": "1925",
   "date": "02/08/1925",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  },
  {
   "nom": "GRIFFON",
@@ -29,7 +32,8 @@
   "role": "Soldat",
   "annee": "1926",
   "date": "19/08/1926",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  },
  {
   "nom": "MAUBEC",
@@ -37,7 +41,8 @@
   "role": "",
   "annee": "1926",
   "date": "30/10/1926",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  },
  {
   "nom": "MERLE",
@@ -45,7 +50,8 @@
   "role": "Soldat",
   "annee": "1926",
   "date": "29/09/1926",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  },
  {
   "nom": "THOMAS",
@@ -53,6 +59,7 @@
   "role": "Soldat",
   "annee": "1927",
   "date": "12/07/1927",
-  "conflit": ""
+  "conflit": "",
+  "section": ""
  }
 ]

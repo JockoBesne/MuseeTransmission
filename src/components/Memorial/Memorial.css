@@ -432,6 +432,19 @@
   display: none;
 }
 
+/* Intertitre de sous-groupe dans un registre (2GM : « Radioamateurs »). */
+.memorial-section {
+  padding: 22px 6px 8px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fecc30;
+  border-bottom: 1px solid rgba(254, 204, 48, 0.4);
+}
+
 .memorial-name {
   padding: 8px 6px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);

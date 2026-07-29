@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { Fragment, useState, useEffect, useRef, useCallback } from 'react'
 import VirtualKeyboard from './VirtualKeyboard'
 import { Ord } from '../../utils/ordinals'
 import './Memorial.css'
@@ -12,6 +12,8 @@ interface Soldat {
   annee: string
   /** Théâtre d'opération (renseigné pour l'Opex : Tchad, Ex-Yougoslavie…). */
   conflit: string
+  /** Sous-groupe affiché sous un intertitre (2GM : « Radioamateurs »). */
+  section: string
 }
 
 const WARS: War[] = ['1GM', 'EntreDeuxGuerres', '2GM', 'Indochine', 'Algérie', 'Opex']
@@ -63,6 +65,7 @@ function normalizeSoldat(item: unknown): Soldat {
     role: String(o.role ?? o.Role ?? '').trim(),
     annee: String(o.annee ?? o.Annee ?? '').trim(),
     conflit: String(o.conflit ?? '').trim(),
+    section: String(o.section ?? '').trim(),
   }
 }
 
@@ -427,9 +430,16 @@ export default function Memorial() {
           <p className="memorial-status">Aucun résultat pour « {search} »</p>
         ) : (
           filtered.map((s, i) => (
-            <div key={i} className="memorial-name">
-              <NameEntry soldat={s} />
-            </div>
+            <Fragment key={i}>
+              {/* Intertitre à chaque changement de section (liste pré-triée :
+                 les entrées sans section viennent d'abord). */}
+              {s.section && (i === 0 || filtered[i - 1].section !== s.section) && (
+                <div className="memorial-section">{s.section}</div>
+              )}
+              <div className="memorial-name">
+                <NameEntry soldat={s} />
+              </div>
+            </Fragment>
           ))
         )}
       </div>

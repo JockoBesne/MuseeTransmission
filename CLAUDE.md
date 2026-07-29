@@ -15,10 +15,16 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 - `npm run import-memorial` — régénère `public/data/memorial/*.json`
   (6 catégories : 1GM, Entre-deux-guerres, 2GM, Indochine, Algérie, Opex) depuis les Excel
   « propres » de `data-memorial/` (4 colonnes imposées : Nom, Prénom,
-  Date de décès, Grade ; tri alphabétique automatique). La validation vit à un
-  seul endroit, [server/memorial-import.mjs](server/memorial-import.mjs)
-  (dépendance `exceljs`), partagée avec l'API de la borne. **Ne jamais éditer
-  ces JSON à la main** ; aucun script ne tourne au lancement de l'app.
+  Date de décès, Grade ; tri alphabétique automatique). Une 5e colonne existe,
+  propre à chaque registre et refusée ailleurs : `Conflit` pour l'Opex
+  (obligatoire, théâtre affiché à la suite du nom) et `Section` pour la 2GM
+  (facultative, intertitre de sous-groupe — les 66 radioamateurs 1939-1945).
+  La validation vit à un seul endroit,
+  [server/memorial-import.mjs](server/memorial-import.mjs) (constante
+  `COLONNE5`, dépendance `exceljs`), partagée avec l'API de la borne.
+  **Ne jamais éditer ces JSON à la main** ; aucun script ne tourne au lancement
+  de l'app. Les Excel de `data-memorial/` sont corrigés à la main par le musée :
+  `memorial-extract` refuse donc de les écraser sans `--force`.
   Mode d'emploi complet : [scripts/memorial/README.md](scripts/memorial/README.md).
 - `npm run borne` — serveur local de la borne (port 3210, 100 % hors-ligne) :
   sert `dist/` + API de l'écran admin ; les JSON du Mémorial déposés via
