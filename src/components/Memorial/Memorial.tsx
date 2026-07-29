@@ -452,7 +452,7 @@ export default function Memorial() {
               : `${soldats.length} noms inscrits`}
           </p>
         )}
-        <p className="memorial-footer-source">Source : Mémoire des hommes, Service historique de la défense</p>
+        <p className="memorial-footer-source">Source : Mémoire des hommes, Service historique de la défense, CACn, sous références 40R, nos remerciements au travail de Philippe CIBARD</p>
       </div>
 
       {/* Voile de transition entre deux catégories (fin de liste atteinte). */}

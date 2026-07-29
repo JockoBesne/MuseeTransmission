@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { City, Unite } from '../../types'
 import { Ord } from '../../utils/ordinals'
 import { RichText } from '../../utils/richText'
@@ -24,6 +24,25 @@ function shortName(unit: Unite): string {
   return sigle ? sigle[1] : unit.regiment
 }
 
+// Ordre hiérarchique des onglets : le mot d'échelon EN TÊTE du nom décide
+// (« 44e régiment … 5e compagnie » reste un régiment). Un nom sans échelon
+// connu part en fin de liste.
+const ECHELONS = ['commandement', 'division', 'brigade', 'régiment', 'compagnie', 'école']
+
+function echelonRank(unit: Unite): number {
+  const name = unit.regiment.toLowerCase()
+  let rank = ECHELONS.length
+  let firstPos = Infinity
+  ECHELONS.forEach((kw, i) => {
+    const pos = name.indexOf(kw)
+    if (pos !== -1 && pos < firstPos) {
+      firstPos = pos
+      rank = i
+    }
+  })
+  return rank
+}
+
 export function CardDialog({ city, onClose }: CardDialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
@@ -42,7 +61,15 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
   // Indicateur « contenu au-delà du bord bas » du corps défilant.
   const [canScrollDown, setCanScrollDown] = useState(false)
 
-  const unit = city.entites[activeIndex] ?? city.entites[0]
+  // Onglets classés Commandement → Division → Brigade → Régiment → Compagnie
+  // → École. Copie triée (tri stable) : à échelon égal, l'ordre de villes.json
+  // est conservé.
+  const entites = useMemo(
+    () => [...city.entites].sort((a, b) => echelonRank(a) - echelonRank(b)),
+    [city],
+  )
+
+  const unit = entites[activeIndex] ?? entites[0]
 
   const updateScrollCue = useCallback(() => {
     const el = bodyRef.current
@@ -136,7 +163,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
           <div className="card-header">
             <span className="card-kicker">{city.nom}</span>
             <nav className="card-tabs" aria-label="Unités présentes sur ce site">
-              {city.entites.map((entite, i) => (
+              {entites.map((entite, i) => (
                 <button
                   key={entite.regiment}
                   type="button"
@@ -194,7 +221,6 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                     </div>
                   )}
                   <p className="card-geo">
-                    <span className="card-geo-label">Garnison</span>
                     {unit.garnison}
                   </p>
                 </div>
