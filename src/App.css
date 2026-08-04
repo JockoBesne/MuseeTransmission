@@ -94,9 +94,12 @@ html,
   background-color: rgba(255, 255, 255, 0.22);
 }
 
-.pmr-btn--active {
+/* Mode PMR actif : l'état est porté par aria-pressed (App.tsx), le retour
+   visuel doit suivre le même attribut — sinon le bouton ne marque rien. */
+.pmr-btn[aria-pressed='true'] {
   border-color: #fecc30;
-  background-color: rgba(254, 204, 48, 0.18);
+  background-color: #fecc30;
+  color: #0D3151;
 }
 
 .pmr-icon {

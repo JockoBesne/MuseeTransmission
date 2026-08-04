@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { FaWheelchair } from 'react-icons/fa'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
@@ -9,8 +8,30 @@ import AdminHub from './components/Admin/AdminHub'
 import AdminPin from './components/Admin/AdminPin'
 import MemorialAdmin from './components/Admin/MemorialAdmin'
 
+/* Pictogramme fauteuil roulant du bouton PMR (tracé maison : pas de
+   bibliothèque d'icônes pour un seul glyphe). */
+function IconePmr() {
+  return (
+    <svg
+      className="pmr-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="8.5" cy="3.5" r="2.2" fill="currentColor" stroke="none" />
+      <path d="M8.5 7.5v5.5h5l2.8 5.3" />
+      <path d="M16.8 18.3h3.4" />
+      <circle cx="10" cy="15.5" r="6" />
+    </svg>
+  )
+}
+
 /* ── Panneau gauche avec onglets ── */
-const LEFT_TABS = ['Carte intéractive', 'Mémorial'] as const
+const LEFT_TABS = ['Carte interactive', 'Mémorial'] as const
 type LeftTab = typeof LEFT_TABS[number]
 
 /* Borne en libre accès : sans interaction pendant ce délai,
@@ -18,7 +39,7 @@ type LeftTab = typeof LEFT_TABS[number]
 const INACTIVITY_MS = 3 * 60 * 1000
 
 function LeftPanel() {
-  const [activeTab, setActiveTab] = useState<LeftTab>('Carte intéractive')
+  const [activeTab, setActiveTab] = useState<LeftTab>('Carte interactive')
   // Compte les mises en veille : intégré à la clé du contenu, il force le
   // remontage du Mémorial même si l'onglet était déjà actif (recherche vidée,
   // clavier virtuel fermé, défilement relancé).
@@ -92,7 +113,7 @@ function LeftPanel() {
         aria-label="Accès PMR : déplacer les onglets en bas de l'écran"
         onClick={() => togglePmrMode(!pmrMode)}
       >
-        <FaWheelchair className="pmr-icon" aria-hidden="true" />
+        <IconePmr />
       </button>
 
       <nav className="tab-bar" ref={tabBarRef}>
@@ -112,7 +133,7 @@ function LeftPanel() {
       </nav>
 
       <div key={`${activeTab}-${idleCount}`} className="tab-content">
-        {activeTab === 'Carte intéractive' && <InteractiveMap pmrMode={pmrMode} />}
+        {activeTab === 'Carte interactive' && <InteractiveMap pmrMode={pmrMode} />}
         {activeTab === 'Mémorial' && <Memorial />}
       </div>
     </div>

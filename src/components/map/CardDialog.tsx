@@ -189,7 +189,11 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
             <div className="card-content" key={activeIndex}>
               <div className="card-title-block">
                 <h3 id={titleId}><Ord>{unit.regiment}</Ord></h3>
-                <span className="card-subtitle"><RichText>{unit.texte}</RichText></span>
+                {/* Devise : certaines unités n'en ont pas encore (villes.json) —
+                   pas de ligne vide sous le titre dans ce cas. */}
+                {unit.texte && (
+                  <span className="card-subtitle"><RichText>{unit.texte}</RichText></span>
+                )}
               </div>
 
               <div className="card-intro">

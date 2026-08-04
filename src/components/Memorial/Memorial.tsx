@@ -58,13 +58,19 @@ const COURTE_LISTE_ATTENTE_S = 30 // liste tenant à l'écran : délai avant d'e
 function normalizeSoldat(item: unknown): Soldat {
   const o = (item ?? {}) as Record<string, unknown>
   return {
-    nom: String(o.nom ?? o.Nom ?? '').trim(),
-    prenom: String(o.prenom ?? o.Prenom ?? '').trim(),
-    role: String(o.role ?? o.Role ?? '').trim(),
-    annee: String(o.annee ?? o.Annee ?? '').trim(),
+    nom: String(o.nom ?? '').trim(),
+    prenom: String(o.prenom ?? '').trim(),
+    role: String(o.role ?? '').trim(),
+    annee: String(o.annee ?? '').trim(),
     conflit: String(o.conflit ?? '').trim(),
   }
 }
+
+/* Clé de comparaison pour la recherche : sans accents ni casse. Le visiteur
+   tape sur le clavier tactile, souvent sans accent — « leger » doit trouver
+   LÉGER (même normalisation qu'à l'import, server/memorial-import.mjs). */
+const cleRecherche = (s: string) =>
+  s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
 /* Fichiers JSON servis à l'exécution (public/data/memorial en dev ; sur la
    borne, le serveur local privilégie la version déposée via l'écran admin —
@@ -143,6 +149,9 @@ export default function Memorial() {
     if (transitionRef.current) return
     const suivant = WARS[(WARS.indexOf(warRef.current) + 1) % WARS.length]
     setTransition(suivant)
+    // Borne allumée en continu : les minuteurs de l'enchaînement précédent ont
+    // déjà tiré, on vide le tableau au lieu de l'empiler indéfiniment.
+    transitionTimers.current.length = 0
     transitionTimers.current.push(
       setTimeout(() => {
         setRot(r => r - 60) // la roue suit : un cran vers la guerre suivante
@@ -269,8 +278,8 @@ export default function Memorial() {
 
   const filtered = search
     ? soldats.filter(s => {
-        const q = search.toLowerCase()
-        return s.nom.toLowerCase().includes(q) || s.prenom.toLowerCase().includes(q)
+        const q = cleRecherche(search)
+        return cleRecherche(s.nom).includes(q) || cleRecherche(s.prenom).includes(q)
       })
     : soldats
 

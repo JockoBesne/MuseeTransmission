@@ -19,7 +19,7 @@ export default function AdminHub({ onBorne, onMemorial }: AdminHubProps) {
           <span className="admin-hub-btn-icon">▶</span>
           <span className="admin-hub-btn-title">Affichage borne</span>
           <span className="admin-hub-btn-desc">
-            Retour à la configuration par défaut : carte intéractive, mémorial et frise chronologique.
+            Retour à la configuration par défaut : carte interactive, mémorial et frise chronologique.
           </span>
         </button>
 
