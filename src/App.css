@@ -178,21 +178,6 @@ html,
   min-height: 0;
 }
 
-.tab-pane {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  height: 100%;
-  padding: 32px;
-}
-
-.tab-pane p {
-  font-family: 'Nunito', sans-serif;
-  color: #b0b0b0;
-}
-
 .panel h2 {
   font-size: 1.8rem;
   letter-spacing: 0.05em;

@@ -5,8 +5,20 @@
 import ExcelJS from 'exceljs'
 
 export const COLONNES = ['Nom', 'Prénom', 'Date de décès', 'Grade']
-// 5e colonne facultative (utilisée par l'Opex) : théâtre affiché sous le nom.
+
+/* 5e colonne, dont l'intitulé et le rôle dépendent de la catégorie :
+   - « Conflit » (Opex, obligatoire) : théâtre affiché à la suite du nom ;
+   - « Section » (2GM, facultative)  : regroupe les entrées sous un intertitre
+     (les radioamateurs 1939-1945, par exemple) ;
+   - les autres catégories n'ont pas de 5e colonne. */
 export const COLONNE_CONFLIT = 'Conflit'
+export const COLONNE_SECTION = 'Section'
+
+/** Intitulé attendu en colonne E, et caractère obligatoire, par catégorie. */
+export const COLONNE5 = {
+  opex: { entete: COLONNE_CONFLIT, champ: 'conflit', obligatoire: true },
+  '2gm': { entete: COLONNE_SECTION, champ: 'section', obligatoire: false },
+}
 
 export const CATEGORIES = {
   '1gm': '1ère Guerre mondiale',
@@ -67,28 +79,35 @@ export async function analyseClasseur(buffer, categorie) {
   }
 
   const entetes = [1, 2, 3, 4].map((c) => texte(ws.getRow(1).getCell(c).value))
-  const enteteConflit = texte(ws.getRow(1).getCell(5).value)
-  const avecConflit = enteteConflit === COLONNE_CONFLIT
+  const entete5 = texte(ws.getRow(1).getCell(5).value)
+  // Colonne E attendue pour cette catégorie (aucune si la catégorie n'en prévoit pas).
+  const regle5 = categorie ? COLONNE5[categorie] : null
+  const entetesConnus = [COLONNE_CONFLIT, COLONNE_SECTION]
+  const avecColonne5 = regle5 ? entete5 === regle5.entete : entetesConnus.includes(entete5)
+
   const enteteExces = texte(ws.getRow(1).getCell(6).value)
   if (enteteExces) {
     return {
       ok: false,
       erreurs: [
         `Trop de colonnes : « ${enteteExces} » trouvée en colonne F.`,
-        `Le format accepte au maximum 5 colonnes : ${COLONNES.join(' | ')} | ${COLONNE_CONFLIT}.`,
+        `Le format accepte au maximum 5 colonnes : ${COLONNES.join(' | ')} | ${regle5?.entete ?? COLONNE_CONFLIT}.`,
       ],
       avertissements: [],
       personnes: [],
       nombre: 0,
     }
   }
-  if (entetes.join('|') !== COLONNES.join('|') || (enteteConflit && !avecConflit)) {
+  if (entetes.join('|') !== COLONNES.join('|') || (entete5 && !avecColonne5)) {
+    const attendu5 = regle5
+      ? ` (+ « ${regle5.entete} » en colonne E)`
+      : ` (aucune colonne E pour cette catégorie)`
     return {
       ok: false,
       erreurs: [
         'Les colonnes de la ligne 1 ne correspondent pas au format imposé.',
-        `Attendu : ${COLONNES.join(' | ')} (+ « ${COLONNE_CONFLIT} » en colonne E, réservée à l'Opex)`,
-        `Trouvé : ${[...entetes, enteteConflit].map((e) => e || '(vide)').join(' | ')}`,
+        `Attendu : ${COLONNES.join(' | ')}${attendu5}`,
+        `Trouvé : ${[...entetes, entete5].map((e) => e || '(vide)').join(' | ')}`,
       ],
       avertissements: [],
       personnes: [],
@@ -96,39 +115,40 @@ export async function analyseClasseur(buffer, categorie) {
     }
   }
 
-  // Règle par catégorie : la colonne Conflit appartient à l'Opex, et à lui seul.
-  if (categorie === 'opex' && !avecConflit) {
+  // Règle par catégorie : chaque registre a sa propre colonne E, ou aucune.
+  if (regle5?.obligatoire && !avecColonne5) {
     return {
       ok: false,
       erreurs: [
-        `La catégorie Opex utilise 5 colonnes : ${COLONNES.join(' | ')} | ${COLONNE_CONFLIT}.`,
-        `La colonne E « ${COLONNE_CONFLIT} » (théâtre d'opération : Tchad, Ex-Yougoslavie…) manque dans ce fichier.`,
+        `La catégorie ${CATEGORIES[categorie]} utilise 5 colonnes : ${COLONNES.join(' | ')} | ${regle5.entete}.`,
+        `La colonne E « ${regle5.entete} » (théâtre d'opération : Tchad, Ex-Yougoslavie…) manque dans ce fichier.`,
       ],
       avertissements: [],
       personnes: [],
       nombre: 0,
     }
   }
-  if (categorie && categorie !== 'opex' && avecConflit) {
+  if (categorie && !regle5 && entete5) {
     return {
       ok: false,
       erreurs: [
-        `La colonne « ${COLONNE_CONFLIT} » est réservée à la catégorie Opex.`,
-        `Pour ${CATEGORIES[categorie] ?? categorie}, le fichier doit avoir exactement 4 colonnes : ${COLONNES.join(' | ')}.`,
+        `La colonne « ${entete5} » n'est pas prévue pour la catégorie ${CATEGORIES[categorie] ?? categorie}.`,
+        `Ce registre doit avoir exactement 4 colonnes : ${COLONNES.join(' | ')}.`,
       ],
       avertissements: [],
       personnes: [],
       nombre: 0,
     }
   }
+  const champ5 = regle5?.champ ?? (entete5 === COLONNE_SECTION ? 'section' : 'conflit')
 
   const personnes = []
   const avertissements = []
   ws.eachRow((row, numero) => {
     if (numero === 1) return
     const [nom, prenom, dateBrute, grade] = [1, 2, 3, 4].map((c) => texte(row.getCell(c).value))
-    const conflit = avecConflit ? texte(row.getCell(5).value) : ''
-    if (!nom && !prenom && !dateBrute && !grade && !conflit) return // ligne vide
+    const valeur5 = avecColonne5 ? texte(row.getCell(5).value) : ''
+    if (!nom && !prenom && !dateBrute && !grade && !valeur5) return // ligne vide
     if (!nom) {
       avertissements.push(`ligne ${numero} : Nom manquant — ligne ignorée`)
       return
@@ -146,7 +166,11 @@ export async function analyseClasseur(buffer, categorie) {
         date = ''
       }
     }
-    personnes.push({ nom: nom.toLocaleUpperCase('fr'), prenom, role: grade, annee, date, conflit })
+    personnes.push({
+      nom: nom.toLocaleUpperCase('fr'), prenom, role: grade, annee, date,
+      conflit: champ5 === 'conflit' ? valeur5 : '',
+      section: champ5 === 'section' ? valeur5 : '',
+    })
   })
 
   // Garde-fou : un fichier sans aucun nom valide effacerait toute la liste —
@@ -164,8 +188,13 @@ export async function analyseClasseur(buffer, categorie) {
     }
   }
 
-  const cle = (s) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
-  personnes.sort((a, b) => cle(a.nom).localeCompare(cle(b.nom)) || cle(a.prenom).localeCompare(cle(b.prenom)))
+  // Tri : les entrées sans section d'abord (chaîne vide en tête), puis chaque
+  // section regroupée, et à l'intérieur un ordre alphabétique nom puis prénom.
+  const cle = (s) => (s ?? '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  personnes.sort((a, b) =>
+    cle(a.section).localeCompare(cle(b.section)) ||
+    cle(a.nom).localeCompare(cle(b.nom)) ||
+    cle(a.prenom).localeCompare(cle(b.prenom)))
 
   return { ok: true, erreurs: [], avertissements, personnes, nombre: personnes.length }
 }

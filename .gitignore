@@ -31,3 +31,13 @@ borne-data/
 *.njsproj
 *.sln
 *.sw?
+
+# Python (outils de maintenance des donnees)
+__pycache__/
+*.py[cod]
+
+# Fichiers verrous LibreOffice / bureautique
+.~lock.*#
+
+# Donnees ecrites par la borne a l execution
+borne-data/

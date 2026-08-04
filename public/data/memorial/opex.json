@@ -86,5 +86,13 @@
   "annee": "1970",
   "date": "17/09/1970",
   "conflit": "Tchad"
+ },
+ {
+  "nom": "HENRY",
+  "prenom": "Morgan",
+  "role": "Sergent-chef",
+  "annee": "2020",
+  "date": "16/02/2020",
+  "conflit": "Burkina Faso" 
  }
 ]

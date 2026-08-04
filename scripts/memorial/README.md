@@ -23,12 +23,18 @@ et **exactement ces 4 colonnes en ligne 1** :
 - **Nom** : obligatoire (mis en majuscules automatiquement).
 - **Prénom**, **Grade** : facultatifs.
 - **Date de décès** : `JJ/MM/AAAA`, ou l'année `AAAA`, ou vide.
-- **Colonne E « Conflit » — pour l'Opex uniquement, et obligatoire pour lui** :
-  théâtre d'opération affiché sous le nom ( Ex-Yougoslavie, Tchad,
-  Afghanistan…). Le fichier Opex doit donc avoir 5 colonnes (en-tête exact :
-  `Conflit`) ; les quatre autres fichiers doivent avoir exactement 4 colonnes
-  (la colonne Conflit y est refusée). Un jeu de fichiers d'essai illustrant
-  toutes ces règles est fourni dans [test-memorial/](../../test-memorial/README.md).
+- **Colonne E : une seule par registre, et elle lui est propre.**
+
+  | Registre | Colonne E | Rôle |
+  |---|---|---|
+  | Opex | `Conflit` (obligatoire) | théâtre affiché à la suite du nom : Ex-Yougoslavie, Tchad, Afghanistan… |
+  | 2GM | `Section` (facultative) | regroupe des noms sous un intertitre, par exemple `Radioamateurs` |
+  | 1GM, Entre-deux-guerres, Indochine, Algérie | aucune | exactement 4 colonnes |
+
+  Chaque registre refuse la colonne E des autres : déposer un fichier avec
+  `Conflit` sur la 2GM, ou avec `Section` sur l'Algérie, est rejeté avec un
+  message explicite. Laisser la colonne `Section` vide sur une ligne place
+  simplement la personne dans la liste principale.
 - L'ordre des lignes n'a pas d'importance (tri alphabétique automatique).
 - Pas de formules, pas de cellules fusionnées, pas d'autres feuilles.
 
@@ -113,17 +119,42 @@ Variables : `PORT` (défaut 3210), `BORNE_DATA` (défaut `<projet>/borne-data`).
 Si le classeur ODS historique (« Mort_pour_la_France-8_Genie… ») évolue :
 
 ```bash
-npm run memorial-extract -- "C:\chemin\vers\le\fichier.ods"
+npm run memorial-extract -- "C:\chemin\vers\le\fichier.ods" --force
 npm run import-memorial
 ```
 
-⚠️ Écrase les 5 Excel de `data-memorial/` (retouches manuelles perdues).
+⚠️ **Cette commande réécrit les Excel de `data-memorial/` et annule toutes les
+corrections faites à la main.** Le script refuse donc de s'exécuter si les
+fichiers existent déjà : `--force` est nécessaire pour passer outre. Avant de
+l'employer, committer l'état courant, puis comparer le résultat
+(`git diff --stat`) pour vérifier ce qui a changé.
+
+Le risque est réel : ces fichiers sont corrigés au fil de l'eau (fautes de
+frappe dans les prénoms, ajouts de noms, découpage de registres). Une
+resynchronisation aveugle ferait réapparaître des erreurs déjà corrigées et
+supprimerait le registre Entre-deux-guerres, que le script ne produit pas.
+
 Prérequis : Python 3 + `pip install openpyxl pandas odfpy`.
 Règles de filtrage (validées le 18/07/2026) : flag colonne A = 1 sur les
 feuilles à flag numérique ; lignes nominatives sur les petites feuilles Opex
 sans flag ; `Feuille25` exclue ; Riff / AOF / Cameroun vides (aucun flag 1).
 
+**Radioamateurs 1939-1945.** Ils proviennent d'un autre classeur (« …Août 2018… »,
+feuille `Radio_Amateur_39_45`), passé au script via `--radio-ods` :
+
+```bash
+npm run memorial-extract -- "…Juillet_2026….ods" --radio-ods "data-memorial/…Août_2018….ods" --force
+```
+
+Cette feuille n'a ni date ni corps, et sa colonne « Grade » contient en réalité
+l'indicatif radio (`F8DN`) ou le numéro REF. Cet indicatif sert de critère de
+sélection : les lignes qui n'en ont pas sont écartées (66 retenus sur 72,
+décision du 28/07/2026). Les personnes retenues rejoignent le registre 2GM avec
+`Section = Radioamateurs`.
+
 ## Format du JSON généré
 
-Tableau trié d'objets `{nom, prenom, role, annee, date}` (`role` = grade,
-`annee` déduite de la date).
+Tableau trié d'objets `{nom, prenom, role, annee, date, conflit, section}`
+(`role` = grade, `annee` déduite de la date). Le tri place d'abord les entrées
+sans section, puis chaque section regroupée, par ordre alphabétique à
+l'intérieur de chaque groupe.
