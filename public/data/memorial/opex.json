@@ -5,8 +5,7 @@
   "role": "Caporal-chef",
   "annee": "2009",
   "date": "24/05/2009",
-  "conflit": "Afghanistan",
-  "section": ""
+  "conflit": "Afghanistan"
  },
  {
   "nom": "DELMOTTE",
@@ -14,8 +13,7 @@
   "role": "Lieutenant",
   "annee": "1951",
   "date": "07/05/1951",
-  "conflit": "Corée (ONU)",
-  "section": ""
+  "conflit": "Corée (ONU)"
  },
  {
   "nom": "DESCHAMPS",
@@ -23,8 +21,7 @@
   "role": "Adjudant Chef",
   "annee": "1958",
   "date": "10/01/1958",
-  "conflit": "Tunisie",
-  "section": ""
+  "conflit": "Tunisie"
  },
  {
   "nom": "DUMOULIN",
@@ -32,17 +29,7 @@
   "role": "Adjudant Chef",
   "annee": "1996",
   "date": "22/10/1996",
-  "conflit": "Ex-Yougoslavie",
-  "section": ""
- },
- {
-  "nom": "HENRY",
-  "prenom": "Morgan",
-  "role": "Sergent-Chef",
-  "annee": "2020",
-  "date": "16/02/2020",
-  "conflit": "Burkina Faso",
-  "section": ""
+  "conflit": "Ex-Yougoslavie"
  },
  {
   "nom": "LACOMBE",
@@ -50,8 +37,7 @@
   "role": "Adjudant-Chef",
   "annee": "1993",
   "date": "24/12/1993",
-  "conflit": "Ex-Yougoslavie",
-  "section": ""
+  "conflit": "Ex-Yougoslavie"
  },
  {
   "nom": "LAVAL-GILY",
@@ -59,8 +45,7 @@
   "role": "Lt",
   "annee": "1972",
   "date": "18/02/1972",
-  "conflit": "Tchad",
-  "section": ""
+  "conflit": "Tchad"
  },
  {
   "nom": "LE MEUT",
@@ -68,8 +53,7 @@
   "role": "Caporal Chef",
   "annee": "1996",
   "date": "03/07/1996",
-  "conflit": "Ex-Yougoslavie",
-  "section": ""
+  "conflit": "Ex-Yougoslavie"
  },
  {
   "nom": "LEFEBVRE",
@@ -77,8 +61,7 @@
   "role": "Lieutenant",
   "annee": "1995",
   "date": "14/03/1995",
-  "conflit": "Ex-Yougoslavie",
-  "section": ""
+  "conflit": "Ex-Yougoslavie"
  },
  {
   "nom": "OTTAVIANI",
@@ -86,8 +69,7 @@
   "role": "Caporal Chef",
   "annee": "",
   "date": "",
-  "conflit": "Ex-Yougoslavie",
-  "section": ""
+  "conflit": "Ex-Yougoslavie"
  },
  {
   "nom": "POLIN",
@@ -95,8 +77,7 @@
   "role": "Sergent",
   "annee": "2008",
   "date": "03/03/2008",
-  "conflit": "Soudan",
-  "section": ""
+  "conflit": "Soudan"
  },
  {
   "nom": "SAULIÈRE",
@@ -104,7 +85,14 @@
   "role": "Sergent",
   "annee": "1970",
   "date": "17/09/1970",
-  "conflit": "Tchad",
-  "section": ""
+  "conflit": "Tchad"
+ },
+ {
+  "nom": "HENRY",
+  "prenom": "Morgan",
+  "role": "Sergent-chef",
+  "annee": "2020",
+  "date": "16/02/2020",
+  "conflit": "Burkina Faso" 
  }
 ]

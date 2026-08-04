@@ -9,9 +9,6 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 - `npm run dev` — serveur de développement Vite
 - `npm run build` — `tsc -b` puis build Vite (le build doit toujours passer)
 - `npm run lint` — Oxlint
-- `npm run import-docx` — régénère `src/data/memorial-1gm.json` depuis
-  `public/data/A.docx` (via mammoth). **Ne jamais éditer ce JSON à la main** :
-  modifier le .docx ou le script, puis régénérer.
 - `npm run import-memorial` — régénère `public/data/memorial/*.json`
   (6 catégories : 1GM, Entre-deux-guerres, 2GM, Indochine, Algérie, Opex) depuis les Excel
   « propres » de `data-memorial/` (4 colonnes imposées : Nom, Prénom,
@@ -31,8 +28,6 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
   l'admin sont écrits dans `borne-data/` (prioritaire sur la version du
   build) avec copie de l'Excel renommée dans `borne-data/uploads/`.
   Memorial.tsx charge ces JSON en fetch à l'exécution (plus de bundle).
-  L'ancienne chaîne `import-docx` / `memorial-1gm.json` n'est plus branchée —
-  à supprimer après validation.
 
 ## Architecture
 
@@ -60,7 +55,14 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     exclu des zones tactiles (filtre dans `InteractiveMap.tsx`) : Paris et
     les autres villes franciliennes s'affichent directement à leur point.
     Les images de pucelles (`public/pucelles/`) sont préchargées au
-    démarrage (`utils/preloadImages.ts`, branché dans App.tsx).
+    démarrage (`utils/preloadImages.ts`, branché dans App.tsx). Elles sont
+    **normalisées à la source** par `python scripts/normalise-pucelles.py
+    --appliquer` : le script rogne la marge vide autour de l'insigne (les
+    images d'origine allaient de 53 % à 100 % d'occupation, soit un rapport
+    de 1,9 en taille apparente), réintroduit 3 % de marge uniforme, plafonne
+    le plus grand côté à 1000 px et convertit les formats mal étiquetés
+    (GIF/SVG renommés en `.png`, qu'un navigateur peut refuser d'afficher).
+    **À relancer après tout ajout de pucelle** ; ne pas compenser au CSS.
     Toucher une ville ouvre `CardDialog` : pop-up de
     **taille fixe** (fond blanc légèrement grisé) dont seul le corps défile
     (indicateur flèche + fondu quand du contenu dépasse). En-tête = ville +
@@ -197,10 +199,6 @@ musée est nécessaire.
 
 ### Technique / nettoyage
 
-- Supprimer l'ancienne chaîne `import-docx` (morte : `memorial-1gm.json` n'est
-  plus importé) — script `import-docx` de package.json, `scripts/import-docx.mjs`,
-  `src/data/memorial-1gm.json`, `public/data/A.docx`, et la ligne
-  `npm run import-docx` en tête de ce fichier.
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
  

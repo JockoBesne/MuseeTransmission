@@ -344,14 +344,6 @@
   }
 }
 
-.memorial-subtitle {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.73rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.65);
-  letter-spacing: 0.04em;
-}
-
 /* ─── Recherche ────────────────────────────── */
 
 .memorial-search {
