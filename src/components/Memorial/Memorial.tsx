@@ -18,34 +18,97 @@ interface Soldat {
 
 const WARS: War[] = ['1GM', 'EntreDeuxGuerres', '2GM', 'Indochine', 'Algérie', 'Opex']
 
-/** Libellé de l'onglet, en toutes lettres (les ordinaux passent par <Ord>). */
-const TAB_LABELS: Record<War, string> = {
-  '1GM': 'Première Guerre mondiale',
-  EntreDeuxGuerres: 'Entre-deux-guerres',
-  '2GM': 'Seconde Guerre mondiale',
-  Indochine: 'Indochine',
-  Algérie: 'Algérie',
-  Opex: 'Opex',
-}
-
-/** Dates affichées sous le libellé de la face courante de la roue. */
-const WAR_DATES: Record<War, string> = {
-  '1GM': '1914–1918',
-  EntreDeuxGuerres: '1918–1939',
-  '2GM': '1939–1945',
-  Indochine: '1946–1954',
-  Algérie: '1954–1962',
-  Opex: 'Opérations extérieures',
-}
-
-const WAR_LABELS: Record<War, string> = {
-  '1GM': '1914–1918',
-  EntreDeuxGuerres: '1918–1939',
-  '2GM': '1939–1945',
-  Indochine: "Guerre d'Indochine · 1946–1954",
-  Algérie: "Guerre d'Algérie · 1954–1962",
-  Opex: 'Opérations extérieures et autres théâtres',
-}
+/* Les noms des soldats et leurs grades viennent des JSON : ils ne sont pas
+   traduits. Seuls les textes fixes de l'interface le sont ci-dessous.
+   `tabLabel` = face de la roue (les ordinaux passent par <Ord>),
+   `warDates` = ligne sous la face courante, `warLabels` = titre du voile
+   de transition entre deux catégories. */
+const STRINGS = {
+  fr: {
+    titre: 'MÉMORIAL',
+    tabLabel: {
+      '1GM': 'Première Guerre mondiale',
+      EntreDeuxGuerres: 'Entre-deux-guerres',
+      '2GM': 'Seconde Guerre mondiale',
+      Indochine: 'Indochine',
+      Algérie: 'Algérie',
+      Opex: 'Opex',
+    } as Record<War, string>,
+    warDates: {
+      '1GM': '1914–1918',
+      EntreDeuxGuerres: '1918–1939',
+      '2GM': '1939–1945',
+      Indochine: '1946–1954',
+      Algérie: '1954–1962',
+      Opex: 'Opérations extérieures',
+    } as Record<War, string>,
+    warLabels: {
+      '1GM': '1914–1918',
+      EntreDeuxGuerres: '1918–1939',
+      '2GM': '1939–1945',
+      Indochine: "Guerre d'Indochine · 1946–1954",
+      Algérie: "Guerre d'Algérie · 1954–1962",
+      Opex: 'Opérations extérieures et autres théâtres',
+    } as Record<War, string>,
+    guerrePrecedente: 'Guerre précédente',
+    guerreSuivante: 'Guerre suivante',
+    glissez: '‹  Glissez pour changer de période  ›',
+    rechercher: 'Rechercher un nom…',
+    effacer: 'Effacer',
+    chargement: 'Chargement…',
+    indisponible: 'Données non disponibles.',
+    aucunResultat: (q: string) => `Aucun résultat pour « ${q} »`,
+    compteRecherche: (n: number, total: number) =>
+      `${n} résultat${n !== 1 ? 's' : ''} · ${total} inscrits`,
+    compteTotal: (n: number) => `${n} noms inscrits`,
+    // Noms d'institutions : conservés en français dans les deux langues.
+    source:
+      'Source : Mémoire des hommes, Service historique de la défense, CACn, sous références 40R, nos remerciements au travail de Philippe CIBARD',
+    transitionKicker: 'Mémorial',
+  },
+  en: {
+    titre: 'MEMORIAL',
+    tabLabel: {
+      '1GM': 'First World War',
+      EntreDeuxGuerres: 'Interwar period',
+      '2GM': 'Second World War',
+      Indochine: 'Indochina',
+      Algérie: 'Algeria',
+      // Sigle français conservé : son développement figure juste en dessous.
+      Opex: 'Opex',
+    } as Record<War, string>,
+    warDates: {
+      '1GM': '1914–1918',
+      EntreDeuxGuerres: '1918–1939',
+      '2GM': '1939–1945',
+      Indochine: '1946–1954',
+      Algérie: '1954–1962',
+      Opex: 'Overseas operations',
+    } as Record<War, string>,
+    warLabels: {
+      '1GM': '1914–1918',
+      EntreDeuxGuerres: '1918–1939',
+      '2GM': '1939–1945',
+      Indochine: 'Indochina War · 1946–1954',
+      Algérie: 'Algerian War · 1954–1962',
+      Opex: 'Overseas operations and other theatres',
+    } as Record<War, string>,
+    guerrePrecedente: 'Previous conflict',
+    guerreSuivante: 'Next conflict',
+    glissez: '‹  Swipe to change period  ›',
+    rechercher: 'Search for a name…',
+    effacer: 'Clear',
+    chargement: 'Loading…',
+    indisponible: 'Data unavailable.',
+    aucunResultat: (q: string) => `No results for “${q}”`,
+    compteRecherche: (n: number, total: number) =>
+      `${n} result${n !== 1 ? 's' : ''} · ${total} listed`,
+    compteTotal: (n: number) => `${n} names listed`,
+    source:
+      'Source: Mémoire des hommes, Service historique de la défense, CACn, references 40R — with thanks for the work of Philippe CIBARD',
+    transitionKicker: 'Memorial',
+  },
+} as const
 
 const SCROLL_SPEED = 28 // px/seconde
 const SWIPE_MIN_PX = 40 // glissement horizontal minimal sur le sélecteur de guerre
@@ -120,7 +183,13 @@ function NameEntry({ soldat }: { soldat: Soldat }) {
   )
 }
 
-export default function Memorial() {
+interface MemorialProps {
+  /** Langue des textes fixes. Les noms des soldats ne sont pas traduits. */
+  lang: 'fr' | 'en'
+}
+
+export default function Memorial({ lang }: MemorialProps) {
+  const t = STRINGS[lang]
   const [war, setWar] = useState<War>('1GM')
   const [search, setSearch] = useState('')
   const [hovering, setHovering] = useState(false)
@@ -222,7 +291,9 @@ export default function Memorial() {
     posRef.current = 0
     dwellRef.current = 0
     if (scrollRef.current) scrollRef.current.scrollTop = 0
-  }, [war])
+    // `lang` aussi : la recherche en cours et le clavier restent dans l'ancienne
+    // langue si on ne repart pas d'un état neutre au changement de langue.
+  }, [war, lang])
 
   // menuOpen : défilement en pause pendant que le visiteur consulte le menu
   // (sinon le voile de transition pourrait changer de guerre sous ses doigts).
@@ -290,12 +361,12 @@ export default function Memorial() {
     <div className="memorial">
       <div className="memorial-header">
         <div className="memorial-emblem">✦</div>
-        <h2 className="memorial-title">MÉMORIAL</h2>
+        <h2 className="memorial-title">{t.titre}</h2>
         <div className="memorial-wars">
           {/* Roue : tambour 3D des 6 guerres. La rotation `rot` (60°/cran) est
               animée en CSS -> effet de défilement circulaire. Glissement géré
               à la main (gauche/droite = guerre précédente/suivante). */}
-          <button className="war-arrow" onClick={() => changeWar(-1)} aria-label="Guerre précédente">‹</button>
+          <button className="war-arrow" onClick={() => changeWar(-1)} aria-label={t.guerrePrecedente}>‹</button>
           <div
             className="war-wheel"
             onTouchStart={e => {
@@ -328,20 +399,20 @@ export default function Memorial() {
                     if (w === war) setMenuOpen(o => !o)
                     else selectWar(w)
                   }}
-                  aria-label={TAB_LABELS[w]}
+                  aria-label={t.tabLabel[w]}
                 >
                   <span className="war-face-main">
-                    <Ord>{TAB_LABELS[w]}</Ord>
+                    <Ord>{t.tabLabel[w]}</Ord>
                     {w === war && (
                       <span className="war-caret" aria-hidden="true">▾</span>
                     )}
                   </span>
-                  {w === war && <span className="war-face-dates">{WAR_DATES[w]}</span>}
+                  {w === war && <span className="war-face-dates">{t.warDates[w]}</span>}
                 </button>
               ))}
             </div>
           </div>
-          <button className="war-arrow" onClick={() => changeWar(1)} aria-label="Guerre suivante">›</button>
+          <button className="war-arrow" onClick={() => changeWar(1)} aria-label={t.guerreSuivante}>›</button>
 
           {menuOpen && (
             <>
@@ -357,7 +428,7 @@ export default function Memorial() {
                         setMenuOpen(false)
                       }}
                     >
-                      <Ord>{TAB_LABELS[w]}</Ord>
+                      <Ord>{t.tabLabel[w]}</Ord>
                     </button>
                   </li>
                 ))}
@@ -371,11 +442,11 @@ export default function Memorial() {
               key={w}
               className={`war-dot ${w === war ? 'active' : ''}`}
               onClick={() => selectWar(w)}
-              aria-label={TAB_LABELS[w]}
+              aria-label={t.tabLabel[w]}
             />
           ))}
         </div>
-        <p className="war-hint">‹&nbsp;&nbsp;Glissez pour changer de période&nbsp;&nbsp;›</p>
+        <p className="war-hint">{t.glissez}</p>
       </div>
 
       <div className="memorial-search">
@@ -383,7 +454,7 @@ export default function Memorial() {
         <input
           type="text"
           inputMode="none"
-          placeholder="Rechercher un nom…"
+          placeholder={t.rechercher}
           value={search}
           onChange={e => handleSearch(e.target.value)}
           onFocus={() => setKeyboardOpen(true)}
@@ -401,7 +472,7 @@ export default function Memorial() {
               handleSearch('')
               setKeyboardOpen(false)
             }}
-            aria-label="Effacer"
+            aria-label={t.effacer}
           >
             ✕
           </button>
@@ -413,6 +484,7 @@ export default function Memorial() {
           value={search}
           onChange={handleSearch}
           onClose={() => setKeyboardOpen(false)}
+          lang={lang}
         />
       )}
 
@@ -432,11 +504,11 @@ export default function Memorial() {
         }}
       >
         {donnees === null ? (
-          <p className="memorial-status">Chargement…</p>
+          <p className="memorial-status">{t.chargement}</p>
         ) : soldats.length === 0 ? (
-          <p className="memorial-status">Données non disponibles.</p>
+          <p className="memorial-status">{t.indisponible}</p>
         ) : filtered.length === 0 ? (
-          <p className="memorial-status">Aucun résultat pour « {search} »</p>
+          <p className="memorial-status">{t.aucunResultat(search)}</p>
         ) : (
           filtered.map((s, i) => (
             <Fragment key={i}>
@@ -457,19 +529,19 @@ export default function Memorial() {
         {soldats.length > 0 && (
           <p className="memorial-footer-count">
             {search
-              ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} · ${soldats.length} inscrits`
-              : `${soldats.length} noms inscrits`}
+              ? t.compteRecherche(filtered.length, soldats.length)
+              : t.compteTotal(soldats.length)}
           </p>
         )}
-        <p className="memorial-footer-source">Source : Mémoire des hommes, Service historique de la défense, CACn, sous références 40R, nos remerciements au travail de Philippe CIBARD</p>
+        <p className="memorial-footer-source">{t.source}</p>
       </div>
 
       {/* Voile de transition entre deux catégories (fin de liste atteinte). */}
       {transition && (
         <div className="memorial-transition" aria-hidden="true">
           <div className="memorial-transition-emblem">✦</div>
-          <span className="memorial-transition-kicker">Mémorial</span>
-          <h3 className="memorial-transition-title">{WAR_LABELS[transition]}</h3>
+          <span className="memorial-transition-kicker">{t.transitionKicker}</span>
+          <h3 className="memorial-transition-title">{t.warLabels[transition]}</h3>
         </div>
       )}
     </div>

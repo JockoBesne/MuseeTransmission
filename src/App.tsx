@@ -40,8 +40,8 @@ function LeftPanel() {
   // depuis la carte interactive (bouton en bas à gauche).
   const [pmrMode, setPmrMode] = useState(false)
   // Langue d'affichage du panneau gauche, indépendante du panneau droit.
-  // Pilote le choix villes.json / villes_en.json dans InteractiveMap ; le
-  // Mémorial n'a pas encore de traduction.
+  // Pilote le choix villes.json / villes_en.json dans InteractiveMap, et les
+  // textes fixes du Mémorial (les noms des soldats ne sont pas traduits).
   const [lang, setLang] = useState<'fr' | 'en'>('fr')
   const t = STRINGS[lang]
   const activeIndex = LEFT_TABS.indexOf(activeTab)
@@ -141,7 +141,7 @@ function LeftPanel() {
 
       <div key={`${activeTab}-${idleCount}`} className="tab-content">
         {activeTab === 'map' && <InteractiveMap pmrMode={pmrMode} lang={lang} />}
-        {activeTab === 'memorial' && <Memorial />}
+        {activeTab === 'memorial' && <Memorial lang={lang} />}
       </div>
     </div>
   )

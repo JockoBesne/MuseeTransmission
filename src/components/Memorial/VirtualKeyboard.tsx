@@ -8,18 +8,51 @@ interface VirtualKeyboardProps {
   value: string
   onChange: (next: string) => void
   onClose: () => void
+  /** Langue : pilote la disposition (AZERTY / QWERTY) et les libellés. */
+  lang: 'fr' | 'en'
 }
 
-const ROWS: string[][] = [
-  ['A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-  ['Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'],
-  ['W', 'X', 'C', 'V', 'B', 'N', 'É', 'È', 'À', 'Ç'],
-]
+/* Trois rangées de 10 touches dans les deux dispositions : la grille CSS reste
+   identique. Le M est donc gardé en fin de 2e rangée même en QWERTY (où il est
+   normalement en 3e), ce qui libère la place des voyelles accentuées — les noms
+   du mémorial sont français, un visiteur anglophone doit pouvoir les saisir.
+   La recherche neutralise de toute façon les accents (cleRecherche). */
+const ROWS: Record<'fr' | 'en', string[][]> = {
+  fr: [
+    ['A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'],
+    ['W', 'X', 'C', 'V', 'B', 'N', 'É', 'È', 'À', 'Ç'],
+  ],
+  en: [
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'É', 'È', 'À', 'Ç'],
+  ],
+}
 
-export default function VirtualKeyboard({ value, onChange, onClose }: VirtualKeyboardProps) {
+const STRINGS = {
+  fr: {
+    clavier: 'Clavier virtuel',
+    tiret: 'Tiret',
+    espace: 'Espace',
+    retourArriere: 'Retour arrière',
+    fermer: 'Fermer',
+  },
+  en: {
+    clavier: 'Virtual keyboard',
+    tiret: 'Hyphen',
+    espace: 'Space',
+    retourArriere: 'Backspace',
+    fermer: 'Close',
+  },
+} as const
+
+export default function VirtualKeyboard({ value, onChange, onClose, lang }: VirtualKeyboardProps) {
+  const t = STRINGS[lang]
+  const rows = ROWS[lang]
   return (
-    <div className="virtual-keyboard" role="group" aria-label="Clavier virtuel">
-      {ROWS.map((row) => (
+    <div className="virtual-keyboard" role="group" aria-label={t.clavier}>
+      {rows.map((row) => (
         <div key={row[0]} className="vk-row">
           {row.map((key) => (
             <button
@@ -38,7 +71,7 @@ export default function VirtualKeyboard({ value, onChange, onClose }: VirtualKey
           type="button"
           className="vk-key"
           onClick={() => onChange(value + '-')}
-          aria-label="Tiret"
+          aria-label={t.tiret}
         >
           -
         </button>
@@ -47,13 +80,13 @@ export default function VirtualKeyboard({ value, onChange, onClose }: VirtualKey
           className="vk-key vk-key--space"
           onClick={() => onChange(value + ' ')}
         >
-          Espace
+          {t.espace}
         </button>
         <button
           type="button"
           className="vk-key vk-key--wide"
           onClick={() => onChange(value.slice(0, -1))}
-          aria-label="Retour arrière"
+          aria-label={t.retourArriere}
         >
           ⌫
         </button>
@@ -62,7 +95,7 @@ export default function VirtualKeyboard({ value, onChange, onClose }: VirtualKey
           className="vk-key vk-key--close vk-key--wide"
           onClick={onClose}
         >
-          Fermer
+          {t.fermer}
         </button>
       </div>
     </div>
