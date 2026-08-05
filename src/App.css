@@ -94,9 +94,12 @@ html,
   background-color: rgba(255, 255, 255, 0.22);
 }
 
-.pmr-btn--active {
+/* Mode PMR actif : l'état est porté par aria-pressed (App.tsx), le retour
+   visuel doit suivre le même attribut — sinon le bouton ne marque rien. */
+.pmr-btn[aria-pressed='true'] {
   border-color: #fecc30;
-  background-color: rgba(254, 204, 48, 0.18);
+  background-color: #fecc30;
+  color: #0D3151;
 }
 
 .pmr-icon {
@@ -218,29 +221,18 @@ html,
   min-height: 0;
 }
 
-.tab-pane {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  height: 100%;
-  padding: 32px;
-}
-
-.tab-pane p {
-  font-family: 'Nunito', sans-serif;
-  color: #b0b0b0;
-}
-
 .panel h2 {
   font-size: 1.8rem;
   letter-spacing: 0.05em;
 }
 
+/* Démarcation nette entre les deux panneaux : pointillés dorés, dans l'esprit
+   des pointillés déjà utilisés sur la pucelle (CardDialog) et le jalon de fin
+   de boucle de la frise (Timeline). */
 .divider {
-  width: 2px;
-  background-color: #000000;
+  width: 3px;
   flex-shrink: 0;
+  background-color: #fecc30;
+  box-shadow: 0 0 10px rgba(254, 204, 48, 0.3);
 }
 

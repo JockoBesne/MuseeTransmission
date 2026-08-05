@@ -9,24 +9,34 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 - `npm run dev` — serveur de développement Vite
 - `npm run build` — `tsc -b` puis build Vite (le build doit toujours passer)
 - `npm run lint` — Oxlint
-- `npm run import-docx` — régénère `src/data/memorial-1gm.json` depuis
-  `public/data/A.docx` (via mammoth). **Ne jamais éditer ce JSON à la main** :
-  modifier le .docx ou le script, puis régénérer.
+- `npm run memorial-extract -- "<fichier.ods>"` — étape amont, facultative et
+  hors chaîne npm (Python + pandas/openpyxl) :
+  [scripts/memorial/extract_from_ods.py](scripts/memorial/extract_from_ods.py)
+  convertit l'ODS maître « Morts pour la France » en Excel « propres » dans
+  `data-memorial/`. À ne relancer que si la source brute change.
 - `npm run import-memorial` — régénère `public/data/memorial/*.json`
-  (5 catégories : 1GM, 2GM, Indochine, Algérie, Opex) depuis les Excel
+  (6 catégories : 1GM, Entre-deux-guerres, 2GM, Indochine, Algérie, Opex) depuis les Excel
   « propres » de `data-memorial/` (4 colonnes imposées : Nom, Prénom,
-  Date de décès, Grade ; tri alphabétique automatique). La validation vit à un
-  seul endroit, [server/memorial-import.mjs](server/memorial-import.mjs)
-  (dépendance `exceljs`), partagée avec l'API de la borne. **Ne jamais éditer
-  ces JSON à la main** ; aucun script ne tourne au lancement de l'app.
+  Date de décès, Grade ; tri alphabétique automatique). Une 5e colonne existe,
+  propre à chaque registre et refusée ailleurs : `Conflit` pour l'Opex
+  (obligatoire, théâtre affiché à la suite du nom) et `Section` pour la 2GM
+  (facultative, intertitre de sous-groupe — les 66 radioamateurs 1939-1945).
+  La validation vit à un seul endroit,
+  [server/memorial-import.mjs](server/memorial-import.mjs) (constante
+  `COLONNE5`, dépendance `exceljs`), partagée avec l'API de la borne.
+  **Ne jamais éditer ces JSON à la main** ; aucun script ne tourne au lancement
+  de l'app. Les Excel de `data-memorial/` sont corrigés à la main par le musée :
+  `memorial-extract` refuse donc de les écraser sans `--force`.
   Mode d'emploi complet : [scripts/memorial/README.md](scripts/memorial/README.md).
 - `npm run borne` — serveur local de la borne (port 3210, 100 % hors-ligne) :
   sert `dist/` + API de l'écran admin ; les JSON du Mémorial déposés via
   l'admin sont écrits dans `borne-data/` (prioritaire sur la version du
   build) avec copie de l'Excel renommée dans `borne-data/uploads/`.
   Memorial.tsx charge ces JSON en fetch à l'exécution (plus de bundle).
-  L'ancienne chaîne `import-docx` / `memorial-1gm.json` n'est plus branchée —
-  à supprimer après validation.
+  `borne-data/` est de l'état d'exécution local à la borne : non versionné
+  (.gitignore), la source de vérité versionnée reste `data-memorial/`.
+  Le serveur n'écoute que sur `127.0.0.1` — l'API admin n'est pas exposée au
+  réseau du musée.
 
 ## Architecture
 
@@ -54,7 +64,14 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     exclu des zones tactiles (filtre dans `InteractiveMap.tsx`) : Paris et
     les autres villes franciliennes s'affichent directement à leur point.
     Les images de pucelles (`public/pucelles/`) sont préchargées au
-    démarrage (`utils/preloadImages.ts`, branché dans App.tsx).
+    démarrage (`utils/preloadImages.ts`, branché dans App.tsx). Elles sont
+    **normalisées à la source** par `python scripts/normalise-pucelles.py
+    --appliquer` : le script rogne la marge vide autour de l'insigne (les
+    images d'origine allaient de 53 % à 100 % d'occupation, soit un rapport
+    de 1,9 en taille apparente), réintroduit 3 % de marge uniforme, plafonne
+    le plus grand côté à 1000 px et convertit les formats mal étiquetés
+    (GIF/SVG renommés en `.png`, qu'un navigateur peut refuser d'afficher).
+    **À relancer après tout ajout de pucelle** ; ne pas compenser au CSS.
     Toucher une ville ouvre `CardDialog` : pop-up de
     **taille fixe** (fond blanc légèrement grisé) dont seul le corps défile
     (indicateur flèche + fondu quand du contenu dépasse). En-tête = ville +
@@ -75,13 +92,19 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     démontage. Le composant se remonte à chaque ouverture de l'onglet, donc
     la séquence rejoue à chaque visite.
   - `components/Memorial/Memorial.tsx` : noms des soldats morts au combat,
-    défilement automatique (requestAnimationFrame), onglets 1GM/2GM (données
-    2GM absentes pour l'instant), recherche qui filtre en temps réel et
+    défilement automatique (requestAnimationFrame), 6 onglets 1GM /
+    Entre-deux-guerres / 2GM / Indochine / Algérie / Opex (Opex affiche le
+    théâtre d'opération via le champ `conflit`) ; en bas d'une liste, un voile
+    plein panneau enchaîne sur
+    la catégorie suivante en boucle. Recherche qui filtre en temps réel et
     stoppe le défilement ; le toucher met le défilement en pause 1,5 s.
     Le champ de recherche ouvre un clavier virtuel AZERTY maison
     (`VirtualKeyboard.tsx`) — `inputMode="none"` sur l'input pour bloquer
     le clavier tactile de Windows en mode kiosque.
-- **Panneau droit** — frise chronologique (`components/Timeline/`).
+- **Panneau droit** — frise chronologique (`components/Timeline/`) : jalons
+  issus de `src/data/timeline.json` (type `TimelineEvent`), défilement
+  automatique en boucle, sections d'ancrage + index de navigation ; toucher un
+  jalon ouvre `TimelineDialog` (fiche dépliable).
 - **Administration** (accès personnel) : appui maintenu 5 s sur le coin
   haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
   tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub
@@ -139,15 +162,52 @@ musée est nécessaire.
 
 ## À faire (mettre à jour au fur et à mesure)
 
-- Frise chronologique verticale dans le panneau droit : jalons = cartes
-  tactiles dépliables (accordéon ou modale), flèches Haut/Bas en plus du
-  scroll natif.
-- Remplacer les textes provisoires (lorem ipsum) de villes.json — histoire,
-  spécificité, photoDescription — par les contenus validés par le musée.
-- villes.json : la « Seconde unité du site » de Rennes et les `medias` de
-  Paris sont des EXEMPLES (démonstration multi-unités et galerie) — à
-  remplacer ou supprimer avec les contenus validés par le musée. Les vraies
-  images/vidéos iront dans `public/media/` (hors-ligne strict).
+### Carte
+
+- Pop-up (`CardDialog`) : classer les onglets d'unités d'une même ville par
+  hiérarchie **Brigade → Régiment → Compagnie**.
+- Unités **BANC** et **CATNC** : entrées créées dans `villes.json`
+  (Cesson-Sévigné) — contenu encore à faire valider par le musée.
+- Corriger le contenu des « régiments de transmissions » de `villes.json` :
+  numéros/noms d'unités erronés à rectifier d'après la liste validée par le
+  musée (données historiques — ne rien inventer).
+- `villes.json` : les deux `medias` du 8e RT / Paris (villes.json:298 et 303)
+  sont des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de
+  vrais fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne
+  strict).
+- `villes.json` : 5 unités ont une devise (`texte`) vide — CATNC, BANC et ETNC
+  (Cesson-Sévigné), 44e RT (Mutzig), 738e CGE (Paris). Le sous-titre est masqué
+  tant qu'elle est vide ; devises à fournir par le musée (ne rien inventer).
+- Typographie : ne pas terminer une ligne par un nombre (espace insécable avant
+  le nombre pour ne pas le laisser orphelin en fin de ligne).
+- Retirer le mot « fanion » des pop-up.
+- Mettre les mots anglais en italique dans les textes français.
+- Ordinaux (composant `Ord`) : exposant en minuscules, jamais en majuscules
+  (« 1ᵉʳ » et non « 1ᴱᴿ »).
+- Mode PMR : marquer davantage la section de sélection des villes (tiroir-index).
+
+### Mémorial
+
+- Sélecteur de guerre : remplacer le simple bouton par un carrousel (case guerre
+  sélectionnée).
+- Sous la case, ne garder que la date comme descriptif.
+
+### Frise
+
+- Marquer visuellement la fin de la frise.
+- N'afficher le nom des sections que sur la frise, pas dans les pop-up
+  (`TimelineDialog`).
+
+### App
+
+- Marquer davantage la séparation entre les deux panneaux (gauche / droite).
+- Installer un tableur sur la borne (Excel ou LibreOffice Calc, gratuit et
+  hors-ligne) pour que l'équipe du musée puisse ouvrir et compléter les `.xlsx`
+  du mémorial (ajout de noms) directement sur place, avant de les réimporter via
+  l'écran admin.
+
+### Technique / nettoyage
+
 - Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
   doit s'ouvrir sans serveur web.
  

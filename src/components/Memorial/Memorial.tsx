@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { Fragment, useState, useEffect, useRef, useCallback } from 'react'
 import VirtualKeyboard from './VirtualKeyboard'
 import { Ord } from '../../utils/ordinals'
 import './Memorial.css'
 
-type War = '1GM' | '2GM' | 'Indochine' | 'Algérie' | 'Opex'
+type War = '1GM' | 'EntreDeuxGuerres' | '2GM' | 'Indochine' | 'Algérie' | 'Opex'
 
 interface Soldat {
   nom: string
@@ -12,28 +12,43 @@ interface Soldat {
   annee: string
   /** Théâtre d'opération (renseigné pour l'Opex : Tchad, Ex-Yougoslavie…). */
   conflit: string
+  /** Sous-groupe affiché sous un intertitre (2GM : « Radioamateurs »). */
+  section: string
 }
 
-const WARS: War[] = ['1GM', '2GM', 'Indochine', 'Algérie', 'Opex']
+const WARS: War[] = ['1GM', 'EntreDeuxGuerres', '2GM', 'Indochine', 'Algérie', 'Opex']
 
-/** Libellé court de l'onglet (les ordinaux passent par <Ord>). */
+/** Libellé de l'onglet, en toutes lettres (les ordinaux passent par <Ord>). */
 const TAB_LABELS: Record<War, string> = {
-  '1GM': '1ère GM',
-  '2GM': '2ème GM',
+  '1GM': 'Première Guerre mondiale',
+  EntreDeuxGuerres: 'Entre-deux-guerres',
+  '2GM': 'Seconde Guerre mondiale',
   Indochine: 'Indochine',
   Algérie: 'Algérie',
   Opex: 'Opex',
 }
 
+/** Dates affichées sous le libellé de la face courante de la roue. */
+const WAR_DATES: Record<War, string> = {
+  '1GM': '1914–1918',
+  EntreDeuxGuerres: '1918–1939',
+  '2GM': '1939–1945',
+  Indochine: '1946–1954',
+  Algérie: '1954–1962',
+  Opex: 'Opérations extérieures',
+}
+
 const WAR_LABELS: Record<War, string> = {
-  '1GM': 'Première Guerre Mondiale · 1914–1918',
-  '2GM': 'Deuxième Guerre Mondiale · 1939–1945',
+  '1GM': '1914–1918',
+  EntreDeuxGuerres: '1918–1939',
+  '2GM': '1939–1945',
   Indochine: "Guerre d'Indochine · 1946–1954",
   Algérie: "Guerre d'Algérie · 1954–1962",
   Opex: 'Opérations extérieures et autres théâtres',
 }
 
 const SCROLL_SPEED = 28 // px/seconde
+const SWIPE_MIN_PX = 40 // glissement horizontal minimal sur le sélecteur de guerre
 
 /* Enchaînement des catégories : arrivé tout en bas d'une liste (défilement
    automatique OU glissement manuel), une transition plein panneau annonce la
@@ -45,19 +60,27 @@ const COURTE_LISTE_ATTENTE_S = 30 // liste tenant à l'écran : délai avant d'e
 function normalizeSoldat(item: unknown): Soldat {
   const o = (item ?? {}) as Record<string, unknown>
   return {
-    nom: String(o.nom ?? o.Nom ?? '').trim(),
-    prenom: String(o.prenom ?? o.Prenom ?? '').trim(),
-    role: String(o.role ?? o.Role ?? '').trim(),
-    annee: String(o.annee ?? o.Annee ?? '').trim(),
+    nom: String(o.nom ?? '').trim(),
+    prenom: String(o.prenom ?? '').trim(),
+    role: String(o.role ?? '').trim(),
+    annee: String(o.annee ?? '').trim(),
     conflit: String(o.conflit ?? '').trim(),
+    section: String(o.section ?? '').trim(),
   }
 }
+
+/* Clé de comparaison pour la recherche : sans accents ni casse. Le visiteur
+   tape sur le clavier tactile, souvent sans accent — « leger » doit trouver
+   LÉGER (même normalisation qu'à l'import, server/memorial-import.mjs). */
+const cleRecherche = (s: string) =>
+  s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
 /* Fichiers JSON servis à l'exécution (public/data/memorial en dev ; sur la
    borne, le serveur local privilégie la version déposée via l'écran admin —
    c'est pour cela qu'on ne bundle plus ces données). */
 const FICHIERS: Record<War, string> = {
   '1GM': '1gm',
+  EntreDeuxGuerres: 'entre-deux-guerres',
   '2GM': '2gm',
   Indochine: 'indochine',
   Algérie: 'algerie',
@@ -103,6 +126,12 @@ export default function Memorial() {
   const [hovering, setHovering] = useState(false)
   const [touching, setTouching] = useState(false)
   const [keyboardOpen, setKeyboardOpen] = useState(false)
+  // Menu déroulant du sélecteur de guerre (toucher simple sur le bouton central).
+  const [menuOpen, setMenuOpen] = useState(false)
+  // Rotation cumulée du tambour de la roue, en degrés (60° par cran). Continue
+  // — jamais remise à zéro — pour que la roue tourne toujours du plus court
+  // côté, même au passage Opex ↔ 1GM.
+  const [rot, setRot] = useState(0)
   // null = chargement en cours (les données arrivent en fetch, plus du bundle).
   const [donnees, setDonnees] = useState<Record<War, Soldat[]> | null>(null)
   // Catégorie annoncée par le voile de transition (null = pas de transition).
@@ -123,8 +152,14 @@ export default function Memorial() {
     if (transitionRef.current) return
     const suivant = WARS[(WARS.indexOf(warRef.current) + 1) % WARS.length]
     setTransition(suivant)
+    // Borne allumée en continu : les minuteurs de l'enchaînement précédent ont
+    // déjà tiré, on vide le tableau au lieu de l'empiler indéfiniment.
+    transitionTimers.current.length = 0
     transitionTimers.current.push(
-      setTimeout(() => setWar(suivant), TRANSITION_SWITCH_MS),
+      setTimeout(() => {
+        setRot(r => r - 60) // la roue suit : un cran vers la guerre suivante
+        setWar(suivant)
+      }, TRANSITION_SWITCH_MS),
       setTimeout(() => setTransition(null), TRANSITION_TOTAL_MS),
     )
   }, [])
@@ -154,16 +189,44 @@ export default function Memorial() {
   const lastTimeRef = useRef<number>(0)
   const posRef = useRef<number>(0)
   const touchTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
+  // Glissement horizontal sur le sélecteur de guerre (point de départ + drapeau
+  // pour avaler le click synthétique qui suit un glissement).
+  const swipeStartRef = useRef({ x: 0, y: 0 })
+  const swipedRef = useRef(false)
+
+  /** Va vers `target` par le plus court côté de la roue (rotation continue). */
+  const selectWar = (target: War) => {
+    const from = WARS.indexOf(warRef.current)
+    const to = WARS.indexOf(target)
+    let step = (to - from + WARS.length) % WARS.length // 0..5, sens direct
+    if (step > WARS.length / 2) step -= WARS.length // bascule sur l'autre sens
+    setRot(r => r - step * 60)
+    setWar(target)
+  }
+
+  /** Guerre précédente (-1) ou suivante (+1), en boucle. */
+  const changeWar = (dir: number) =>
+    selectWar(WARS[(WARS.indexOf(warRef.current) + dir + WARS.length) % WARS.length])
+
+  /** Direction d'un glissement qualifié (assez long ET à dominante horizontale). */
+  const swipeDirection = (t: { clientX: number; clientY: number }) => {
+    const dx = t.clientX - swipeStartRef.current.x
+    const dy = t.clientY - swipeStartRef.current.y
+    return Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) ? Math.sign(dx) : 0
+  }
 
   useEffect(() => {
     setSearch('')
     setKeyboardOpen(false)
+    setMenuOpen(false)
     posRef.current = 0
     dwellRef.current = 0
     if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [war])
 
-  const shouldScroll = !search && !hovering && !touching && !keyboardOpen && !transition
+  // menuOpen : défilement en pause pendant que le visiteur consulte le menu
+  // (sinon le voile de transition pourrait changer de guerre sous ses doigts).
+  const shouldScroll = !search && !hovering && !touching && !keyboardOpen && !transition && !menuOpen
 
   const tick = useCallback((ts: number) => {
     const el = scrollRef.current
@@ -218,8 +281,8 @@ export default function Memorial() {
 
   const filtered = search
     ? soldats.filter(s => {
-        const q = search.toLowerCase()
-        return s.nom.toLowerCase().includes(q) || s.prenom.toLowerCase().includes(q)
+        const q = cleRecherche(search)
+        return cleRecherche(s.nom).includes(q) || cleRecherche(s.prenom).includes(q)
       })
     : soldats
 
@@ -229,17 +292,90 @@ export default function Memorial() {
         <div className="memorial-emblem">✦</div>
         <h2 className="memorial-title">MÉMORIAL</h2>
         <div className="memorial-wars">
+          {/* Roue : tambour 3D des 6 guerres. La rotation `rot` (60°/cran) est
+              animée en CSS -> effet de défilement circulaire. Glissement géré
+              à la main (gauche/droite = guerre précédente/suivante). */}
+          <button className="war-arrow" onClick={() => changeWar(-1)} aria-label="Guerre précédente">‹</button>
+          <div
+            className="war-wheel"
+            onTouchStart={e => {
+              swipedRef.current = false
+              swipeStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+            }}
+            onTouchEnd={e => {
+              const dir = swipeDirection(e.changedTouches[0])
+              if (dir) {
+                swipedRef.current = true
+                changeWar(dir)
+              }
+            }}
+          >
+            <div className="war-drum" style={{ transform: `rotateY(${rot}deg)` }}>
+              {WARS.map((w, i) => (
+                <button
+                  key={w}
+                  className={`war-face ${w === war ? 'current' : ''} ${
+                    w === war && menuOpen ? 'open' : ''
+                  }`}
+                  style={{ transform: `rotateY(${i * 60}deg) translateZ(205px)` }}
+                  onClick={() => {
+                    // Click synthétique après un glissement : à avaler.
+                    if (swipedRef.current) {
+                      swipedRef.current = false
+                      return
+                    }
+                    // Face courante = menu ; une voisine = y aller.
+                    if (w === war) setMenuOpen(o => !o)
+                    else selectWar(w)
+                  }}
+                  aria-label={TAB_LABELS[w]}
+                >
+                  <span className="war-face-main">
+                    <Ord>{TAB_LABELS[w]}</Ord>
+                    {w === war && (
+                      <span className="war-caret" aria-hidden="true">▾</span>
+                    )}
+                  </span>
+                  {w === war && <span className="war-face-dates">{WAR_DATES[w]}</span>}
+                </button>
+              ))}
+            </div>
+          </div>
+          <button className="war-arrow" onClick={() => changeWar(1)} aria-label="Guerre suivante">›</button>
+
+          {menuOpen && (
+            <>
+              {/* Toucher hors du menu le referme. */}
+              <div className="war-menu-backdrop" onClick={() => setMenuOpen(false)} />
+              <ul className="war-menu">
+                {WARS.map(w => (
+                  <li key={w}>
+                    <button
+                      className={`war-option ${war === w ? 'active' : ''}`}
+                      onClick={() => {
+                        selectWar(w) // fait tourner la roue jusqu'à cette guerre
+                        setMenuOpen(false)
+                      }}
+                    >
+                      <Ord>{TAB_LABELS[w]}</Ord>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+        <div className="war-dots">
           {WARS.map(w => (
             <button
               key={w}
-              className={`war-tab ${war === w ? 'active' : ''}`}
-              onClick={() => setWar(w)}
-            >
-              <Ord>{TAB_LABELS[w]}</Ord>
-            </button>
+              className={`war-dot ${w === war ? 'active' : ''}`}
+              onClick={() => selectWar(w)}
+              aria-label={TAB_LABELS[w]}
+            />
           ))}
         </div>
-        <p className="memorial-subtitle">{WAR_LABELS[war]}</p>
+        <p className="war-hint">‹&nbsp;&nbsp;Glissez pour changer de période&nbsp;&nbsp;›</p>
       </div>
 
       <div className="memorial-search">
@@ -303,19 +439,29 @@ export default function Memorial() {
           <p className="memorial-status">Aucun résultat pour « {search} »</p>
         ) : (
           filtered.map((s, i) => (
-            <div key={i} className="memorial-name">
-              <NameEntry soldat={s} />
-            </div>
+            <Fragment key={i}>
+              {/* Intertitre à chaque changement de section (liste pré-triée :
+                 les entrées sans section viennent d'abord). */}
+              {s.section && (i === 0 || filtered[i - 1].section !== s.section) && (
+                <div className="memorial-section">{s.section}</div>
+              )}
+              <div className="memorial-name">
+                <NameEntry soldat={s} />
+              </div>
+            </Fragment>
           ))
         )}
       </div>
 
       <div className="memorial-footer">
         {soldats.length > 0 && (
-          search
-            ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} · ${soldats.length} inscrits`
-            : `${soldats.length} noms inscrits`
+          <p className="memorial-footer-count">
+            {search
+              ? `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} · ${soldats.length} inscrits`
+              : `${soldats.length} noms inscrits`}
+          </p>
         )}
+        <p className="memorial-footer-source">Source : Mémoire des hommes, Service historique de la défense, CACn, sous références 40R, nos remerciements au travail de Philippe CIBARD</p>
       </div>
 
       {/* Voile de transition entre deux catégories (fin de liste atteinte). */}

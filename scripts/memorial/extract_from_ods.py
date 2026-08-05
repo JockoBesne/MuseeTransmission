@@ -54,6 +54,9 @@ FEUILLES = {
     "Afganistan": {"cat": "Opex", "flag": "souple", "conflit": "Afghanistan"},
 }
 
+# Feuille des radioamateurs 1939-1945, traitée à part (cf. extrait_radioamateurs).
+FEUILLE_RADIO = "Radio_Amateur_39_45"
+
 # Alias d'en-têtes (clé normalisée : minuscules, sans espaces).
 ALIAS = {
     "nom": "nom",
@@ -133,10 +136,16 @@ def extrait(chemin_ods: Path) -> dict[str, list[dict]]:
 
 
 def ecrit_xlsx(personnes: list[dict], chemin: Path, categorie: str) -> None:
-    """Fichier Excel « propre » : 1 feuille, 4 colonnes (+ « Conflit » si renseigné,
-    cas de l'Opex), sans formule."""
+    """Fichier Excel « propre » : 1 feuille, 4 colonnes, plus une 5e colonne selon
+    le registre (« Conflit » pour l'Opex, « Section » pour la 2GM), sans formule."""
     avec_conflit = any(p.get("conflit") for p in personnes)
-    colonnes = COLONNES_PROPRES + (["Conflit"] if avec_conflit else [])
+    avec_section = any(p.get("section") for p in personnes)
+    if avec_conflit:
+        colonnes = COLONNES_PROPRES + ["Conflit"]
+    elif avec_section:
+        colonnes = COLONNES_PROPRES + ["Section"]
+    else:
+        colonnes = COLONNES_PROPRES
     wb = Workbook()
     ws = wb.active
     ws.title = categorie
@@ -148,6 +157,8 @@ def ecrit_xlsx(personnes: list[dict], chemin: Path, categorie: str) -> None:
         ligne = [p["nom"], p["prenom"], p["date"], p["grade"]]
         if avec_conflit:
             ligne.append(p.get("conflit", ""))
+        elif avec_section:
+            ligne.append(p.get("section", ""))
         ws.append(ligne)
     for col, largeur in zip("ABCDE", (30, 32, 16, 28, 24)):
         ws.column_dimensions[col].width = largeur
@@ -155,21 +166,80 @@ def ecrit_xlsx(personnes: list[dict], chemin: Path, categorie: str) -> None:
         for cell in ligne:
             cell.font = Font(name="Arial")
     ws.freeze_panes = "A2"
-    ws.auto_filter.ref = f"A1:{'E' if avec_conflit else 'D'}{ws.max_row}"
+    derniere = "E" if (avec_conflit or avec_section) else "D"
+    ws.auto_filter.ref = f"A1:{derniere}{ws.max_row}"
     chemin.parent.mkdir(parents=True, exist_ok=True)
     wb.save(chemin)
+
+
+def extrait_radioamateurs(chemin_ods: Path) -> list[dict]:
+    """Feuille « Radio_Amateur_39_45 » : radioamateurs morts pour la France
+    1939-1945, rattachés au registre 2GM sous la section « Radioamateurs ».
+
+    Cette feuille n'a ni date ni corps ; sa colonne « Grade » contient en réalité
+    l'indicatif radio (F8DN) ou le numéro REF, qui sert ici de critère de
+    sélection : les lignes sans indicatif sont écartées (décision du 28/07/2026).
+    """
+    feuilles = pd.read_excel(chemin_ods, sheet_name=None, engine="odf",
+                             header=None, dtype=object)
+    if FEUILLE_RADIO not in feuilles:
+        print(f"  AVERTISSEMENT : feuille {FEUILLE_RADIO!r} absente de {chemin_ods.name}")
+        return []
+    df = feuilles[FEUILLE_RADIO]
+    retenus, ecartes = [], 0
+    for i in range(1, len(df)):
+        ligne = df.iloc[i]
+        nom = texte(ligne.iloc[3])
+        indicatif = texte(ligne.iloc[5])
+        if not nom:
+            continue
+        if not indicatif:  # pas d'indicatif renseigné -> hors périmètre
+            ecartes += 1
+            continue
+        retenus.append({
+            "nom": nom.upper(),
+            "prenom": texte(ligne.iloc[4]),
+            "grade": indicatif,
+            "date": "",
+            "section": "Radioamateurs",
+        })
+    print(f"  {FEUILLE_RADIO!r} -> 2GM / Radioamateurs : {len(retenus)} retenu(s), "
+          f"{ecartes} sans indicatif écarté(s)")
+    return retenus
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("ods", help="fichier ODS maître (feuilles par conflit)")
+    ap.add_argument("--radio-ods", dest="radio_ods",
+                    help="ODS contenant la feuille Radio_Amateur_39_45 "
+                         "(classeur Août 2018) ; à défaut, cherchée dans l'ODS maître")
     ap.add_argument("--sortie", default=str(Path(__file__).parents[2] / "data-memorial"))
+    ap.add_argument("--force", action="store_true",
+                    help="autorise l'écrasement des fichiers existants (voir l'avertissement)")
     args = ap.parse_args()
 
     print(f"Lecture de {args.ods}")
     categories = extrait(Path(args.ods))
 
+    source_radio = Path(args.radio_ods) if args.radio_ods else Path(args.ods)
+    categories["2GM"].extend(extrait_radioamateurs(source_radio))
+
     sortie = Path(args.sortie)
+    # Les fichiers de data-memorial/ sont corrigés à la main par le musée
+    # (fautes de frappe, ajouts, découpage de registres). Les réécrire depuis
+    # l'ODS annulerait ces corrections : on l'exige donc explicitement.
+    existants = [f"{n}.xlsx" for n in FICHIERS_CATEGORIE.values()
+                 if (sortie / f"{n}.xlsx").exists()]
+    if existants and not args.force:
+        print("\nATTENTION : ces fichiers existent déjà et contiennent probablement des")
+        print("corrections manuelles (le musée les édite directement) :")
+        for nom in existants:
+            print(f"   - {nom}")
+        print("\nLes réécrire depuis l'ODS annulerait ces corrections. Relancer avec")
+        print("--force pour écraser volontairement, après avoir committé l'état actuel.")
+        sys.exit(1)
+
     for cat, nom_fichier in FICHIERS_CATEGORIE.items():
         personnes = trie_personnes(categories[cat])
         chemin = sortie / f"{nom_fichier}.xlsx"

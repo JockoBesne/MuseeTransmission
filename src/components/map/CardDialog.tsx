@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { City, Unite } from '../../types'
 import { Ord } from '../../utils/ordinals'
+import { RichText } from '../../utils/richText'
 import './CardDialog.css'
 
 const STRINGS = {
@@ -9,7 +10,6 @@ const STRINGS = {
     fermer: 'Fermer',
     histoire: 'Histoire',
     specificite: 'Spécificité',
-    garnison: 'Garnison',
     photo: 'Photo',
     galerie: 'Galerie',
     faireDefiler: 'Faire défiler le contenu vers le bas',
@@ -26,7 +26,6 @@ const STRINGS = {
     fermer: 'Close',
     histoire: 'History',
     specificite: 'Specifics',
-    garnison: 'Garrison',
     photo: 'Photo',
     galerie: 'Gallery',
     faireDefiler: 'Scroll the content down',
@@ -61,6 +60,25 @@ function shortName(unit: Unite): string {
   return sigle ? sigle[1] : unit.regiment
 }
 
+// Ordre hiérarchique des onglets : le mot d'échelon EN TÊTE du nom décide
+// (« 44e régiment … 5e compagnie » reste un régiment). Un nom sans échelon
+// connu part en fin de liste.
+const ECHELONS = ['commandement', 'division', 'brigade', 'régiment', 'compagnie', 'école']
+
+function echelonRank(unit: Unite): number {
+  const name = unit.regiment.toLowerCase()
+  let rank = ECHELONS.length
+  let firstPos = Infinity
+  ECHELONS.forEach((kw, i) => {
+    const pos = name.indexOf(kw)
+    if (pos !== -1 && pos < firstPos) {
+      firstPos = pos
+      rank = i
+    }
+  })
+  return rank
+}
+
 export function CardDialog({ city, lang, onClose }: CardDialogProps) {
   const t = STRINGS[lang]
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -80,7 +98,15 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
   // Indicateur « contenu au-delà du bord bas » du corps défilant.
   const [canScrollDown, setCanScrollDown] = useState(false)
 
-  const unit = city.entites[activeIndex] ?? city.entites[0]
+  // Onglets classés Commandement → Division → Brigade → Régiment → Compagnie
+  // → École. Copie triée (tri stable) : à échelon égal, l'ordre de villes.json
+  // est conservé.
+  const entites = useMemo(
+    () => [...city.entites].sort((a, b) => echelonRank(a) - echelonRank(b)),
+    [city],
+  )
+
+  const unit = entites[activeIndex] ?? entites[0]
 
   const updateScrollCue = useCallback(() => {
     const el = bodyRef.current
@@ -174,7 +200,7 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
           <div className="card-header">
             <span className="card-kicker">{city.nom}</span>
             <nav className="card-tabs" aria-label={t.unitesSite}>
-              {city.entites.map((entite, i) => (
+              {entites.map((entite, i) => (
                 <button
                   key={entite.regiment}
                   type="button"
@@ -200,13 +226,17 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
             <div className="card-content" key={activeIndex}>
               <div className="card-title-block">
                 <h3 id={titleId}><Ord>{unit.regiment}</Ord></h3>
-                <span className="card-subtitle"><Ord>{unit.texte}</Ord></span>
+                {/* Devise : certaines unités n'en ont pas encore (villes.json) —
+                   pas de ligne vide sous le titre dans ce cas. */}
+                {unit.texte && (
+                  <span className="card-subtitle"><RichText>{unit.texte}</RichText></span>
+                )}
               </div>
 
               <div className="card-intro">
                 <div className="card-section card-histoire">
                   <h4>{t.histoire}</h4>
-                  <p><Ord>{unit.histoire}</Ord></p>
+                  <p><RichText>{unit.histoire}</RichText></p>
                 </div>
 
                 <div className="card-media-col">
@@ -232,7 +262,6 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
                     </div>
                   )}
                   <p className="card-geo">
-                    <span className="card-geo-label">{t.garnison}</span>
                     {unit.garnison}
                   </p>
                 </div>
@@ -240,7 +269,7 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
 
               <div className="card-section card-specificite">
                 <h4>{t.specificite}</h4>
-                <p><Ord>{unit.specificite}</Ord></p>
+                <p><RichText>{unit.specificite}</RichText></p>
               </div>
 
               {unit.medias && unit.medias.length > 0 && (
@@ -258,7 +287,7 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
                             preload="metadata"
                           />
                           {media.legende && (
-                            <figcaption><Ord>{media.legende}</Ord></figcaption>
+                            <figcaption><RichText>{media.legende}</RichText></figcaption>
                           )}
                         </figure>
                       ) : (
@@ -338,7 +367,7 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
             {zoom.legende && (
               <figcaption className="photo-zoom-caption">
                 <span className="photo-zoom-caption-title"><Ord>{zoom.titre}</Ord></span>
-                <p><Ord>{zoom.legende}</Ord></p>
+                <p><RichText>{zoom.legende}</RichText></p>
               </figcaption>
             )}
           </figure>

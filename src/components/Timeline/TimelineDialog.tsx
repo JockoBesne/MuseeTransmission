@@ -28,6 +28,8 @@ interface TimelineDialogProps {
   nextEvent: TimelineEvent
   /** Change à chaque navigation : rejoue l'animation d'entrée du contenu. */
   contentKey: number
+  /** Position chronologique (0 à 1) : remplit la barre sous le titre. */
+  progress: number
   lang: 'fr' | 'en'
   onPrev: () => void
   onNext: () => void
@@ -39,6 +41,7 @@ export function TimelineDialog({
   prevEvent,
   nextEvent,
   contentKey,
+  progress,
   lang,
   onPrev,
   onNext,
@@ -96,9 +99,14 @@ export function TimelineDialog({
         </button>
 
         <div className="tl-dialog-content" key={contentKey}>
-          <span className="tl-dialog-chip"><Ord>{event.section}</Ord></span>
           <span className="tl-dialog-year">{event.annee}</span>
-          <h3 id={titleId} className="tl-dialog-title"><Ord>{event.titre}</Ord></h3>
+          <h3
+            id={titleId}
+            className="tl-dialog-title"
+            style={{ '--tl-progress': `${progress * 100}%` } as React.CSSProperties}
+          >
+            <Ord>{event.titre}</Ord>
+          </h3>
           <p className="tl-dialog-text"><Ord>{event.texte}</Ord></p>
           <p className="tl-dialog-hint">{t.indice}</p>
         </div>

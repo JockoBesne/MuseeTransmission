@@ -25,12 +25,13 @@ const IN_CLASS = 'tl-event--in'
 const STRINGS = {
   fr: {
     titre: 'Frise chronologique',
-    soustitre: "L'histoire de l'Arme des Transmissions",
+    soustitre: "L'histoire de l'arme des Transmissions",
     enSavoirPlus: 'En savoir plus',
     sections: 'Sections',
     sectionsAria: 'Sections de la frise',
     masquerIndex: "Masquer l'index des sections",
     afficherIndex: "Afficher l'index des sections",
+    retourDebut: '↺ Retour au début de la frise',
   },
   en: {
     titre: 'Timeline',
@@ -40,6 +41,7 @@ const STRINGS = {
     sectionsAria: 'Timeline sections',
     masquerIndex: 'Hide the section index',
     afficherIndex: 'Show the section index',
+    retourDebut: '↺ Back to the start of the timeline',
   },
 } as const
 
@@ -51,6 +53,12 @@ interface TimelineProps {
 export default function Timeline({ lang }: TimelineProps) {
   const t = STRINGS[lang]
   const EVENTS = lang === 'en' ? EVENTS_EN : EVENTS_FR
+  /* Un « jalon » de blanc supplémentaire est inséré à la fin de chaque copie :
+     sans lui, la frise enchaîne 2020 → 1875 sans transition visible, ce qui
+     ressemble à une erreur. Il occupe un slot entier (même hauteur qu'un
+     événement) pour que les calculs de défilement restent uniformes.
+     Dépend de la langue : les deux jeux de données n'ont pas la même longueur. */
+  const LOOP_LEN = EVENTS.length + 1
   // Sections d'ancrage dérivées des données : nom + index du premier jalon.
   // Elles ne découpent pas la frise, elles servent uniquement de repères.
   const SECTIONS = useMemo(
@@ -94,12 +102,12 @@ export default function Timeline({ lang }: TimelineProps) {
      de la copie source vers la copie cible pour éviter tout flash. */
   const mirrorInClasses = useCallback((fromOffset: number, toOffset: number) => {
     const items = itemRefs.current
-    for (let i = 0; i < EVENTS.length; i++) {
+    for (let i = 0; i < LOOP_LEN; i++) {
       const src = items[fromOffset + i]
       const dst = items[toOffset + i]
       if (src && dst) dst.classList.toggle(IN_CLASS, src.classList.contains(IN_CLASS))
     }
-  }, [EVENTS])
+  }, [LOOP_LEN])
 
   /* Boucle d'animation unique : défilement auto, saut vers une section,
      recalage de la boucle infinie et détection de la section courante. */
@@ -107,16 +115,18 @@ export default function Timeline({ lang }: TimelineProps) {
     const el = scrollRef.current
     if (el) {
       const itemHeight = el.clientHeight / VISIBLE_COUNT
-      const loopHeight = itemHeight * EVENTS.length
+      const loopHeight = itemHeight * LOOP_LEN
       const dt = lastTsRef.current ? (ts - lastTsRef.current) / 1000 : 0
 
       const jump = jumpRef.current
       if (jump) {
-        const t = Math.min((ts - jump.start) / JUMP_MS, 1)
-        const eased = 1 - Math.pow(1 - t, 3) // ease-out cubique
+        // Avancement du saut, de 0 à 1 (nommé explicitement : `t` désigne
+        // les libellés traduits dans tout le reste du composant).
+        const jumpProgress = Math.min((ts - jump.start) / JUMP_MS, 1)
+        const eased = 1 - Math.pow(1 - jumpProgress, 3) // ease-out cubique
         posRef.current = jump.from + (jump.to - jump.from) * eased
         el.scrollTop = posRef.current
-        if (t >= 1) jumpRef.current = null
+        if (jumpProgress >= 1) jumpRef.current = null
       } else if (pausedRef.current) {
         /* Exploration manuelle : le DOM fait foi. Les deux copies étant
            identiques, ramener la position dans la bande centrale est
@@ -125,25 +135,28 @@ export default function Timeline({ lang }: TimelineProps) {
         if (st > loopHeight + itemHeight) {
           st -= loopHeight
           el.scrollTop = st
-          mirrorInClasses(EVENTS.length, 0)
+          mirrorInClasses(LOOP_LEN, 0)
         } else if (st < itemHeight) {
           st += loopHeight
           el.scrollTop = st
-          mirrorInClasses(0, EVENTS.length)
+          mirrorInClasses(0, LOOP_LEN)
         }
         posRef.current = st
       } else {
         posRef.current += SCROLL_SPEED * dt
         if (loopHeight > 0 && posRef.current >= loopHeight) {
           posRef.current -= loopHeight
-          mirrorInClasses(EVENTS.length, 0)
+          mirrorInClasses(LOOP_LEN, 0)
         }
         el.scrollTop = posRef.current
       }
 
-      /* Section courante pour l'index, d'après le jalon en haut d'écran */
+      /* Section courante pour l'index, d'après le jalon en haut d'écran
+         (le jalon de fin de boucle a un index >= EVENTS.length : il
+         retombe naturellement sur la dernière section, ce qui est correct
+         puisqu'on n'a pas encore rebouclé sur la première). */
       if (itemHeight > 0) {
-        const topIndex = Math.round(el.scrollTop / itemHeight) % EVENTS.length
+        const topIndex = Math.round(el.scrollTop / itemHeight) % LOOP_LEN
         let current = 0
         for (let i = 0; i < SECTIONS.length; i++) {
           if (topIndex >= SECTIONS[i].start) current = i
@@ -153,7 +166,7 @@ export default function Timeline({ lang }: TimelineProps) {
     }
     lastTsRef.current = ts
     rafRef.current = requestAnimationFrame(tick)
-  }, [mirrorInClasses, EVENTS, SECTIONS])
+  }, [mirrorInClasses, LOOP_LEN, SECTIONS])
 
   useEffect(() => {
     rafRef.current = requestAnimationFrame(tick)
@@ -178,7 +191,8 @@ export default function Timeline({ lang }: TimelineProps) {
     )
     for (const item of itemRefs.current) if (item) observer.observe(item)
     return () => observer.disconnect()
-  }, [])
+    // Le changement de langue remplace les jalons : il faut réobserver.
+  }, [EVENTS])
 
   const pause = () => {
     jumpRef.current = null
@@ -198,12 +212,12 @@ export default function Timeline({ lang }: TimelineProps) {
     if (!el) return
     pause()
     const itemHeight = el.clientHeight / VISIBLE_COUNT
-    const loopHeight = itemHeight * EVENTS.length
+    const loopHeight = itemHeight * LOOP_LEN
     /* Recalage invisible sur la première copie avant de calculer la cible */
     const from = el.scrollTop % loopHeight
     if (from !== el.scrollTop) {
       el.scrollTop = from
-      mirrorInClasses(EVENTS.length, 0)
+      mirrorInClasses(LOOP_LEN, 0)
     }
     let to = SECTIONS[index].start * itemHeight
     if (to <= from) to += loopHeight // on avance toujours dans le sens du temps
@@ -243,9 +257,10 @@ export default function Timeline({ lang }: TimelineProps) {
           onPointerCancel={scheduleResume}
           onWheel={() => { pause(); scheduleResume() }}
         >
-          {/* Deux copies identiques pour un défilement en boucle sans couture */}
-          {[0, 1].map(copy =>
-            EVENTS.map((event, i) => {
+          {/* Deux copies identiques pour un défilement en boucle sans couture,
+              chacune terminée par un jalon de fin de boucle (voir LOOP_LEN) */}
+          {[0, 1].map(copy => [
+            ...EVENTS.map((event, i) => {
               const isSectionStart = SECTIONS.some(s => s.start === i)
               const side = i % 2 === 0 ? 'left' : 'right'
               const yearSlot = (
@@ -268,7 +283,7 @@ export default function Timeline({ lang }: TimelineProps) {
               return (
                 <article
                   key={`${copy}-${i}`}
-                  ref={el => { itemRefs.current[copy * EVENTS.length + i] = el }}
+                  ref={el => { itemRefs.current[copy * LOOP_LEN + i] = el }}
                   className={`tl-event tl-event--${side}`}
                 >
                   {side === 'left' ? cardSlot : yearSlot}
@@ -278,8 +293,17 @@ export default function Timeline({ lang }: TimelineProps) {
                   {side === 'left' ? yearSlot : cardSlot}
                 </article>
               )
-            })
-          )}
+            }),
+            <div
+              key={`gap-${copy}`}
+              ref={el => { itemRefs.current[copy * LOOP_LEN + EVENTS.length] = el }}
+              className="tl-loop-gap"
+            >
+              <span className="tl-loop-gap-line" aria-hidden="true" />
+              <span className="tl-loop-gap-label">{t.retourDebut}</span>
+              <span className="tl-loop-gap-line" aria-hidden="true" />
+            </div>,
+          ])}
         </div>
 
         {/* Index escamotable : tiroir + poignée collée au bord droit */}
@@ -313,6 +337,7 @@ export default function Timeline({ lang }: TimelineProps) {
           prevEvent={EVENTS[(selectedIdx + EVENTS.length - 1) % EVENTS.length]}
           nextEvent={EVENTS[(selectedIdx + 1) % EVENTS.length]}
           contentKey={selectedIdx}
+          progress={(selectedIdx + 1) / EVENTS.length}
           lang={lang}
           onPrev={() => stepEvent(-1)}
           onNext={() => stepEvent(1)}

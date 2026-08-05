@@ -58,5 +58,8 @@ def _cle_alpha(s: str) -> str:
 
 
 def trie_personnes(personnes: list[dict]) -> list[dict]:
-    """Tri d'affichage du Mémorial : alphabétique nom puis prénom."""
-    return sorted(personnes, key=lambda p: (_cle_alpha(p["nom"]), _cle_alpha(p["prenom"])))
+    """Tri d'affichage du Mémorial : les entrées sans section d'abord (chaîne vide
+    en tête), puis chaque section regroupée ; à l'intérieur, nom puis prénom."""
+    return sorted(personnes, key=lambda p: (_cle_alpha(p.get("section", "")),
+                                            _cle_alpha(p["nom"]),
+                                            _cle_alpha(p["prenom"])))

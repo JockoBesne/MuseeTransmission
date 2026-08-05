@@ -111,49 +111,237 @@
   margin-bottom: 10px;
 }
 
+/* ─── Sélecteur de guerre : roue circulaire ( tambour 3D ) ───
+   Les 6 guerres sont posées autour d'un cylindre (tambour) qui tourne : la
+   guerre courante fait face, ses voisines s'enroulent sur les côtés, les
+   autres passent derrière (cachées). Changer de guerre fait pivoter le
+   tambour de 60° avec une animation de défilement. Glisser sur la roue =
+   tourner ; toucher la face courante = menu déroulant (logique et rotation
+   continue dans Memorial.tsx). */
+
 .memorial-wars {
+  position: relative; /* ancre du menu déroulant */
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 14px;
 }
 
-/* Cible tactile ≥ 48 px (borne). */
-.war-tab {
+/* Fenêtre de la roue : donne la perspective au tambour. Le glissement
+   horizontal est géré à la main : sans `touch-action: none`, le navigateur
+   peut confisquer le geste (touchcancel). */
+.war-wheel {
+  position: relative;
+  width: 400px;
+  height: 72px;
+  /* Fondu doux sur les bords : les voisines s'estompent au lieu d'être coupées. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  perspective: 1700px; /* grande distance = faces voisines moins inclinées à l'œil */
+  touch-action: none;
+}
+
+/* Flèches d'affordance de part et d'autre de la roue. */
+.war-arrow {
+  width: 48px;
+  height: 64px;
+  border: none;
+  background: transparent;
+  color: rgba(254, 204, 48, 0.5);
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.war-arrow:hover,
+.war-arrow:active {
+  color: #fecc30;
+}
+
+/* Tambour : cylindre 3D. Sa rotation (rotateY inline) est animée pour donner
+   l'effet de défilement circulaire. */
+.war-drum {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Chaque face de guerre, plaquée sur le cylindre (rotateY + translateZ inline
+   depuis Memorial.tsx). Dos caché : les guerres à l'arrière ne s'affichent
+   pas. */
+.war-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 196px;
+  height: 50px;
+  margin: -25px 0 0 -98px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 14px;
+  border: 1px solid rgba(254, 204, 48, 0.28);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(6, 32, 54, 0.9), rgba(2, 22, 40, 0.9));
+  color: rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.25;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.war-face-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Guerre courante (face avant) : illuminée en doré, plus compacte.
+   (Taille via width/height, pas scale() : le transform inline rotateY/translateZ
+   écraserait un transform CSS.) */
+.war-face.current {
+  width: 224px;
+  height: 58px;
+  margin: -29px 0 0 -112px;
+  font-size: 0.82rem;
+  border-color: #fecc30;
+  background: linear-gradient(180deg, rgba(254, 204, 48, 0.22), rgba(254, 204, 48, 0.07));
+  color: #ffffff;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 22px rgba(254, 204, 48, 0.12);
+}
+
+/* Dates sous le nom de la guerre : plus discrètes que le libellé. */
+.war-face-dates {
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.war-caret {
+  font-size: 0.62rem;
+  color: rgba(254, 204, 48, 0.85);
+  transition: transform 0.2s ease;
+}
+
+.war-face.open .war-caret {
+  transform: rotate(160deg);
+}
+
+/* Voile invisible plein écran : toucher hors du menu le referme. */
+.war-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  background: transparent;
+}
+
+.war-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: 270px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #021b2e;
+  border: 1px solid rgba(254, 204, 48, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.war-option {
+  width: 100%;
   min-height: 48px;
   padding: 5px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: none;
   border-radius: 3px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.06em;
+  text-align: center;
   touch-action: manipulation;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
-.war-tab.active {
+.war-option:hover,
+.war-option:active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.war-option.active {
   background: rgba(254, 204, 48, 0.15);
-  border-color: #fecc30;
   color: #fecc30;
 }
 
-.war-tab:hover:not(.active) {
-  border-color: rgba(255, 255, 255, 0.8);
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+/* Losanges de position (cliquables) sous la roue. */
+.war-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 8px;
+  margin-bottom: 10px;
 }
 
-.memorial-subtitle {
+.war-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transform: rotate(45deg);
+  transition: background 0.3s ease;
+}
+
+.war-dot.active {
+  width: 8px;
+  height: 8px;
+  background: #fecc30;
+}
+
+/* Indice de geste, en respiration lente. */
+.war-hint {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.73rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.65);
-  letter-spacing: 0.04em;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 8px;
+  animation: hintPulse 4s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.38; }
+  50% { opacity: 0.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .war-hint {
+    animation: none;
+  }
 }
 
 /* ─── Recherche ────────────────────────────── */
@@ -236,6 +424,19 @@
   display: none;
 }
 
+/* Intertitre de sous-groupe dans un registre (2GM : « Radioamateurs »). */
+.memorial-section {
+  padding: 22px 6px 8px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fecc30;
+  border-bottom: 1px solid rgba(254, 204, 48, 0.4);
+}
+
 .memorial-name {
   padding: 8px 6px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -264,16 +465,6 @@
   text-transform: uppercase;
   line-height: 1.3;
   transition: color 0.15s;
-}
-
-.memorial-name:hover .memorial-nom,
-.memorial-name:active .memorial-nom {
-  color: #fecc30;
-}
-
-.memorial-name:hover .memorial-prenom,
-.memorial-name:active .memorial-prenom {
-  color: #ffffff;
 }
 
 .name-meta {
@@ -319,4 +510,15 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   min-height: 24px;
+}
+
+.memorial-footer-count,
+.memorial-footer-source {
+  margin: 0;
+}
+
+.memorial-footer-source {
+  font-size: 0.5rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.35);
 }

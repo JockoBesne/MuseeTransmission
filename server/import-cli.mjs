@@ -32,7 +32,7 @@ for (const fichier of fichiers) {
     console.error(`ERREUR : fichier introuvable : ${fichier}`)
     process.exit(2)
   }
-  const resultat = await analyseClasseur(await readFile(fichier))
+  const resultat = await analyseClasseur(await readFile(fichier), cat)
   if (!resultat.ok) {
     console.error(`ERREUR dans ${path.basename(fichier)} :`)
     for (const e of resultat.erreurs) console.error(`  ${e}`)

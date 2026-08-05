@@ -138,6 +138,36 @@
   100% { transform: scale(2.4); opacity: 0; }
 }
 
+/* ─ Jalon de fin de boucle : sépare clairement le dernier événement
+   du premier quand la frise reboucle, pour éviter l'impression de saut
+   incohérent (ex. 2020 → 1875). Même hauteur qu'un jalon normal. */
+
+.tl-loop-gap {
+  height: 25%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 32px;
+}
+
+.tl-loop-gap-line {
+  flex: 1;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(254, 204, 48, 0.4) 50%, transparent 50%);
+  background-size: 14px 1px;
+}
+
+.tl-loop-gap-label {
+  flex-shrink: 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(254, 204, 48, 0.75);
+  white-space: nowrap;
+}
+
 /* ─ Emplacements de part et d'autre de l'axe ─ */
 
 .tl-slot {
