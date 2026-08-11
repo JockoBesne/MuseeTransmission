@@ -112,6 +112,12 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
   l'écran 4K, et en px le texte débordait dès qu'il passait sous 1920×1080.
   Repère : 1vh = 10,8 px à 1080. Le tiroir d'index est posé **par-dessus** la
   frise (`position: absolute`) pour que son ouverture ne rétrécisse pas les cartes.
+  Bilingue : `src/data/timeline_en.json` décalque `timeline.json` jalon par
+  jalon (même ordre, mêmes sections, mêmes `detail`) et le bouton de langue du
+  panneau droit bascule de l'un à l'autre. Tout jalon ajouté ou corrigé côté
+  français doit l'être aussi côté anglais, sous peine de désynchroniser les
+  deux frises. Terminologie retenue en anglais : « Transmissions » (et non
+  « Signals »), cohérente avec les libellés d'interface.
 - **Administration** (accès personnel) : appui maintenu 5 s sur le coin
   haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
   tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub

@@ -1,26 +1,277 @@
 [
   {
     "section": "The origins",
-    "annee": "1875",
-    "titre": "The birth of military telegraphers",
-    "texte": "Following the Franco-Prussian War of 1870-1871, the French army undertook a profound modernisation of its communication resources. The law of 13 March 1875 created the first company of sapper-telegraphers, attached to the 2nd Engineer Regiment in Montpellier. This specialised unit operated the first wired military telegraph networks, marking the birth of the French Transmissions."
-  },
-  {
-    "section": "The origins",
     "annee": "1884",
-    "titre": "Mont-Valérien becomes the centre of the Transmissions",
-    "texte": "As military telecommunications developed, the companies of sapper-telegraphers were gradually brought together at Fort Mont-Valérien. This site became the main centre for training, experimentation and the development of field networks. For several decades, it formed the technical heart of French military telecommunications."
+    "titre": "The Military Telegraphy School at Mont-Valérien",
+    "texte": "The establishment of the Military Telegraphy School at Fort Mont-Valérien marked a founding stage for French military transmissions. For nearly sixty years, it trained the communications specialists who would accompany the great technical developments of the late 19th and early 20th centuries.",
+    "detail": [
+      "The arrival of the electric telegraph profoundly transformed the art of war in the 19th century. For the first time, orders could be sent almost instantly over long distances, giving staffs an unprecedented capacity for command.",
+      "In order to train specialists able to deploy, maintain and operate these new networks, the French army established its Military Telegraphy School at Fort Mont-Valérien, in Suresnes, in 1884. The site, already devoted to military experimentation, offered an ideal setting for the instruction of future telegraphers.",
+      "Students received training that combined technical teaching and practice: laying telegraph lines, maintaining equipment, organising networks and applying the procedures for transmitting orders. The school went on to accompany every major innovation in the field, from wired telegraphy to wireless telegraphy.",
+      "Although the Transmissions Corps was not officially created until 1942, Mont-Valérien is regarded as the historic birthplace of this military speciality."
+    ]
   },
   {
     "section": "The origins",
-    "annee": "1903",
-    "titre": "Wireless Telegraphy and the Eiffel Tower",
-    "texte": "Captain Gustave Ferrié led the first military experiments in Wireless Telegraphy (TSF) from the top of the Eiffel Tower. The results demonstrated the immense strategic potential of long-distance radio communications. These trials helped save the Eiffel Tower from its planned demolition and opened a new era for military communications."
+    "annee": "24 July 1900",
+    "titre": "The birth of the telegraph sappers",
+    "texte": "The law of 24 July 1900 created a permanent corps of telegraph sappers within the Engineers. This organisation marked the true starting point of the units specialising in French military transmissions.",
+    "detail": [
+      "At the end of the 19th century, the development of telecommunications made specialised personnel indispensable. Until then, telegraphers had been trained mainly at Mont-Valérien, but had no permanent organisation of their own.",
+      "The law of 24 July 1900 turned this arrangement into a full battalion of telegraph sappers. A few months later, the decree of 21 January 1901 officially gave it the name of 24th Engineer Battalion.",
+      "This reform was a decisive step: telegraphers now had permanent units, their own chain of command and a specific doctrine of employment. These formations would accompany French military operations in the early 20th century and serve as the foundation of the future Transmissions Corps."
+    ]
   },
   {
     "section": "The origins",
-    "annee": "1908",
-    "titre": "Radio enters the army",
-    "texte": "The French army created a permanent Wireless Telegraphy service, officially establishing the use of radio in military communications. This innovation gradually freed the army from the constraints of wired networks and paved the way for the major developments that would accompany the First World War."
+    "annee": "1893-1908",
+    "titre": "Gustave Ferrié, pioneer of wireless telegraphy",
+    "texte": "From 1893, Captain and later Major Gustave Ferrié devoted his research to wireless telegraphy (TSF). Through his experiments, notably from the Eiffel Tower, he showed that radio waves could complement wired networks and open a new era for military communications. His work placed France among the world pioneers of radio.",
+    "detail": [
+      "At the end of the 19th century, advances in electricity and the work of Heinrich Hertz and then Guglielmo Marconi opened new prospects: sending a message without wires had become possible. This still experimental technology quickly drew the interest of armies, which saw in it a way of communicating without depending on long telegraph lines vulnerable to cuts and destruction.",
+      "A graduate of the École polytechnique and an officer of the Engineers, Gustave Ferrié discovered military transmissions during a course at Mont-Valérien in 1893. Convinced of the potential of wireless telegraphy, he devoted himself to its development and soon became one of the leading French specialists in the field.",
+      "Appointed director of the Military Telegraphy School in 1897, he carried out extensive research on antennas, transmitters and radio receivers. His work showed that radio communications could effectively complement traditional telegraph networks, particularly where laying cable was impossible.",
+      "In 1903, he obtained permission to use the Eiffel Tower as an antenna support. This installation considerably increased the range of transmissions, which soon reached several thousand kilometres. The military value of these experiments also helped save the Eiffel Tower, whose demolition was being considered when its concession expired.",
+      "On the eve of the First World War, France thus had one of the most effective wireless telegraphy networks in Europe. Gustave Ferrié's work marked a major stage in the history of military transmissions and made him one of the founding figures of the Transmissions Corps."
+    ]
+  },
+  {
+    "section": "The origins",
+    "annee": "1 January 1913",
+    "titre": "The creation of the 8th Engineer Regiment",
+    "texte": "Created on 1 January 1913, the 8th Engineer Regiment brought the French telegraph sapper units together within a single formation. Heir to the first operational experiences, notably in Morocco, it became the cradle of the future transmissions units and would play an essential role during the First World War.",
+    "detail": [
+      "In the early 20th century, military operations showed that communications had become an essential part of command. The campaigns fought in Morocco from 1907 highlighted in particular the role of the telegraph sappers, responsible for establishing and maintaining the links between units engaged across a vast territory, often in difficult conditions.",
+      "This experience revealed the need for permanent, specialised and better organised units. The law of 30 March 1912 accordingly provided for the grouping of the military telegraphy battalions within a single regiment.",
+      "On 1 January 1913, the 8th Engineer Regiment was officially born, based at Mont-Valérien. For the first time, France had a unit entirely devoted to telegraph sappers. Its first commanding officer was Colonel Linder, who received the regimental colours from President Raymond Poincaré at the military review of 14 July 1913.",
+      "The colours bear the inscription “Maroc 1907-1913”, recalling the commitment of the telegraphers during the Moroccan operations. That campaign was the first feat of arms officially recorded in the traditions of the unit.",
+      "For several decades, the 8th Engineer Regiment trained the specialists of French military transmissions. Its traditions, its organisation and its expertise were passed directly to the Transmissions Corps created in 1942, which is why it is still regarded today as its founding regiment."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1914-1918",
+    "titre": "The telegraph sappers in the Great War",
+    "texte": "From August 1914, transmissions became indispensable to the conduct of modern war. The telegraph sappers of the 8th Engineer Regiment accompanied the armies on every front, maintaining the links between the staffs and the fighting units. Between telegraphy, telephony and wireless telegraphy, they constantly adapted their means to preserve command despite the shelling and the changing nature of the conflict.",
+    "detail": [
+      "When the First World War broke out in August 1914, the European armies entered a conflict of unprecedented scale. Coordinating operations now depended on the speed of communications, making transmissions an essential element of command.",
+      "On mobilisation, the units of the 8th Engineer Regiment were distributed among the army corps, the divisions and the staffs in order to provide telegraph and telephone links. The telegraph sappers laid thousands of kilometres of line, maintained the networks and often worked under enemy fire to repair cables damaged by the shelling.",
+      "As trench warfare set in, wired networks became particularly vulnerable. To maintain communications, the armies gradually developed wireless telegraphy (TSF), which made it possible to establish links where laying cable was impossible or too dangerous. Specialised operators also took part in the first missions to listen to and intercept enemy communications, opening the way to electromagnetic intelligence.",
+      "Under the impetus of General Gustave Ferrié, military transmissions grew considerably throughout the conflict. In 1918, the formations descended from the 8th Engineer Regiment brought together nearly 55,000 men, illustrating the importance communications had taken on in modern war. For its commitment, the regiment received the Croix de Guerre 1914-1918 and stands as the direct forerunner of the future transmissions units."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1919-1939",
+    "titre": "Towards a specialised transmissions branch",
+    "texte": "After the First World War, the experience gained at the front confirmed the essential role of transmissions in the conduct of operations. New units were created in mainland France and overseas, while the training of specialists expanded. Although still part of the Engineers, transmissions gradually acquired their own organisation, preparing the birth of an independent branch.",
+    "detail": [
+      "In the aftermath of the First World War, French military transmissions emerged profoundly transformed. The conflict had shown that no operation could be conducted without reliable communications between the staffs and the units engaged. The lessons of four years of war led the army to strengthen this speciality for good.",
+      "Around the 8th Engineer Regiment, several new units were formed to meet the needs of the French forces in mainland France, in occupied Germany and in the overseas territories. This reorganisation accompanied the changing missions of the army and reflected the growing importance of military telecommunications.",
+      "Training followed the same course. In 1925, the École des liaisons et transmissions (ELT), the school of liaison and transmissions, was created at Versailles to prepare future specialists for the new communication techniques. At the same time, overseas operations, notably the Rif War in Morocco, gave transmissions personnel the opportunity to apply their skills in demanding environments, where radio gradually complemented the wired networks.",
+      "On the eve of the Second World War, several specialised regiments were in service. Yet transmissions remained administratively attached to the Engineers. This organisation, inherited from the 19th century, gradually showed its limits in the face of the rapid evolution of technology and modern warfare."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1939-1940",
+    "titre": "Transmissions and the test of modern war",
+    "texte": "At the dawn of the Second World War, French transmissions had experienced personnel and specialised units. Yet the campaign of 1940 in France revealed the limits of an organisation still largely inherited from the First World War. That defeat marked a turning point and brought out the need to give transmissions an autonomy of their own.",
+    "detail": [
+      "When the Second World War broke out in September 1939, French transmissions benefited from the experience gained since the Great War. The telegraph sappers had mastered telephone, telegraph and radio networks, but their organisation remained part of the Engineers and was still largely conceived for a war of position.",
+      "The German offensive of May 1940 overturned these assumptions. The speed of operations, the constant movement of units and the breakdown of the wired networks highlighted the need for more mobile radio equipment and a more responsive organisation. The difficulties encountered in maintaining the links between the staffs and the forces engaged underlined the now essential role of transmissions in the conduct of operations.",
+      "That campaign was a genuine revelation. Beyond the military defeat, it opened a fundamental reflection on the place of transmissions within the French army. To meet the demands of modern war, they would need their own doctrine, their own means and their own organisation."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1940-1942",
+    "titre": "Keeping the expertise alive in the shadows",
+    "texte": "After the armistice of 1940, transmissions went through a period of profound upheaval. Despite the restrictions imposed on the French army, several units and specialised centres quietly continued their activities. By preserving the technical skills and the traditions of the transmissions personnel, they prepared the rebirth of the Transmissions Corps.",
+    "detail": [
+      "The armistice of June 1940 brought a far-reaching reorganisation of the French army. Manpower was cut and many units disappeared. Despite this context, the transmissions specialists worked to preserve their skills and their technical resources.",
+      "In the free zone, several bodies officially continued their activities of training, network operation or radio monitoring. Some also contributed, discreetly, to maintaining the expertise essential to military communications and to preparing its future.",
+      "This period was also marked by the commitment of men who pursued their mission despite the risks. Several transmissions officers were arrested or executed for their clandestine activities, while others were deported. Their action preserved the heritage of the telegraph sappers until the reorganisation of the army."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1 June 1942",
+    "titre": "The birth of the Transmissions Corps",
+    "texte": "On 1 June 1942, transmissions officially became an autonomous branch of the French army. Heir to the telegraph sappers of the Engineers, this new Corps recognised the strategic role of communications in the conduct of operations and asserted an identity that endures to this day.",
+    "detail": [
+      "Since the end of the 19th century, transmissions had taken on a growing place in military operations. From the telegraph to radio, technical progress and the experience gained in successive conflicts had gradually shown that communications had become indispensable to command.",
+      "By the decree of 4 May 1942, applicable from 1 June 1942, transmissions officially left the Engineers to form an independent branch. This decision gave them their own organisation, their own instruction and their own administration, confirming several decades of technical and operational development.",
+      "The new Corps took up the traditions of the telegraph sappers, in particular those of the 8th Engineer Regiment, regarded as its founding regiment. It gradually adopted its symbols, including Saint Gabriel as its patron saint, and asserted a vocation summed up by a motto that became emblematic: “l'arme qui unit les armes”, the arm that unites the arms."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1942-1943",
+    "titre": "Rebuilding the transmissions and welcoming the Merlinettes",
+    "texte": "After the Allied landings in North Africa, French transmissions reorganised in order to return to the fight. Under the impetus of General Lucien Merlin, the units were modernised and re-equipped. This period also saw the creation of the women's transmissions corps: the “Merlinettes”, the first French servicewomen to hold operational posts in transmissions.",
+    "detail": [
+      "The Allied landings in North Africa, in November 1942, marked a turning point for the French forces. The transmissions units were gradually reorganised in order to accompany the rebuilding of the army alongside the Allies. Thanks to new equipment, much of it American, they quickly regained an operational capability and prepared for the coming campaigns of liberation.",
+      "This reorganisation was led by General Lucien Merlin, who played a major role in the rebirth of the Transmissions Corps. The companies were restructured to support the army corps, divisions and regiments that were to resume the fighting in Africa and then in Europe.",
+      "The year 1943 was also marked by the creation of the Corps féminin des transmissions (CFT), the women's transmissions corps. Trained near Algiers, the volunteers became radio operators, telephonists or cipher clerks. Soon nicknamed the “Merlinettes”, they took part in the campaigns in Tunisia, Italy, Provence and then Germany. Their commitment opened a new chapter in the history of French military transmissions."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1943-1944",
+    "titre": "Transmissions accompany the reconquest",
+    "texte": "Committed in Italy and then in Corsica, the transmissions units accompanied the French forces in particularly demanding operations. In mountainous terrain as during landings, they provided the links essential to command and showed that mobile communications had become a decisive factor in victory.",
+    "detail": [
+      "From the end of 1943, the transmissions units joined the French Expeditionary Corps engaged in Italy. In especially difficult terrain, they set up field telephone networks and radio stations allowing the staffs to keep in contact with the units engaged.",
+      "During the fighting at Monte Cassino, the transmissions personnel maintained continuous communications despite the shelling, the movement of the troops and the constraints of the ground. Their action contributed directly to the coordination of the Allied offensives that broke through the Gustav Line in the spring of 1944.",
+      "The transmissions specialists also took part in the liberation of Corsica, the first French territory to be freed. By rapidly deploying communication networks, they supported the advance of the French forces and the coordination of operations on the island."
+    ]
+  },
+  {
+    "section": "The World Wars",
+    "annee": "1944-1945",
+    "titre": "Transmissions personnel at the heart of the Liberation",
+    "texte": "From the landings in Provence to Germany, the transmissions personnel followed the advance of the French forces. They installed new networks, repaired destroyed infrastructure and maintained the links between the staffs and the fighting units. Their action allowed command to keep pace with a war that had become mobile again.",
+    "detail": [
+      "On 15 August 1944, the Allied forces landed in Provence as part of Operation Dragoon. The transmissions units accompanied the French army of General Jean de Lattre de Tassigny throughout its advance northwards.",
+      "As the towns were liberated, the transmissions personnel deployed new telephone networks, repaired damaged infrastructure and maintained the radio links between the staffs and the units on the move. Unlike the fighting of 1914-1918, communications now had to follow a rapid advance over several hundred kilometres.",
+      "The Merlinettes also took part in this campaign, filling essential posts within the staffs. After the liberation of Toulon and Marseille, the French forces pushed on to the Rhine and then into Germany, where the transmissions personnel helped maintain command until the victory of 1945."
+    ]
+  },
+  {
+    "section": "Reconstruction and decolonisation",
+    "annee": "1945-1947",
+    "titre": "Communicating in a world under reconstruction",
+    "texte": "At the end of the Second World War, transmissions accompanied the reorganisation of the French army. Networks were modernised, units were restructured, and the lessons of the conflict led to changes in both training and equipment. A new period of innovation opened in order to meet the challenges of the post-war years.",
+    "detail": [
+      "The capitulation of Germany in May 1945 did not put an end to the missions of the transmissions personnel. The units took part in maintaining communications within the occupation forces and accompanied the reorganisation of the French army in a profoundly transformed international context. The equipment developed during the conflict, radio sets in particular, gradually became the standard within the units.",
+      "The experience gained during the war also led to changes in the organisation of transmissions. Networks had to be faster, more reliable and able to accompany ever more mobile forces. Training was adapted in order to prepare specialists for the new technologies born of the advances of the Second World War.",
+      "This period finally saw transmissions establish themselves lastingly as a branch in their own right. The expertise developed since the end of the 19th century now took its full place at the heart of command in the French forces."
+    ]
+  },
+  {
+    "section": "Reconstruction and decolonisation",
+    "annee": "1947-1962",
+    "titre": "Transmissions in the wars of decolonisation",
+    "texte": "Committed in Indochina and then in North Africa, the transmissions units had to provide links across vast territories that were difficult to reach. These conflicts accelerated the development of radio equipment and changed the methods of command.",
+    "detail": [
+      "The wars in Indochina and then in North Africa confronted the transmissions personnel with particularly demanding conditions of employment. Operations often took place in regions with no reliable communication infrastructure, forcing the armies to rely mainly on radio.",
+      "Close to the units engaged, transmissions provided the link between the command posts, the forces on the ground and the air support. The equipment had to match the mobility of operations: it gradually became more robust, more self-sufficient and easier to deploy.",
+      "These experiences helped transform the organisation of French transmissions. The lessons drawn from these conflicts prepared a new generation of communication systems, designed to meet the demands of a modern army."
+    ]
+  },
+  {
+    "section": "Cold War and modernisation",
+    "annee": "1960s",
+    "titre": "Electronics transform the transmissions",
+    "texte": "The arrival of the transistor and of the first electronic components transformed military equipment. More compact, more reliable and less power-hungry, the new sets opened the way to modern communication networks.",
+    "detail": [
+      "From the 1960s, advances in electronics marked a major break in the history of transmissions. The gradual replacement of older technologies by smaller and higher-performing components made it possible to design lighter, more robust equipment better suited to mobile operations.",
+      "Radio sets gained in endurance and reliability, while networks evolved to meet the growing needs of the staffs. Communications no longer rested on isolated links alone: they became an essential element in the coordination of the forces.",
+      "This transformation accompanied the modernisation of the French armed forces in the context of the Cold War and prepared the appearance of fully integrated communication systems."
+    ]
+  },
+  {
+    "section": "Cold War and modernisation",
+    "annee": "1970s",
+    "titre": "Towards automated networks",
+    "texte": "With the development of computing and telecommunications, military transmissions entered the age of automated networks. Exchanges became faster, more secure and better suited to the needs of modern command.",
+    "detail": [
+      "During the 1970s, transmissions underwent a further evolution with the gradual introduction of computing. Systems became able to manage communications automatically and to provide faster exchanges between the different levels of command.",
+      "The armed forces now sought networks able to operate continuously, to withstand disruption and to adapt to the movement of the forces on the ground. Radio, telephony and the first computer systems began to be combined within common architectures.",
+      "This period saw a new conception of transmissions emerge: it was no longer merely a matter of sending a message, but of building a genuine information system in the service of operations."
+    ]
+  },
+  {
+    "section": "Cold War and modernisation",
+    "annee": "1985",
+    "titre": "RITA, the network that transformed the battlefield",
+    "texte": "Brought into service in the 1980s, the Réseau Intégré des Transmissions Automatiques (RITA), the integrated automatic transmissions network, modernised French tactical communications. Mobile, automated and secure, it allowed the forces to keep reliable links in every kind of engagement.",
+    "detail": [
+      "Developed during the Cold War, RITA answered the new needs of the land forces: a network able to accompany units on the move while guaranteeing the continuity of command.",
+      "Unlike the earlier systems made up of independent links, RITA worked as a genuinely integrated network. By combining radio relay links, automatic exchanges and radio equipment, it made it possible to establish communications quickly between the different command posts.",
+      "Its modular design allowed it to adapt to operations and to maintain exchanges even when a link was cut. Used for several decades on overseas theatres, RITA symbolises the move towards modern military networks and foreshadows today's digital communication systems."
+    ]
+  },
+  {
+    "section": "Cold War and modernisation",
+    "annee": "1984-1993",
+    "titre": "Mastering the airwaves: the age of electronic warfare",
+    "texte": "In the 1980s, transmissions became a major strategic issue of the Cold War. Armies no longer had only to send information, but also to protect their communications and control the electromagnetic spectrum. With the development of electronic warfare and the reshaping of the French forces, the transmissions personnel adapted their means to the new demands of modern operations.",
+    "detail": [
+      "Technological progress profoundly transformed the missions of transmissions. Mastering information became essential: French communications had to be kept secure, those of the adversary monitored, and electromagnetic emissions exploited for intelligence purposes.",
+      "In 1984, electronic warfare capabilities were strengthened with the creation of the 54th Transmissions Regiment, alongside the 44th Transmissions Regiment already specialising in this field. The transmissions personnel thus became major players in the mastery of the electromagnetic environment.",
+      "This period also saw the creation of the Force d'Action Rapide (FAR), the rapid action force, which imposed new constraints: communication resources had to be mobile, quickly deployable and able to accompany joint operations.",
+      "At the end of the Cold War, the reorganisation of the French forces brought a profound transformation of transmissions. The reduction of the garrisons in Germany and the disbandment of several units heralded a new era, marked by smaller forces more firmly oriented towards deployment abroad."
+    ]
+  },
+  {
+    "section": "The digital age",
+    "annee": "1994",
+    "titre": "Reorganising transmissions for new commitments",
+    "texte": "After the end of the Cold War, the French army transformed its organisation. In 1994, the creation of the transmissions brigade brought together the resources of the Corps in order to meet new needs: the rapid projection of forces, overseas operations and international cooperation.",
+    "detail": [
+      "The disappearance of the Soviet threat brought a far-reaching reorganisation of the armed forces. The model based on large units stationed in Europe gave way to a more mobile force, able to intervene quickly on different theatres of operations.",
+      "Transmissions had to adapt to these new missions. They had to provide reliable communication resources, quickly deployable and able to operate in a joint and multinational framework.",
+      "Created in 1994 in Lille, the transmissions brigade brought together several regiments in order to strengthen the support given to the forces engaged. This new organisation made it possible to coordinate the resources of the Corps more effectively and accompanied the transformation of the French army.",
+      "The same period also saw changes in the structures of training and technical support. The gradual grouping of the schools around Cesson-Sévigné and the creation of the Centre national de soutien spécialisé des transmissions (CNSST), the national centre for specialised transmissions support, reflected this drive to modernise the organisation of transmissions.",
+      "This reorganisation prepared the Corps for the commitments of the 21st century, in which mastering communications became indispensable to the conduct of operations."
+    ]
+  },
+  {
+    "section": "The digital age",
+    "annee": "1998-2011",
+    "titre": "A new army, new challenges for the transmissions",
+    "texte": "The professionalisation of the armed forces and the end of the Cold War profoundly transformed French military organisation. Transmissions reorganised around forces that were smaller, more mobile and more firmly oriented towards overseas operations.",
+    "detail": [
+      "From 1998, the “Armées 2000” reform marked a new stage in the transformation of the French forces. The disappearance of the Soviet threat and the changing nature of military commitments led to a reduction in the size of the armed forces.",
+      "For transmissions, this period put an end to the model inherited from the Cold War. The large structures designed for a massive confrontation in Europe gradually gave way to more flexible units, capable of rapid deployment.",
+      "The disbandment of the 3rd Army Corps and of the Force d'Action Rapide accompanied this reorganisation. The transmissions regiments were grouped together and their missions changed in order to meet the needs of modern operations.",
+      "The transmissions companies attached to the former divisions gradually disappeared, replaced by units suited to the new brigades. Transmissions no longer had only to provide permanent links: they had to accompany forces engaged on a variety of theatres of operations.",
+      "In 2002, the transmissions brigade became the brigade de transmissions et d'appui au commandement (BTAC), the transmissions and command support brigade, asserting a broader role in the functioning of the staffs and the conduct of operations.",
+      "This period was also marked by the disbandment of several historic regiments and by the concentration of resources within the remaining units. The Transmissions Corps thus entered a new era, centred on mobility, deployability and the mastery of information systems."
+    ]
+  },
+  {
+    "section": "The digital age",
+    "annee": "2014",
+    "titre": "From transmissions to information and communication systems",
+    "texte": "With the spread of digital technology, military communications became complex systems combining networks, computing and telecommunications. In 2014, the integration of the French Army structures into DIRISI marked a new stage: transmissions became fully involved in the information systems of the armed forces.",
+    "detail": [
+      "Since the end of the 20th century, military communications have changed profoundly. They no longer rest on radio or telephony alone, but on digital networks able to carry data, images and operational information in real time.",
+      "To meet this growing complexity, French Defence gradually brought its resources together within the Direction interarmées des réseaux d'infrastructure et des systèmes d'information (DIRISI), the joint directorate that became the single operator of the networks and digital services of the Ministry of the Armed Forces.",
+      "In 2014, the integration of the last French Army structures completed this transformation. The historic missions of transmissions remain: guaranteeing communications, supporting command and ensuring the availability of the networks.",
+      "But the trades are changing. The transmissions personnel now work in fields such as information systems, secure networks and cybersecurity.",
+      "This development illustrates the shift from a branch founded on the transmission of messages to an essential capability for mastering information, indispensable to modern military operations."
+    ]
+  },
+  {
+    "section": "The digital age",
+    "annee": "2016",
+    "titre": "Towards the connected army: transmissions at the heart of collaborative combat",
+    "texte": "In 2016, the French Army adopted the “Au Contact” model and began the modernisation of its forces with the Scorpion programme. Transmissions became an essential element of collaborative combat, allowing units to exchange information in real time on the battlefield.",
+    "detail": [
+      "Modern military operations rely more and more on the speed at which information circulates. Forces must be able to share a common picture of the situation and to coordinate their actions in complex environments.",
+      "The “Au Contact” model, launched in 2016, adapted the French Army to these new needs. It strengthened the place of information and communication systems at the heart of operations.",
+      "This development accompanies the Scorpion programme, which aims to digitise land combat. Vehicles, units and command posts are now connected in order to improve knowledge of the ground and the speed of decision.",
+      "Transmissions play a central role in this transformation: they ensure the flow of data, the continuity of exchanges and the security of the networks.",
+      "The creation of the Commandement des systèmes d'information et de communication (COMSIC), the information and communication systems command, at Cesson-Sévigné in 2016 illustrates this new place given to digital technology in the armed forces.",
+      "With this development, the transmissions personnel are no longer only the specialists of the link: they have become essential players in informational superiority and connected combat."
+    ]
+  },
+  {
+    "section": "The digital age",
+    "annee": "2020-2024",
+    "titre": "From the tactical network to cyberspace: transmissions at the heart of digital combat",
+    "texte": "Faced with the return of high-intensity confrontation and with the growth of digital threats, the French Army is continuing its transformation. Transmissions are moving towards a broader field, combining networks, information systems and cyber defence. The creation of the CATNC and of the BANC, and the change of the transmissions school into the ETNC, illustrate this new stage: mastering information has become an essential condition of military superiority.",
+    "detail": [
+      "In the early 2020s, the armed forces operate in an environment where confrontation also takes place in the digital domain. Communications, data and information systems have become essential elements in the conduct of operations.",
+      "Transmissions are no longer limited to providing a link between two units. They now make it possible to connect the forces, to share a common picture of the ground and to protect exchanges against enemy action.",
+      "This development accompanies the transformation of the French Army into a force able to act in complex and connected environments.",
+      "In 2024, the creation of the Commandement de l'appui terrestre numérique et cyber (CATNC), the land digital and cyber support command, marked a new stage. It succeeded COMSIC and asserts the growing importance of digital technology in the preparation and the conduct of operations.",
+      "The creation of the Brigade d'appui numérique et cyber (BANC), the digital and cyber support brigade, strengthens this capability by grouping together the resources dedicated to the digital support of the land forces.",
+      "The same year, the École des transmissions became the École des transmissions, du numérique et du cyber (ETNC), the school of transmissions, digital technology and cyber. Based at Cesson-Sévigné, it is adapting the training of specialists to the new challenges: networks, information systems and cybersecurity.",
+      "From the telegraph to digital networks, the history of the transmissions illustrates one and the same mission: allowing the forces to communicate, to share information and to act together."
+    ]
   }
 ]

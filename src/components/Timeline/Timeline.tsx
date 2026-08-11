@@ -8,7 +8,8 @@ import './Timeline.css'
 
 // Deux jeux de données aux mêmes champs (voir types.ts) : Timeline choisit
 // l'un ou l'autre selon la langue du bouton du panneau droit. timeline_en.json
-// ne couvre qu'un jalon pour l'instant (traduction en cours).
+// décalque timeline.json jalon par jalon, dans le même ordre (même sections,
+// mêmes `detail`) : traduire un jalon côté français, c'est aussi le traduire ici.
 const EVENTS_FR = timelineDataFr as TimelineEvent[]
 const EVENTS_EN = timelineDataEn as TimelineEvent[]
 
@@ -69,7 +70,8 @@ export default function Timeline({ lang }: TimelineProps) {
      sans lui, la frise enchaîne 2020 → 1875 sans transition visible, ce qui
      ressemble à une erreur. Il occupe un slot entier (même hauteur qu'un
      événement) pour que les calculs de défilement restent uniformes.
-     Dépend de la langue : les deux jeux de données n'ont pas la même longueur. */
+     Dérivé du jeu de données courant : les deux langues ont aujourd'hui le
+     même nombre de jalons, mais rien ne le garantit en cours de traduction. */
   const LOOP_LEN = EVENTS.length + 1
   // Sections d'ancrage dérivées des données : nom + index du premier jalon.
   // Elles ne découpent pas la frise, elles servent uniquement de repères.
@@ -96,9 +98,9 @@ export default function Timeline({ lang }: TimelineProps) {
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
   const jumpRef = useRef<{ from: number; to: number; start: number } | null>(null)
 
-  // Changement de langue : le nouveau jeu de données a une autre longueur
-  // (parfois plus courte), la position et la modale ouverte référencent
-  // donc l'ancien tableau — on revient à un état neutre en haut de la frise.
+  // Changement de langue : la position de défilement et la modale ouverte
+  // référencent l'ancien tableau (dont la longueur peut différer) — on
+  // revient à un état neutre en haut de la frise.
   useEffect(() => {
     setSelectedIdx(null)
     setActiveSection(0)
