@@ -155,6 +155,12 @@ export default function Timeline() {
      métriques de la police de repli : on attend `document.fonts.ready`. */
   useEffect(() => {
     let annule = false
+    /* `catch` obligatoire : un ajustement typographique ne doit jamais faire
+       tomber la borne. Sans lui, la moindre exception ici deviendrait un rejet
+       non rattrapé, que le watchdog traduit en rechargement de la page — donc
+       en boucle de rechargements, l'erreur se reproduisant à chaque montage
+       (voir src/utils/watchdog.ts). Au pire, les jalons gardent la taille de
+       repli du CSS. */
     document.fonts.ready.then(() => {
       if (annule) return
       for (let i = 0; i < EVENTS.length; i++) {
@@ -167,9 +173,9 @@ export default function Timeline() {
            items de grille) : elle grandit avec son contenu. Elle tient donc
            tant qu'elle ne dépasse pas la place laissée dans la ligne. */
         /* offsetHeight / clientHeight / getComputedStyle sont tous exprimés
-           dans le repère de mise en page. Ne pas mélanger avec
-           getBoundingClientRect(), qui rend des pixels écran : sous le zoom
-           d'affichage (#root, index.css) les deux repères diffèrent. */
+           dans le repère de mise en page : ne pas les mélanger avec
+           getBoundingClientRect(), qui rend des pixels écran (les deux
+           repères diffèrent dès qu'un `zoom` CSS entre en jeu). */
         const dispo = jalon.clientHeight - parseFloat(getComputedStyle(emplacement).paddingTop) * 2
         const tient = () => carte.offsetHeight <= dispo + 0.5
 
@@ -194,7 +200,7 @@ export default function Timeline() {
           ?.querySelector<HTMLElement>('.tl-card')
           ?.style.setProperty('--tl-fs', taille)
       }
-    })
+    }).catch(err => console.error('[frise] ajustement du texte ignoré', err))
     return () => { annule = true }
   }, [])
 
