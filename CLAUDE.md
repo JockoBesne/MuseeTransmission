@@ -217,6 +217,17 @@ portées.
     pas venu. Les `onClick` de l'app restent donc la façon normale d'écrire un
     bouton — ne pas les convertir en `onPointerUp`.
 - Hors-ligne strict : aucune ressource distante (polices, CDN, API).
+- **Aucun pictogramme ne doit dépendre d'un glyphe fourni par le système.**
+  La borne tourne sous Windows, dont la police Segoe UI Emoji ne contient
+  aucun drapeau national : les emoji 🇫🇷 et 🇬🇧 y sont deux « indicateurs
+  régionaux » qui, faute de ligature, s'affichent « FR » et « GB ». Le piège
+  est invisible en développement sous Linux, où Noto Color Emoji les dessine.
+  Les pictogrammes sont donc tracés en SVG dans `src/components/icons/` :
+  `Drapeau.tsx` (bouton de langue, tricolore ou Union Jack selon la langue du
+  panneau) et `IconePMR.tsx` (fauteuil roulant, glyphe Font Awesome Free 5,
+  CC BY 4.0 — attribution en en-tête du fichier). Les flèches et symboles
+  géométriques (`✕ ← → ↺ ⌫ ▾ ✦`) viennent des polices texte et ne posent pas
+  ce problème.
 - L'app tourne en continu : toujours nettoyer intervalles, animations
   (requestAnimationFrame) et listeners — les fuites mémoire sont critiques ici.
 - **L'électricité du musée est coupée chaque soir** : la borne redémarre donc

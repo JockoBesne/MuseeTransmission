@@ -161,9 +161,11 @@ html,
   background-color: rgba(255, 255, 255, 0.22);
 }
 
+/* Drapeau au format 3:2 (components/icons/Drapeau.tsx). Taille posée ici et
+   non en attribut : la règle CSS l'emporte sur les attributs du SVG. */
 .lang-flag {
-  font-size: 1.3rem;
-  line-height: 1;
+  width: 1.5rem;
+  height: 1rem;
 }
 
 .panel-right {

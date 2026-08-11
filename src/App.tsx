@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import Drapeau from './components/icons/Drapeau'
 import IconePMR from './components/icons/IconePMR'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
@@ -117,10 +118,11 @@ function LeftPanel() {
       <button
         type="button"
         className="lang-btn lang-btn--left"
-        aria-label={lang === 'fr' ? 'Langue : français. Basculer en anglais.' : 'Language: English. Switch to French.'}
+        aria-label={lang === 'fr' ? 'Passer en anglais' : 'Switch to French'}
         onClick={() => setLang((v) => (v === 'fr' ? 'en' : 'fr'))}
       >
-        <span className="lang-flag" aria-hidden="true">{lang === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
+        {/* Drapeau de la langue *cible*, pas de la langue courante (voir Drapeau.tsx). */}
+        <Drapeau langue={lang === 'fr' ? 'en' : 'fr'} className="lang-flag" />
       </button>
 
       <nav className="tab-bar" ref={tabBarRef}>
@@ -158,10 +160,11 @@ function RightPanel() {
       <button
         type="button"
         className="lang-btn lang-btn--right"
-        aria-label={lang === 'fr' ? 'Langue : français. Basculer en anglais.' : 'Language: English. Switch to French.'}
+        aria-label={lang === 'fr' ? 'Passer en anglais' : 'Switch to French'}
         onClick={() => setLang((v) => (v === 'fr' ? 'en' : 'fr'))}
       >
-        <span className="lang-flag" aria-hidden="true">{lang === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
+        {/* Drapeau de la langue *cible*, pas de la langue courante (voir Drapeau.tsx). */}
+        <Drapeau langue={lang === 'fr' ? 'en' : 'fr'} className="lang-flag" />
       </button>
       <Timeline lang={lang} />
     </div>
