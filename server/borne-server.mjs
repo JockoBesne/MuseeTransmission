@@ -145,7 +145,9 @@ const serveur = createServer(async (req, res) => {
   }
 })
 
-serveur.listen(PORT, () => {
+// 127.0.0.1 : l'API admin (remplacement d'une liste du Mémorial) n'est
+// joignable que depuis la borne elle-même, jamais depuis le réseau du musée.
+serveur.listen(PORT, '127.0.0.1', () => {
   console.log(`[borne] Application : http://localhost:${PORT}`)
   console.log(`[borne] Données admin : ${DONNEES}`)
   if (!existsSync(DIST)) console.warn('[borne] ATTENTION : dist/ absent — lancer « npm run build » d\'abord.')

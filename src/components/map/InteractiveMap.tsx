@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon, Position } from 'geojson'
 import franceContourRaw from '../../data/france-contour.json'
 import regionsZonesRaw from '../../data/regions-zones.json'
@@ -444,8 +444,14 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
   const nbUnites =
     zoomedZone?.members.reduce((s, p) => s + p.props.entites.length, 0) ?? 0
 
-  // Villes affichées : vue d'ensemble → isolées ; zoom → toutes (étiquettes hors animation)
-  const cities = zoomed ? zoomCities(view) : overview.singles
+  // Villes affichées : vue d'ensemble → isolées ; zoom → toutes (étiquettes hors
+  // animation). Calculé sur le cadre d'arrivée, pas sur `view` : les points sont
+  // à leur position projetée absolue, seul le placement des étiquettes dépend du
+  // cadre — le refaire à chaque frame de l'animation ne servirait à rien.
+  const cities = useMemo(
+    () => (zoomedZone ? zoomCities(zoomedZone.view) : overview.singles),
+    [zoomedZone],
+  )
   const showLabels = !animating
 
   /* Tailles dynamiques en style inline : la feuille CSS l'emporterait sur de
@@ -501,7 +507,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
     <div className="map-wrapper">
       {titlePhase !== 'gone' && (
         <div className={`map-title map-title--${titlePhase}`}>
-          <span className="map-title-kicker">Carte intéractive</span>
+          <span className="map-title-kicker">Carte interactive</span>
           <h2 className="map-title-main">Carte des unités de transmission</h2>
         </div>
       )}
@@ -517,7 +523,7 @@ export default function InteractiveMap({ pmrMode }: InteractiveMapProps) {
           <span className="map-region-kicker">Région</span>
           <span className="map-region-name">{zoomedZone.nom}</span>
           <span className="map-region-sub">
-            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher en dehors de la régions pour revenir
+            {nbUnites} unité{nbUnites > 1 ? 's' : ''} · toucher en dehors de la région pour revenir
           </span>
         </div>
       )}

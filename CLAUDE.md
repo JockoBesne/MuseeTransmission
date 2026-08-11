@@ -9,6 +9,11 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
 - `npm run dev` — serveur de développement Vite
 - `npm run build` — `tsc -b` puis build Vite (le build doit toujours passer)
 - `npm run lint` — Oxlint
+- `npm run memorial-extract -- "<fichier.ods>"` — étape amont, facultative et
+  hors chaîne npm (Python + pandas/openpyxl) :
+  [scripts/memorial/extract_from_ods.py](scripts/memorial/extract_from_ods.py)
+  convertit l'ODS maître « Morts pour la France » en Excel « propres » dans
+  `data-memorial/`. À ne relancer que si la source brute change.
 - `npm run import-memorial` — régénère `public/data/memorial/*.json`
   (6 catégories : 1GM, Entre-deux-guerres, 2GM, Indochine, Algérie, Opex) depuis les Excel
   « propres » de `data-memorial/` (4 colonnes imposées : Nom, Prénom,
@@ -28,6 +33,10 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
   l'admin sont écrits dans `borne-data/` (prioritaire sur la version du
   build) avec copie de l'Excel renommée dans `borne-data/uploads/`.
   Memorial.tsx charge ces JSON en fetch à l'exécution (plus de bundle).
+  `borne-data/` est de l'état d'exécution local à la borne : non versionné
+  (.gitignore), la source de vérité versionnée reste `data-memorial/`.
+  Le serveur n'écoute que sur `127.0.0.1` — l'API admin n'est pas exposée au
+  réseau du musée.
 
 ## Architecture
 
@@ -157,11 +166,8 @@ musée est nécessaire.
 
 - Pop-up (`CardDialog`) : classer les onglets d'unités d'une même ville par
   hiérarchie **Brigade → Régiment → Compagnie**.
-- Ajouter les unités **BANC** et **KTNC** (nouvelles entrées `villes.json` —
-  données à valider par le musée, ne rien inventer).
-- Ajouter le surlignage du département + la fonction zoom pour
-  l'**Ille-et-Vilaine** (nouvelle zone tactile dans `regions-zones.json`, comme
-  Bas-Rhin / Puy-de-Dôme).
+- Unités **BANC** et **CATNC** : entrées créées dans `villes.json`
+  (Cesson-Sévigné) — contenu encore à faire valider par le musée.
 - Corriger le contenu des « régiments de transmissions » de `villes.json` :
   numéros/noms d'unités erronés à rectifier d'après la liste validée par le
   musée (données historiques — ne rien inventer).
@@ -169,6 +175,9 @@ musée est nécessaire.
   sont des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de
   vrais fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne
   strict).
+- `villes.json` : 5 unités ont une devise (`texte`) vide — CATNC, BANC et ETNC
+  (Cesson-Sévigné), 44e RT (Mutzig), 738e CGE (Paris). Le sous-titre est masqué
+  tant qu'elle est vide ; devises à fournir par le musée (ne rien inventer).
 - Typographie : ne pas terminer une ligne par un nombre (espace insécable avant
   le nombre pour ne pas le laisser orphelin en fin de ligne).
 - Retirer le mot « fanion » des pop-up.

@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Python (scripts/memorial)
+__pycache__/
+*.pyc
+
+# État d'exécution de la borne : JSON du Mémorial déposés via l'écran admin
+# et copies des Excel. Local à la machine — la source versionnée reste
+# data-memorial/ (cf. scripts/memorial/README.md).
+borne-data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

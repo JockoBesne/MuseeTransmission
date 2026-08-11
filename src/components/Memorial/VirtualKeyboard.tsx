@@ -64,11 +64,6 @@ export default function VirtualKeyboard({ value, onChange, onClose }: VirtualKey
         >
           Fermer
         </button>
-        <button>
-      
-          
-        </button>
-
       </div>
     </div>
   )
