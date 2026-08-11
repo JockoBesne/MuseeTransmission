@@ -75,11 +75,17 @@
    Cartes en quinconce autour d'un axe central :
    [ carte | axe | année ]  puis  [ année | axe | carte ] */
 
+/* Dimensions du jalon en vh et non en px : la borne est un écran 4K et
+   Edge reçoit un viewport CSS qui dépend de la mise à l'échelle Windows
+   (1920×1080 à 200 %, 1536×864 à 125 %…). En px, le texte du jalon
+   débordait dès que le viewport passait sous 1920×1080 ; en vh, la carte
+   garde la même taille physique à l'écran quelle que soit l'échelle.
+   Repère : 1vh = 10,8 px sur un viewport de 1080 px de haut. */
 .tl-event {
   height: 25%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
-  padding: 0 18px;
+  grid-template-columns: minmax(0, 1fr) 5.185vh minmax(0, 1fr); /* 56px @1080 */
+  padding: 0 1.667vh; /* 18px @1080 */
 }
 
 /* ─ Axe central : ligne continue + pastille ─ */
@@ -99,10 +105,33 @@
   background: rgba(254, 204, 48, 0.32);
 }
 
+/* Connecteur horizontal pastille → carte, à la hauteur de la pastille :
+   il forme un rail carte — pastille — année. Tracé dans la colonne de
+   l'axe et non dans la carte, où il passait par-dessus le texte. */
+.tl-axis::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 50%;
+  height: 2px;
+  margin-top: -1px;
+}
+
+.tl-event--left .tl-axis::after {
+  left: 0;
+  background: linear-gradient(to left, rgba(254, 204, 48, 0.6), rgba(254, 204, 48, 0));
+}
+
+.tl-event--right .tl-axis::after {
+  right: 0;
+  background: linear-gradient(to right, rgba(254, 204, 48, 0.6), rgba(254, 204, 48, 0));
+}
+
 .tl-dot {
   position: absolute;
   left: 50%;
   top: 50%;
+  z-index: 1; /* au-dessus du connecteur, qui ne doit pas traverser la pastille */
   width: 13px;
   height: 13px;
   border-radius: 50%;
@@ -240,7 +269,7 @@
    du jalon doit tenir en entier dans la carte, sans troncature. */
 .tl-slot--card {
   justify-content: stretch;
-  padding: 8px 0;
+  padding: 0.741vh 0; /* 8px @1080 */
 }
 
 .tl-card {
@@ -249,8 +278,8 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 12px 16px;
+  gap: 0.556vh; /* 6px @1080 */
+  padding: 1.111vh 1.481vh; /* 12px 16px @1080 */
   text-align: left;
   font: inherit;
   color: inherit;
@@ -286,30 +315,14 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Connecteur horizontal carte → axe, à la hauteur de la pastille :
-   il forme un rail continu carte — pastille — année sur la même ligne. */
-.tl-card::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 28px;
-  height: 2px;
-  background: linear-gradient(to right, rgba(254, 204, 48, 0), #fecc30);
-}
 
-.tl-event--left .tl-card::before {
-  right: 0;
-  background: linear-gradient(to right, rgba(254, 204, 48, 0), rgba(254, 204, 48, 0.6));
-}
-
-.tl-event--right .tl-card::before {
-  left: 0;
-  background: linear-gradient(to left, rgba(254, 204, 48, 0), rgba(254, 204, 48, 0.6));
-}
-
+/* `--tl-fs` est posée par jalon depuis Timeline.tsx : la plus grande taille
+   qui remplit la carte sans déborder (les textes vont du simple au double).
+   Le titre suit le même facteur pour garder la hiérarchie typographique.
+   La valeur de repli est celle d'avant l'ajustement, si le script ne tourne pas. */
 .tl-event-title {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.95rem;
+  font-size: calc(var(--tl-fs, 1.126vh) * 1.25);
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.03em;
@@ -318,7 +331,7 @@
 
 .tl-event-text {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.76rem;
+  font-size: var(--tl-fs, 1.126vh);
   font-weight: 300;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.5;
@@ -330,7 +343,7 @@
   align-items: center;
   gap: 6px;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.68rem;
+  font-size: 1.008vh; /* 0.68rem @1080 */
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
