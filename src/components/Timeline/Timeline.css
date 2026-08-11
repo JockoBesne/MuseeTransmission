@@ -53,7 +53,13 @@
   display: flex;
 }
 
+/* Conteneur de référence de la frise : les jalons se dimensionnent sur la
+   hauteur de cette boîte (unités cqh) et non sur le viewport. Ils sont donc
+   insensibles à l'échelle d'affichage (#root zoom, index.css) comme à la
+   mise à l'échelle Windows de l'écran 4K — dans les deux cas la boîte garde
+   la même taille physique, donc les jalons aussi. */
 .timeline-scroll {
+  container-type: size;
   flex: 1;
   min-width: 0;
   overflow-y: auto;
@@ -75,17 +81,17 @@
    Cartes en quinconce autour d'un axe central :
    [ carte | axe | année ]  puis  [ année | axe | carte ] */
 
-/* Dimensions du jalon en vh et non en px : la borne est un écran 4K et
+/* Dimensions du jalon en cqh et non en px : la borne est un écran 4K et
    Edge reçoit un viewport CSS qui dépend de la mise à l'échelle Windows
    (1920×1080 à 200 %, 1536×864 à 125 %…). En px, le texte du jalon
-   débordait dès que le viewport passait sous 1920×1080 ; en vh, la carte
-   garde la même taille physique à l'écran quelle que soit l'échelle.
-   Repère : 1vh = 10,8 px sur un viewport de 1080 px de haut. */
+   débordait dès que le viewport passait sous 1920×1080 ; relatif à la
+   hauteur de la frise, il garde la même taille physique.
+   Repère : 1cqh = 10,02 px quand la frise fait 1002 px de haut. */
 .tl-event {
   height: 25%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 5.185vh minmax(0, 1fr); /* 56px @1080 */
-  padding: 0 1.667vh; /* 18px @1080 */
+  grid-template-columns: minmax(0, 1fr) 5.588cqh minmax(0, 1fr); /* 56px */
+  padding: 0 1.797cqh; /* 18px */
 }
 
 /* ─ Axe central : ligne continue + pastille ─ */
@@ -269,7 +275,7 @@
    du jalon doit tenir en entier dans la carte, sans troncature. */
 .tl-slot--card {
   justify-content: stretch;
-  padding: 0.741vh 0; /* 8px @1080 */
+  padding: 0.799cqh 0; /* 8px */
 }
 
 .tl-card {
@@ -278,8 +284,8 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.556vh; /* 6px @1080 */
-  padding: 1.111vh 1.481vh; /* 12px 16px @1080 */
+  gap: 0.599cqh; /* 6px */
+  padding: 1.197cqh 1.596cqh; /* 12px 16px */
   text-align: left;
   font: inherit;
   color: inherit;
@@ -322,7 +328,7 @@
    La valeur de repli est celle d'avant l'ajustement, si le script ne tourne pas. */
 .tl-event-title {
   font-family: 'Raleway', sans-serif;
-  font-size: calc(var(--tl-fs, 1.126vh) * 1.25);
+  font-size: calc(var(--tl-fs, 1.214cqh) * 1.25);
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.03em;
@@ -331,7 +337,7 @@
 
 .tl-event-text {
   font-family: 'Nunito', sans-serif;
-  font-size: var(--tl-fs, 1.126vh);
+  font-size: var(--tl-fs, 1.214cqh);
   font-weight: 300;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.5;
@@ -343,7 +349,7 @@
   align-items: center;
   gap: 6px;
   font-family: 'Nunito', sans-serif;
-  font-size: 1.008vh; /* 0.68rem @1080 */
+  font-size: 1.086cqh; /* 0.68rem @1080 */
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
