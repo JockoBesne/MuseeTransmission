@@ -47,6 +47,7 @@
 /* ─── Corps : frise + index ───────────────── */
 
 .timeline-body {
+  position: relative; /* ancre le tiroir d'index, posé par-dessus la frise */
   flex: 1;
   min-height: 0;
   display: flex;
@@ -101,7 +102,7 @@
 .tl-dot {
   position: absolute;
   left: 50%;
-  top: 46px;
+  top: 50%;
   width: 13px;
   height: 13px;
   border-radius: 50%;
@@ -176,10 +177,12 @@
   flex-direction: column;
 }
 
-/* Année en vis-à-vis de la carte, alignée sur la pastille */
+/* Année en vis-à-vis de la carte, à la hauteur de la pastille.
+   Centrée sur la ligne et non en haut : posée en haut, elle se retrouvait
+   à 38 px sous la carte précédente du même côté (donc lue comme sa date)
+   alors que la sienne est de l'autre côté de l'axe. */
 .tl-slot--year {
-  justify-content: flex-start;
-  padding-top: 30px;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -233,9 +236,11 @@
 
 /* ─ Carte d'événement (bouton « En savoir plus ») ─ */
 
+/* Marges verticales réduites au strict nécessaire : le texte visible
+   du jalon doit tenir en entier dans la carte, sans troncature. */
 .tl-slot--card {
   justify-content: stretch;
-  padding: 12px 0;
+  padding: 8px 0;
 }
 
 .tl-card {
@@ -245,7 +250,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 14px 18px;
+  padding: 12px 16px;
   text-align: left;
   font: inherit;
   color: inherit;
@@ -281,11 +286,12 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Connecteur horizontal carte → axe */
+/* Connecteur horizontal carte → axe, à la hauteur de la pastille :
+   il forme un rail continu carte — pastille — année sur la même ligne. */
 .tl-card::before {
   content: '';
   position: absolute;
-  top: 34px;
+  top: 50%;
   width: 28px;
   height: 2px;
   background: linear-gradient(to right, rgba(254, 204, 48, 0), #fecc30);
@@ -316,11 +322,6 @@
   font-weight: 300;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.5;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
 }
 
 .tl-more {
@@ -348,20 +349,22 @@
 
 /* ─── Index des sections : tiroir escamotable ─
    Fermé par défaut : le tiroir glisse hors du panneau (clippé par
-   .timeline en overflow:hidden) et la frise occupe toute la largeur.
-   Seule la poignée reste collée au bord droit. */
+   .timeline en overflow:hidden). Seule la poignée reste collée au bord
+   droit. Il est posé *par-dessus* la frise et non à côté : sinon son
+   ouverture rétrécirait les cartes et le texte n'y tiendrait plus. */
 
 .tl-drawer {
-  position: relative;
-  flex-shrink: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -150px; /* fermé : sorti de l'écran */
   width: 150px;
-  margin-right: -150px; /* fermé : sorti de l'écran */
-  transition: margin-right 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: right 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 10;
 }
 
 .tl-drawer--open {
-  margin-right: 0;
+  right: 0;
 }
 
 /* Poignée : demi-pastille accrochée au flanc gauche du tiroir */

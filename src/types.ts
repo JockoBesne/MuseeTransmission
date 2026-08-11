@@ -8,7 +8,10 @@ export interface TimelineEvent {
   section: string
   annee: string
   titre: string
+  /** Résumé affiché sur la carte de la frise. */
   texte: string
+  /** Paragraphes du « En savoir plus », affichés dans la pop-up. */
+  detail?: string[]
 }
 
 /** Média additionnel d'une unité (fichier local dans public/, hors-ligne strict). */
