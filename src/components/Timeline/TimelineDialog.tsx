@@ -108,6 +108,9 @@ export function TimelineDialog({
             <Ord>{event.titre}</Ord>
           </h3>
           <p className="tl-dialog-text"><Ord>{event.texte}</Ord></p>
+          {event.detail?.map(paragraphe => (
+            <p key={paragraphe} className="tl-dialog-detail"><Ord>{paragraphe}</Ord></p>
+          ))}
           <p className="tl-dialog-hint">{t.indice}</p>
         </div>
 

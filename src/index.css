@@ -12,6 +12,16 @@ body,
   height: 100%;
   width: 100%;
   overflow: hidden;
+  /* Edge/Chromium : pas de chaînage de défilement ni de tirer-pour-actualiser
+     si un panneau interne est défilé au-delà de sa fin. Le script kiosque le
+     désactive aussi (--pull-to-refresh=0) ; ici l'app n'en dépend plus. */
+  overscroll-behavior: none;
+}
+
+/* Edge/Chromium pose un voile gris sur l'élément touché : visible à chaque
+   appui sur la borne, on le neutralise (le retour visuel est géré en CSS). */
+body {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Borne tactile : pas de sélection de texte à l'appui long (détournement du

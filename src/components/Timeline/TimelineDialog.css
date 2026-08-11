@@ -160,13 +160,20 @@
   transition: width 0.4s ease;
 }
 
-.tl-dialog-text {
+.tl-dialog-text,
+.tl-dialog-detail {
   font-family: 'Nunito', sans-serif;
   font-size: 0.96rem;
   font-weight: 300;
   line-height: 1.8;
   color: #e0e0e0;
   text-align: left;
+}
+
+/* Paragraphes du « En savoir plus » : légèrement en retrait du chapô */
+.tl-dialog-detail {
+  margin-top: 16px;
+  color: #d2dbe3;
 }
 
 /* Lettrine dorée, esprit livre d'exposition */

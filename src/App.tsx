@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { FaWheelchair } from 'react-icons/fa'
+import IconePMR from './components/icons/IconePMR'
 import Memorial from './components/Memorial/Memorial'
 import './App.css'
 import InteractiveMap from './components/map/InteractiveMap'
@@ -111,7 +111,7 @@ function LeftPanel() {
         aria-label={t.pmrAria}
         onClick={() => togglePmrMode(!pmrMode)}
       >
-        <FaWheelchair className="pmr-icon" aria-hidden="true" />
+        <IconePMR className="pmr-icon" />
       </button>
 
       <button
