@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, type PointerEvent as ReactPointerEvent } from 'react'
 import timelineData from '../../data/timeline.json'
 import type { TimelineEvent } from '../../types'
 import { Ord } from '../../utils/ordinals'
@@ -56,6 +56,15 @@ export default function Timeline() {
   const itemRefs = useRef<(HTMLElement | null)[]>([])
   const rafRef = useRef(0)
   const lastTsRef = useRef(0)
+  /* Miroir de `activeSection` : la boucle tourne 60 fois par seconde sans
+     jamais s'interrompre (le panneau droit n'a pas de mise en veille), et la
+     section ne change que toutes les quelques secondes. Sans ce garde, on
+     planifie 60 mises à jour d'état par seconde toute la journée pour que
+     React les abandonne presque toutes. */
+  const activeSectionRef = useRef(0)
+  /* Doigts actuellement posés sur la frise. Deux visiteurs peuvent la lire
+     ensemble : le défilement ne reprend que lorsque le dernier a lâché. */
+  const pointersRef = useRef(new Set<number>())
   const posRef = useRef(0)
   const pausedRef = useRef(false)
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
@@ -123,7 +132,10 @@ export default function Timeline() {
         for (let i = 0; i < SECTIONS.length; i++) {
           if (topIndex >= SECTIONS[i].start) current = i
         }
-        setActiveSection(current)
+        if (current !== activeSectionRef.current) {
+          activeSectionRef.current = current
+          setActiveSection(current)
+        }
       }
     }
     lastTsRef.current = ts
@@ -203,18 +215,43 @@ export default function Timeline() {
     return () => observer.disconnect()
   }, [])
 
-  const pause = () => {
+  const pause = useCallback(() => {
     jumpRef.current = null
     pausedRef.current = true
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
-  }
+  }, [])
 
-  const scheduleResume = () => {
+  /* N'agit que des refs : stable, donc les écouteurs ci-dessous se posent une
+     seule fois pour toute la durée de vie du composant. */
+  const scheduleResume = useCallback(() => {
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    // Un autre doigt lit encore la frise : elle ne doit pas repartir sous lui.
+    if (pointersRef.current.size > 0) return
     resumeTimerRef.current = setTimeout(() => {
       pausedRef.current = false
     }, RESUME_DELAY_MS)
+  }, [])
+
+  const onPointerDown = (e: ReactPointerEvent) => {
+    pointersRef.current.add(e.pointerId)
+    pause()
   }
+
+  /* Fin de geste écoutée sur `window` et non sur la frise : l'écran fait
+     65 pouces, un doigt relâché en dehors (ou récupéré par l'autre panneau)
+     doit quand même être décompté — sinon le défilement automatique ne
+     repartirait plus de la journée. */
+  useEffect(() => {
+    const relache = (e: PointerEvent) => {
+      if (pointersRef.current.delete(e.pointerId)) scheduleResume()
+    }
+    window.addEventListener('pointerup', relache)
+    window.addEventListener('pointercancel', relache)
+    return () => {
+      window.removeEventListener('pointerup', relache)
+      window.removeEventListener('pointercancel', relache)
+    }
+  }, [scheduleResume])
 
   const jumpToSection = (index: number) => {
     const el = scrollRef.current
@@ -261,9 +298,7 @@ export default function Timeline() {
         <div
           className="timeline-scroll"
           ref={scrollRef}
-          onPointerDown={pause}
-          onPointerUp={scheduleResume}
-          onPointerCancel={scheduleResume}
+          onPointerDown={onPointerDown}
           onWheel={() => { pause(); scheduleResume() }}
         >
           {/* Deux copies identiques pour un défilement en boucle sans couture,

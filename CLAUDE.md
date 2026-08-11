@@ -36,13 +36,27 @@ mode kiosque, **100 % hors-ligne**, fonctionnement continu pendant l'exposition.
   `borne-data/` est de l'état d'exécution local à la borne : non versionné
   (.gitignore), la source de vérité versionnée reste `data-memorial/`.
   Le serveur n'écoute que sur `127.0.0.1` — l'API admin n'est pas exposée au
-  réseau du musée.
+  réseau du musée. Les deux fichiers d'un import (JSON publié + copie Excel)
+  sont écrits via `ecritAtomique` (`.tmp` puis `rename`) : la coupure de
+  courant du soir ne peut pas laisser un JSON à moitié écrit. L'Excel est
+  écrit **avant** le JSON, pour qu'une coupure entre les deux laisse la
+  sauvegarde de ce qui n'a pas encore été publié.
 
 ## Architecture
 
 Écran scindé 50/50 dans [src/App.tsx](src/App.tsx), qui gère aussi le mode
 veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
-à l'onglet Mémorial) :
+à l'onglet Mémorial).
+
+Les deux panneaux portent `contain: layout` (App.css) : le navigateur n'a
+qu'un seul fil principal, et deux visiteurs se servent des deux moitiés en
+même temps — cette règle empêche qu'un recalcul de mise en page déclenché
+d'un côté fasse retravailler l'autre. Conséquence à connaître avant d'ajouter
+du CSS : **un panneau est le bloc conteneur de ses descendants
+`position: fixed`**, qui couvrent donc le panneau et non l'écran (voulu pour
+`.war-menu-backdrop`). `paint` est délibérément omis — les deux panneaux sont
+toujours visibles, il n'y a rien à économiser, et il rognerait les ombres
+portées.
 
 - **Panneau gauche** — deux onglets :
   - `components/map/InteractiveMap.tsx` : carte SVG de la France, projection
@@ -156,9 +170,40 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
 - Cibles tactiles ≥ 48×48 px (boutons, onglets, marqueurs, touches).
 - Aucune information accessible uniquement au survol : tout au toucher.
 - Feedback visuel immédiat à chaque interaction.
+- **Écran de 65 pouces : deux visiteurs s'en servent en même temps.** Tout
+  geste doit donc être écrit en multi-touch :
+  - **Ne jamais lire `e.touches[0]`** — cette liste contient tous les contacts
+    de la dalle entière, y compris le doigt de quelqu'un d'autre à l'autre
+    bout de l'écran. Utiliser `e.changedTouches[0]` (le doigt qui vient
+    d'agir *ici*) et mémoriser son `identifier` pour le retrouver à la fin du
+    geste — voir `finDuGeste` dans Memorial.tsx.
+  - Une mise en pause déclenchée au toucher (défilement du Mémorial,
+    `pausedRef` de la frise) doit compter les doigts posés et ne reprendre
+    qu'au départ du dernier : sinon le premier qui lâche relance le
+    défilement sous le doigt de l'autre. Toujours brancher `touchcancel` /
+    `pointercancel` avec la fin normale, faute de quoi un doigt annulé par le
+    système reste compté et fige le défilement jusqu'au soir.
+  - Écouter la fin d'un geste sur `window` plutôt que sur l'élément : sur une
+    dalle de cette taille, un doigt est souvent relâché ailleurs.
 - Hors-ligne strict : aucune ressource distante (polices, CDN, API).
 - L'app tourne en continu : toujours nettoyer intervalles, animations
   (requestAnimationFrame) et listeners — les fuites mémoire sont critiques ici.
+- **L'électricité du musée est coupée chaque soir** : la borne redémarre donc
+  de zéro tous les matins (pas de redémarrage applicatif à prévoir, l'uptime
+  maximum est d'une journée), mais elle doit repartir *seule* — chaîne de
+  démarrage et réglage BIOS de reprise après coupure dans
+  [scripts/borne/README-borne.md](scripts/borne/README-borne.md).
+- Aucune surveillance humaine en journée : une exception non rattrapée
+  laisserait un écran blanc jusqu'au lendemain. D'où le garde-fou
+  [src/utils/watchdog.ts](src/utils/watchdog.ts), installé dans main.tsx avant
+  le rendu : les erreurs remontées à `window` (rendu React *et* asynchrone —
+  rAF, minuteurs, promesses) rechargent la page, puis, après `MAX_ESSAIS`
+  rechargements consécutifs, laissent place à un écran de panne sobre. Le
+  compteur vit en `sessionStorage` et se remet à zéro dès que la page a tenu
+  `STABLE_MS`, pour que des incidents isolés ne se cumulent pas. Volontairement
+  hors React (React peut être mort) : DOM à la main et styles en ligne — seule
+  entorse admise à la règle « un .css par composant ». Pas d'`ErrorBoundary` :
+  il n'attraperait que le rendu, pas les boucles rAF ni les minuteurs.
 
 ## Contenu historique
 
@@ -215,6 +260,23 @@ musée est nécessaire.
 
 ### Technique / nettoyage
 
-- Déploiement borne : ajouter `base: './'` dans vite.config.ts si le `dist`
-  doit s'ouvrir sans serveur web.
+- ~~`base: './'` dans vite.config.ts~~ — **abandonné, ne pas refaire.** Cela ne
+  rendrait pas le `dist` ouvrable en double-clic pour autant : les chemins
+  d'images de `villes.json` (`/pucelles/…`) sont des données, que Vite ne
+  réécrit pas, et le Mémorial charge ses JSON en `fetch`, bloqué en `file://`.
+  La borne passe de toute façon toujours par `npm run borne` (tâche planifiée),
+  donc le besoin n'existe pas.
+- Le `dist/` et `node_modules/` encaissent une coupure brutale chaque soir : si
+  le musée peut fournir un onduleur ou une prise pilotée avec extinction
+  propre, ça évite une corruption du système de fichiers à la longue.
+- Mémorial : 1742 + 1516 noms montés d'un coup dans le DOM, remontés à chaque
+  retour de veille (3 min) avec refetch `no-store` de ~600 Ko. Deux correctifs
+  natifs si le défilement montre des à-coups sur la machine réelle :
+  `content-visibility: auto` + `contain-intrinsic-size` sur `.memorial-name`,
+  et un cache module-level des JSON. À mesurer sur la borne avant d'agir.
+- **Ne pas optimiser le poids du bundle** (découpage, chargement différé,
+  WebP pour les pucelles, simplification du contour de la France) : la borne
+  sert en `localhost` depuis un disque local et charge tout une fois par jour.
+  Le gain est invisible. Sur cette machine, seul compte ce qui tourne *en
+  continu* (boucles rAF) ou ce qui *plante*.
  

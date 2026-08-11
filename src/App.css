@@ -32,9 +32,25 @@ html,
   background: transparent;
 }
 
+/* `contain: layout` : deux visiteurs se servent des deux panneaux en même
+   temps, et le navigateur n'a qu'un seul fil principal. Cette règle garantit
+   qu'un recalcul de mise en page déclenché dans un panneau (défilement des
+   1 700 noms du Mémorial, animation de la frise) reste confiné à ce panneau
+   au lieu de faire retravailler l'autre.
+
+   `paint` volontairement omis : les deux panneaux sont visibles en
+   permanence, il n'y a donc aucune peinture à économiser, et il rognerait
+   les ombres portées qui dépassent.
+
+   Effet secondaire assumé et souhaitable : `contain: layout` fait du panneau
+   le bloc conteneur de ses descendants `position: fixed`. Le voile
+   `.war-menu-backdrop` du Mémorial ne couvre donc plus que le panneau
+   gauche — auparavant, un visiteur touchant la frise à droite refermait le
+   menu des périodes ouvert par quelqu'un d'autre à gauche. */
 .panel {
   flex: 1;
   position: relative;
+  contain: layout;
   display: flex;
   flex-direction: column;
   align-items: center;

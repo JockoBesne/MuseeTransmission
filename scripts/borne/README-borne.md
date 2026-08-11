@@ -49,8 +49,25 @@ la connexion automatique (§3) est indispensable.
 > Quitter le kiosque pour l'admin : `Ctrl`+`Alt`+`Suppr` puis fermer la session,
 > ou brancher un clavier et `Alt`+`F4`.
 
-## 3. Réglages Windows pour un fonctionnement 24/7
+## 3. Réglages machine pour un fonctionnement 24/7
 
+> **L'électricité du musée est coupée chaque soir.** La borne doit donc
+> repartir seule chaque matin, sans personne pour appuyer sur un bouton. La
+> chaîne complète est : secteur rétabli → le PC se rallume → Windows démarre →
+> la session s'ouvre → la tâche ONLOGON part → le serveur répond → Edge
+> s'ouvre. Les deux premiers maillons se règlent dans le BIOS, les suivants
+> ci-dessous. Corollaire : inutile de prévoir un redémarrage nocturne de
+> l'application, la coupure le fait déjà.
+
+- **Reprise après coupure secteur — réglage BIOS/UEFI, le maillon amont de
+  tout le reste.** Par défaut un PC coupé au secteur *reste éteint* au retour
+  du courant : sans ce réglage, rien de ce qui suit ne se déclenche jamais.
+  Au démarrage, `F2` ou `Suppr` selon la machine, menu *Power* /
+  *Power Management*, passer **AC Recovery** (aussi nommé *After Power
+  Failure* ou *Restore on AC Power Loss*) sur **Power On**. Le nom exact
+  dépend du constructeur : `Get-CimInstance Win32_ComputerSystem | Select
+  Manufacturer, Model`. *(À faire à la main : aucun script ne peut écrire ce
+  réglage, il vit dans la NVRAM de l'UEFI, que Windows n'expose pas.)*
 - **Connexion automatique** (sinon la tâche ONLOGON ne se déclenche pas seule) :
   `netplwiz` → décocher « Les utilisateurs doivent entrer un nom… » → saisir le
   mot de passe du compte. *(À faire par toi : réglage de compte.)*
@@ -64,6 +81,12 @@ la connexion automatique (§3) est indispensable.
   connexion → « En cas d'absence, exiger une reconnexion » → **Jamais**.
 - **Éviter un redémarrage Windows Update pendant l'expo** : Paramètres →
   Windows Update → suspendre les mises à jour, ou régler les « heures d'activité ».
+- **Marquage d'écran (rémanence)** — réglage de l'écran lui-même, pas de
+  Windows. L'affichage comporte des zones strictement fixes (bandeau
+  d'onglets, titre MÉMORIAL, séparateur central, barre de recherche) montrées
+  10 h par jour pendant des semaines. Sur un LCD professionnel comme le WM65B
+  la rémanence est temporaire, pas définitive comme sur OLED, mais activer
+  **Pixel Shift** dans le menu interne de l'écran coûte une case à cocher.
 - **Écran tactile : désactiver le balayage depuis les bords** (centre de
   notifications, bureaux virtuels — le script ne peut pas le faire, stratégie
   machine, admin requis) puis redémarrer :
@@ -76,3 +99,42 @@ la connexion automatique (§3) est indispensable.
 Débrancher le câble réseau / couper le Wi-Fi, redémarrer le PC, et confirmer
 que la borne s'ouvre seule et que **le Mémorial affiche bien les noms**
 (c'est lui qui charge ses données en `fetch` local — le vrai test hors-ligne).
+
+## 5. Le test qui valide toute la chaîne (à faire une fois avant l'ouverture)
+
+Borne allumée et fonctionnelle : **couper la multiprise, la remettre, et ne
+plus toucher à rien.** Si le Mémorial s'affiche seul quelques minutes plus
+tard, les six maillons du §3 sont bons d'un coup. Si l'écran reste noir, c'est
+le réglage BIOS ; s'il s'arrête sur l'écran de connexion, c'est la connexion
+automatique ; s'il ouvre le bureau sans la borne, c'est la tâche planifiée.
+
+C'est le test à refaire après tout changement sur la machine — c'est
+exactement ce qui se produit chaque soir pendant l'exposition.
+
+## 6. Diagnostic du tactile à deux utilisateurs
+
+[test-tactile.html](test-tactile.html) s'ouvre par double-clic (aucun serveur,
+aucun réseau) et dessine un disque sous chaque doigt. Deux personnes touchent
+les deux moitiés en même temps, plusieurs fois : la page affiche l'écart médian
+entre le premier et le second contact.
+
+À lire ainsi — **c'est le préalable à toute optimisation du code**, une latence
+matérielle ne se corrigeant pas en logiciel :
+
+- écart proche de 0 ms → la dalle rapporte bien les contacts simultanément,
+  une lenteur ressentie dans l'application vient de l'application ;
+- écart de plusieurs dizaines de ms, reproductible → l'écran ou son pilote
+  sérialise les contacts éloignés ;
+- « doigts simultanés (max) » bloqué à 1 → le multi-touch n'est pas actif.
+
+## 7. En cas de plantage pendant la journée
+
+L'application se recharge toute seule : [src/utils/watchdog.ts](../../src/utils/watchdog.ts)
+écoute les erreurs non rattrapées et rappelle la page. Après trois
+rechargements consécutifs — donc une panne qui se reproduit — elle renonce et
+affiche un écran sobre « Borne momentanément indisponible », avec le détail
+technique en petit en bas de l'écran : **c'est ce texte qu'il faut relever ou
+photographier** avant de redémarrer, il est perdu ensuite.
+
+Redémarrer la borne : fermer la session (`Ctrl`+`Alt`+`Suppr`) et la rouvrir,
+ou redémarrer le PC — la tâche ONLOGON refait le reste.
