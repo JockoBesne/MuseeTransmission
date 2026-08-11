@@ -41,7 +41,15 @@ $argsEdge = @(
   '--overscroll-history-navigation=0',      # pas de balayage retour/avant
   '--pull-to-refresh=0',                    # pas de tirer-pour-actualiser
   '--disable-touch-drag-drop',              # pas de glisser-déposer tactile
-  '--disable-background-networking'
+  '--disable-background-networking',
+  '--no-default-browser-check',             # pas d'invite « Edge par défaut ? »
+  # Affichage 24/7 : Edge met en veille le rendu d'une fenêtre qu'il croit
+  # masquée (fenêtre système au premier plan, détection d'occlusion Windows).
+  # Les défilements de la frise et du mémorial reposent sur
+  # requestAnimationFrame : sans ça, ils se figent puis sautent au réveil.
+  '--disable-renderer-backgrounding',
+  '--disable-backgrounding-occluded-windows',
+  '--disable-features=CalculateNativeWinOcclusion'
 )
 while ($true) {
   Start-Process $edge -ArgumentList $argsEdge -Wait

@@ -118,12 +118,14 @@ portées.
 - **Panneau droit** — frise chronologique (`components/Timeline/`) : jalons
   issus de `src/data/timeline.json` (type `TimelineEvent`), défilement
   automatique en boucle, sections d'ancrage + index de navigation ; toucher un
-  jalon ouvre `TimelineDialog` (fiche dépliable). C'est le seul élément qui ne
-  se met **jamais** en veille (le panneau gauche, lui, retombe sur le Mémorial
-  après `INACTIVITY_MS`) : sa boucle rAF tourne toute la journée. Tout ce
-  qu'elle fait par frame est donc payé 60 fois par seconde pendant 10 h —
-  d'où le miroir `activeSectionRef`, qui ne pousse la section courante dans
-  l'état React que lorsqu'elle change réellement.
+  jalon ouvre `TimelineDialog` (fiche dépliable). Le texte du `.docx` fourni par
+  le musée se répartit en `texte` (résumé, affiché en entier sur la carte de la
+  frise — jamais tronqué) et `detail[]` (le « en savoir plus », affiché dans la
+  pop-up). Les dimensions du jalon sont en **vh et non en px** (`Timeline.css`) :
+  le viewport CSS que reçoit Edge dépend de la mise à l'échelle Windows de
+  l'écran 4K, et en px le texte débordait dès qu'il passait sous 1920×1080.
+  Repère : 1vh = 10,8 px à 1080. Le tiroir d'index est posé **par-dessus** la
+  frise (`position: absolute`) pour que son ouverture ne rétrécisse pas les cartes.
 - **Administration** (accès personnel) : appui maintenu 5 s sur le coin
   haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
   tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub

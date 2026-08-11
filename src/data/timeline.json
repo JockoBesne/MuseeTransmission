@@ -1,86 +1,277 @@
 [
   {
     "section": "Les origines",
-    "annee": "1875",
-    "titre": "Naissance des télégraphistes militaires",
-    "texte": "À la suite de la guerre franco-prussienne de 1870-1871, l'armée française entreprend une profonde modernisation de ses moyens de communication. La loi du 13 mars 1875 crée la première compagnie de sapeurs-télégraphistes, rattachée au 2ᵉ régiment du Génie à Montpellier. Cette unité spécialisée met en œuvre les premiers réseaux télégraphiques militaires filaires et marque la naissance des Transmissions françaises."
-  },
-  {
-    "section": "Les origines",
     "annee": "1884",
-    "titre": "Le Mont-Valérien devient le centre des Transmissions",
-    "texte": "Face au développement des télécommunications militaires, les compagnies de sapeurs-télégraphistes sont progressivement regroupées au fort du Mont-Valérien. Ce site devient le principal centre d'instruction, d'expérimentation et de développement des réseaux de campagne. Pendant plusieurs décennies, il constitue le cœur technique des télécommunications militaires françaises."
+    "titre": "L'École de télégraphie militaire du Mont-Valérien",
+    "texte": "L'installation de l'École de télégraphie militaire au fort du Mont-Valérien marque une étape fondatrice des transmissions militaires françaises. Pendant près de soixante ans, elle forme les spécialistes des communications qui accompagneront les grandes évolutions techniques de la fin du XIXᵉ siècle et du début du XXᵉ siècle.",
+    "detail": [
+      "L'apparition du télégraphe électrique transforme profondément l'art de la guerre au XIXᵉ siècle. Pour la première fois, les ordres peuvent être transmis presque instantanément sur de longues distances, offrant aux états-majors une capacité de commandement inédite.",
+      "Afin de former des spécialistes capables de déployer, d'entretenir et d'exploiter ces nouveaux réseaux, l'armée française installe en 1884 son École de télégraphie militaire au fort du Mont-Valérien, à Suresnes. Ce site, déjà consacré à l'expérimentation militaire, offre un cadre idéal pour l'instruction des futurs télégraphistes.",
+      "Les élèves y reçoivent une formation mêlant enseignement technique et pratique : pose de lignes télégraphiques, entretien des matériels, organisation des réseaux et procédures de transmission des ordres. L'école accompagne ensuite toutes les grandes innovations du domaine, de la télégraphie filaire à la télégraphie sans fil.",
+      "Bien que l'Arme des Transmissions ne soit créée officiellement qu'en 1942, le Mont-Valérien est considéré comme le berceau historique de cette spécialité militaire."
+    ]
   },
   {
     "section": "Les origines",
-    "annee": "1903",
-    "titre": "La Télégraphie Sans Fil et la Tour Eiffel",
-    "texte": "Le capitaine Gustave Ferrié mène les premières expérimentations militaires de Télégraphie Sans Fil (TSF) depuis le sommet de la Tour Eiffel. Les résultats démontrent l'immense potentiel stratégique des communications radio à longue distance. Ces essais contribuent à sauver la Tour Eiffel de sa démolition prévue et ouvrent une nouvelle ère pour les communications militaires."
+    "annee": "24 juillet 1900",
+    "titre": "Naissance des sapeurs-télégraphistes",
+    "texte": "La loi du 24 juillet 1900 crée un corps permanent de sapeurs-télégraphistes au sein du Génie. Cette organisation marque le véritable point de départ des unités spécialisées dans les transmissions militaires françaises.",
+    "detail": [
+      "À la fin du XIXᵉ siècle, le développement des télécommunications rend indispensable la création de personnels spécialisés. Jusqu'alors, les télégraphistes sont principalement formés au Mont-Valérien, mais ne disposent pas d'une organisation permanente.",
+      "La loi du 24 juillet 1900 transforme cette organisation en un véritable bataillon de sapeurs-télégraphistes. Quelques mois plus tard, le décret du 21 janvier 1901 lui attribue officiellement le nom de 24ᵉ bataillon du Génie.",
+      "Cette réforme constitue une étape décisive : les télégraphistes disposent désormais d'unités permanentes, d'un encadrement propre et d'une doctrine d'emploi spécifique. Ces formations accompagneront les opérations militaires françaises au début du XXᵉ siècle et serviront de fondement à la future Arme des Transmissions."
+    ]
   },
   {
     "section": "Les origines",
-    "annee": "1908",
-    "titre": "La radio entre dans l'armée",
-    "texte": "L'armée française crée un service permanent de Télégraphie Sans Fil, officialisant l'emploi de la radio dans les communications militaires. Cette innovation permet de s'affranchir progressivement des contraintes des réseaux filaires et prépare les évolutions majeures qui accompagneront la Première Guerre mondiale."
+    "annee": "1893-1908",
+    "titre": "Gustave Ferrié, pionnier de la télégraphie sans fil",
+    "texte": "À partir de 1893, le capitaine puis commandant Gustave Ferrié consacre ses recherches à la télégraphie sans fil (TSF). Grâce à ses expérimentations, notamment depuis la tour Eiffel, il démontre que les ondes radio peuvent compléter les réseaux filaires et ouvrir une nouvelle ère pour les communications militaires. Ses travaux placent la France parmi les pionniers mondiaux de la radio.",
+    "detail": [
+      "À la fin du XIXᵉ siècle, les progrès de l'électricité et des travaux de Heinrich Hertz puis de Guglielmo Marconi ouvrent de nouvelles perspectives : transmettre un message sans fil devient désormais possible. Cette technologie, encore expérimentale, suscite rapidement l'intérêt des armées, qui y voient un moyen de communiquer sans dépendre de longues lignes télégraphiques vulnérables aux coupures ou aux destructions.",
+      "Polytechnicien et officier du Génie, Gustave Ferrié découvre les transmissions militaires lors d'un stage au Mont-Valérien en 1893. Convaincu du potentiel de la télégraphie sans fil, il se consacre à son développement et devient rapidement l'un des principaux spécialistes français du domaine.",
+      "Nommé directeur de l'École de télégraphie militaire en 1897, il mène de nombreuses recherches sur les antennes, les émetteurs et les récepteurs radio. Ses travaux démontrent que les communications hertziennes peuvent compléter efficacement les réseaux télégraphiques traditionnels, notamment dans les situations où l'installation de câbles est impossible.",
+      "En 1903, il obtient l'autorisation d'utiliser la tour Eiffel comme support d'antenne. Cette installation permet d'accroître considérablement la portée des transmissions, qui atteignent bientôt plusieurs milliers de kilomètres. L'intérêt militaire de ces expériences contribue également à sauver la tour Eiffel, dont la démolition était envisagée à l'expiration de sa concession.",
+      "À la veille de la Première Guerre mondiale, la France dispose ainsi d'un réseau de télégraphie sans fil parmi les plus performants d'Europe. Les travaux de Gustave Ferrié constituent une étape majeure dans l'histoire des transmissions militaires et feront de lui l'une des figures fondatrices de l'Arme des Transmissions."
+    ]
   },
   {
     "section": "Les origines",
-    "annee": "1912",
-    "titre": "Création du 8ᵉ Régiment du Génie",
-    "texte": "Le 21 décembre 1912, un décret présidentiel crée le 8ᵉ Régiment du Génie, installé au Mont-Valérien. Pour la première fois, toutes les unités spécialisées dans les télécommunications militaires sont réunies au sein d'un régiment unique. Cette création constitue une étape fondamentale dans l'organisation des futures Transmissions."
+    "annee": "1ᵉʳ janvier 1913",
+    "titre": "Création du 8ᵉ régiment du Génie",
+    "texte": "Créé le 1ᵉʳ janvier 1913, le 8ᵉ régiment du Génie rassemble les unités françaises de sapeurs-télégraphistes au sein d'une même formation. Héritier des premières expériences opérationnelles, notamment au Maroc, il devient le berceau des futures unités de transmissions et jouera un rôle essentiel durant la Première Guerre mondiale.",
+    "detail": [
+      "Au début du XXᵉ siècle, les opérations militaires montrent que les communications sont devenues un élément indispensable du commandement. Les campagnes menées au Maroc à partir de 1907 mettent particulièrement en évidence le rôle des sapeurs-télégraphistes, chargés d'établir et de maintenir les liaisons entre des unités engagées sur un vaste territoire, souvent dans des conditions difficiles.",
+      "Cette expérience révèle la nécessité de disposer d'unités permanentes, spécialisées et mieux organisées. La loi du 30 mars 1912 prévoit alors le regroupement des bataillons de télégraphie militaire au sein d'un régiment unique.",
+      "Le 1ᵉʳ janvier 1913 naît officiellement le 8ᵉ régiment du Génie, installé au Mont-Valérien. Pour la première fois, la France dispose d'une unité entièrement consacrée aux sapeurs-télégraphistes. Son premier chef de corps est le colonel Linder, qui reçoit le drapeau régimentaire des mains du président de la République Raymond Poincaré lors de la revue militaire du 14 juillet 1913.",
+      "Le drapeau porte l'inscription « Maroc 1907-1913 », rappelant l'engagement des télégraphistes lors des opérations marocaines. Cette campagne constitue le premier fait d'armes officiellement inscrit dans les traditions de l'unité.",
+      "Pendant plusieurs décennies, le 8ᵉ régiment du Génie forme les spécialistes des transmissions militaires françaises. Ses traditions, son organisation et son savoir-faire seront directement transmis à l'Arme des Transmissions créée en 1942, ce qui explique pourquoi il est encore aujourd'hui considéré comme son régiment fondateur."
+    ]
   },
   {
-    "section": "Guerres mondiales",
-    "annee": "1914–1918",
-    "titre": "Les Transmissions pendant la Grande Guerre",
-    "texte": "Durant la Première Guerre mondiale, les communications deviennent essentielles à la conduite des opérations. Le 8ᵉ Régiment du Génie développe les réseaux téléphoniques, télégraphiques et radio, assure les interceptions, le chiffrement et les premières écoutes électroniques. Ses effectifs passent d'environ 2 000 hommes à plus de 55 000 en 1918. Pour son engagement exceptionnel, son drapeau est décoré de la Croix de Guerre."
+    "section": "Les guerres mondiales",
+    "annee": "1914-1918",
+    "titre": "Les sapeurs-télégraphistes dans la Grande Guerre",
+    "texte": "Dès août 1914, les transmissions deviennent indispensables à la conduite de la guerre moderne. Les sapeurs-télégraphistes du 8ᵉ régiment du Génie accompagnent les armées sur tous les fronts, assurant les liaisons entre les états-majors et les unités combattantes. Entre télégraphie, téléphonie et télégraphie sans fil, ils adaptent sans cesse leurs moyens pour maintenir le commandement malgré les bombardements et l'évolution du conflit.",
+    "detail": [
+      "Lorsque la Première Guerre mondiale éclate en août 1914, les armées européennes entrent dans un conflit d'une ampleur inédite. La coordination des opérations repose désormais sur la rapidité des communications, faisant des transmissions un élément essentiel du commandement.",
+      "À la mobilisation, les unités du 8ᵉ régiment du Génie sont réparties auprès des corps d'armée, des divisions et des états-majors afin d'assurer les liaisons télégraphiques et téléphoniques. Les sapeurs-télégraphistes installent des milliers de kilomètres de lignes, entretiennent les réseaux et interviennent souvent sous le feu ennemi pour réparer les câbles endommagés par les bombardements.",
+      "Avec l'installation de la guerre des tranchées, les réseaux filaires deviennent particulièrement vulnérables. Pour maintenir les communications, les armées développent progressivement la télégraphie sans fil (TSF), qui permet d'établir des liaisons lorsque la pose de câbles est impossible ou trop dangereuse. Les opérateurs spécialisés participent également aux premières missions d'écoute et d'interception des communications adverses, ouvrant la voie au renseignement électromagnétique.",
+      "Sous l'impulsion du général Gustave Ferrié, les transmissions militaires connaissent un essor considérable tout au long du conflit. En 1918, les formations issues du 8ᵉ régiment du Génie regroupent près de 55 000 hommes, illustrant l'importance prise par les communications dans la guerre moderne. Pour son engagement, le régiment reçoit la Croix de Guerre 1914-1918 et s'impose comme l'héritier direct des futures unités de transmissions."
+    ]
   },
   {
-    "section": "Guerres mondiales",
-    "annee": "1921",
-    "titre": "Gustave Ferrié structure les Transmissions",
-    "texte": "Nommé Inspecteur général des Transmissions, le général Gustave Ferrié poursuit la modernisation des télécommunications militaires françaises. Son action contribue à faire de la radio un outil incontournable des armées et pose les bases de l'organisation moderne des Transmissions."
+    "section": "Les guerres mondiales",
+    "annee": "1919-1939",
+    "titre": "Vers une spécialisation des transmissions",
+    "texte": "Après la Première Guerre mondiale, l'expérience acquise sur le front confirme le rôle essentiel des transmissions dans la conduite des opérations. De nouvelles unités sont créées en métropole comme outre-mer, tandis que la formation des spécialistes se développe. Bien qu'elles appartiennent encore au Génie, les transmissions acquièrent progressivement leur propre organisation, préparant la naissance d'une arme indépendante.",
+    "detail": [
+      "Au lendemain de la Première Guerre mondiale, les transmissions militaires françaises sortent profondément transformées. Le conflit a démontré qu'aucune opération ne peut être conduite sans des communications fiables entre les états-majors et les unités engagées. Les enseignements tirés de quatre années de guerre conduisent l'armée à renforcer durablement cette spécialité.",
+      "Autour du 8ᵉ régiment du Génie, plusieurs nouvelles unités voient le jour afin de répondre aux besoins des forces françaises en métropole, en Allemagne occupée et dans les territoires d'outre-mer. Cette réorganisation accompagne l'évolution des missions de l'armée et témoigne de l'importance croissante des télécommunications militaires.",
+      "La formation suit cette évolution. En 1925, l'École des liaisons et transmissions (ELT) est créée à Versailles afin de préparer les futurs spécialistes aux nouvelles techniques de communication. Dans le même temps, les opérations extérieures, notamment la guerre du Rif au Maroc, offrent aux transmetteurs l'occasion de mettre en œuvre leur savoir-faire dans des environnements difficiles, où la radio complète progressivement les réseaux filaires.",
+      "À la veille de la Seconde Guerre mondiale, plusieurs régiments spécialisés sont désormais en activité. Pourtant, les transmissions demeurent administrativement rattachées au Génie. Cette organisation, héritée du XIXᵉ siècle, montre progressivement ses limites face aux évolutions rapides des technologies et de la guerre moderne."
+    ]
   },
   {
-    "section": "Guerres mondiales",
-    "annee": "1942",
+    "section": "Les guerres mondiales",
+    "annee": "1939-1940",
+    "titre": "Les transmissions face à la guerre moderne",
+    "texte": "À l'aube de la Seconde Guerre mondiale, les transmissions françaises disposent de personnels expérimentés et d'unités spécialisées. Pourtant, la campagne de France de 1940 révèle les limites d'une organisation encore largement héritée de la Première Guerre mondiale. Cette défaite marque un tournant et fait émerger la nécessité de donner aux transmissions une autonomie propre.",
+    "detail": [
+      "Lorsque la Seconde Guerre mondiale éclate en septembre 1939, les transmissions françaises bénéficient de l'expérience acquise depuis la Grande Guerre. Les sapeurs-télégraphistes maîtrisent les réseaux téléphoniques, télégraphiques et radio, mais leur organisation reste intégrée au Génie et largement pensée pour une guerre de positions.",
+      "L'offensive allemande de mai 1940 bouleverse ces repères. La rapidité des opérations, les déplacements constants des unités et les ruptures des réseaux filaires mettent en évidence la nécessité de disposer de moyens radio plus mobiles et d'une organisation plus réactive. Les difficultés rencontrées pour maintenir les liaisons entre les états-majors et les forces engagées soulignent le rôle désormais essentiel des transmissions dans la conduite des opérations.",
+      "Cette campagne constitue un véritable révélateur. Au-delà de la défaite militaire, elle ouvre une réflexion de fond sur la place des transmissions au sein de l'armée française. Pour répondre aux exigences de la guerre moderne, elles devront disposer de leurs propres doctrines, de leurs moyens et de leur organisation."
+    ]
+  },
+  {
+    "section": "Les guerres mondiales",
+    "annee": "1940-1942",
+    "titre": "Préserver les savoir-faire dans l'ombre",
+    "texte": "Après l'armistice de 1940, les transmissions connaissent une période de profond bouleversement. Malgré les restrictions imposées à l'armée française, plusieurs unités et centres spécialisés poursuivent discrètement leurs activités. En préservant les compétences techniques et les traditions des transmetteurs, ils préparent la renaissance de l'Arme des Transmissions.",
+    "detail": [
+      "L'armistice de juin 1940 entraîne une profonde réorganisation de l'armée française. Les effectifs sont réduits et de nombreuses unités disparaissent. Malgré ce contexte, les spécialistes des transmissions s'attachent à préserver leurs compétences et leurs moyens techniques.",
+      "En zone libre, plusieurs structures continuent officiellement leurs activités de formation, d'exploitation des réseaux ou de contrôle radioélectrique. Certaines contribuent également, dans la discrétion, à maintenir les savoir-faire indispensables aux communications militaires et à préparer leur avenir.",
+      "Cette période est aussi marquée par l'engagement d'hommes qui poursuivent leur mission malgré les risques. Plusieurs officiers des transmissions sont arrêtés ou exécutés pour leurs activités clandestines, tandis que d'autres seront déportés. Leur action permet de préserver l'héritage des sapeurs-télégraphistes jusqu'à la réorganisation de l'armée."
+    ]
+  },
+  {
+    "section": "Les guerres mondiales",
+    "annee": "1ᵉʳ juin 1942",
     "titre": "Naissance de l'Arme des Transmissions",
-    "texte": "Le 1ᵉʳ juin 1942, au sein des Forces françaises libres, les Transmissions deviennent officiellement une Arme indépendante. Cette décision, portée par le général Charles de Gaulle et mise en œuvre avec le général Lucien Merlin, reconnaît le rôle stratégique des télécommunications militaires. L'Arme adopte alors ses traditions, son bleu de ciel distinctif et son emblème au Tau accompagné des foudres."
+    "texte": "Le 1ᵉʳ juin 1942, les transmissions deviennent officiellement une arme autonome de l'armée française. Héritière des sapeurs-télégraphistes du Génie, cette nouvelle Arme reconnaît le rôle stratégique des communications dans la conduite des opérations et affirme une identité qui perdure encore aujourd'hui.",
+    "detail": [
+      "Depuis la fin du XIXᵉ siècle, les transmissions occupent une place croissante dans les opérations militaires. Du télégraphe à la radio, les progrès techniques et les expériences acquises lors des conflits ont progressivement démontré que les communications sont devenues indispensables au commandement.",
+      "Par le décret du 4 mai 1942, applicable au 1ᵉʳ juin 1942, les transmissions quittent officiellement le Génie pour former une arme indépendante. Cette décision leur donne une organisation, une instruction et une administration propres, consacrant plusieurs décennies d'évolution technique et opérationnelle.",
+      "La nouvelle Arme reprend les traditions des sapeurs-télégraphistes, notamment celles du 8ᵉ régiment du Génie, considéré comme son régiment fondateur. Elle adopte progressivement ses symboles, dont saint Gabriel comme saint patron, et affirme une vocation résumée par une devise devenue emblématique : « l'arme qui unit les armes »."
+    ]
   },
   {
-    "section": "Guerre froide",
-    "annee": "1947",
-    "titre": "Création de l'École des Transmissions",
-    "texte": "Après la Seconde Guerre mondiale, l'armée crée à Montargis l'École des Transmissions, chargée de former les officiers, sous-officiers et spécialistes de cette nouvelle Arme. L'établissement devient rapidement le centre de référence pour l'enseignement des techniques de communication militaire."
+    "section": "Les guerres mondiales",
+    "annee": "1942-1943",
+    "titre": "Reconstruire les transmissions et accueillir les Merlinettes",
+    "texte": "Après le débarquement allié en Afrique du Nord, les transmissions françaises se réorganisent pour reprendre le combat. Sous l'impulsion du général Lucien Merlin, les unités sont modernisées et rééquipées. Cette période voit également la création du Corps féminin des transmissions : les « Merlinettes », premières femmes militaires françaises à exercer des fonctions opérationnelles dans les transmissions.",
+    "detail": [
+      "Le débarquement allié en Afrique du Nord, en novembre 1942, marque un tournant pour les forces françaises. Les unités de transmissions sont progressivement réorganisées afin d'accompagner la reconstruction de l'armée aux côtés des Alliés. Grâce aux nouveaux équipements, notamment américains, elles retrouvent rapidement une capacité opérationnelle et préparent les futures campagnes de Libération.",
+      "Cette réorganisation est conduite par le général Lucien Merlin, qui joue un rôle majeur dans la renaissance de l'Arme des Transmissions. Les compagnies sont restructurées pour soutenir les corps d'armée, les divisions et les régiments appelés à reprendre les combats en Afrique puis en Europe.",
+      "L'année 1943 est également marquée par la création du Corps féminin des transmissions (CFT). Formées près d'Alger, les volontaires deviennent opératrices radio, téléphonistes ou chiffreuses. Rapidement surnommées les « Merlinettes », elles participent aux campagnes de Tunisie, d'Italie, de Provence puis d'Allemagne. Leur engagement ouvre une nouvelle page dans l'histoire des transmissions militaires françaises."
+    ]
   },
   {
-    "section": "Guerre froide",
-    "annee": "1969",
-    "titre": "L'École d'Application des Transmissions",
-    "texte": "L'École d'Application des Transmissions (EAT) est créée afin d'assurer la formation des cadres aux technologies de la guerre froide. Les enseignements portent notamment sur les faisceaux hertziens, les réseaux tactiques, l'électronique et les nouveaux systèmes de commandement."
+    "section": "Les guerres mondiales",
+    "annee": "1943-1944",
+    "titre": "Les transmissions accompagnent la reconquête",
+    "texte": "Engagées en Italie puis en Corse, les unités de transmissions accompagnent les forces françaises dans des opérations particulièrement exigeantes. En terrain montagneux comme lors des débarquements, elles assurent les liaisons indispensables au commandement et démontrent que la mobilité des communications est devenue un facteur essentiel de la victoire.",
+    "detail": [
+      "À partir de la fin de l'année 1943, les unités de transmissions rejoignent le Corps expéditionnaire français engagé en Italie. Dans un relief particulièrement difficile, elles mettent en œuvre des réseaux téléphoniques de campagne et des postes radio permettant aux états-majors de conserver le contact avec les unités engagées.",
+      "Lors des combats du Monte Cassino, les transmetteurs assurent la continuité des communications malgré les bombardements, les déplacements des troupes et les contraintes du terrain. Leur action contribue directement à la coordination des offensives alliées qui permettent la percée de la ligne Gustav au printemps 1944.",
+      "Les spécialistes des transmissions participent également à la libération de la Corse, premier territoire français libéré. En déployant rapidement des réseaux de communication, ils facilitent la progression des forces françaises et la coordination des opérations sur l'île."
+    ]
   },
   {
-    "section": "Guerre froide",
-    "annee": "1979",
-    "titre": "Le système RITA révolutionne les communications",
-    "texte": "L'armée française met en service le RITA (Réseau Intégré des Transmissions Automatiques), premier réseau tactique numérique de grande ampleur. Grâce à ses capacités de commutation automatique, de chiffrement et de mobilité, il constitue une avancée majeure et servira de référence au développement du système américain MSE."
+    "section": "Les guerres mondiales",
+    "annee": "1944-1945",
+    "titre": "Les transmetteurs au cœur de la Libération",
+    "texte": "Du débarquement de Provence jusqu'en Allemagne, les transmetteurs accompagnent l'avance des forces françaises. Ils installent de nouveaux réseaux, réparent les infrastructures détruites et assurent les liaisons entre les états-majors et les unités combattantes. Leur action permet au commandement de suivre le rythme d'une guerre redevenue mobile.",
+    "detail": [
+      "Le 15 août 1944, les forces alliées débarquent en Provence dans le cadre de l'opération Dragoon. Les unités de transmissions accompagnent l'armée française du général Jean de Lattre de Tassigny tout au long de sa progression vers le nord.",
+      "À mesure que les villes sont libérées, les transmetteurs déploient de nouveaux réseaux téléphoniques, remettent en état les infrastructures endommagées et assurent les liaisons radio entre les états-majors et les unités en mouvement. Contrairement aux combats de 1914-1918, les communications doivent désormais suivre une progression rapide sur plusieurs centaines de kilomètres.",
+      "Les Merlinettes prennent elles aussi part à cette campagne en assurant des fonctions essentielles au sein des états-majors. Après la libération de Toulon et de Marseille, les forces françaises poursuivent leur avance jusqu'au Rhin, puis en Allemagne, où les transmetteurs contribuent au maintien du commandement jusqu'à la victoire de 1945."
+    ]
   },
   {
-    "section": "Ère numérique",
-    "annee": "1990",
-    "titre": "Les Transmissions en opérations extérieures",
-    "texte": "Avec la professionnalisation des armées, les régiments de Transmissions accompagnent les forces françaises sur tous les théâtres d'opérations : Golfe, Balkans, Afrique ou Afghanistan. Les réseaux satellitaires, les transmissions numériques et les systèmes d'information prennent une place croissante dans la conduite des opérations."
+    "section": "Reconstruction et décolonisation",
+    "annee": "1945-1947",
+    "titre": "Transmettre dans un monde en reconstruction",
+    "texte": "À la fin de la Seconde Guerre mondiale, les transmissions accompagnent la réorganisation de l'armée française. Les réseaux sont modernisés, les unités se réorganisent et les enseignements du conflit conduisent à adapter la formation comme les matériels. Une nouvelle période d'innovations s'ouvre pour répondre aux défis de l'après-guerre.",
+    "detail": [
+      "La capitulation de l'Allemagne en mai 1945 ne marque pas la fin des missions des transmetteurs. Les unités participent au maintien des communications au sein des forces d'occupation et accompagnent la réorganisation de l'armée française dans un contexte international profondément transformé. Les matériels développés pendant le conflit, notamment les équipements radio, deviennent progressivement la norme au sein des unités.",
+      "L'expérience acquise pendant la guerre conduit également à faire évoluer l'organisation des transmissions. Les réseaux doivent être plus rapides, plus fiables et capables d'accompagner des forces toujours plus mobiles. Les formations sont adaptées afin de préparer les spécialistes aux nouvelles technologies issues des avancées de la Seconde Guerre mondiale.",
+      "Cette période voit enfin les transmissions s'affirmer durablement comme une Arme à part entière. Les savoir-faire développés depuis la fin du XIXᵉ siècle trouvent désormais pleinement leur place au cœur du commandement des forces françaises."
+    ]
   },
   {
-    "section": "Ère numérique",
-    "annee": "2000",
-    "titre": "La numérisation du champ de bataille",
-    "texte": "L'arrivée du Système d'Information et de Commandement des Forces (SICF) transforme la conduite des opérations. Les communications deviennent entièrement numériques, permettant un échange rapide, sécurisé et coordonné des informations entre les unités engagées."
+    "section": "Reconstruction et décolonisation",
+    "annee": "1947-1962",
+    "titre": "Les transmissions au cœur des conflits de décolonisation",
+    "texte": "Engagées en Indochine puis en Afrique du Nord, les unités de transmissions doivent assurer les liaisons dans des territoires vastes et difficiles d'accès. Ces conflits accélèrent le développement des moyens radio et font évoluer les méthodes de commandement.",
+    "detail": [
+      "Les guerres d'Indochine puis d'Afrique du Nord confrontent les transmetteurs à des conditions d'emploi particulièrement exigeantes. Les opérations se déroulent souvent dans des régions dépourvues d'infrastructures de communication fiables, obligeant les armées à s'appuyer principalement sur les moyens radio.",
+      "Au plus près des unités engagées, les transmissions assurent le lien entre les postes de commandement, les forces sur le terrain et les appuis aériens. Les matériels doivent être adaptés à la mobilité des opérations : ils deviennent progressivement plus robustes, plus autonomes et plus faciles à déployer.",
+      "Ces expériences contribuent à transformer l'organisation des transmissions françaises. Les enseignements tirés de ces conflits préparent une nouvelle génération de systèmes de communication, conçus pour répondre aux exigences d'une armée moderne."
+    ]
   },
   {
-    "section": "Ère numérique",
-    "annee": "2010-2020",
-    "titre": "Les Transmissions à l'ère numérique",
-    "texte": "Les régiments de Transmissions mettent en œuvre les radios logicielles CONTACT, les satellites SYRACUSE IV, les réseaux IP tactiques et les capacités de cyberdéfense. Aujourd'hui, ils assurent les communications sécurisées indispensables aux opérations interarmées et multinationales, tout en répondant aux nouveaux défis du combat collaboratif et de la menace cyber."
+    "section": "Guerre froide et modernisation",
+    "annee": "Années 1960",
+    "titre": "L'électronique transforme les transmissions",
+    "texte": "L'arrivée du transistor et des premiers composants électroniques bouleverse les équipements militaires. Plus compacts, plus fiables et moins énergivores, les nouveaux matériels ouvrent la voie aux réseaux de communication modernes.",
+    "detail": [
+      "À partir des années 1960, les progrès de l'électronique marquent une rupture majeure dans l'histoire des transmissions. Le remplacement progressif des technologies anciennes par des composants plus petits et plus performants permet de concevoir des équipements plus légers, plus résistants et mieux adaptés aux opérations mobiles.",
+      "Les postes radio gagnent en autonomie et en fiabilité, tandis que les réseaux évoluent pour répondre aux besoins croissants des états-majors. Les communications ne reposent plus seulement sur des liaisons ponctuelles : elles deviennent un élément essentiel de la coordination des forces.",
+      "Cette transformation accompagne la modernisation des armées françaises dans le contexte de la guerre froide et prépare l'apparition de systèmes de communication entièrement intégrés."
+    ]
+  },
+  {
+    "section": "Guerre froide et modernisation",
+    "annee": "Années 1970",
+    "titre": "Vers des réseaux automatisés",
+    "texte": "Avec le développement de l'informatique et des télécommunications, les transmissions militaires entrent dans l'ère des réseaux automatisés. Les échanges deviennent plus rapides, plus sûrs et mieux adaptés aux besoins du commandement moderne.",
+    "detail": [
+      "Au cours des années 1970, les transmissions connaissent une nouvelle évolution avec l'introduction progressive de l'informatique. Les systèmes deviennent capables de gérer automatiquement les communications et d'assurer des échanges plus rapides entre les différents niveaux de commandement.",
+      "Les armées recherchent désormais des réseaux capables de fonctionner en permanence, de résister aux perturbations et de s'adapter aux mouvements des forces sur le terrain. La radio, la téléphonie et les premiers systèmes informatiques commencent à être associés au sein d'architectures communes.",
+      "Cette période voit apparaître une nouvelle conception des transmissions : il ne s'agit plus seulement de transmettre un message, mais de construire un véritable système d'information au service des opérations."
+    ]
+  },
+  {
+    "section": "Guerre froide et modernisation",
+    "annee": "1985",
+    "titre": "RITA, le réseau qui transforme le champ de bataille",
+    "texte": "Mis en service dans les années 1980, le Réseau Intégré des Transmissions Automatiques (RITA) modernise les communications tactiques françaises. Mobile, automatisé et sécurisé, il permet aux forces de conserver des liaisons fiables dans toutes les conditions d'engagement.",
+    "detail": [
+      "Développé pendant la guerre froide, RITA répond aux nouveaux besoins des forces terrestres : disposer d'un réseau capable d'accompagner les unités en mouvement tout en garantissant la continuité du commandement.",
+      "Contrairement aux anciens systèmes composés de liaisons indépendantes, RITA fonctionne comme un véritable réseau intégré. Grâce à l'association de faisceaux hertziens, de centraux automatiques et de moyens radio, il permet d'établir rapidement des communications entre les différents postes de commandement.",
+      "Sa conception modulaire lui permet de s'adapter aux opérations et de maintenir les échanges même en cas de rupture d'une liaison. Utilisé pendant plusieurs décennies sur les théâtres d'opérations extérieurs, RITA symbolise le passage vers les réseaux militaires modernes et préfigure les systèmes de communication numériques actuels."
+    ]
+  },
+  {
+    "section": "Guerre froide et modernisation",
+    "annee": "1984-1993",
+    "titre": "Maîtriser les ondes : l'ère de la guerre électronique",
+    "texte": "Dans les années 1980, les transmissions deviennent un enjeu stratégique majeur de la Guerre froide. Les armées ne doivent plus seulement transmettre des informations, mais aussi protéger leurs communications et contrôler le spectre électromagnétique. Avec le développement de la guerre électronique et l'évolution des forces françaises, les transmetteurs adaptent leurs moyens aux nouvelles exigences des opérations modernes.",
+    "detail": [
+      "Les progrès technologiques transforment profondément les missions des transmissions. La maîtrise de l'information devient essentielle : il faut assurer la sécurité des communications françaises, surveiller celles de l'adversaire et exploiter les émissions électromagnétiques à des fins de renseignement.",
+      "En 1984, les capacités de guerre électronique sont renforcées avec la création du 54ᵉ régiment de transmissions, aux côtés du 44ᵉ régiment de transmissions déjà spécialisé dans ce domaine. Les transmetteurs deviennent ainsi des acteurs majeurs de la maîtrise du champ électromagnétique.",
+      "Cette période voit également la création de la Force d'Action Rapide (FAR), qui impose de nouvelles contraintes : les moyens de communication doivent être mobiles, rapidement déployables et capables d'accompagner des opérations interarmées.",
+      "À la fin de la Guerre froide, la réorganisation des forces françaises entraîne une transformation profonde des transmissions. La réduction des implantations en Allemagne et la dissolution de plusieurs unités annoncent l'entrée dans une nouvelle époque, marquée par des forces plus réduites mais davantage tournées vers la projection extérieure."
+    ]
+  },
+  {
+    "section": "L'ère numérique",
+    "annee": "1994",
+    "titre": "Réorganiser les transmissions pour les nouveaux engagements",
+    "texte": "Après la fin de la Guerre froide, l'armée française transforme son organisation. En 1994, la création de la brigade de transmissions regroupe les moyens de l'Arme pour répondre aux nouveaux besoins : projection rapide des forces, opérations extérieures et coopération internationale.",
+    "detail": [
+      "La disparition de la menace soviétique entraîne une profonde réorganisation des armées. Le modèle fondé sur de grandes unités stationnées en Europe laisse place à une force plus mobile, capable d'intervenir rapidement sur différents théâtres d'opérations.",
+      "Les transmissions doivent s'adapter à ces nouvelles missions. Elles doivent fournir des moyens de communication fiables, déployables rapidement et capables de fonctionner dans un cadre interarmées et multinational.",
+      "Créée en 1994 à Lille, la brigade de transmissions rassemble plusieurs régiments afin de renforcer la capacité de soutien aux forces engagées. Cette nouvelle organisation permet de mieux coordonner les moyens de l'Arme et accompagne la transformation de l'armée française.",
+      "La même période marque également une évolution des structures de formation et de soutien technique. Le regroupement progressif des écoles autour de Cesson-Sévigné et la création du Centre national de soutien spécialisé des transmissions (CNSST) témoignent de cette volonté de moderniser l'organisation des transmissions.",
+      "Cette réorganisation prépare l'Arme aux engagements du XXIᵉ siècle, où la maîtrise des communications devient indispensable à la conduite des opérations."
+    ]
+  },
+  {
+    "section": "L'ère numérique",
+    "annee": "1998-2011",
+    "titre": "Une nouvelle armée, de nouveaux défis pour les transmissions",
+    "texte": "La professionnalisation des armées et la fin de la Guerre froide transforment profondément l'organisation militaire française. Les transmissions se réorganisent autour de forces plus réduites, plus mobiles et davantage tournées vers les opérations extérieures.",
+    "detail": [
+      "À partir de 1998, la réforme « Armées 2000 » marque une nouvelle étape dans la transformation des forces françaises. La disparition de la menace soviétique et l'évolution des engagements militaires entraînent une réduction du format des armées.",
+      "Pour les transmissions, cette période met fin au modèle hérité de la Guerre froide. Les grandes structures conçues pour un affrontement massif en Europe disparaissent progressivement au profit d'unités plus souples, capables d'être rapidement projetées.",
+      "La dissolution du 3ᵉ corps d'armée et de la Force d'Action Rapide accompagne cette réorganisation. Les régiments de transmissions sont regroupés et leurs missions évoluent pour répondre aux besoins des opérations modernes.",
+      "Les compagnies de transmissions intégrées aux anciennes divisions disparaissent progressivement, remplacées par des unités adaptées aux nouvelles brigades. Les transmissions ne doivent plus seulement assurer des liaisons permanentes : elles doivent accompagner des forces engagées sur des théâtres d'opérations variés.",
+      "En 2002, la brigade de transmissions devient la brigade de transmissions et d'appui au commandement (BTAC), affirmant un rôle élargi dans le fonctionnement des états-majors et la conduite des opérations.",
+      "Cette période est également marquée par la dissolution de plusieurs régiments historiques et la concentration des moyens au sein des unités restantes. L'Arme des Transmissions entre ainsi dans une nouvelle ère, centrée sur la mobilité, la projection et la maîtrise des systèmes d'information."
+    ]
+  },
+  {
+    "section": "L'ère numérique",
+    "annee": "2014",
+    "titre": "Des transmissions aux systèmes d'information et de communication",
+    "texte": "Avec la généralisation du numérique, les communications militaires deviennent des systèmes complexes mêlant réseaux, informatique et télécommunications. En 2014, l'intégration des structures de l'armée de terre au sein de la DIRISI marque une nouvelle étape : les transmissions deviennent pleinement un acteur des systèmes d'information des armées.",
+    "detail": [
+      "Depuis la fin du XXᵉ siècle, les communications militaires ont profondément évolué. Elles ne reposent plus uniquement sur la radio ou la téléphonie, mais sur des réseaux numériques capables de transporter en temps réel des données, des images et des informations opérationnelles.",
+      "Pour répondre à cette complexité croissante, la Défense française regroupe progressivement ses moyens au sein de la Direction interarmées des réseaux d'infrastructure et des systèmes d'information (DIRISI), devenue l'opérateur unique des réseaux et services numériques du ministère des Armées.",
+      "En 2014, l'intégration des dernières structures de l'armée de terre achève cette transformation. Les missions historiques des transmissions demeurent : garantir les communications, soutenir le commandement et assurer la disponibilité des réseaux.",
+      "Mais les métiers évoluent. Les transmetteurs travaillent désormais dans des domaines comme les systèmes d'information, les réseaux sécurisés et la cybersécurité.",
+      "Cette évolution illustre le passage d'une Arme fondée sur la transmission des messages à une capacité essentielle de maîtrise de l'information, indispensable aux opérations militaires modernes."
+    ]
+  },
+  {
+    "section": "L'ère numérique",
+    "annee": "2016",
+    "titre": "Vers l'armée connectée : les transmissions au cœur du combat collaboratif",
+    "texte": "En 2016, l'armée de terre adopte le modèle « Au Contact » et engage la modernisation de ses forces avec le programme Scorpion. Les transmissions deviennent un élément essentiel du combat collaboratif, en permettant aux unités d'échanger des informations en temps réel sur le champ de bataille.",
+    "detail": [
+      "Les opérations militaires modernes reposent de plus en plus sur la rapidité de circulation de l'information. Les forces doivent pouvoir partager une vision commune de la situation et coordonner leurs actions dans des environnements complexes.",
+      "Le modèle « Au Contact », lancé en 2016, adapte l'armée de terre à ces nouveaux besoins. Il renforce la place des systèmes d'information et de communication au cœur des opérations.",
+      "Cette évolution accompagne le programme Scorpion, qui vise à numériser le combat terrestre. Les véhicules, les unités et les postes de commandement sont désormais connectés afin d'améliorer la connaissance du terrain et la rapidité de décision.",
+      "Les transmissions jouent un rôle central dans cette transformation : elles assurent la circulation des données, la continuité des échanges et la sécurisation des réseaux.",
+      "La création du Commandement des systèmes d'information et de communication (COMSIC) à Cesson-Sévigné en 2016 illustre cette nouvelle place accordée au numérique dans les armées.",
+      "Avec cette évolution, les transmetteurs ne sont plus seulement les spécialistes de la liaison : ils deviennent des acteurs essentiels de la supériorité informationnelle et du combat connecté."
+    ]
+  },
+  {
+    "section": "L'ère numérique",
+    "annee": "2020-2024",
+    "titre": "Du réseau tactique au cyberespace : les transmissions au cœur du combat numérique",
+    "texte": "Face au retour des affrontements de haute intensité et à l'augmentation des menaces numériques, l'armée de Terre poursuit sa transformation. Les transmissions évoluent vers un domaine plus large, associant réseaux, systèmes d'information et cyberdéfense. La création du CATNC, de la BANC et l'évolution de l'École des transmissions vers l'ETNC illustrent cette nouvelle étape : maîtriser l'information devient une condition essentielle de la supériorité militaire.",
+    "detail": [
+      "Au début des années 2020, les forces armées évoluent dans un environnement où les affrontements se jouent aussi dans le domaine numérique. Les communications, les données et les systèmes d'information deviennent des éléments essentiels de la conduite des opérations.",
+      "Les transmissions ne se limitent plus à assurer une liaison entre deux unités. Elles permettent désormais de connecter les forces, partager une vision commune du terrain et protéger les échanges face aux actions adverses.",
+      "Cette évolution accompagne la transformation de l'armée de Terre vers une force capable d'agir dans des environnements complexes et connectés.",
+      "En 2024, la création du Commandement de l'appui terrestre numérique et cyber (CATNC) marque une nouvelle étape. Il succède au COMSIC et affirme l'importance croissante du numérique dans la préparation et la conduite des opérations.",
+      "La création de la Brigade d'appui numérique et cyber (BANC) renforce cette capacité en regroupant des moyens dédiés au soutien numérique des forces terrestres.",
+      "La même année, l'École des transmissions devient l'École des transmissions, du numérique et du cyber (ETNC). Installée à Cesson-Sévigné, elle adapte la formation des spécialistes aux nouveaux enjeux : réseaux, systèmes d'information et cybersécurité.",
+      "Du télégraphe aux réseaux numériques, l'histoire des transmissions illustre une même mission : permettre aux forces de communiquer, de partager l'information et d'agir ensemble."
+    ]
   }
 ]

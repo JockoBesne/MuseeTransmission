@@ -32,6 +32,18 @@ const LOOP_LEN = EVENTS.length + 1
    React à chaque frame de défilement). */
 const IN_CLASS = 'tl-event--in'
 
+/* Ajustement de la taille du texte, jalon par jalon (bornes en vh).
+   Les textes du musée vont du simple au double (environ 220 à 470 signes)
+   pour une carte de hauteur fixe : à taille unique, c'est le jalon le plus
+   long qui impose la taille et toutes les autres cartes sonnent creux.
+   On cherche donc pour chaque jalon la plus grande taille qui tient encore.
+   FS_MAX borne l'écart entre deux cartes voisines, sinon la frise perd son
+   unité. Le calcul n'a lieu qu'une fois au montage : tout étant en vh, le
+   résultat reste valable quelle que soit l'échelle Windows de la borne. */
+const FS_MIN = 1.126 // vh — plancher : la taille fixe d'avant l'ajustement
+const FS_MAX = 1.6   // vh
+const FS_STEP = 0.05
+
 export default function Timeline() {
   const [activeSection, setActiveSection] = useState(0)
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
@@ -134,6 +146,50 @@ export default function Timeline() {
       if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     }
   }, [tick])
+
+  /* Taille du texte ajustée à chaque carte (voir FS_MIN/FS_MAX).
+     Mesurer avant que Raleway et Nunito soient chargées donnerait les
+     métriques de la police de repli : on attend `document.fonts.ready`. */
+  useEffect(() => {
+    let annule = false
+    document.fonts.ready.then(() => {
+      if (annule) return
+      for (let i = 0; i < EVENTS.length; i++) {
+        const jalon = itemRefs.current[i]
+        const carte = jalon?.querySelector<HTMLElement>('.tl-card')
+        const emplacement = carte?.parentElement
+        if (!jalon || !carte || !emplacement) continue
+
+        /* La carte n'est pas contrainte en hauteur (min-height:auto sur les
+           items de grille) : elle grandit avec son contenu. Elle tient donc
+           tant qu'elle ne dépasse pas la place laissée dans la ligne. */
+        const dispo = jalon.clientHeight - parseFloat(getComputedStyle(emplacement).paddingTop) * 2
+        const tient = () => carte.getBoundingClientRect().height <= dispo + 0.5
+
+        /* Recherche dichotomique. Si le jalon ne tient déjà pas au plancher,
+           on l'y laisse : c'est le comportement d'avant l'ajustement. */
+        let bas = FS_MIN
+        carte.style.setProperty('--tl-fs', `${FS_MIN}vh`)
+        if (tient()) {
+          let haut = FS_MAX
+          while (haut - bas > FS_STEP) {
+            const milieu = (bas + haut) / 2
+            carte.style.setProperty('--tl-fs', `${milieu}vh`)
+            if (tient()) bas = milieu
+            else haut = milieu
+          }
+        }
+
+        const taille = `${(Math.floor(bas / FS_STEP) * FS_STEP).toFixed(2)}vh`
+        carte.style.setProperty('--tl-fs', taille)
+        /* La seconde copie de la boucle affiche les mêmes jalons. */
+        itemRefs.current[LOOP_LEN + i]
+          ?.querySelector<HTMLElement>('.tl-card')
+          ?.style.setProperty('--tl-fs', taille)
+      }
+    })
+    return () => { annule = true }
+  }, [])
 
   /* Animations d'entrée : chaque jalon reçoit la classe quand il entre
      dans la zone visible, la perd quand il en sort (rejouées en boucle). */
