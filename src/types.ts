@@ -47,6 +47,30 @@ export interface City {
   entites: Unite[]
 }
 
+/** Traduction d'une unité (src/data/villes_en.json) : uniquement des champs
+    de texte. villes.json reste seul maître de la structure de la carte —
+    coordonnées, `labelDir`, pucelles et fichiers médias. Un champ absent
+    laisse le texte français en place. */
+export type UniteTraduite = Partial<
+  Pick<
+    Unite,
+    'regiment' | 'abrege' | 'texte' | 'histoire' | 'specificite' | 'garnison' | 'photoDescription'
+  >
+> & {
+  /** Légendes des `medias`, dans l'ordre de villes.json (null = non traduite). */
+  legendes?: (string | null)[]
+}
+
+/** Traductions d'une ville : `entites` suit l'ordre des unités de villes.json
+    (null ou entrée manquante = unité laissée en français). */
+export interface VilleTraduite {
+  entites: (UniteTraduite | null)[]
+}
+
+/** Calque de traduction de la carte, indexé par le `nom` des villes de
+    villes.json (src/data/villes_en.json). */
+export type VillesTraduction = Record<string, VilleTraduite>
+
 /** Propriétés d'une zone de regroupement de la carte
     (src/data/regions-zones.json : délimitations régionales tactiles). */
 export interface ZoneProps {

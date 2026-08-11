@@ -52,7 +52,22 @@ veille (`INACTIVITY_MS` : sans interaction pendant 3 min, retour automatique
     `labelDir` contrôle la position de l'étiquette (placement automatique
     avec évitement de collisions si la direction préférée est prise). Une
     ville porte une liste `entites` (plusieurs unités possibles sur un même
-    point). Les secteurs trop denses sont délimités par les polygones de
+    point). Bilingue : contrairement à la frise, `src/data/villes_en.json`
+    n'est **pas** une copie de `villes.json` mais un **calque de textes**
+    anglais (types `UniteTraduite`/`VillesTraduction`), indexé par le `nom`
+    de la ville, ses `entites` suivant l'ordre de `villes.json` ; la fusion
+    se fait au chargement (fonction `traduire` dans `InteractiveMap.tsx`).
+    `villes.json` reste donc la seule source de la structure — coordonnées,
+    `labelDir`, pucelles, fichiers `medias` — et une ville ajoutée ou
+    corrigée côté français apparaît aussitôt sur la carte anglaise, avec ses
+    textes français tant qu'ils ne sont pas traduits (jamais de ville
+    manquante en anglais). Champs traduisibles : `regiment`, `abrege`,
+    `texte`, `histoire`, `specificite`, `garnison`, `photoDescription`, plus
+    `legendes[]` (légendes des `medias`, dans l'ordre) ; champ absent = texte
+    français conservé. Les onglets de la pop-up sont classés par échelon
+    (`ECHELONS` dans `CardDialog.tsx`) : ajouter le mot-clé dans les deux
+    langues à toute nouvelle catégorie. Les secteurs trop denses sont
+    délimités par les polygones de
     `src/data/regions-zones.json` (GeoJSON `Polygon`, type `ZoneProps`) :
     en vue d'ensemble, leurs villes sont masquées et la zone (pointillés
     orange translucides + nom) est tactile — la toucher anime le viewBox
@@ -183,7 +198,9 @@ musée est nécessaire.
   (Cesson-Sévigné) — contenu encore à faire valider par le musée.
 - Corriger le contenu des « régiments de transmissions » de `villes.json` :
   numéros/noms d'unités erronés à rectifier d'après la liste validée par le
-  musée (données historiques — ne rien inventer).
+  musée (données historiques — ne rien inventer). Reporter ensuite la
+  correction dans `villes_en.json` : sans ça, la fiche reste affichée en
+  anglais avec l'ancien texte traduit (le calque l'emporte sur le français).
 - `villes.json` : les deux `medias` du 8e RT / Paris (villes.json:298 et 303)
   sont des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de
   vrais fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne

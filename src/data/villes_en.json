@@ -1,30 +1,398 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "nom": "Douai",
-        "labelDir": "bottom",
-        "entites": [
-          {
-            "regiment": "41st Transmission Regiment (41e RT)",
-            "texte": "\"Beyond lands and the Ocean\"",
-            "histoire": "Heir to the troops of the Army of Africa, the 41st Transmission Regiment traces its roots to Morocco as early as 1907 (the Chaouïa campaign), then from 1920 (the pacification campaign). From 1942, its companies took part in the campaigns of the Liberation (four Croix de Guerre; battle honours Tunisia, Italy, Germany). It took part in the Indochina conflict (battle honour \"Indochina\"). Returning to mainland France in 1966, it became the government's transmissions unit. Based in Douai since 2010.",
-            "specificite": "The only French Army regiment based in the Hauts-de-France region, the \"Régiment des Corons\" (Regiment of the Corons). Made up of 6 active companies, it maintains a substantial operational reserve (an intervention unit, a traffic and escort squadron) and expertise in information and communication systems (ICS), headquarters support and movement support. Affiliated with the Rapid Reaction Corps – France (CRR-Fr) since 2024.",
-            "garnison": "59500 Douai (Nord, France) — Corbineau Barracks.",
-            "photo": "/pucelles/41e-rt.png",
-            "photoDescription": "Insignia bearing emblems of the Army of Africa; mascot Mansour III, an alpine goat."
-          }
+  "Issoire": {
+    "entites": [
+      {
+        "regiment": "28th Transmission Regiment (28e RT)",
+        "texte": "\"Act swiftly and well\"",
+        "histoire": "A regiment with a prestigious past, the 28th Transmission Regiment is the heir to the traditions of the telegraph sappers of the 28th Engineer Battalion, created in April 1914. Holder of 12 citations at army level, it wears the fourragères in the colours of the Croix de Guerre 1914-1918 and of the Médaille militaire. Part of the Transmissions branch since 1 November 1945, it took part in the Indochina campaign (battle honour \"Indochina 1945-1954\"). Its flag was decorated on 12 December 2014 with the Croix de la valeur militaire for its action during Operation SERVAL in Mali in 2013.",
+        "specificite": "A unit of the Digital and Cyber Support Brigade (BANC), based in Issoire since 1998. It deploys the information and communication systems (ICS) that command needs to conduct combined-arms and joint manoeuvre in a multinational environment.",
+        "garnison": "63505 Issoire (Puy-de-Dôme, France) — de Bange Barracks.",
+        "photoDescription": "Insignia bearing the \"T\" of the Transmissions on a shield, with a dove and lightning bolts, and the number 28."
+      }
+    ]
+  },
+
+  "Thionville": {
+    "entites": [
+      {
+        "regiment": "40th Transmission Regiment (40e RT)",
+        "texte": "\"Who looks upon me bows down\"",
+        "histoire": "The 40th Transmission Regiment has its roots in the creation, on 1 April 1951, of the 40th Transmission Battalion (BT) in Freiburg (Federal Republic of Germany). In 1956 it became the 709th BT when it left for Algeria. The 40th Transmission Company, created in Koblenz in 1958, was disbanded in 1969. The 40th Transmission Regiment was created on 1 November 1969 in Neustadt and received its flag on 27 May 1970. It has been stationed in the Thionville garrison since 1984 (Jeanne d'Arc Barracks).",
+        "specificite": "A unit of the Digital and Cyber Support Brigade (BANC), affiliated with the 3rd Division in Marseille. Made up of 5 information and communication systems (ICS) companies, a command and logistics company (CCL) and a reserve company, it deploys ICS and supports the major exercises that prepare units for alert duty.",
+        "garnison": "57216 Thionville (Moselle, France) — Jeanne d'Arc Barracks.",
+        "photoDescription": "Insignia bearing the \"T\" of the Transmissions and two lions, and the number 40 (echoed by the motto)."
+      }
+    ]
+  },
+
+  "Douai": {
+    "entites": [
+      {
+        "regiment": "41st Transmission Regiment (41e RT)",
+        "texte": "\"Beyond lands and the Ocean\"",
+        "histoire": "Heir to the troops of the Army of Africa, the 41st Transmission Regiment traces its roots to Morocco as early as 1907 (the Chaouïa campaign), then from 1920 (the pacification campaign). From 1942, its companies took part in the campaigns of the Liberation (four Croix de Guerre; battle honours Tunisia, Italy, Germany). It took part in the Indochina conflict (battle honour \"Indochina\"). Returning to mainland France in 1966, it became the government's transmissions unit. Based in Douai since 2010.",
+        "specificite": "The only French Army regiment based in the Hauts-de-France region, the \"Régiment des Corons\" (Regiment of the Corons). Made up of 6 active companies, it maintains a substantial operational reserve (an intervention unit, a traffic and escort squadron) and expertise in information and communication systems (ICS), headquarters support and movement support. Affiliated with the Rapid Reaction Corps – France (CRR-Fr) since 2024.",
+        "garnison": "59500 Douai (Nord, France) — Corbineau Barracks.",
+        "photoDescription": "Insignia bearing emblems of the Army of Africa; mascot Mansour III, an alpine goat."
+      }
+    ]
+  },
+
+  "Agen": {
+    "entites": [
+      {
+        "regiment": "48th Transmission Regiment (48e RT)",
+        "texte": "\"Religare et unire sic\" (To connect and thus unite)",
+        "histoire": "Heir to the 48th Telegraph Sapper Battalion of Toul, which came out of the break-up of the 8th Engineer Regiment in 1920, the 48th Transmission Battalion was created on 1 April 1947 and garrisoned in Libourne. On 1 July 1995 it became the 48th Transmission Regiment and moved to Toussaint Barracks in Agen. In 2024 it joined the Digital and Cyber Support Brigade (BANC) of the Digital and Cyber Land Support Command (CATNC).",
+        "specificite": "The only unit of the armed forces present in Lot-et-Garonne, it is made up of operational-level (CTOP), close-support (CTAC) and deployment (CTAD) transmission companies, a command and logistics company (CCL) and a reserve company. Its core business is the deployment and operation of information and communication systems (ICS). Birthplace of the famous XV du Pacifique.",
+        "garnison": "47918 Agen (Lot-et-Garonne, France) — Toussaint Barracks.",
+        "photoDescription": "Insignia bearing the \"T\" of the Transmissions and a lion; the number 48 (also sung in Wallisian as \"TE SITIMA\")."
+      }
+    ]
+  },
+
+  "Lunéville": {
+    "entites": [
+      {
+        "regiment": "53rd Transmission Regiment (53e RT)",
+        "texte": "\"Lightning in the azure\"",
+        "histoire": "The 53rd Transmission Regiment is the heir to the mixed transmission companies 83/84 (3rd Algerian Infantry Division, DIA) and 96/84 (5th Armoured Division, DB), which gave rise to the 46th and 49th Transmission Battalions. The 53rd Transmission Battalion was created in Freiburg in 1958, then became the 53rd Transmission Regiment in 1969 (Croix de Guerre 1939-1945, battle honour \"Italy 1944\"). Disbanded in 1992, it was re-formed at Lunéville in 1993 as the regiment of the HADES Force (nuclear deterrence). Since 1997 it has carried out transmission and command support missions.",
+        "specificite": "A unit of the Digital and Cyber Support Brigade (BANC), attached to the staff of the 1st \"EUROPE\" Division in Besançon. It deploys command posts on operations and provides direct support to combined-arms units; it also develops forward-looking projects (drones, hybrid networks).",
+        "garnison": "54301 Lunéville (Meurthe-et-Moselle, France) — Treuille de Beaulieu Barracks.",
+        "photoDescription": "Insignia bearing the \"T\" of the Transmissions and a lightning bolt, and the number 53 (a reference to \"83/84\")."
+      }
+    ]
+  },
+
+  "Dieuze": {
+    "entites": [
+      {
+        "regiment": "18th Transmission Training Regiment (18e RIT)",
+        "texte": "\"Ardent and generous\"",
+        "histoire": "Between 2011 and 2015, the initial training centre (CFIM) for soldiers at Dieuze came under the 1st Mechanised Brigade, then under the Transmission and Command Support Brigade (BTAC), before becoming in 2019 the Transmissions CFIM – 18th Transmission Regiment. On 1 July 2025 it took the name of 18th Transmission Training Regiment (RIT) and was established as the direct heir of the 18th Transmission Regiment. It was created in 1945 (originally the 18th Engineer Regiment, RG).",
+        "specificite": "It provides the initial training of enlisted soldiers (30% for the units of the Digital and Cyber Support Brigade, BANC; 70% for the regiments of the French Army). It can train 10 platoons at the same time (some 400 recruits) and also delivers technical specialist (FTS) and conversion training.",
+        "garnison": "57260 Dieuze (Moselle, France) — Lyautey Barracks.",
+        "photoDescription": "Insignia of the 18e RIT (number 18)."
+      }
+    ]
+  },
+
+  "Saint-Jacques-de-la-Lande": {
+    "entites": [
+      {
+        "regiment": "Cyberdefence Regiment",
+        "abrege": "Cyberdefence",
+        "texte": "\"Pugnare in Tenebris, Vincere in Luminis\" (to fight in darkness, to win in the light)",
+        "histoire": "The Cyberdefence Regiment came into being on 1 January 2025 at Saint-Jacques-de-la-Lande, marking the French Army's effort in the digital and cyber fields. It gives concrete form to the strengthening and the alignment of the digital security capabilities of the land operational force (FOT) and of the French Army. It reports directly to the Digital and Cyber Support Brigade (BANC).",
+        "specificite": "It provides the cyberdefence (digital security) of the force and of land operations. It rests on four units coordinated by an operations centre: the 1st Company (defensive cyber operations, LID), the 2nd Company (audit, penetration testing, SCORPION LID), the 3rd Company (a hybrid active-reserve company) and the technical cyberdefence centre (CTC).",
+        "garnison": "35998 Saint-Jacques-de-la-Lande (Ille-et-Vilaine, France) — Stéphant Barracks.",
+        "photoDescription": "Insignia of the Cyberdefence Regiment (\"CYBER\" pennant)."
+      },
+      {
+        "regiment": "785th Electronic Warfare Company (785e CGE)",
+        "abrege": "785e CGE",
+        "texte": "\"Oderint dum metuant\" (Let them hate me, so long as they fear me)",
+        "histoire": "On 1 July 1958 the 785th Transmission Company was created at Pontoise; it took the name of 785th Electronic Warfare Company (CGE) on 16 October 1981. Attached successively to Laval (1992) and Orléans (1993), it has been based since 1 July 2012 at La Maltière Barracks in Saint-Jacques-de-la-Lande. It joined the Intelligence Command in 2016, which became in 2024 the Deep Operations and Intelligence Command (CAPR).",
+        "specificite": "A unit of anticipation and innovation focused on operational engagement in the fields of signals intelligence (ROEM), electronic support (AE) and cyber. It designs, tests and integrates specific equipment and provides capability insight ahead of major operations.",
+        "garnison": "35136 Saint-Jacques-de-la-Lande (Ille-et-Vilaine, France) — La Maltière Barracks.",
+        "photoDescription": "Insignia of the 785e CGE (eagle)."
+      }
+    ]
+  },
+
+  "Cesson-Sévigné": {
+    "entites": [
+      {
+        "regiment": "Digital and Cyber Land Support Command (CATNC)",
+        "abrege": "CATNC",
+        "histoire": "Created in 2024, the CATNC is the command that embodies the shift towards a \"fighting Army\" in the digital and cyber fields. Placed under the authority of the CFOT, it coordinates the human and material resources of digital technology, communications and cybersecurity in order to guarantee the operational superiority of land forces. It comprises a command echelon, a staff (two divisions) and one subordinate unit: the Digital and Cyber Support Brigade (BANC).",
+        "specificite": "A command, and not a regiment: it ensures the coherence of the organisation, the employment and the development of digital and cyber support, including defensive cyber operations (LID). In permanent support of the FOT, it is organised into two divisions — DESP (employment, analysis and performance) and DIVSOUT (support, including the 121st Transmission Company) — and maintains functional coordination with the ETNC. Strength: 151 military personnel and 30 civilians.",
+        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France). Barracks to be confirmed by the museum: not specified in the almanac."
+      },
+      {
+        "regiment": "Digital and Cyber Support Brigade (BANC)",
+        "abrege": "BANC",
+        "histoire": "The BANC came into being on 6 February 2024 at Cesson-Sévigné. Its creation marks the shift towards a \"fighting Army\" in the digital and cyber fields. It is the heir to the Transmission Brigade (BTRS), which then became the Transmission and Command Support Brigade (BTAC). It has been commanded by General Emmanuel Clément since the summer of 2024 and is subordinate to the CATNC.",
+        "specificite": "A major formation (a brigade, and not a regiment) subordinate to the CATNC. It supports the command of the engaged land force by delivering interoperable, mobile, stealthy and resilient command support (AC) and digital security (SECNUM) capabilities. It consists of a staff and seven units: the 28e, 40e, 41e, 48e and 53e RT, the Cyberdefence Regiment and the 18e RIT (initial training, at Dieuze). Its main equipment: SYRACUSE III/IV and COMCEPT satellite stations, HF (MELCHIOR), VHF (PR4G) and UHF networks, the projectable modular set (EMP), the Astride Phase 2 system, the MT-LID cyber system and interoperability and multi-level gateways.",
+        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France) — Leschi Barracks."
+      },
+      {
+        "regiment": "School of Transmissions, Digital Technology and Cyber (ETNC)",
+        "abrege": "ETNC",
+        "histoire": "On 13 October 1973 the French Army's advanced school of electronics (ESEAT) was transferred to Leschi Barracks in Cesson-Sévigné. The advanced and applied school of transmissions (ESAT) was born on 1 September 1994 from the merger of three schools. Having become the School of Transmissions (ETRS) in 2009, it regained its autonomy on 6 February 2024 under the name of School of Transmissions, Digital Technology and Cyber (ETNC), within the French Army human resources directorate (DRHAT).",
+        "specificite": "It trains, develops and specialises the military and civilian personnel of the French Army in the fields of digital technology, cybersecurity and electronic warfare (EW). It delivers the specialist training of officers and non-commissioned officers, and is becoming a PIX certifying body (digital skills).",
+        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France) — Leschi Barracks.",
+        "photoDescription": "Insignia of the ETNC."
+      }
+    ]
+  },
+
+  "Mutzig": {
+    "entites": [
+      {
+        "regiment": "44th Transmission Regiment (44e RT)",
+        "texte": "\"Nihil nisi silentium timet\" (It fears nothing but silence)",
+        "histoire": "The 44th Transmission Regiment is the heir to the independent listening and radio direction-finding company (CAER), to the 728th Transmission Company and to the 708th Electronic Warfare (EW) Battalion. Its lineage goes back to the Indochina War (interception of the Chinese and Viet Minh networks). The 708th EW Battalion gave birth to the 44th Transmission Regiment on 1 October 1971. Based at Mutzig (Alsace) since 1994, it has been subordinate to the Intelligence and Cyber-Electronic Brigade (BRCE) since 2024 (battle honour \"Indochina 1952-1954\").",
+        "specificite": "It produces signals intelligence (ROEM) from the interception of radio emissions and from searches in cyberspace (more than 15 fields of specialisation). Two strands: a fixed, strategic component through the electronic warfare centre (CGE), and a mobile, tactical component through the signals intelligence battalion (BATROEM).",
+        "garnison": "67190 Mutzig (Bas-Rhin, France) — Moussy Barracks.",
+        "photoDescription": "Insignia of the 44e RT; its flag and cravat are decorated (Croix de Guerre des théâtres d'opérations extérieures, Médaille de la défense nationale)."
+      },
+      {
+        "regiment": "44th Transmission Regiment — BSIC and 5th Company",
+        "abrege": "5th Coy",
+        "histoire": "The regiment's information and communication systems (ICS) component comes in two complementary parts: design and control in the information and communication systems office (BSIC), and implementation and execution within the 5th Company, the most senior of the regiment's sub-units. The 5th Company is the heir to the 718th Transmission Company (1960), to transmission operating group No. 806 (1977) and to the companies of the 43rd Transmission Regiment.",
+        "specificite": "The information and communication systems office (BSIC) is responsible for ICS command, for the ICS design of exercises and operations, and for cybersecurity. The 5th Company provides the command and control of the electronic warfare centre (CGE) and of the signals intelligence battalion (BATROEM), operates the weapon systems and coordinates collection.",
+        "garnison": "67125 Molsheim (Bas-Rhin, France).",
+        "photoDescription": "Insignia of the 5th Company (eagle, number 5)."
+      }
+    ]
+  },
+
+  "Oberhoffen-sur-Moder": {
+    "entites": [
+      {
+        "regiment": "54th Transmission Regiment (54e RT)",
+        "texte": "\"Nihil affirmat quod non probet\" (It asserts nothing that it cannot prove)",
+        "histoire": "The 54th Transmission Regiment has a twofold lineage: transmission units of the Second World War (battle honours \"Germany 1945\" and \"North Africa 1952-1962\") and electronic warfare (EW) units descended from the telegraph sappers of the First World War listening service. Disbanded in 1985, it was re-formed in 1986 as a tactical electronic warfare unit. Since 2024 it has belonged to the Intelligence and Cyber-Electronic Brigade (BRCE). It is based at Oberhoffen-sur-Moder.",
+        "specificite": "The only tactical cyber-electronic support regiment of the French Army. It contributes to the cyber-electronic support of the forces (to inform and to engage) with interception, location and jamming capabilities (armoured electronic support platoons, SAEB); it is integrated into the SCORPION programme (SERVAL electronic warfare) and into the armed forces cyber community (CCA).",
+        "garnison": "67504 Oberhoffen-sur-Moder (Bas-Rhin, France) — Estienne Barracks.",
+        "photoDescription": "Insignia of the 54e RT (number 54)."
+      },
+      {
+        "regiment": "54th Transmission Regiment — 5th Company, BSIC and CTDR",
+        "abrege": "CTDR",
+        "texte": "\"Always prove\"",
+        "histoire": "Created on 5 July 2012 at Soufflenheim, the regiment's twin town, the 5th Company is a unit essential to every one of the regiment's engagements and the thread that ties the regiment's action together. It is an intelligence processing and dissemination company (CTDR).",
+        "specificite": "The 5th Company stands out for its particular trades: a transmissions platoon bringing together the radio operators specialising in electronic support (RSAE), and an intelligence platoon (specialists in networks and computer systems, and intelligence analysts). It deploys and mans the regimental command posts; the first SERVAL intelligence processing and dissemination (TDR) vehicles arrived in 2025.",
+        "garnison": "67554 Haguenau (Bas-Rhin, France) — Estienne Barracks.",
+        "photoDescription": "Insignia of the 5th Company (eagle, number 5)."
+      },
+      {
+        "regiment": "2nd Hussar Regiment (2e RH) — 6th Squadron / ETDR",
+        "abrege": "2e RH",
+        "texte": "\"Recherche oblige et Chamborant autant\" (regimental spirit)",
+        "histoire": "The human intelligence (REHUM) regiment of the land forces, the 2nd Hussar Regiment specialises in the gathering of intelligence by human means. A cavalry regiment recruiting from every branch, it bears the name \"Chamborant Houzards\" and the brown beret. The 6th Squadron, the intelligence processing and dissemination squadron (ETDR), was created in 2010; its traditional name \"Braunsberg\" recalls the battle of 1807.",
+        "specificite": "The 6th Squadron processes, analyses, enriches and disseminates the information gathered by the sensors. Made up of a command and logistics troop, two transmissions troops and two information-processing troops, it provides the analysis echelon and the command capabilities of the human intelligence detachments (DetReHum).",
+        "garnison": "Haguenau (Bas-Rhin, France).",
+        "photoDescription": "Insignia of the \"2e Houzards\" (lion) and badge of the 6th Squadron."
+      }
+    ]
+  },
+
+  "Paris": {
+    "entites": [
+      {
+        "regiment": "8th Transmission Regiment (8e RT — DANZ Île-de-France)",
+        "abrege": "8e RT",
+        "texte": "\"You are the eldest, be the best\"",
+        "histoire": "Birthplace of the branch at Mont-Valérien, which hosted the military telegraphy school as early as 1894. The 8th Engineer Regiment was created in 1913 (a telegraphy training centre of some 12,000 soldiers). It became the 8th Transmission Regiment in 1947. It merged with the DIRISI on 1 August 2014 (DIRISI IDF - 8e RT), then with the CND on 1 September 2025 to form the DANZ Île-de-France 8e RT. Its flag (presented in 1913) is the only emblem in the French armed forces to bear the battle honour \"Résistance 1940-1944\"; it is kept at Mont-Valérien.",
+        "specificite": "Zonal digital support directorate for Île-de-France (CND/COMNUMIA). Round the clock, seven days a week, it deploys, operates and supports the ICS of Paris, Île-de-France and southern Picardy (from NP up to TS SF level), for more than 3,500 sensitive users. It supports major events: 14 July, the 2024 Olympic and Paralympic Games (GAPSIC) and trade shows (Le Bourget, Euronaval).",
+        "garnison": "Mont-Valérien — 92150 Suresnes (Hauts-de-Seine, France) / 78100 Saint-Germain-en-Laye (Yvelines, France).",
+        "photoDescription": "Insignia of the 8th Transmission Regiment: its symbols recall Mont-Valérien, the birthplace of the Transmissions branch.",
+        "legendes": [
+          "EXAMPLE image media — replace with a photograph of the regiment (a local file in public/media/) and its approved caption.",
+          "EXAMPLE image media — the gallery accepts several images and videos per unit."
         ]
       },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          3.0794,
-          50.3714
-        ]
+      {
+        "regiment": "738th Electronic Warfare Company (738e CGE)",
+        "abrege": "738e CGE",
+        "histoire": "Created on 5 March 2020 by the Chief of Staff of the French Army (CEMAT), on the joint proposal of the military intelligence directorate (DRM) and of the Father of the Transmissions branch, this joint and inter-service company revives the traditions and the name of the 738th Transmission Company, which had become an electronic warfare company (CGE) before being disbanded in 1977. It moved to Balard (Paris) in 2024.",
+        "specificite": "The 738th Electronic Warfare Company (CGE) provides signals intelligence (ROEM) to the strategic levels and to the deployed forces. At the crossroads of electronic warfare and cyber, it brings together ROEM analysts, intelligence analysts and linguists, under the orders of the centre for training and employment in electromagnetic emissions (CFEEE).",
+        "garnison": "Balard — 75015 Paris (France).",
+        "photoDescription": "Insignia of the 738e CGE (eagle, number 738)."
       }
-    }
-  ]
+    ]
+  },
+
+  "Strasbourg": {
+    "entites": [
+      {
+        "regiment": "2nd Armoured Brigade — BSIC and 2e CCTB",
+        "abrege": "2e BB",
+        "texte": "\"Do not tell me it is impossible\" — \"Leclerc's Transmissions soldiers\"",
+        "histoire": "Heir to the 2nd Armoured Division created at the instigation of General Leclerc in 1943, the 2nd Armoured Brigade (BB) has been based at Illkirch-Graffenstaden since 2010. The 2nd Armoured Command and Transmission Company (CCTB) has its roots in the mixed transmission company 97/84, which followed the Leclerc epic all the way to Berchtesgaden.",
+        "specificite": "The information and communication systems office (BSIC) designs and provides the ICS and command support resources of the general commanding the brigade. The 2nd Armoured Command and Transmission Company (CCTB) mans the digitised command post (two armoured command posts and a Reachback command post).",
+        "garnison": "67071 Strasbourg / Illkirch-Graffenstaden (Bas-Rhin, France).",
+        "photoDescription": "Insignia of the 2e BB (Leclerc) and of the 2e CCTB."
+      }
+    ]
+  },
+
+  "Clermont-Ferrand": {
+    "entites": [
+      {
+        "regiment": "4th Air Combat Brigade — BSIC and 4e CCTA",
+        "abrege": "4e BAC",
+        "texte": "\"Supra Optimos\" (Above the best) — \"The 4th, first\"",
+        "histoire": "The 4th Air Combat Brigade (BAC) is the heir to several major formations: the 4th Infantry Division (created in 1873), the 4th Moroccan Mountain Division, the 4th Armoured Division and then the 4th Airmobile Division (the spearhead of the Rapid Action Force). The 4th Air Combat Brigade was created in 2016 in Clermont-Ferrand together with its air combat command and transmission company (CCTA). Since 1 August 2024 it has been subordinate to the Deep Operations and Intelligence Command (CAPR).",
+        "specificite": "The information and communication systems office (BSIC) and the air combat command and transmission company (CCTA) deploy the connection teams within the combat helicopter regiments (RHC). They hold unique skills (3D deconfliction) and can deploy an air-transportable contingency air combat command post (PCAC).",
+        "garnison": "63035 Clermont-Ferrand (Puy-de-Dôme, France).",
+        "photoDescription": "Insignia of the 4e BAC and of the 4e CCTA (\"Phoenix\")."
+      }
+    ]
+  },
+
+  "Chaumont": {
+    "entites": [
+      {
+        "regiment": "61st Artillery Regiment (19e BART) — 6e BTDR",
+        "abrege": "61e RA",
+        "texte": "\"Audi, Vide, Tace si tu vis vivere\" (Listen, watch, keep quiet if you want to live)",
+        "histoire": "Created on 1 March 1910 at Verdun, the 61st Artillery Regiment (RA) distinguished itself during the First World War (the Battle of the Frontiers, August 1914), earning its gunners the nickname \"Black Devils\". On 21 June 1921, after a sixth citation at army level, it received the fourragère in the colours of the Legion of Honour (\"first of the fourragère\"). Today the imagery intelligence regiment of the land forces, it comprises eight batteries, among them the intelligence processing and dissemination battery (BTDR).",
+        "specificite": "The intelligence processing and dissemination battery (BTDR) exploits the intelligence obtained by the imagery sensors (the Army imagery research centre) and includes the regiment's transmissions platoon. Its coming challenge: connecting the PATROLLER tactical drone into the SCORPION environment.",
+        "garnison": "52903 Chaumont (Haute-Marne, France).",
+        "photoDescription": "Insignia of the 61e RA (\"Black Devil\", number 61) and badge of the 6th Battery."
+      }
+    ]
+  },
+
+  "Besançon": {
+    "entites": [
+      {
+        "regiment": "1st Division — DIVSIC and BCQG",
+        "abrege": "1st Division",
+        "texte": "\"Nomine et Virtute Prima\" (division) — \"To support without fail\" (1re CTD)",
+        "histoire": "Several legacies underpin the traditions of the 1st Division: a direct lineage with the 1st Armoured Division (DB, 1943-1999), which became the 1st Mechanised Brigade, and a tradition inherited from the 1st Free French Division (DFL) and the 1st Light Mechanised Division (DLM). The command and headquarters battalion (BCQG) was created in the summer of 2024; it includes the 1st Divisional Transmission Company (CTD), which came from the headquarters squadron of Force Headquarters No. 1 (EMF1).",
+        "specificite": "The information and communication systems division (DIVSIC), the command and headquarters battalion (BCQG) and the 1st Divisional Transmission Company (CTD) provide command support on operations and the coherence of the X6 chain of the 1st Division; they deploy the divisional forward command post.",
+        "garnison": "25027 Besançon (Doubs, France).",
+        "photoDescription": "Insignia of the ICS division and of the 1re CTD."
+      },
+      {
+        "regiment": "7th Armoured Brigade — BSIC and 7e CCTB",
+        "abrege": "7e BB",
+        "texte": "\"Strength and daring\"",
+        "histoire": "Created in January 1955 at Konstanz (Germany) after the \"JAVELOT\" experiment, the 7th Rapid Mechanical Division (DMR) was the first French division equipped with modern, nationally produced equipment. It became the 7th Light Armoured Division in 1961. The 7th Armoured Division (DB) – 65th Territorial Military Division – was created on 1 August 1977; the 7th Armoured Brigade (BB) succeeded it in 1999.",
+        "specificite": "The information and communication systems office (BSIC) is the tactical design echelon of the brigade's ICS manoeuvre. The 7th Armoured Command and Transmission Company (CCTB) is the implementation echelon: it delivers the ICS and command support resources (SIC-AC) in joint and multinational settings.",
+        "garnison": "25027 Besançon (Doubs, France).",
+        "photoDescription": "Insignia of the 7e BB and pennant of the 7e CCTB (number 7)."
+      }
+    ]
+  },
+
+  "Varces-Allières-et-Risset": {
+    "entites": [
+      {
+        "regiment": "27th Mountain Infantry Brigade — BSIC and 27e CCTM",
+        "abrege": "27e BIM",
+        "texte": "\"Commitment at the summit\" — \"Always the highest!\"",
+        "histoire": "The 1st Alpine Division was created in 1944, became the 27th Alpine Infantry Division (DIA), then the 27th Mountain Infantry Division (DIM) and finally, in 1999, the 27th Mountain Infantry Brigade (BIM). The 27th Mountain Command and Transmission Company (CCTM) is the heir to the traditions of the 77th Transmission Company (CT), created in 1946 in North Africa; it took the name 27e CCTM in 1999.",
+        "specificite": "The 27th Mountain Command and Transmission Company (CCTM) holds a unique skill: supporting the deployment of command posts during mountain and extreme-cold operations (OMGF). The information and communication systems office (B6) directs the combined use of SITAWARE HQ and of the SCORPION combat information system (SICS).",
+        "garnison": "38760 Varces-Allières-et-Risset (Isère, France).",
+        "photoDescription": "Insignia of the 27e BIM and of the 27e CCTM (edelweiss, number 27)."
+      }
+    ]
+  },
+
+  "Poitiers": {
+    "entites": [
+      {
+        "regiment": "9th Marine Infantry Brigade — BSIC and 9e CCTMa",
+        "abrege": "9e BIMa",
+        "texte": "\"Semper et Ubique\" (Always and everywhere)",
+        "histoire": "The 9th Marine Infantry Brigade (BIMa) is descended from the \"BLUE\" division (Bazeilles, 1870-1871) and is the heir to the 9th Colonial Infantry Division (1943-1948). Created at Saint-Malo in July 1963, it took the name of 9th Marine Infantry Brigade in January 2013. As part of the brigades gaining their autonomy, a command and support battalion (BCS) was created on 12 July 2024, of which the 9th Marine Command and Transmission Company (CCTMa) is part.",
+        "specificite": "The 9th Marine Command and Transmission Company (CCTMa), with its amphibious role, ensures the deployment and the permanent availability of the command and transmission resources of the staff of the 9e BIMa. It provides the radio, satellite, telephone and computing resources, and can man command posts at sea as well as on land.",
+        "garnison": "86023 Poitiers (Vienne, France).",
+        "photoDescription": "Insignia of the 9th Colonial Infantry Division (sky-blue background, waves)."
+      }
+    ]
+  },
+
+  "Müllheim": {
+    "entites": [
+      {
+        "regiment": "Franco-German Brigade (BFA) — BSIC and CCT",
+        "abrege": "BFA",
+        "texte": "\"A duty of excellence\"",
+        "histoire": "The Franco-German Brigade (BFA) came into being on 2 October 1989 at Böblingen, following the decision of President Mitterrand and Chancellor Kohl at the Karlsruhe summit. Heir to the Heimatschutzbrigade 55 and to the 18th and 28th Transmission Regiments, the command and transmission company (CCT) was created the same year.",
+        "specificite": "A binational unit, the command and transmission company (CCT) provides the BFA with the binational information and communication systems (ICS) needed for the links to the higher echelons and to the subordinate units (French and German regiments). It lies at the heart of the brigade's interoperability.",
+        "garnison": "79379 Müllheim (Baden-Württemberg, Germany).",
+        "photoDescription": "Insignia of the BFA (Franco-German colours) and of the CCT."
+      }
+    ]
+  },
+
+  "Marseille": {
+    "entites": [
+      {
+        "regiment": "3rd Division — DIVSIC and 3e CTD",
+        "abrege": "3rd Division",
+        "texte": "\"One aim alone: victory\"",
+        "histoire": "On 1 July 2016 the 3rd SCORPION Division was created and its staff was stationed at Capitaine Rendu Barracks in Marseille. It inherits the traditions of the 3rd Algerian Infantry Division (DIA), which liberated Marseille in August 1944 under the command of General de Monsabert.",
+        "specificite": "The information and communication systems division (DIVSIC) provides ICS support and headquarters support (SQG) to the staff and to the digitised units, ensures the cybersecurity of the staff and drives the build-up of info-valorisation. It is organised into three entities: communication systems (SC), information systems (SI) and cyber.",
+        "garnison": "13568 Marseille (Bouches-du-Rhône, France) — Capitaine Rendu Barracks.",
+        "photoDescription": "Insignia of the ICS division and of the 3e CTD."
+      }
+    ]
+  },
+
+  "Toulouse": {
+    "entites": [
+      {
+        "regiment": "11th Parachute Brigade — BSIC and 11e CCTP",
+        "abrege": "11e BP",
+        "texte": "\"Command, fight, transmit\"",
+        "histoire": "The 11th Parachute Command and Transmission Company (CCTP) is the heir to the parachute transmission units that have served France since 1944; it has its roots in the 341st Transmission Company. Based at Balma Ballon Barracks (Toulouse), it is co-located with the staff of the 11th Parachute Brigade (BP), to which it has been attached since 1999.",
+        "specificite": "Built for emergency deployment, it mans a standby detachment of 27 transmission soldiers (DET27) integrated into the G08 air-droppable command post, able to establish a level-3 command post within three hours. It holds unique skills in airborne transmissions.",
+        "garnison": "31032 Toulouse (Haute-Garonne, France) — Balma Ballon Barracks.",
+        "photoDescription": "Insignia of the 11e BP and of the 11e CCTP."
+      }
+    ]
+  },
+
+  "Nîmes": {
+    "entites": [
+      {
+        "regiment": "6th Light Armoured Brigade — BSIC and 6e CCTMa",
+        "abrege": "6e BLB",
+        "texte": "\"Fast, hard and far\" — \"Always more\"",
+        "histoire": "The 6th Light Armoured Brigade (BLB), originally the 6th Light Armoured Division, was created in Nîmes in 1984. Heir to the 6th Cavalry Division of the Great War and to the armoured divisions of Compiègne and Strasbourg, it was massively engaged in 1990-1991 during Operation Daguet in Iraq (hence its nickname, the \"Daguet division\").",
+        "specificite": "The 6th Marine Command and Transmission Company (CCTMa), the \"general's company\", provides command support to the staff of the 6e BLB and deploys the command post system of the brigade. Specialising in amphibious operations, it operates cutting-edge equipment (Griffon SOTM, SERVAL).",
+        "garnison": "30072 Nîmes (Gard, France).",
+        "photoDescription": "Insignia of the 6e BLB and pennant of the 6e CCTMa (Croix de Guerre des théâtres d'opérations extérieures)."
+      }
+    ]
+  },
+
+  "Pau": {
+    "entites": [
+      {
+        "regiment": "Army Special Operations Command (CAST) — CCT FS",
+        "abrege": "CAST",
+        "texte": "\"Transmettre le vert action\"",
+        "histoire": "The Army Special Operations Command (CAST) was created on 1 January 2024 as part of the \"fighting Army\" reform. It brings together three historic special forces units (the 1st Marine Infantry Parachute Regiment, the 4th Special Forces Helicopter Regiment and the 13th Parachute Dragoon Regiment) and three specialist units. The special forces command and transmission company (CCT FS) was created in 2007.",
+        "specificite": "The special forces command and transmission company (CCT FS), a parachute company based at Pau, mans the information and communication systems (ICS) of the command posts on the theatres of engagement of the Special Operations Command (COS). It has a dual role, as a unit of ICS technical expertise and as a fighting unit.",
+        "garnison": "64011 Pau (Pyrénées-Atlantiques, France).",
+        "photoDescription": "Insignia of the CAST and of the CCT FS."
+      }
+    ]
+  },
+
+  "Bayonne": {
+    "entites": [
+      {
+        "regiment": "1st Marine Infantry Parachute Regiment (1er RPIMa) — CAC",
+        "abrege": "1er RPIMa",
+        "texte": "\"Who dares wins\"",
+        "histoire": "Created at Bayonne on 1 November 1960, the 1st Marine Infantry Parachute Regiment (RPIMa) is the heir to the Special Air Service (SAS) of Free France. It is the only non-Anglo-Saxon unit in the world allowed to claim the name Sticks d'action spéciale (SAS). Since 1992 it has been at the disposal of the Special Operations Command (COS). The command support company (CAC) was created in the summer of 2018, heir to the RAPAS transmission company.",
+        "specificite": "The command support company (CAC), whose core is the information and communication systems (ICS) office, together with four specialised SAS ICS sticks (third dimension, river and underwater, SAS patrols, urban), mans the tactical implementation cells; it is responsible for the SAS ICS training of the regiment.",
+        "garnison": "64109 Bayonne (Pyrénées-Atlantiques, France).",
+        "photoDescription": "\"SAS\" insignia (winged dagger) and insignia of the CAC."
+      }
+    ]
+  },
+
+  "Bordeaux": {
+    "entites": [
+      {
+        "regiment": "13th Parachute Dragoon Regiment (13e RDP) — 6th Squadron",
+        "abrege": "13e RDP",
+        "texte": "\"Ubivis Semper\" (Everywhere and always) — \"Beyond the possible\"",
+        "histoire": "Created in 1994, the 6th Squadron originally brought together the information and communication systems (ICS) specialists of the 13th Parachute Dragoon Regiment (RDP), the special forces intelligence regiment of the French Army. Reorganised in 2017, it became the technical collection squadron of the regiment in 2022. In 2025 it officially joined the armed forces cyber community (CCA).",
+        "specificite": "The 6th Squadron, dedicated to \"technical collection\", has advanced capabilities in imagery (ROIM), signals (ROEM) and cyber (ROC) intelligence. It is deployed on the theatres of the Special Operations Command (COS) and of the military intelligence directorate (DRM), in support of the airborne collection teams.",
+        "garnison": "33058 Bordeaux (Gironde, France).",
+        "photoDescription": "Insignia of the 13e RDP (\"1er Dragons\") and badge of the 6th Squadron."
+      }
+    ]
+  }
 }

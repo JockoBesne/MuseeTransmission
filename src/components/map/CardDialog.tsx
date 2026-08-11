@@ -62,18 +62,29 @@ function shortName(unit: Unite): string {
 
 // Ordre hiérarchique des onglets : le mot d'échelon EN TÊTE du nom décide
 // (« 44e régiment … 5e compagnie » reste un régiment). Un nom sans échelon
-// connu part en fin de liste.
-const ECHELONS = ['commandement', 'division', 'brigade', 'régiment', 'compagnie', 'école']
+// connu part en fin de liste. Chaque échelon liste ses mots-clés dans les
+// deux langues : le nom de l'unité est traduit (villes_en.json), le
+// classement doit rester le même en français et en anglais.
+const ECHELONS = [
+  ['commandement', 'command'],
+  ['division'],
+  ['brigade'],
+  ['régiment', 'regiment'],
+  ['compagnie', 'company'],
+  ['école', 'school'],
+]
 
 function echelonRank(unit: Unite): number {
   const name = unit.regiment.toLowerCase()
   let rank = ECHELONS.length
   let firstPos = Infinity
-  ECHELONS.forEach((kw, i) => {
-    const pos = name.indexOf(kw)
-    if (pos !== -1 && pos < firstPos) {
-      firstPos = pos
-      rank = i
+  ECHELONS.forEach((mots, i) => {
+    for (const kw of mots) {
+      const pos = name.indexOf(kw)
+      if (pos !== -1 && pos < firstPos) {
+        firstPos = pos
+        rank = i
+      }
     }
   })
   return rank
