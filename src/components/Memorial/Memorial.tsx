@@ -316,7 +316,7 @@ export default function Memorial() {
         <div className="memorial-wars">
           {/* Roue : tambour 3D des 6 guerres. La rotation `rot` (60°/cran) est
               animée en CSS -> effet de défilement circulaire. Glissement géré
-              à la main (gauche/droite = guerre précédente/suivante). */}
+              à la main (gauche/droite = guerre suivante/précédente). */}
           <button className="war-arrow" onClick={() => changeWar(-1)} aria-label="Guerre précédente">‹</button>
           <div
             className="war-wheel"
@@ -333,7 +333,9 @@ export default function Memorial() {
               const dir = swipeDirection(t)
               if (dir) {
                 swipedRef.current = true
-                changeWar(dir)
+                // Le tambour suit le doigt : glisser vers la droite ramène la
+                // guerre précédente (d'où le signe inversé).
+                changeWar(-dir)
               }
             }}
           >
