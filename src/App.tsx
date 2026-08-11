@@ -31,15 +31,28 @@ function IconePmr() {
 }
 
 /* ── Panneau gauche avec onglets ── */
-const LEFT_TABS = ['Carte interactive', 'Mémorial'] as const
+// Identifiants stables (indépendants de la langue) ; le libellé affiché
+// vient de STRINGS[lang].tabLabel.
+const LEFT_TABS = ['map', 'memorial'] as const
 type LeftTab = typeof LEFT_TABS[number]
+
+const STRINGS = {
+  fr: {
+    tabLabel: { map: 'Carte interactive', memorial: 'Mémorial' },
+    pmrAria: "Accès PMR : déplacer les onglets en bas de l'écran",
+  },
+  en: {
+    tabLabel: { map: 'Interactive map', memorial: 'Memorial' },
+    pmrAria: 'Wheelchair access: move the tabs to the bottom of the screen',
+  },
+} as const
 
 /* Borne en libre accès : sans interaction pendant ce délai,
    on revient sur le Mémorial (écran de veille). */
 const INACTIVITY_MS = 3 * 60 * 1000
 
 function LeftPanel() {
-  const [activeTab, setActiveTab] = useState<LeftTab>('Carte interactive')
+  const [activeTab, setActiveTab] = useState<LeftTab>('map')
   // Compte les mises en veille : intégré à la clé du contenu, il force le
   // remontage du Mémorial même si l'onglet était déjà actif (recherche vidée,
   // clavier virtuel fermé, défilement relancé).
@@ -47,6 +60,11 @@ function LeftPanel() {
   // Mode PMR : bascule la barre d'onglets en bas du panneau, activable
   // depuis la carte interactive (bouton en bas à gauche).
   const [pmrMode, setPmrMode] = useState(false)
+  // Langue d'affichage du panneau gauche, indépendante du panneau droit.
+  // Pilote le choix villes.json / villes_en.json dans InteractiveMap, et les
+  // textes fixes du Mémorial (les noms des soldats ne sont pas traduits).
+  const [lang, setLang] = useState<'fr' | 'en'>('fr')
+  const t = STRINGS[lang]
   const activeIndex = LEFT_TABS.indexOf(activeTab)
 
   // Anim. de la barre d'onglets au basculement PMR : le passage haut/bas se
@@ -85,10 +103,11 @@ function LeftPanel() {
     let timer = setTimeout(onIdle, INACTIVITY_MS)
 
     function onIdle() {
-      setActiveTab('Mémorial')
+      setActiveTab('memorial')
       setIdleCount(c => c + 1)
       // Retour à la configuration standard pour le visiteur suivant.
       togglePmrMode(false)
+      setLang('fr')
     }
 
     function reset() {
@@ -110,10 +129,19 @@ function LeftPanel() {
         type="button"
         className="pmr-btn"
         aria-pressed={pmrMode}
-        aria-label="Accès PMR : déplacer les onglets en bas de l'écran"
+        aria-label={t.pmrAria}
         onClick={() => togglePmrMode(!pmrMode)}
       >
         <IconePmr />
+      </button>
+
+      <button
+        type="button"
+        className="lang-btn lang-btn--left"
+        aria-label={lang === 'fr' ? 'Langue : français. Basculer en anglais.' : 'Language: English. Switch to French.'}
+        onClick={() => setLang((v) => (v === 'fr' ? 'en' : 'fr'))}
+      >
+        <span className="lang-flag" aria-hidden="true">{lang === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
       </button>
 
       <nav className="tab-bar" ref={tabBarRef}>
@@ -123,7 +151,7 @@ function LeftPanel() {
             className={`tab-btn${activeTab === tab ? ' tab-btn--active' : ''}`}
             onClick={() => setActiveTab(tab)}
           >
-            {tab}
+            {t.tabLabel[tab]}
           </button>
         ))}
         <span
@@ -133,8 +161,8 @@ function LeftPanel() {
       </nav>
 
       <div key={`${activeTab}-${idleCount}`} className="tab-content">
-        {activeTab === 'Carte interactive' && <InteractiveMap pmrMode={pmrMode} />}
-        {activeTab === 'Mémorial' && <Memorial />}
+        {activeTab === 'map' && <InteractiveMap pmrMode={pmrMode} lang={lang} />}
+        {activeTab === 'memorial' && <Memorial lang={lang} />}
       </div>
     </div>
   )
@@ -142,9 +170,21 @@ function LeftPanel() {
 
 /* ── Panneau droit ── */
 function RightPanel() {
+  // Langue d'affichage du panneau droit, indépendante du panneau gauche.
+  // Pilote le choix timeline.json / timeline_en.json dans Timeline.
+  const [lang, setLang] = useState<'fr' | 'en'>('fr')
+
   return (
     <div className="panel panel-right">
-      <Timeline />
+      <button
+        type="button"
+        className="lang-btn lang-btn--right"
+        aria-label={lang === 'fr' ? 'Langue : français. Basculer en anglais.' : 'Language: English. Switch to French.'}
+        onClick={() => setLang((v) => (v === 'fr' ? 'en' : 'fr'))}
+      >
+        <span className="lang-flag" aria-hidden="true">{lang === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
+      </button>
+      <Timeline lang={lang} />
     </div>
   )
 }
