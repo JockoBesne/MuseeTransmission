@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test tactile — borne du Musée des Transmissions</title>
+<!--
+  Diagnostic autonome de la dalle tactile. Aucune dépendance, aucun réseau :
+  s'ouvre par double-clic (file://) comme depuis le serveur de la borne.
+
+  À quoi ça sert : savoir si un manque de réactivité à deux utilisateurs vient
+  de l'application ou de l'écran lui-même. Cette page ne fait presque rien —
+  elle dessine un disque sous chaque doigt. Si la latence est déjà visible ICI,
+  elle est matérielle (dalle ou pilote) et aucune optimisation du code n'y
+  changera quoi que ce soit.
+
+  Mode d'emploi : deux personnes touchent les deux moitiés en même temps.
+  - « Écart entre les 2 premiers doigts » proche de 0 ms = la dalle rapporte
+    bien les contacts simultanément.
+  - Un écart de plusieurs dizaines de ms, reproductible, = la dalle sérialise
+    les contacts. C'est le pilote ou l'écran, pas l'application.
+  - « Doigts simultanés (max) » doit atteindre au moins 2 ; le WM65B en gère
+    davantage. S'il reste bloqué à 1, le multi-touch n'est pas actif.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; overflow: hidden; touch-action: none; user-select: none; }
+  body {
+    background: #0D3151; color: #fff; font: 16px Segoe UI, system-ui, sans-serif;
+    display: flex; flex-direction: column;
+  }
+  header { padding: 12px 20px; border-bottom: 2px solid #fecc30; }
+  h1 { font-size: 20px; font-weight: 600; }
+  h1 small { color: #9fb6c9; font-weight: 400; font-size: 14px; }
+  #stats { display: flex; gap: 32px; padding: 10px 20px; background: #021b2e; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 26px; color: #fecc30; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 13px; color: #9fb6c9; }
+  #zone { flex: 1; position: relative; }
+  /* Repère visuel des deux moitiés, pour reproduire le cas « un panneau chacun ». */
+  #zone::after {
+    content: ''; position: absolute; inset: 0; left: 50%; width: 2px;
+    background: #2a4a63;
+  }
+  .dot {
+    position: absolute; width: 120px; height: 120px; margin: -60px 0 0 -60px;
+    border: 3px solid #fecc30; border-radius: 50%; pointer-events: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #fecc30; background: rgba(254, 204, 48, 0.12);
+  }
+  footer { padding: 10px 20px; background: #021b2e; font-size: 13px; color: #9fb6c9; }
+  button {
+    background: #0f70b7; color: #fff; border: 0; border-radius: 6px;
+    padding: 12px 20px; font-size: 15px; min-height: 48px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Test tactile <small>— touchez les deux moitiés à deux, en même temps</small></h1>
+  </header>
+
+  <div id="stats">
+    <div class="stat"><b id="actifs">0</b><span>doigts posés</span></div>
+    <div class="stat"><b id="max">0</b><span>doigts simultanés (max)</span></div>
+    <div class="stat"><b id="ecart">–</b><span>écart entre les 2 premiers doigts</span></div>
+    <div class="stat"><b id="total">0</b><span>contacts enregistrés</span></div>
+    <div class="stat"><button id="raz">Remettre à zéro</button></div>
+  </div>
+
+  <div id="zone"></div>
+
+  <footer id="verdict">En attente d'un premier contact…</footer>
+
+<script>
+const zone = document.getElementById('zone')
+const el = { actifs: 0, max: 0, ecart: 0, total: 0 }
+const dots = new Map()          // pointerId -> élément affiché
+let maxSimultanes = 0
+let total = 0
+let premierContact = null       // horodatage du 1er doigt de la salve en cours
+let ecarts = []                 // écarts mesurés, pour la médiane
+
+const $ = id => document.getElementById(id)
+
+function rafraichir() {
+  $('actifs').textContent = dots.size
+  $('max').textContent = maxSimultanes
+  $('total').textContent = total
+  if (ecarts.length) {
+    const tries = [...ecarts].sort((a, b) => a - b)
+    const mediane = tries[Math.floor(tries.length / 2)]
+    $('ecart').textContent = mediane.toFixed(0) + ' ms'
+    $('verdict').textContent = mediane < 30
+      ? `Médiane ${mediane.toFixed(0)} ms sur ${ecarts.length} salves : la dalle rapporte les contacts simultanément. Une latence ressentie dans l'application vient donc de l'application, pas de l'écran.`
+      : `Médiane ${mediane.toFixed(0)} ms sur ${ecarts.length} salves : la dalle sérialise les contacts éloignés. C'est matériel (écran ou pilote) — aucune optimisation du code ne le corrigera.`
+  }
+}
+
+zone.addEventListener('pointerdown', e => {
+  const t = performance.now()
+  // Nouvelle salve si plus aucun doigt n'était posé.
+  if (dots.size === 0) { premierContact = t }
+  else if (dots.size === 1 && premierContact !== null) {
+    ecarts.push(t - premierContact)   // écart 1er -> 2e doigt
+    premierContact = null
+  }
+
+  const d = document.createElement('div')
+  d.className = 'dot'
+  d.style.left = e.clientX + 'px'
+  d.style.top = e.clientY + 'px'
+  d.textContent = 'id ' + e.pointerId
+  zone.appendChild(d)
+  dots.set(e.pointerId, d)
+
+  total++
+  maxSimultanes = Math.max(maxSimultanes, dots.size)
+  rafraichir()
+})
+
+zone.addEventListener('pointermove', e => {
+  const d = dots.get(e.pointerId)
+  if (!d) return
+  d.style.left = e.clientX + 'px'
+  d.style.top = e.clientY + 'px'
+})
+
+function lever(e) {
+  const d = dots.get(e.pointerId)
+  if (!d) return
+  d.remove()
+  dots.delete(e.pointerId)
+  if (dots.size === 0) premierContact = null
+  rafraichir()
+}
+// Sur window : un doigt relâché hors de la zone doit quand même être décompté.
+window.addEventListener('pointerup', lever)
+window.addEventListener('pointercancel', lever)
+
+$('raz').addEventListener('pointerdown', e => {
+  e.stopPropagation()
+  maxSimultanes = 0; total = 0; ecarts = []; premierContact = null
+  $('ecart').textContent = '–'
+  $('verdict').textContent = 'Compteurs remis à zéro.'
+  rafraichir()
+})
+</script>
+</body>
+</html>

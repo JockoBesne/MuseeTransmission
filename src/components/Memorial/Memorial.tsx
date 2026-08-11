@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useRef, useCallback } from 'react'
+import { Fragment, useState, useEffect, useRef, useCallback, type TouchEvent as ReactTouchEvent, type TouchList as ReactTouchList } from 'react'
 import VirtualKeyboard from './VirtualKeyboard'
 import { Ord } from '../../utils/ordinals'
 import './Memorial.css'
@@ -189,10 +189,16 @@ export default function Memorial() {
   const lastTimeRef = useRef<number>(0)
   const posRef = useRef<number>(0)
   const touchTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
-  // Glissement horizontal sur le sélecteur de guerre (point de départ + drapeau
-  // pour avaler le click synthétique qui suit un glissement).
-  const swipeStartRef = useRef({ x: 0, y: 0 })
+  /* Glissement horizontal sur le sélecteur de guerre. On mémorise
+     l'`identifier` du doigt qui a commencé le geste : `e.touches` liste tous
+     les contacts de la dalle entière, y compris ceux d'un second visiteur
+     ailleurs sur l'écran — sans cela, le glissement se calculerait entre deux
+     doigts appartenant à deux personnes différentes. */
+  const swipeStartRef = useRef({ x: 0, y: 0, id: -1 })
   const swipedRef = useRef(false)
+  /* Doigts posés sur la liste des noms : le défilement automatique ne reprend
+     que lorsque le dernier lecteur a retiré le sien. */
+  const listTouchesRef = useRef(new Set<number>())
 
   /** Va vers `target` par le plus court côté de la roue (rotation continue). */
   const selectWar = (target: War) => {
@@ -213,6 +219,14 @@ export default function Memorial() {
     const dx = t.clientX - swipeStartRef.current.x
     const dy = t.clientY - swipeStartRef.current.y
     return Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy) ? Math.sign(dx) : 0
+  }
+
+  /** Retrouve, parmi les doigts qui viennent de se lever, celui du geste. */
+  const finDuGeste = (touches: ReactTouchList) => {
+    for (let i = 0; i < touches.length; i++) {
+      if (touches[i].identifier === swipeStartRef.current.id) return touches[i]
+    }
+    return null
   }
 
   useEffect(() => {
@@ -261,13 +275,21 @@ export default function Memorial() {
     return () => cancelAnimationFrame(rafRef.current)
   }, [shouldScroll, tick])
 
-  const handleTouchStart = () => {
+  const handleTouchStart = (e: ReactTouchEvent) => {
+    for (let i = 0; i < e.changedTouches.length; i++) {
+      listTouchesRef.current.add(e.changedTouches[i].identifier)
+    }
     if (touchTimerRef.current) clearTimeout(touchTimerRef.current)
     setTouching(true)
   }
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: ReactTouchEvent) => {
+    for (let i = 0; i < e.changedTouches.length; i++) {
+      listTouchesRef.current.delete(e.changedTouches[i].identifier)
+    }
     if (scrollRef.current) posRef.current = scrollRef.current.scrollTop
+    // Un second lecteur garde le doigt posé : ne pas relancer le défilement.
+    if (listTouchesRef.current.size > 0) return
     touchTimerRef.current = setTimeout(() => setTouching(false), 1500)
   }
 
@@ -299,11 +321,16 @@ export default function Memorial() {
           <div
             className="war-wheel"
             onTouchStart={e => {
+              // `changedTouches[0]` = le doigt qui vient de se poser ICI,
+              // contrairement à `touches[0]` qui peut être celui d'un voisin.
+              const t = e.changedTouches[0]
               swipedRef.current = false
-              swipeStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+              swipeStartRef.current = { x: t.clientX, y: t.clientY, id: t.identifier }
             }}
             onTouchEnd={e => {
-              const dir = swipeDirection(e.changedTouches[0])
+              const t = finDuGeste(e.changedTouches)
+              if (!t) return // un autre doigt s'est levé, pas celui du geste
+              const dir = swipeDirection(t)
               if (dir) {
                 swipedRef.current = true
                 changeWar(dir)
@@ -423,6 +450,9 @@ export default function Memorial() {
         onMouseLeave={() => setHovering(false)}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        /* Sans onTouchCancel, un doigt annulé par le système resterait compté
+           et figerait le défilement automatique jusqu'au soir. */
+        onTouchCancel={handleTouchEnd}
         onScroll={() => {
           // Bas atteint aussi au glissement manuel -> même enchaînement.
           const el = scrollRef.current

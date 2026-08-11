@@ -15,7 +15,7 @@
 // (memorial-<categorie>.xlsx) : c'est la sauvegarde à récupérer pour
 // resynchroniser data-memorial/ du dépôt.
 import { createServer } from 'node:http'
-import { readFile, writeFile, mkdir } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, rename } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -41,6 +41,18 @@ const MIME = {
   '.woff2': 'font/woff2',
   '.mp4': 'video/mp4',
   '.webm': 'video/webm',
+}
+
+/* Écriture atomique : fichier temporaire puis renommage (opération atomique
+   sur NTFS comme sur ext4). L'électricité du musée est coupée chaque soir —
+   sans cela, une coupure pendant un import de fin de journée laisserait un
+   JSON tronqué, et la catégorie afficherait silencieusement « Données non
+   disponibles » le lendemain. Le renommage ne laisse jamais voir d'état
+   intermédiaire : soit l'ancien fichier complet, soit le nouveau. */
+async function ecritAtomique(chemin, contenu) {
+  const temporaire = `${chemin}.tmp`
+  await writeFile(temporaire, contenu)
+  await rename(temporaire, chemin)
 }
 
 function json(res, code, corps) {
@@ -111,9 +123,13 @@ const serveur = createServer(async (req, res) => {
       }
       await mkdir(path.join(DONNEES, 'data', 'memorial'), { recursive: true })
       await mkdir(path.join(DONNEES, 'uploads'), { recursive: true })
-      await writeFile(path.join(DONNEES, 'data', 'memorial', `${cat}.json`), versJson(resultat.personnes), 'utf8')
-      // Copie du fichier déposé, renommée au nom canonique de la catégorie.
-      await writeFile(path.join(DONNEES, 'uploads', `memorial-${cat}.xlsx`), corps)
+      // Copie du fichier déposé d'abord : si la coupure tombe entre les deux,
+      // on garde la sauvegarde Excel de ce qui n'a pas encore été publié.
+      await ecritAtomique(path.join(DONNEES, 'uploads', `memorial-${cat}.xlsx`), corps)
+      await ecritAtomique(
+        path.join(DONNEES, 'data', 'memorial', `${cat}.json`),
+        Buffer.from(versJson(resultat.personnes), 'utf8'),
+      )
       console.log(`[borne] ${new Date().toISOString()} ${CATEGORIES[cat]} remplacé : ${resultat.nombre} personnes`)
       json(res, 200, { ok: true, nombre: resultat.nombre, avertissements: resultat.avertissements })
       return

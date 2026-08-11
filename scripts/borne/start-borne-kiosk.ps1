@@ -35,6 +35,7 @@ $argsEdge = @(
   $url, '--kiosk', '--edge-kiosk-type=fullscreen',
   "--user-data-dir=$env:LOCALAPPDATA\borne-kiosk",
   '--no-first-run', '--disable-session-crashed-bubble',
+  '--force-device-scale-factor=1.25',       # zoom fixé à 125 % à chaque démarrage
   '--touch-events=enabled',                 # force le mode tactile
   '--disable-pinch',                        # pas de pincer-zoomer navigateur
   '--overscroll-history-navigation=0',      # pas de balayage retour/avant
