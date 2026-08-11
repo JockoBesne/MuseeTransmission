@@ -185,6 +185,14 @@ portées.
     système reste compté et fige le défilement jusqu'au soir.
   - Écouter la fin d'un geste sur `window` plutôt que sur l'élément : sur une
     dalle de cette taille, un doigt est souvent relâché ailleurs.
+  - **Chromium n'émet aucun `click` tant que deux doigts sont posés** : son
+    détecteur de gestes annule le tap dès le second contact (il guette un
+    pincement), donc un visiteur qui garde le doigt appuyé sur un panneau
+    bloquait tous les boutons de l'autre. `utils/multiTouchTap.ts` (installé
+    dans main.tsx) refabrique le tap à partir des événements pointer, qui,
+    eux, arrivent par doigt, et ne synthétise le click que si le natif n'est
+    pas venu. Les `onClick` de l'app restent donc la façon normale d'écrire un
+    bouton — ne pas les convertir en `onPointerUp`.
 - Hors-ligne strict : aucune ressource distante (polices, CDN, API).
 - L'app tourne en continu : toujours nettoyer intervalles, animations
   (requestAnimationFrame) et listeners — les fuites mémoire sont critiques ici.
