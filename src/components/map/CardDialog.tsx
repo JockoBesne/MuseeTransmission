@@ -4,8 +4,44 @@ import { Ord } from '../../utils/ordinals'
 import { RichText } from '../../utils/richText'
 import './CardDialog.css'
 
+const STRINGS = {
+  fr: {
+    unitesSite: 'Unités présentes sur ce site',
+    fermer: 'Fermer',
+    histoire: 'Histoire',
+    specificite: 'Spécificité',
+    photo: 'Photo',
+    galerie: 'Galerie',
+    faireDefiler: 'Faire défiler le contenu vers le bas',
+    agrandirPucelle: (regiment: string) => `Agrandir la pucelle du ${regiment}`,
+    pucelleDe: (regiment: string) => `Pucelle du ${regiment}`,
+    imageDe: (regiment: string) => `Image du ${regiment}`,
+    agrandirLegende: (legende: string) => `Agrandir : ${legende}`,
+    agrandirImage: "Agrandir l'image",
+    agrandissement: (alt: string) => `${alt} — agrandissement`,
+    fermerAgrandissement: "Fermer l'agrandissement",
+  },
+  en: {
+    unitesSite: 'Units stationed at this site',
+    fermer: 'Close',
+    histoire: 'History',
+    specificite: 'Specifics',
+    photo: 'Photo',
+    galerie: 'Gallery',
+    faireDefiler: 'Scroll the content down',
+    agrandirPucelle: (regiment: string) => `Enlarge the insignia of ${regiment}`,
+    pucelleDe: (regiment: string) => `Insignia of ${regiment}`,
+    imageDe: (regiment: string) => `Image of ${regiment}`,
+    agrandirLegende: (legende: string) => `Enlarge: ${legende}`,
+    agrandirImage: 'Enlarge the image',
+    agrandissement: (alt: string) => `${alt} — enlarged view`,
+    fermerAgrandissement: 'Close the enlarged view',
+  },
+} as const
+
 interface CardDialogProps {
   city: City
+  lang: 'fr' | 'en'
   onClose: () => void
 }
 
@@ -26,24 +62,36 @@ function shortName(unit: Unite): string {
 
 // Ordre hiérarchique des onglets : le mot d'échelon EN TÊTE du nom décide
 // (« 44e régiment … 5e compagnie » reste un régiment). Un nom sans échelon
-// connu part en fin de liste.
-const ECHELONS = ['commandement', 'division', 'brigade', 'régiment', 'compagnie', 'école']
+// connu part en fin de liste. Chaque échelon liste ses mots-clés dans les
+// deux langues : le nom de l'unité est traduit (villes_en.json), le
+// classement doit rester le même en français et en anglais.
+const ECHELONS = [
+  ['commandement', 'command'],
+  ['division'],
+  ['brigade'],
+  ['régiment', 'regiment'],
+  ['compagnie', 'company'],
+  ['école', 'school'],
+]
 
 function echelonRank(unit: Unite): number {
   const name = unit.regiment.toLowerCase()
   let rank = ECHELONS.length
   let firstPos = Infinity
-  ECHELONS.forEach((kw, i) => {
-    const pos = name.indexOf(kw)
-    if (pos !== -1 && pos < firstPos) {
-      firstPos = pos
-      rank = i
+  ECHELONS.forEach((mots, i) => {
+    for (const kw of mots) {
+      const pos = name.indexOf(kw)
+      if (pos !== -1 && pos < firstPos) {
+        firstPos = pos
+        rank = i
+      }
     }
   })
   return rank
 }
 
-export function CardDialog({ city, onClose }: CardDialogProps) {
+export function CardDialog({ city, lang, onClose }: CardDialogProps) {
+  const t = STRINGS[lang]
   const dialogRef = useRef<HTMLDivElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -162,7 +210,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
           {/* En-tête : ville + onglets d'unités (l'onglet rempli = fiche affichée). */}
           <div className="card-header">
             <span className="card-kicker">{city.nom}</span>
-            <nav className="card-tabs" aria-label="Unités présentes sur ce site">
+            <nav className="card-tabs" aria-label={t.unitesSite}>
               {entites.map((entite, i) => (
                 <button
                   key={entite.regiment}
@@ -176,7 +224,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                 </button>
               ))}
             </nav>
-            <button ref={closeRef} className="card-close" onClick={onClose} aria-label="Fermer">✕</button>
+            <button ref={closeRef} className="card-close" onClick={onClose} aria-label={t.fermer}>✕</button>
           </div>
 
           {/* Zone de défilement : corps + indicateur « plus de contenu ».
@@ -198,7 +246,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
 
               <div className="card-intro">
                 <div className="card-section card-histoire">
-                  <h4>Histoire</h4>
+                  <h4>{t.histoire}</h4>
                   <p><RichText>{unit.histoire}</RichText></p>
                 </div>
 
@@ -210,18 +258,18 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                       onClick={() =>
                         openZoom({
                           src: unit.photo!,
-                          alt: `Pucelle du ${unit.regiment}`,
+                          alt: t.pucelleDe(unit.regiment),
                           titre: unit.regiment,
                           legende: unit.photoDescription,
                         })
                       }
-                      aria-label={`Agrandir la pucelle du ${unit.regiment}`}
+                      aria-label={t.agrandirPucelle(unit.regiment)}
                     >
-                      <img src={unit.photo} alt={`Pucelle du ${unit.regiment}`} />
+                      <img src={unit.photo} alt={t.pucelleDe(unit.regiment)} />
                     </button>
                   ) : (
                     <div className="card-photo">
-                      <span>Photo</span>
+                      <span>{t.photo}</span>
                     </div>
                   )}
                   <p className="card-geo">
@@ -231,13 +279,13 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
               </div>
 
               <div className="card-section card-specificite">
-                <h4>Spécificité</h4>
+                <h4>{t.specificite}</h4>
                 <p><RichText>{unit.specificite}</RichText></p>
               </div>
 
               {unit.medias && unit.medias.length > 0 && (
                 <div className="card-section card-galerie">
-                  <h4>Galerie</h4>
+                  <h4>{t.galerie}</h4>
                   <div className="card-gallery">
                     {unit.medias.map((media, i) =>
                       media.type === 'video' ? (
@@ -261,13 +309,13 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                           onClick={() =>
                             openZoom({
                               src: media.src,
-                              alt: media.legende ?? `Image du ${unit.regiment}`,
+                              alt: media.legende ?? t.imageDe(unit.regiment),
                               titre: unit.regiment,
                               legende: media.legende,
                             })
                           }
                           aria-label={
-                            media.legende ? `Agrandir : ${media.legende}` : "Agrandir l'image"
+                            media.legende ? t.agrandirLegende(media.legende) : t.agrandirImage
                           }
                         >
                           <img src={media.src} alt={media.legende ?? ''} loading="lazy" />
@@ -287,7 +335,7 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
                 type="button"
                 className="card-more-btn"
                 onClick={scrollDown}
-                aria-label="Faire défiler le contenu vers le bas"
+                aria-label={t.faireDefiler}
               >
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                   <path
@@ -312,13 +360,13 @@ export function CardDialog({ city, onClose }: CardDialogProps) {
           onClick={() => setZoom(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={`${zoom.alt} — agrandissement`}
+          aria-label={t.agrandissement(zoom.alt)}
         >
           <button
             ref={zoomCloseRef}
             className="photo-zoom-close"
             onClick={() => setZoom(null)}
-            aria-label="Fermer l'agrandissement"
+            aria-label={t.fermerAgrandissement}
           >
             ✕
           </button>
