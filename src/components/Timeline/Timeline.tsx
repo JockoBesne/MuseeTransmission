@@ -1,31 +1,29 @@
-import { useEffect, useRef, useState, useCallback, type PointerEvent as ReactPointerEvent } from 'react'
-import timelineData from '../../data/timeline.json'
+import {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+  type PointerEvent as ReactPointerEvent,
+} from 'react'
+import timelineDataFr from '../../data/timeline.json'
+import timelineDataEn from '../../data/timeline_en.json'
 import type { TimelineEvent } from '../../types'
 import { Ord } from '../../utils/ordinals'
 import { TimelineDialog } from './TimelineDialog'
 import './Timeline.css'
 
-const EVENTS = timelineData as TimelineEvent[]
-
-/* Sections d'ancrage dérivées des données : nom + index du premier jalon.
-   Elles ne découpent pas la frise, elles servent uniquement de repères. */
-const SECTIONS = EVENTS.reduce<{ nom: string; start: number }[]>((acc, e, i) => {
-  if (acc.length === 0 || acc[acc.length - 1].nom !== e.section) {
-    acc.push({ nom: e.section, start: i })
-  }
-  return acc
-}, [])
+// Deux jeux de données aux mêmes champs (voir types.ts) : Timeline choisit
+// l'un ou l'autre selon la langue du bouton du panneau droit. timeline_en.json
+// décalque timeline.json jalon par jalon, dans le même ordre (même sections,
+// mêmes `detail`) : traduire un jalon côté français, c'est aussi le traduire ici.
+const EVENTS_FR = timelineDataFr as TimelineEvent[]
+const EVENTS_EN = timelineDataEn as TimelineEvent[]
 
 const VISIBLE_COUNT = 4      // jalons visibles simultanément
 const SCROLL_SPEED = 22      // px/s de défilement automatique
 const RESUME_DELAY_MS = 4000 // reprise du défilement après le dernier toucher
 const JUMP_MS = 900          // durée du saut animé vers une section
-
-/* Un « jalon » de blanc supplémentaire est inséré à la fin de chaque copie :
-   sans lui, la frise enchaîne 2020 → 1875 sans transition visible, ce qui
-   ressemble à une erreur. Il occupe un slot entier (même hauteur qu'un
-   événement) pour que les calculs de défilement restent uniformes. */
-const LOOP_LEN = EVENTS.length + 1
 
 /* Classe posée/retirée par l'IntersectionObserver pour déclencher les
    animations d'entrée (manipulation directe du DOM : pas de re-render
@@ -39,15 +37,65 @@ const IN_CLASS = 'tl-event--in'
    long qui impose la taille et toutes les autres cartes sonnent creux.
    On cherche donc pour chaque jalon la plus grande taille qui tient encore.
    FS_MAX borne l'écart entre deux cartes voisines, sinon la frise perd son
-   unité. Le calcul n'a lieu qu'une fois au montage : tout étant relatif à la frise, le
-   résultat reste valable quelle que soit l'échelle Windows de la borne. */
+   unité. Le calcul est refait à chaque changement de langue : tout étant
+   relatif à la frise, le résultat reste valable quelle que soit l'échelle
+   Windows de la borne. */
 const FS_MIN = 0.95  // cqh — plancher de secours : bas exprès, pour qu'un
                      // panneau étroit fasse rapetisser le texte plutôt que
                      // de le tronquer (sur la cible 1920×1080, jamais atteint)
 const FS_MAX = 1.724 // cqh
 const FS_STEP = 0.05
 
-export default function Timeline() {
+const STRINGS = {
+  fr: {
+    titre: 'Frise chronologique',
+    soustitre: "L'histoire de l'arme des Transmissions",
+    enSavoirPlus: 'En savoir plus',
+    sections: 'Sections',
+    sectionsAria: 'Sections de la frise',
+    masquerIndex: "Masquer l'index des sections",
+    afficherIndex: "Afficher l'index des sections",
+    retourDebut: '↺ Retour au début de la frise',
+  },
+  en: {
+    titre: 'Timeline',
+    soustitre: 'The history of the Transmissions Corps',
+    enSavoirPlus: 'Learn more',
+    sections: 'Sections',
+    sectionsAria: 'Timeline sections',
+    masquerIndex: 'Hide the section index',
+    afficherIndex: 'Show the section index',
+    retourDebut: '↺ Back to the start of the timeline',
+  },
+} as const
+
+interface TimelineProps {
+  /** Langue d'affichage : sélectionne timeline.json (fr) ou timeline_en.json (en). */
+  lang: 'fr' | 'en'
+}
+
+export default function Timeline({ lang }: TimelineProps) {
+  const t = STRINGS[lang]
+  const EVENTS = lang === 'en' ? EVENTS_EN : EVENTS_FR
+  /* Un « jalon » de blanc supplémentaire est inséré à la fin de chaque copie :
+     sans lui, la frise enchaîne 2020 → 1875 sans transition visible, ce qui
+     ressemble à une erreur. Il occupe un slot entier (même hauteur qu'un
+     événement) pour que les calculs de défilement restent uniformes.
+     Dérivé du jeu de données courant : les deux langues ont aujourd'hui le
+     même nombre de jalons, mais rien ne le garantit en cours de traduction. */
+  const LOOP_LEN = EVENTS.length + 1
+  // Sections d'ancrage dérivées des données : nom + index du premier jalon.
+  // Elles ne découpent pas la frise, elles servent uniquement de repères.
+  const SECTIONS = useMemo(
+    () =>
+      EVENTS.reduce<{ nom: string; start: number }[]>((acc, e, i) => {
+        if (acc.length === 0 || acc[acc.length - 1].nom !== e.section) {
+          acc.push({ nom: e.section, start: i })
+        }
+        return acc
+      }, []),
+    [EVENTS],
+  )
   const [activeSection, setActiveSection] = useState(0)
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
   const [indexOpen, setIndexOpen] = useState(false)
@@ -70,6 +118,19 @@ export default function Timeline() {
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout>>(null)
   const jumpRef = useRef<{ from: number; to: number; start: number } | null>(null)
 
+  // Changement de langue : la position de défilement et la modale ouverte
+  // référencent l'ancien tableau (dont la longueur peut différer) — on
+  // revient à un état neutre en haut de la frise.
+  useEffect(() => {
+    setSelectedIdx(null)
+    setActiveSection(0)
+    pausedRef.current = false
+    jumpRef.current = null
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    posRef.current = 0
+    if (scrollRef.current) scrollRef.current.scrollTop = 0
+  }, [lang])
+
   /* Au recalage de la boucle (saut d'une copie à l'autre), l'observer ne
      réagit qu'à la frame suivante : on recopie l'état d'entrée des jalons
      de la copie source vers la copie cible pour éviter tout flash. */
@@ -80,7 +141,7 @@ export default function Timeline() {
       const dst = items[toOffset + i]
       if (src && dst) dst.classList.toggle(IN_CLASS, src.classList.contains(IN_CLASS))
     }
-  }, [])
+  }, [LOOP_LEN])
 
   /* Boucle d'animation unique : défilement auto, saut vers une section,
      recalage de la boucle infinie et détection de la section courante. */
@@ -93,11 +154,13 @@ export default function Timeline() {
 
       const jump = jumpRef.current
       if (jump) {
-        const t = Math.min((ts - jump.start) / JUMP_MS, 1)
-        const eased = 1 - Math.pow(1 - t, 3) // ease-out cubique
+        // Avancement du saut, de 0 à 1 (nommé explicitement : `t` désigne
+        // les libellés traduits dans tout le reste du composant).
+        const jumpProgress = Math.min((ts - jump.start) / JUMP_MS, 1)
+        const eased = 1 - Math.pow(1 - jumpProgress, 3) // ease-out cubique
         posRef.current = jump.from + (jump.to - jump.from) * eased
         el.scrollTop = posRef.current
-        if (t >= 1) jumpRef.current = null
+        if (jumpProgress >= 1) jumpRef.current = null
       } else if (pausedRef.current) {
         /* Exploration manuelle : le DOM fait foi. Les deux copies étant
            identiques, ramener la position dans la bande centrale est
@@ -140,7 +203,7 @@ export default function Timeline() {
     }
     lastTsRef.current = ts
     rafRef.current = requestAnimationFrame(tick)
-  }, [mirrorInClasses])
+  }, [mirrorInClasses, LOOP_LEN, SECTIONS])
 
   useEffect(() => {
     rafRef.current = requestAnimationFrame(tick)
@@ -152,9 +215,17 @@ export default function Timeline() {
 
   /* Taille du texte ajustée à chaque carte (voir FS_MIN/FS_MAX).
      Mesurer avant que Raleway et Nunito soient chargées donnerait les
-     métriques de la police de repli : on attend `document.fonts.ready`. */
+     métriques de la police de repli : on attend `document.fonts.ready`.
+     Rejoué à chaque changement de langue : les textes traduits n'ont pas
+     la même longueur que les originaux. */
   useEffect(() => {
     let annule = false
+    /* `catch` obligatoire : un ajustement typographique ne doit jamais faire
+       tomber la borne. Sans lui, la moindre exception ici deviendrait un rejet
+       non rattrapé, que le watchdog traduit en rechargement de la page — donc
+       en boucle de rechargements, l'erreur se reproduisant à chaque montage
+       (voir src/utils/watchdog.ts). Au pire, les jalons gardent la taille de
+       repli du CSS. */
     document.fonts.ready.then(() => {
       if (annule) return
       for (let i = 0; i < EVENTS.length; i++) {
@@ -167,9 +238,9 @@ export default function Timeline() {
            items de grille) : elle grandit avec son contenu. Elle tient donc
            tant qu'elle ne dépasse pas la place laissée dans la ligne. */
         /* offsetHeight / clientHeight / getComputedStyle sont tous exprimés
-           dans le repère de mise en page. Ne pas mélanger avec
-           getBoundingClientRect(), qui rend des pixels écran : sous le zoom
-           d'affichage (#root, index.css) les deux repères diffèrent. */
+           dans le repère de mise en page : ne pas les mélanger avec
+           getBoundingClientRect(), qui rend des pixels écran (les deux
+           repères diffèrent dès qu'un `zoom` CSS entre en jeu). */
         const dispo = jalon.clientHeight - parseFloat(getComputedStyle(emplacement).paddingTop) * 2
         const tient = () => carte.offsetHeight <= dispo + 0.5
 
@@ -194,9 +265,9 @@ export default function Timeline() {
           ?.querySelector<HTMLElement>('.tl-card')
           ?.style.setProperty('--tl-fs', taille)
       }
-    })
+    }).catch(err => console.error('[frise] ajustement du texte ignoré', err))
     return () => { annule = true }
-  }, [])
+  }, [EVENTS, LOOP_LEN])
 
   /* Animations d'entrée : chaque jalon reçoit la classe quand il entre
      dans la zone visible, la perd quand il en sort (rejouées en boucle). */
@@ -213,7 +284,8 @@ export default function Timeline() {
     )
     for (const item of itemRefs.current) if (item) observer.observe(item)
     return () => observer.disconnect()
-  }, [])
+    // Le changement de langue remplace les jalons : il faut réobserver.
+  }, [EVENTS])
 
   const pause = useCallback(() => {
     jumpRef.current = null
@@ -290,8 +362,8 @@ export default function Timeline() {
   return (
     <div className="timeline">
       <div className="timeline-header">
-        <h2 className="timeline-title">Frise chronologique</h2>
-        <p className="timeline-subtitle">L'histoire de l'arme des Transmissions</p>
+        <h2 className="timeline-title">{t.titre}</h2>
+        <p className="timeline-subtitle">{t.soustitre}</p>
       </div>
 
       <div className="timeline-body">
@@ -320,7 +392,7 @@ export default function Timeline() {
                   <button className="tl-card" onClick={() => openEvent(i)}>
                     <h3 className="tl-event-title"><Ord>{event.titre}</Ord></h3>
                     <p className="tl-event-text">{event.texte}</p>
-                    <span className="tl-more">En savoir plus <span className="tl-more-arrow">›</span></span>
+                    <span className="tl-more">{t.enSavoirPlus} <span className="tl-more-arrow">›</span></span>
                   </button>
                 </div>
               )
@@ -344,7 +416,7 @@ export default function Timeline() {
               className="tl-loop-gap"
             >
               <span className="tl-loop-gap-line" aria-hidden="true" />
-              <span className="tl-loop-gap-label">↺ Retour au début de la frise</span>
+              <span className="tl-loop-gap-label">{t.retourDebut}</span>
               <span className="tl-loop-gap-line" aria-hidden="true" />
             </div>,
           ])}
@@ -356,12 +428,12 @@ export default function Timeline() {
             className="tl-drawer-handle"
             onClick={() => setIndexOpen(o => !o)}
             aria-expanded={indexOpen}
-            aria-label={indexOpen ? "Masquer l'index des sections" : "Afficher l'index des sections"}
+            aria-label={indexOpen ? t.masquerIndex : t.afficherIndex}
           >
             <span className="tl-drawer-chevron" aria-hidden="true">‹</span>
-            <span className="tl-drawer-label">Sections</span>
+            <span className="tl-drawer-label">{t.sections}</span>
           </button>
-          <nav className="timeline-index" aria-label="Sections de la frise">
+          <nav className="timeline-index" aria-label={t.sectionsAria}>
             {SECTIONS.map((section, i) => (
               <button
                 key={section.nom}
@@ -382,6 +454,7 @@ export default function Timeline() {
           nextEvent={EVENTS[(selectedIdx + 1) % EVENTS.length]}
           contentKey={selectedIdx}
           progress={(selectedIdx + 1) / EVENTS.length}
+          lang={lang}
           onPrev={() => stepEvent(-1)}
           onNext={() => stepEvent(1)}
           onClose={closeEvent}

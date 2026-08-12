@@ -66,7 +66,22 @@ portées.
     `labelDir` contrôle la position de l'étiquette (placement automatique
     avec évitement de collisions si la direction préférée est prise). Une
     ville porte une liste `entites` (plusieurs unités possibles sur un même
-    point). Les secteurs trop denses sont délimités par les polygones de
+    point). Bilingue : contrairement à la frise, `src/data/villes_en.json`
+    n'est **pas** une copie de `villes.json` mais un **calque de textes**
+    anglais (types `UniteTraduite`/`VillesTraduction`), indexé par le `nom`
+    de la ville, ses `entites` suivant l'ordre de `villes.json` ; la fusion
+    se fait au chargement (fonction `traduire` dans `InteractiveMap.tsx`).
+    `villes.json` reste donc la seule source de la structure — coordonnées,
+    `labelDir`, pucelles, fichiers `medias` — et une ville ajoutée ou
+    corrigée côté français apparaît aussitôt sur la carte anglaise, avec ses
+    textes français tant qu'ils ne sont pas traduits (jamais de ville
+    manquante en anglais). Champs traduisibles : `regiment`, `abrege`,
+    `texte`, `histoire`, `specificite`, `garnison`, `photoDescription`, plus
+    `legendes[]` (légendes des `medias`, dans l'ordre) ; champ absent = texte
+    français conservé. Les onglets de la pop-up sont classés par échelon
+    (`ECHELONS` dans `CardDialog.tsx`) : ajouter le mot-clé dans les deux
+    langues à toute nouvelle catégorie. Les secteurs trop denses sont
+    délimités par les polygones de
     `src/data/regions-zones.json` (GeoJSON `Polygon`, type `ZoneProps`) :
     en vue d'ensemble, leurs villes sont masquées et la zone (pointillés
     orange translucides + nom) est tactile — la toucher anime le viewBox
@@ -121,11 +136,19 @@ portées.
   jalon ouvre `TimelineDialog` (fiche dépliable). Le texte du `.docx` fourni par
   le musée se répartit en `texte` (résumé, affiché en entier sur la carte de la
   frise — jamais tronqué) et `detail[]` (le « en savoir plus », affiché dans la
-  pop-up). Les dimensions du jalon sont en **vh et non en px** (`Timeline.css`) :
-  le viewport CSS que reçoit Edge dépend de la mise à l'échelle Windows de
-  l'écran 4K, et en px le texte débordait dès qu'il passait sous 1920×1080.
-  Repère : 1vh = 10,8 px à 1080. Le tiroir d'index est posé **par-dessus** la
+  pop-up). Les dimensions du jalon sont en **cqh et non en px**
+  (`Timeline.css`) : le viewport CSS que reçoit Edge dépend de la mise à
+  l'échelle Windows de l'écran 4K, et en px le texte débordait dès qu'il
+  passait sous 1920×1080 ; relatives à la hauteur de la frise, elles gardent
+  la même taille physique. Repère : 1cqh = 10,02 px quand la frise fait
+  1002 px de haut. Le tiroir d'index est posé **par-dessus** la
   frise (`position: absolute`) pour que son ouverture ne rétrécisse pas les cartes.
+  Bilingue : `src/data/timeline_en.json` décalque `timeline.json` jalon par
+  jalon (même ordre, mêmes sections, mêmes `detail`) et le bouton de langue du
+  panneau droit bascule de l'un à l'autre. Tout jalon ajouté ou corrigé côté
+  français doit l'être aussi côté anglais, sous peine de désynchroniser les
+  deux frises. Terminologie retenue en anglais : « Transmissions » (et non
+  « Signals »), cohérente avec les libellés d'interface.
 - **Administration** (accès personnel) : appui maintenu 5 s sur le coin
   haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
   tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub
@@ -167,6 +190,14 @@ portées.
 
 ## Contraintes borne tactile
 
+- **Viewport de référence : 1280×720 px CSS.** Dalle 3840×2160 en DisplayPort,
+  échelle figée à 3 au lancement d'Edge (`--force-device-scale-factor=3`,
+  scripts/borne/start-borne-kiosk.ps1) : 1 px CSS = 3 px écran. C'est contre
+  cette taille que tout le CSS est écrit et vérifié — mesurer à 1280×720, pas
+  à 1920×1080. Ne jamais compenser l'échelle côté CSS (`zoom`, `font-size`
+  racine) : elle se multiplierait avec celle d'Edge. Seule la frise fait
+  exception et se dimensionne sur sa propre boîte (unités `cqh`), donc à
+  taille physique constante quelle que soit l'échelle.
 - Cibles tactiles ≥ 48×48 px (boutons, onglets, marqueurs, touches).
 - Aucune information accessible uniquement au survol : tout au toucher.
 - Feedback visuel immédiat à chaque interaction.
@@ -194,6 +225,17 @@ portées.
     pas venu. Les `onClick` de l'app restent donc la façon normale d'écrire un
     bouton — ne pas les convertir en `onPointerUp`.
 - Hors-ligne strict : aucune ressource distante (polices, CDN, API).
+- **Aucun pictogramme ne doit dépendre d'un glyphe fourni par le système.**
+  La borne tourne sous Windows, dont la police Segoe UI Emoji ne contient
+  aucun drapeau national : les emoji 🇫🇷 et 🇬🇧 y sont deux « indicateurs
+  régionaux » qui, faute de ligature, s'affichent « FR » et « GB ». Le piège
+  est invisible en développement sous Linux, où Noto Color Emoji les dessine.
+  Les pictogrammes sont donc tracés en SVG dans `src/components/icons/` :
+  `Drapeau.tsx` (bouton de langue, tricolore ou Union Jack selon la langue du
+  panneau) et `IconePMR.tsx` (fauteuil roulant, glyphe Font Awesome Free 5,
+  CC BY 4.0 — attribution en en-tête du fichier). Les flèches et symboles
+  géométriques (`✕ ← → ↺ ⌫ ▾ ✦`) viennent des polices texte et ne posent pas
+  ce problème.
 - L'app tourne en continu : toujours nettoyer intervalles, animations
   (requestAnimationFrame) et listeners — les fuites mémoire sont critiques ici.
 - **L'électricité du musée est coupée chaque soir** : la borne redémarre donc
@@ -230,7 +272,9 @@ musée est nécessaire.
   (Cesson-Sévigné) — contenu encore à faire valider par le musée.
 - Corriger le contenu des « régiments de transmissions » de `villes.json` :
   numéros/noms d'unités erronés à rectifier d'après la liste validée par le
-  musée (données historiques — ne rien inventer).
+  musée (données historiques — ne rien inventer). Reporter ensuite la
+  correction dans `villes_en.json` : sans ça, la fiche reste affichée en
+  anglais avec l'ancien texte traduit (le calque l'emporte sur le français).
 - `villes.json` : les deux `medias` du 8e RT / Paris (villes.json:298 et 303)
   sont des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de
   vrais fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne

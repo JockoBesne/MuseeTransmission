@@ -356,8 +356,11 @@
   color: #fecc30;
 }
 
+/* En cqh comme le reste de la carte : en rem, ce chevron gardait une taille
+   fixe et imposait à lui seul une hauteur plancher à la carte — le texte
+   avait beau rapetisser, le jalon débordait quand même. */
 .tl-more-arrow {
-  font-size: 0.9rem;
+  font-size: 1.437cqh; /* 0.9rem @1080 */
   line-height: 1;
   transition: transform 0.2s ease;
 }

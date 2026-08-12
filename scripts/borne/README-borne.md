@@ -71,6 +71,19 @@ la connexion automatique (§3) est indispensable.
 - **Connexion automatique** (sinon la tâche ONLOGON ne se déclenche pas seule) :
   `netplwiz` → décocher « Les utilisateurs doivent entrer un nom… » → saisir le
   mot de passe du compte. *(À faire par toi : réglage de compte.)*
+- **Échelle d'affichage — ne pas la régler dans Windows.** L'écran est une
+  dalle **3840×2160 en DisplayPort**. L'app est écrite et mesurée pour un
+  viewport CSS de **1280×720**, obtenu par le drapeau
+  `--force-device-scale-factor=3` du script de démarrage (3840 ÷ 3 = 1280).
+  Edge ignore alors le réglage « Mise à l'échelle » de Windows : la borne
+  garde exactement le même rendu même si ce réglage change un jour (mise à
+  jour, écran rebranché, manipulation). Le laisser à 300 % reste cohérent
+  pour le bureau Windows lui-même, mais ça n'a plus d'effet sur la borne.
+  **Si l'écran est un jour remplacé**, recalculer le facteur
+  (définition horizontale ÷ 1280) et le corriger dans
+  [start-borne-kiosk.ps1](start-borne-kiosk.ps1) — sinon la mise en page est
+  faussée. Vérification sur la borne : `F12` → console → `innerWidth` doit
+  répondre **1280**.
 - **Ne jamais éteindre l'écran / se mettre en veille** (PowerShell admin) :
   ```powershell
   powercfg /change monitor-timeout-ac 0
