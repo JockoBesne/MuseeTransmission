@@ -35,7 +35,16 @@ $argsEdge = @(
   $url, '--kiosk', '--edge-kiosk-type=fullscreen',
   "--user-data-dir=$env:LOCALAPPDATA\borne-kiosk",
   '--no-first-run', '--disable-session-crashed-bubble',
-  '--force-device-scale-factor=1.25',       # zoom fixé à 125 % à chaque démarrage
+  # Échelle d'affichage FIGÉE ici, et nulle part ailleurs.
+  # Dalle 3840×2160 en DisplayPort : facteur 3 => viewport CSS de 1280×720,
+  # la référence contre laquelle l'app est écrite et mesurée. Le figer rend
+  # la borne insensible au réglage « Mise à l'échelle » de Windows, qu'une
+  # mise à jour ou une manipulation peut changer sans prévenir.
+  # ⚠ Cette valeur est liée à la définition de l'écran : 3840 / 3 = 1280.
+  # Écran remplacé => recalculer (définition ÷ 1280), sans quoi la mise en
+  # page est faussée. Ne pas compenser côté CSS (zoom, font-size racine) :
+  # les deux échelles se multiplieraient.
+  '--force-device-scale-factor=3',
   '--touch-events=enabled',                 # force le mode tactile
   '--disable-pinch',                        # pas de pincer-zoomer navigateur
   '--overscroll-history-navigation=0',      # pas de balayage retour/avant

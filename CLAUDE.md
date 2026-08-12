@@ -167,6 +167,14 @@ portées.
 
 ## Contraintes borne tactile
 
+- **Viewport de référence : 1280×720 px CSS.** Dalle 3840×2160 en DisplayPort,
+  échelle figée à 3 au lancement d'Edge (`--force-device-scale-factor=3`,
+  scripts/borne/start-borne-kiosk.ps1) : 1 px CSS = 3 px écran. C'est contre
+  cette taille que tout le CSS est écrit et vérifié — mesurer à 1280×720, pas
+  à 1920×1080. Ne jamais compenser l'échelle côté CSS (`zoom`, `font-size`
+  racine) : elle se multiplierait avec celle d'Edge. Seule la frise fait
+  exception et se dimensionne sur sa propre boîte (unités `cqh`), donc à
+  taille physique constante quelle que soit l'échelle.
 - Cibles tactiles ≥ 48×48 px (boutons, onglets, marqueurs, touches).
 - Aucune information accessible uniquement au survol : tout au toucher.
 - Feedback visuel immédiat à chaque interaction.
