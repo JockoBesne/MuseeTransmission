@@ -147,8 +147,24 @@ portées.
   jalon (même ordre, mêmes sections, mêmes `detail`) et le bouton de langue du
   panneau droit bascule de l'un à l'autre. Tout jalon ajouté ou corrigé côté
   français doit l'être aussi côté anglais, sous peine de désynchroniser les
-  deux frises. Terminologie retenue en anglais : « Transmissions » (et non
-  « Signals »), cohérente avec les libellés d'interface.
+  deux frises. Terminologie anglaise de l'Arme : le musée a tranché pour
+  « Signal Corps » (et non « Transmissions »). **Appliquée aux 23 jalons** et au
+  `soustitre` anglais de Timeline.tsx ; `villes_en.json` reste à aligner.
+  Règle de traduction, à tenir pour toute retouche : « Signal Corps » est un
+  **nom propre d'institution**, toujours avec l'article et au singulier (*the
+  Signal Corps is…*, *its own organisation*) — il désigne l'Arme créée en 1942.
+  Avant 1942, les emplois génériques du mot français « transmissions » (le
+  domaine, le métier) se traduisent par *military communications* ou *signals*
+  (*signals units*, *signals personnel*), jamais par « Signal Corps », qui
+  serait un anachronisme — la frise dit elle-même que l'Arme n'existe qu'à
+  partir de 1942. Les noms propres français restent en français, suivis d'une
+  glose anglaise (`École des liaisons et transmissions (ELT), the school of
+  liaison and signals`) ; les unités se traduisent (*54th Signal Regiment*,
+  *the signal brigade*). Orthographe **britannique** dans tout le fichier
+  (organisation, specialised, centre, kilometre, defence) et typographie
+  courbe comme côté français : apostrophes `’` (jamais `'`) et guillemets
+  `“ ”`, y compris dans les possessifs anglais (*Ferrié’s*, *the women’s
+  Signal Corps*).
 - **Administration** (accès personnel) : appui maintenu 5 s sur le coin
   haut-droit de l'écran (`.admin-hotspot` dans App.tsx) → code PIN sur pavé
   tactile (`AdminPin.tsx`, constante `ADMIN_PIN`, défaut 1205) → hub
