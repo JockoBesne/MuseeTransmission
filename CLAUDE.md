@@ -72,13 +72,12 @@ portées.
     de la ville, ses `entites` suivant l'ordre de `villes.json` ; la fusion
     se fait au chargement (fonction `traduire` dans `InteractiveMap.tsx`).
     `villes.json` reste donc la seule source de la structure — coordonnées,
-    `labelDir`, pucelles, fichiers `medias` — et une ville ajoutée ou
+    `labelDir`, pucelles — et une ville ajoutée ou
     corrigée côté français apparaît aussitôt sur la carte anglaise, avec ses
     textes français tant qu'ils ne sont pas traduits (jamais de ville
     manquante en anglais). Champs traduisibles : `regiment`, `abrege`,
-    `texte`, `histoire`, `specificite`, `garnison`, `photoDescription`, plus
-    `legendes[]` (légendes des `medias`, dans l'ordre) ; champ absent = texte
-    français conservé. Les onglets de la pop-up sont classés par échelon
+    `texte`, `histoire`, `specificite`, `garnison` et `photoDescription` ;
+    champ absent = texte français conservé. Les onglets de la pop-up sont classés par échelon
     (`ECHELONS` dans `CardDialog.tsx`) : ajouter le mot-clé dans les deux
     langues à toute nouvelle catégorie. Les secteurs trop denses sont
     délimités par les polygones de
@@ -110,10 +109,11 @@ portées.
     corps défilant. En mode PMR (`.panel-left--pmr`, App.tsx), ce bandeau
     passe sous la fiche (cascade CSS, `flex-direction: column-reverse`)
     pour rester à portée d'un utilisateur assis. Zoom sur la pucelle (pointillés dorés `#fecc30`, images
-    dans `public/pucelles/`), et galerie optionnelle par
-    unité via `medias` : `{ "type": "image"|"video", "src", "legende"?,
-    "poster"? }` — images zoomables dans le lightbox, vidéos lues en ligne
-    (contrôles natifs, `playsInline`, fichiers locaux dans `public/media/`). À l'ouverture de l'onglet, un cartouche de titre
+    dans `public/pucelles/`), avec sa description (`photoDescription`) en
+    légende sous l'image agrandie : le musée a demandé qu'elles en aient
+    toutes une. La fiche ne porte **pas** de galerie photo/vidéo — elle a
+    été retirée en août 2026, ne pas la réintroduire sans demande explicite.
+    À l'ouverture de l'onglet, un cartouche de titre
     flottant (haut-gauche, « Carte intéractive » / « Régiments de
     transmission ») est poussé sur l'écran depuis le bord gauche, reste
     `TITLE_HOLD_MS` (~10 s), puis est tiré hors de l'écran : séquence
@@ -291,16 +291,15 @@ musée est nécessaire.
   musée (données historiques — ne rien inventer). Reporter ensuite la
   correction dans `villes_en.json` : sans ça, la fiche reste affichée en
   anglais avec l'ancien texte traduit (le calque l'emporte sur le français).
-- `villes.json` : les deux `medias` du 8e RT / Paris (villes.json:298 et 303)
-  sont des placeholders EXEMPLE pointant vers `/pucelles/` — remplacer par de
-  vrais fichiers `public/media/` + légendes validées, ou supprimer (hors-ligne
-  strict).
+- `villes.json` : descriptions de pucelles (`photoDescription`) du CATNC et de
+  la BANC rédigées d'après l'insigne lui-même — aucun blasonnement officiel de
+  ces deux unités (créées en 2024) n'est publié en ligne : à faire valider par
+  le musée.
 - `villes.json` : 5 unités ont une devise (`texte`) vide — CATNC, BANC et ETNC
   (Cesson-Sévigné), 44e RT (Mutzig), 738e CGE (Paris). Le sous-titre est masqué
   tant qu'elle est vide ; devises à fournir par le musée (ne rien inventer).
 - Typographie : ne pas terminer une ligne par un nombre (espace insécable avant
   le nombre pour ne pas le laisser orphelin en fin de ligne).
-- Retirer le mot « fanion » des pop-up.
 - Mettre les mots anglais en italique dans les textes français.
 - Ordinaux (composant `Ord`) : exposant en minuscules, jamais en majuscules
   (« 1ᵉʳ » et non « 1ᴱᴿ »).

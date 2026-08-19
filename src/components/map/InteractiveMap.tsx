@@ -4,7 +4,7 @@ import franceContourRaw from '../../data/france-contour.json'
 import regionsZonesRaw from '../../data/regions-zones.json'
 import villesDataFr from '../../data/villes.json'
 import villesTradEn from '../../data/villes_en.json'
-import type { City, LabelDirection, Unite, VillesTraduction, ZoneProps } from '../../types'
+import type { City, LabelDirection, VillesTraduction, ZoneProps } from '../../types'
 import { CardDialog } from './CardDialog'
 import './InteractiveMap.css'
 
@@ -16,10 +16,10 @@ const regionsZones = regionsZonesRaw as FeatureCollection<Polygon, ZoneProps>
 
    villes_en.json n'est pas une copie de villes.json : c'est un calque de
    textes traduits, indexé par nom de ville (types.ts). villes.json reste donc
-   la seule source des coordonnées, des étiquettes, des pucelles et des
-   médias : une ville ajoutée ou déplacée côté français apparaît aussitôt sur
-   la carte anglaise, avec ses textes français tant qu'ils ne sont pas
-   traduits — plutôt que d'en disparaître. */
+   la seule source des coordonnées, des étiquettes et des pucelles : une ville
+   ajoutée ou déplacée côté français apparaît aussitôt sur la carte anglaise,
+   avec ses textes français tant qu'ils ne sont pas traduits — plutôt que d'en
+   disparaître. */
 function traduire(
   villes: FeatureCollection<Point, City>,
   traduction: VillesTraduction,
@@ -33,16 +33,10 @@ function traduire(
         ...feature,
         properties: {
           ...feature.properties,
-          entites: feature.properties.entites.map((unite, i) => {
-            const { legendes, ...champs } = ville.entites[i] ?? {}
-            const traduite: Unite = { ...unite, ...champs }
-            if (legendes && unite.medias) {
-              traduite.medias = unite.medias.map((media, j) =>
-                legendes[j] ? { ...media, legende: legendes[j]! } : media,
-              )
-            }
-            return traduite
-          }),
+          entites: feature.properties.entites.map((unite, i) => ({
+            ...unite,
+            ...(ville.entites[i] ?? {}),
+          })),
         },
       }
     }),
