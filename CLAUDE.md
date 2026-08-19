@@ -137,7 +137,7 @@ portées.
   le musée se répartit en `texte` (accroche affichée sur la carte de la frise)
   et `detail[]` (le « en savoir plus », affiché dans la pop-up). **Tous les
   jalons ont la même tête** : taille de texte identique partout, titre sur une
-  hauteur fixe de deux lignes, accroche rognée à 6 lignes avec points de
+  hauteur fixe de deux lignes, accroche rognée à 5 lignes avec points de
   suspension (`-webkit-line-clamp`, Timeline.css). Le nombre de lignes est une
   constante et non un calcul : toute la carte étant en `cqh`, le rapport
   hauteur de carte / taille de texte ne change pas avec la définition de
