@@ -70,28 +70,15 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  /* Barre de défilement dorée, fine — Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(254, 204, 48, 0.85) rgba(255, 255, 255, 0.1);
+  /* Aucune barre de défilement visible : sur une borne tactile elle ne sert
+     à rien (on ne la saisit pas à la souris) et elle salit la fiche dès
+     qu'une ville porte plusieurs unités. Le glissement au doigt reste actif. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* Barre de défilement dorée — Chrome / Edge (navigateur de la borne) */
 .card-tabs::-webkit-scrollbar {
-  height: 5px;
-}
-
-.card-tabs::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-}
-
-.card-tabs::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #fecc30, #e0aa00);
-  border-radius: 999px;
-}
-
-.card-tabs::-webkit-scrollbar-thumb:hover {
-  background: #fecc30;
+  display: none;
 }
 
 .card-tab {
@@ -218,17 +205,14 @@
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: #b7c3cd transparent;
+  /* Idem : le dépassement est signalé par le fondu et la flèche du bas
+     (.card-scroll-zone), pas par une barre. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .card-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.card-body::-webkit-scrollbar-thumb {
-  background-color: #b7c3cd;
-  border-radius: 3px;
+  display: none;
 }
 
 .card-content {

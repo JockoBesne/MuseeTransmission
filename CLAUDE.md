@@ -134,9 +134,15 @@ portées.
   issus de `src/data/timeline.json` (type `TimelineEvent`), défilement
   automatique en boucle, sections d'ancrage + index de navigation ; toucher un
   jalon ouvre `TimelineDialog` (fiche dépliable). Le texte du `.docx` fourni par
-  le musée se répartit en `texte` (résumé, affiché en entier sur la carte de la
-  frise — jamais tronqué) et `detail[]` (le « en savoir plus », affiché dans la
-  pop-up). Les dimensions du jalon sont en **cqh et non en px**
+  le musée se répartit en `texte` (accroche affichée sur la carte de la frise)
+  et `detail[]` (le « en savoir plus », affiché dans la pop-up). **Tous les
+  jalons ont la même tête** : taille de texte identique partout, titre sur une
+  hauteur fixe de deux lignes, accroche rognée à 6 lignes avec points de
+  suspension (`-webkit-line-clamp`, Timeline.css). Le nombre de lignes est une
+  constante et non un calcul : toute la carte étant en `cqh`, le rapport
+  hauteur de carte / taille de texte ne change pas avec la définition de
+  l'écran ni avec la langue. Ne pas réintroduire d'ajustement automatique
+  par jalon — il donnait des cartes toutes différentes. Les dimensions du jalon sont en **cqh et non en px**
   (`Timeline.css`) : le viewport CSS que reçoit Edge dépend de la mise à
   l'échelle Windows de l'écran 4K, et en px le texte débordait dès qu'il
   passait sous 1920×1080 ; relatives à la hauteur de la frise, elles gardent
