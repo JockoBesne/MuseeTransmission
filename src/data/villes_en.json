@@ -86,7 +86,7 @@
         "histoire": "The Cyberdefence Regiment came into being on 1 January 2025 at Saint-Jacques-de-la-Lande, marking the French Army's effort in the digital and cyber fields. It gives concrete form to the strengthening and the alignment of the digital security capabilities of the land operational force (FOT) and of the French Army. It reports directly to the Digital and Cyber Support Brigade (BANC).",
         "specificite": "It provides the cyberdefence (digital security) of the force and of land operations. It rests on four units coordinated by an operations centre: the 1st Company (defensive cyber operations, LID), the 2nd Company (audit, penetration testing, SCORPION LID), the 3rd Company (a hybrid active-reserve company) and the technical cyberdefence centre (CTC).",
         "garnison": "35998 Saint-Jacques-de-la-Lande (Ille-et-Vilaine, France) — Stéphant Barracks.",
-        "photoDescription": "Insignia of the Cyberdefence Regiment (\"CYBER\" pennant)."
+        "photoDescription": "Insignia of the Cyberdefence Regiment (\"CYBER\" inscription)."
       },
       {
         "regiment": "785th Electronic Warfare Company (785e CGE)",
@@ -107,14 +107,16 @@
         "abrege": "CATNC",
         "histoire": "Created in 2024, the CATNC is the command that embodies the shift towards a \"fighting Army\" in the digital and cyber fields. Placed under the authority of the CFOT, it coordinates the human and material resources of digital technology, communications and cybersecurity in order to guarantee the operational superiority of land forces. It comprises a command echelon, a staff (two divisions) and one subordinate unit: the Digital and Cyber Support Brigade (BANC).",
         "specificite": "A command, and not a regiment: it ensures the coherence of the organisation, the employment and the development of digital and cyber support, including defensive cyber operations (LID). In permanent support of the FOT, it is organised into two divisions — DESP (employment, analysis and performance) and DIVSOUT (support, including the 121st Transmission Company) — and maintains functional coordination with the ETNC. Strength: 151 military personnel and 30 civilians.",
-        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France). Barracks to be confirmed by the museum: not specified in the almanac."
+        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France). Barracks to be confirmed by the museum: not specified in the almanac.",
+        "photoDescription": "Insignia of the CATNC: the cuirass and helmet inherited from the Engineers, bearing the tau (T) of the Signal Corps and surrounded by lightning bolts, on a sky-blue shield edged with gold; a gilt sword below."
       },
       {
         "regiment": "Digital and Cyber Support Brigade (BANC)",
         "abrege": "BANC",
         "histoire": "The BANC came into being on 6 February 2024 at Cesson-Sévigné. Its creation marks the shift towards a \"fighting Army\" in the digital and cyber fields. It is the heir to the Transmission Brigade (BTRS), which then became the Transmission and Command Support Brigade (BTAC). It has been commanded by General Emmanuel Clément since the summer of 2024 and is subordinate to the CATNC.",
         "specificite": "A major formation (a brigade, and not a regiment) subordinate to the CATNC. It supports the command of the engaged land force by delivering interoperable, mobile, stealthy and resilient command support (AC) and digital security (SECNUM) capabilities. It consists of a staff and seven units: the 28e, 40e, 41e, 48e and 53e RT, the Cyberdefence Regiment and the 18e RIT (initial training, at Dieuze). Its main equipment: SYRACUSE III/IV and COMCEPT satellite stations, HF (MELCHIOR), VHF (PR4G) and UHF networks, the projectable modular set (EMP), the Astride Phase 2 system, the MT-LID cyber system and interoperability and multi-level gateways.",
-        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France) — Leschi Barracks."
+        "garnison": "35510 Cesson-Sévigné (Ille-et-Vilaine, France) — Leschi Barracks.",
+        "photoDescription": "Insignia of the BANC: a sword whose blade forms a sky-blue shield; at its centre, the tau (T) of the Signal Corps on a white shield, beneath a burst of lightning bolts."
       },
       {
         "regiment": "School of Transmissions, Digital Technology and Cyber (ETNC)",
@@ -165,7 +167,7 @@
         "histoire": "Created on 5 July 2012 at Soufflenheim, the regiment's twin town, the 5th Company is a unit essential to every one of the regiment's engagements and the thread that ties the regiment's action together. It is an intelligence processing and dissemination company (CTDR).",
         "specificite": "The 5th Company stands out for its particular trades: a transmissions platoon bringing together the radio operators specialising in electronic support (RSAE), and an intelligence platoon (specialists in networks and computer systems, and intelligence analysts). It deploys and mans the regimental command posts; the first SERVAL intelligence processing and dissemination (TDR) vehicles arrived in 2025.",
         "garnison": "67504 Oberhoffen-sur-Moder (Bas-Rhin, France) — Estienne Barracks.",
-        "photoDescription": "Insignia of the 5th Company (eagle, number 5)."
+        "photoDescription": "Insignia of the 5th Company: a fox's head on a shield, in front of a gridded globe, surrounded by lightning bolts; the number 5."
       },
       {
         "regiment": "2nd Hussar Regiment (2e RH) — 6th Squadron / ETDR",
@@ -188,11 +190,7 @@
         "histoire": "Birthplace of the branch at Mont-Valérien, which hosted the military telegraphy school as early as 1894. The 8th Engineer Regiment was created in 1913 (a telegraphy training centre of some 12,000 soldiers). It became the 8th Transmission Regiment in 1947. It merged with the DIRISI on 1 August 2014 (DIRISI IDF - 8e RT), then with the CND on 1 September 2025 to form the DANZ Île-de-France 8e RT. Its flag (presented in 1913) is the only emblem in the French armed forces to bear the battle honour \"Résistance 1940-1944\"; it is kept at Mont-Valérien.",
         "specificite": "Zonal digital support directorate for Île-de-France (CND/COMNUMIA). Round the clock, seven days a week, it deploys, operates and supports the ICS of Paris, Île-de-France and southern Picardy (from NP up to TS SF level), for more than 3,500 sensitive users. It supports major events: 14 July, the 2024 Olympic and Paralympic Games (GAPSIC) and trade shows (Le Bourget, Euronaval).",
         "garnison": "Mont-Valérien — 92150 Suresnes (Hauts-de-Seine, France) / 78100 Saint-Germain-en-Laye (Yvelines, France).",
-        "photoDescription": "Insignia of the 8th Transmission Regiment: its symbols recall Mont-Valérien, the birthplace of the Transmissions branch.",
-        "legendes": [
-          "EXAMPLE image media — replace with a photograph of the regiment (a local file in public/media/) and its approved caption.",
-          "EXAMPLE image media — the gallery accepts several images and videos per unit."
-        ]
+        "photoDescription": "Insignia of the 8th Transmission Regiment: its symbols recall Mont-Valérien, the birthplace of the Transmissions branch."
       },
       {
         "regiment": "738th Electronic Warfare Company (738e CGE)",
@@ -265,7 +263,7 @@
         "histoire": "Created in January 1955 at Konstanz (Germany) after the \"JAVELOT\" experiment, the 7th Rapid Mechanical Division (DMR) was the first French division equipped with modern, nationally produced equipment. It became the 7th Light Armoured Division in 1961. The 7th Armoured Division (DB) – 65th Territorial Military Division – was created on 1 August 1977; the 7th Armoured Brigade (BB) succeeded it in 1999.",
         "specificite": "The information and communication systems office (BSIC) is the tactical design echelon of the brigade's ICS manoeuvre. The 7th Armoured Command and Transmission Company (CCTB) is the implementation echelon: it delivers the ICS and command support resources (SIC-AC) in joint and multinational settings.",
         "garnison": "25027 Besançon (Doubs, France).",
-        "photoDescription": "Insignia of the 7e BB and pennant of the 7e CCTB (number 7)."
+        "photoDescription": "Insignia of the 7e BB and of the 7e CCTB (number 7)."
       }
     ]
   },
@@ -349,7 +347,7 @@
         "histoire": "The 6th Light Armoured Brigade (BLB), originally the 6th Light Armoured Division, was created in Nîmes in 1984. Heir to the 6th Cavalry Division of the Great War and to the armoured divisions of Compiègne and Strasbourg, it was massively engaged in 1990-1991 during Operation Daguet in Iraq (hence its nickname, the \"Daguet division\").",
         "specificite": "The 6th Marine Command and Transmission Company (CCTMa), the \"general's company\", provides command support to the staff of the 6e BLB and deploys the command post system of the brigade. Specialising in amphibious operations, it operates cutting-edge equipment (Griffon SOTM, SERVAL).",
         "garnison": "30072 Nîmes (Gard, France).",
-        "photoDescription": "Insignia of the 6e BLB and pennant of the 6e CCTMa (Croix de Guerre des théâtres d'opérations extérieures)."
+        "photoDescription": "Insignia of the 6e BLB and of the 6e CCTMa (Croix de Guerre des théâtres d'opérations extérieures)."
       }
     ]
   },

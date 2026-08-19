@@ -43,7 +43,7 @@ const STRINGS = {
   },
   en: {
     titre: 'Timeline',
-    soustitre: 'The history of the Transmissions Corps',
+    soustitre: 'The history of the Signal Corps',
     enSavoirPlus: 'Learn more',
     sections: 'Sections',
     sectionsAria: 'Timeline sections',
