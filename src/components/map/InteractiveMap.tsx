@@ -476,7 +476,6 @@ export default function InteractiveMap({ pmrMode, lang }: InteractiveMapProps) {
 
   const openCityFromIndex = (city: City) => {
     setSelectedCity(city)
-    setIndexOpen(false)
   }
 
   // Changement de langue : la zone zoomée et la fiche ouverte référencent le
