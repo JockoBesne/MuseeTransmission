@@ -341,6 +341,10 @@
   font-weight: 300;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.5;
+  text-align: justify;
+  text-align-last: left;
+  text-wrap: pretty;
+  hyphens: auto;
 }
 
 .tl-more {

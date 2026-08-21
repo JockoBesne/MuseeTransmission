@@ -360,7 +360,7 @@ export default function Timeline({ lang }: TimelineProps) {
   }
 
   return (
-    <div className="timeline">
+    <div className="timeline" lang={lang}>
       <div className="timeline-header">
         <h2 className="timeline-title">{t.titre}</h2>
         <p className="timeline-subtitle">{t.soustitre}</p>

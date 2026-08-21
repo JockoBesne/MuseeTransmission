@@ -201,6 +201,7 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
       <div className="card-overlay" onClick={onClose}>
         <div
           className="card"
+          lang={lang}
           ref={dialogRef}
           role="dialog"
           aria-modal="true"

@@ -370,20 +370,10 @@ button.card-photo:focus-visible {
   font-size: 0.90rem;
   line-height: 1.65;
   color: #333;
-  text-align: left;
-}
-
-.card-histoire {
-  text-align: left;
-}
-
-.card-specificite {
-  text-align: left;
-}
-
-.card-specificite p {
   text-align: justify;
   text-align-last: left;
+  text-wrap: pretty;
+  hyphens: auto;
 }
 
 /* ── Galerie : images (zoom au toucher) et vidéos (lecture intégrée) ── */
