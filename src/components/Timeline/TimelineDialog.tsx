@@ -98,7 +98,7 @@ export function TimelineDialog({
           ✕
         </button>
 
-        <div className="tl-dialog-content" key={contentKey}>
+        <div className="tl-dialog-content" lang={lang} key={contentKey}>
           <span className="tl-dialog-year">{event.annee}</span>
           <h3
             id={titleId}

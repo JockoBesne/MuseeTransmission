@@ -167,7 +167,9 @@
   font-weight: 300;
   line-height: 1.8;
   color: #e0e0e0;
-  text-align: left;
+  text-align: justify;
+  text-wrap: pretty;
+  hyphens: auto;
 }
 
 /* Paragraphes du « En savoir plus » : légèrement en retrait du chapô */
