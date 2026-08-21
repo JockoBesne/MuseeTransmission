@@ -119,6 +119,10 @@ const SWIPE_MIN_PX = 40 // glissement horizontal minimal sur le sélecteur de gu
 const TRANSITION_TOTAL_MS = 3600 // durée du voile (voir Memorial.css)
 const TRANSITION_SWITCH_MS = 1100 // changement de liste, une fois le voile opaque
 const COURTE_LISTE_ATTENTE_S = 30 // liste tenant à l'écran : délai avant d'enchaîner
+/* Temps de pause sur le dernier nom avant de lancer le voile. Sans lui, une
+   catégorie courte (l'Entre-deux-guerres tient en quelques écrans) atteint le
+   bas presque aussitôt et bascule sans laisser le temps de lire la fin. */
+const FIN_LISTE_ATTENTE_S = 5
 
 function normalizeSoldat(item: unknown): Soldat {
   const o = (item ?? {}) as Record<string, unknown>
@@ -206,15 +210,14 @@ export default function Memorial({ lang }: MemorialProps) {
   // Catégorie annoncée par le voile de transition (null = pas de transition).
   const [transition, setTransition] = useState<War | null>(null)
 
-  // Miroirs pour les gestionnaires stables (tick / scroll).
+  // Miroirs pour les gestionnaires stables (tick).
   const warRef = useRef(war)
   warRef.current = war
   const transitionRef = useRef(transition)
   transitionRef.current = transition
-  const searchRef = useRef(search)
-  searchRef.current = search
   const transitionTimers = useRef<ReturnType<typeof setTimeout>[]>([])
-  // Temps passé (s) sur une liste tenant entièrement à l'écran.
+  /* Temps passé (s) sur la fin d'une liste : en bas d'une liste défilante
+     comme sur une liste tenant entièrement à l'écran. */
   const dwellRef = useRef(0)
 
   const declencheTransition = useCallback(() => {
@@ -320,10 +323,17 @@ export default function Memorial({ lang }: MemorialProps) {
       const dt = (ts - lastTimeRef.current) / 1000
       const maxScroll = el.scrollHeight - el.clientHeight
       if (maxScroll > 0) {
-        // Butée en bas de liste : on n'y reboucle plus, on enchaîne.
+        // Butée en bas de liste : on n'y reboucle plus, on marque une pause
+        // puis on enchaîne.
         posRef.current = Math.min(posRef.current + SCROLL_SPEED * dt, maxScroll)
         el.scrollTop = posRef.current
-        if (posRef.current >= maxScroll) declencheTransition()
+        if (posRef.current >= maxScroll) {
+          dwellRef.current += dt
+          if (dwellRef.current >= FIN_LISTE_ATTENTE_S) declencheTransition()
+        } else {
+          // Remonté à la main : la pause repart de zéro au prochain passage.
+          dwellRef.current = 0
+        }
       } else {
         // Liste plus courte que l'écran : enchaîner après un temps de recueillement.
         dwellRef.current += dt
@@ -527,13 +537,6 @@ export default function Memorial({ lang }: MemorialProps) {
         /* Sans onTouchCancel, un doigt annulé par le système resterait compté
            et figerait le défilement automatique jusqu'au soir. */
         onTouchCancel={handleTouchEnd}
-        onScroll={() => {
-          // Bas atteint aussi au glissement manuel -> même enchaînement.
-          const el = scrollRef.current
-          if (!el || searchRef.current) return
-          const maxScroll = el.scrollHeight - el.clientHeight
-          if (maxScroll > 0 && el.scrollTop >= maxScroll - 2) declencheTransition()
-        }}
       >
         {donnees === null ? (
           <p className="memorial-status">{t.chargement}</p>
