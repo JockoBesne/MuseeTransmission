@@ -11,13 +11,9 @@ const STRINGS = {
     histoire: 'Histoire',
     specificite: 'Spécificité',
     photo: 'Photo',
-    galerie: 'Galerie',
     faireDefiler: 'Faire défiler le contenu vers le bas',
     agrandirPucelle: (regiment: string) => `Agrandir la pucelle du ${regiment}`,
     pucelleDe: (regiment: string) => `Pucelle du ${regiment}`,
-    imageDe: (regiment: string) => `Image du ${regiment}`,
-    agrandirLegende: (legende: string) => `Agrandir : ${legende}`,
-    agrandirImage: "Agrandir l'image",
     agrandissement: (alt: string) => `${alt} — agrandissement`,
     fermerAgrandissement: "Fermer l'agrandissement",
   },
@@ -27,13 +23,9 @@ const STRINGS = {
     histoire: 'History',
     specificite: 'Specifics',
     photo: 'Photo',
-    galerie: 'Gallery',
     faireDefiler: 'Scroll the content down',
     agrandirPucelle: (regiment: string) => `Enlarge the insignia of ${regiment}`,
     pucelleDe: (regiment: string) => `Insignia of ${regiment}`,
-    imageDe: (regiment: string) => `Image of ${regiment}`,
-    agrandirLegende: (legende: string) => `Enlarge: ${legende}`,
-    agrandirImage: 'Enlarge the image',
     agrandissement: (alt: string) => `${alt} — enlarged view`,
     fermerAgrandissement: 'Close the enlarged view',
   },
@@ -45,7 +37,7 @@ interface CardDialogProps {
   onClose: () => void
 }
 
-/** Média affiché en grand dans le lightbox (pucelle ou image de la galerie). */
+/** Pucelle affichée en grand dans le lightbox, avec sa description. */
 interface ZoomMedia {
   src: string
   alt: string
@@ -283,49 +275,6 @@ export function CardDialog({ city, lang, onClose }: CardDialogProps) {
                 <h4>{t.specificite}</h4>
                 <p><RichText>{unit.specificite}</RichText></p>
               </div>
-
-              {unit.medias && unit.medias.length > 0 && (
-                <div className="card-section card-galerie">
-                  <h4>{t.galerie}</h4>
-                  <div className="card-gallery">
-                    {unit.medias.map((media, i) =>
-                      media.type === 'video' ? (
-                        <figure key={`${media.src}-${i}`} className="card-gallery-video">
-                          <video
-                            src={media.src}
-                            poster={media.poster}
-                            controls
-                            playsInline
-                            preload="metadata"
-                          />
-                          {media.legende && (
-                            <figcaption><RichText>{media.legende}</RichText></figcaption>
-                          )}
-                        </figure>
-                      ) : (
-                        <button
-                          key={`${media.src}-${i}`}
-                          type="button"
-                          className="card-gallery-item"
-                          onClick={() =>
-                            openZoom({
-                              src: media.src,
-                              alt: media.legende ?? t.imageDe(unit.regiment),
-                              titre: unit.regiment,
-                              legende: media.legende,
-                            })
-                          }
-                          aria-label={
-                            media.legende ? t.agrandirLegende(media.legende) : t.agrandirImage
-                          }
-                        >
-                          <img src={media.src} alt={media.legende ?? ''} loading="lazy" />
-                        </button>
-                      ),
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
 

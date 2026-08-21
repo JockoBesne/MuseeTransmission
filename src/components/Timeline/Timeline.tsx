@@ -30,22 +30,6 @@ const JUMP_MS = 900          // durée du saut animé vers une section
    React à chaque frame de défilement). */
 const IN_CLASS = 'tl-event--in'
 
-/* Ajustement de la taille du texte, jalon par jalon (bornes en cqh :
-   relatives à la hauteur de la frise, voir Timeline.css).
-   Les textes du musée vont du simple au double (environ 220 à 470 signes)
-   pour une carte de hauteur fixe : à taille unique, c'est le jalon le plus
-   long qui impose la taille et toutes les autres cartes sonnent creux.
-   On cherche donc pour chaque jalon la plus grande taille qui tient encore.
-   FS_MAX borne l'écart entre deux cartes voisines, sinon la frise perd son
-   unité. Le calcul est refait à chaque changement de langue : tout étant
-   relatif à la frise, le résultat reste valable quelle que soit l'échelle
-   Windows de la borne. */
-const FS_MIN = 0.95  // cqh — plancher de secours : bas exprès, pour qu'un
-                     // panneau étroit fasse rapetisser le texte plutôt que
-                     // de le tronquer (sur la cible 1920×1080, jamais atteint)
-const FS_MAX = 1.724 // cqh
-const FS_STEP = 0.05
-
 const STRINGS = {
   fr: {
     titre: 'Frise chronologique',
@@ -59,7 +43,7 @@ const STRINGS = {
   },
   en: {
     titre: 'Timeline',
-    soustitre: 'The history of the Transmissions Corps',
+    soustitre: 'The history of the Signal Corps',
     enSavoirPlus: 'Learn more',
     sections: 'Sections',
     sectionsAria: 'Timeline sections',
@@ -212,62 +196,6 @@ export default function Timeline({ lang }: TimelineProps) {
       if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     }
   }, [tick])
-
-  /* Taille du texte ajustée à chaque carte (voir FS_MIN/FS_MAX).
-     Mesurer avant que Raleway et Nunito soient chargées donnerait les
-     métriques de la police de repli : on attend `document.fonts.ready`.
-     Rejoué à chaque changement de langue : les textes traduits n'ont pas
-     la même longueur que les originaux. */
-  useEffect(() => {
-    let annule = false
-    /* `catch` obligatoire : un ajustement typographique ne doit jamais faire
-       tomber la borne. Sans lui, la moindre exception ici deviendrait un rejet
-       non rattrapé, que le watchdog traduit en rechargement de la page — donc
-       en boucle de rechargements, l'erreur se reproduisant à chaque montage
-       (voir src/utils/watchdog.ts). Au pire, les jalons gardent la taille de
-       repli du CSS. */
-    document.fonts.ready.then(() => {
-      if (annule) return
-      for (let i = 0; i < EVENTS.length; i++) {
-        const jalon = itemRefs.current[i]
-        const carte = jalon?.querySelector<HTMLElement>('.tl-card')
-        const emplacement = carte?.parentElement
-        if (!jalon || !carte || !emplacement) continue
-
-        /* La carte n'est pas contrainte en hauteur (min-height:auto sur les
-           items de grille) : elle grandit avec son contenu. Elle tient donc
-           tant qu'elle ne dépasse pas la place laissée dans la ligne. */
-        /* offsetHeight / clientHeight / getComputedStyle sont tous exprimés
-           dans le repère de mise en page : ne pas les mélanger avec
-           getBoundingClientRect(), qui rend des pixels écran (les deux
-           repères diffèrent dès qu'un `zoom` CSS entre en jeu). */
-        const dispo = jalon.clientHeight - parseFloat(getComputedStyle(emplacement).paddingTop) * 2
-        const tient = () => carte.offsetHeight <= dispo + 0.5
-
-        /* Recherche dichotomique. Si le jalon ne tient déjà pas au plancher,
-           on l'y laisse : c'est le comportement d'avant l'ajustement. */
-        let bas = FS_MIN
-        carte.style.setProperty('--tl-fs', `${FS_MIN}cqh`)
-        if (tient()) {
-          let haut = FS_MAX
-          while (haut - bas > FS_STEP) {
-            const milieu = (bas + haut) / 2
-            carte.style.setProperty('--tl-fs', `${milieu}cqh`)
-            if (tient()) bas = milieu
-            else haut = milieu
-          }
-        }
-
-        const taille = `${(Math.floor(bas / FS_STEP) * FS_STEP).toFixed(2)}cqh`
-        carte.style.setProperty('--tl-fs', taille)
-        /* La seconde copie de la boucle affiche les mêmes jalons. */
-        itemRefs.current[LOOP_LEN + i]
-          ?.querySelector<HTMLElement>('.tl-card')
-          ?.style.setProperty('--tl-fs', taille)
-      }
-    }).catch(err => console.error('[frise] ajustement du texte ignoré', err))
-    return () => { annule = true }
-  }, [EVENTS, LOOP_LEN])
 
   /* Animations d'entrée : chaque jalon reçoit la classe quand il entre
      dans la zone visible, la perd quand il en sort (rejouées en boucle). */

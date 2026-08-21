@@ -14,16 +14,6 @@ export interface TimelineEvent {
   detail?: string[]
 }
 
-/** Média additionnel d'une unité (fichier local dans public/, hors-ligne strict). */
-export interface UniteMedia {
-  type: 'image' | 'video'
-  src: string
-  /** Légende : sous la vidéo, ou dans le zoom pour une image. */
-  legende?: string
-  /** Vignette affichée avant lecture (vidéos uniquement). */
-  poster?: string
-}
-
 /** Unité implantée sur un site — une ville peut en accueillir plusieurs. */
 export interface Unite {
   regiment: string
@@ -37,7 +27,6 @@ export interface Unite {
   photo?: string
   /** Description de la pucelle, affichée en légende dans le zoom photo. */
   photoDescription?: string
-  medias?: UniteMedia[]
 }
 
 /** Propriétés d'une ville (properties d'une Feature GeoJSON Point). */
@@ -49,17 +38,14 @@ export interface City {
 
 /** Traduction d'une unité (src/data/villes_en.json) : uniquement des champs
     de texte. villes.json reste seul maître de la structure de la carte —
-    coordonnées, `labelDir`, pucelles et fichiers médias. Un champ absent
-    laisse le texte français en place. */
+    coordonnées, `labelDir` et pucelles. Un champ absent laisse le texte
+    français en place. */
 export type UniteTraduite = Partial<
   Pick<
     Unite,
     'regiment' | 'abrege' | 'texte' | 'histoire' | 'specificite' | 'garnison' | 'photoDescription'
   >
-> & {
-  /** Légendes des `medias`, dans l'ordre de villes.json (null = non traduite). */
-  legendes?: (string | null)[]
-}
+>
 
 /** Traductions d'une ville : `entites` suit l'ordre des unités de villes.json
     (null ou entrée manquante = unité laissée en français). */
